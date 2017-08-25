@@ -6,7 +6,7 @@ This contains the latest version, you may however like to download an older vers
 
 ## v1.x - Branch
 Older version, prefered by some as it uses the old lite theme and all moduels.  
-https://github.com/Forgeigniter/ForgeIgniter-CI-3.x/blob/v1.x
+https://github.com/Forgeigniter/ForgeIgniter-CI-3.x/tree/v1.x
 
 ## v2.x
 Inlcudes, all the default features but with the addition of a new base theme, flexi auth and new admin template.
