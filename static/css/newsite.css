@@ -1,0 +1,26 @@
+/* tools */
+.clear { clear: both; }
+.module:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; } /* clear fix */
+.module {display: inline-block;}
+* html .module {height: 1%;} /* Hides from IE-mac \*/
+.module {display: block;}
+
+/* site */
+body { font-size: 76%; background: #eaeaea; font-family: "Lucida Grande", "Lucida Sans Unicode", arial, sans-serif; margin: 50px 0; color: #171717; }
+a img { border: none; }
+a { color: #171717; }
+small { font-size: 11px; color: #999; }
+div.logo { width: 203px; margin: 0 auto 30px; }
+div.main { width: 700px; min-height: 300px; background: #fff; padding: 40px 20px; margin: 0 auto 40px; border: 1px #f0f0f0 solid; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; }
+div.main p, div.main ul li { font-size: 12px; }
+div.menu { width: 700px; margin: 0 auto 30px; text-align: center; }
+div.menu ul { display: inline; list-style-type: none; border-left: solid 1px #ccc; }
+div.menu ul li { display: inline; margin: 0 0 0 20px; padding: 0 20px 0 0; border-right: solid 1px #ccc; }
+ul { margin: 0; padding: 0 0 0 15px; }
+ul li { margin: 0; padding: 0; line-height: 15px; }
+table.default { width: 100%; font-size: 1em; border-collapse: collapse; margin: 0 0 20px; clear: both; }
+table.default th { padding: 6px 8px; background: #e8e8e8; color: #585858; text-align: left; border-bottom: 1px solid #ddd; }
+table.default td { padding: 10px 8px; vertical-align: top; }
+div.col { float: left; margin: 0 30px 0 0; }
+div.col.col1 { width: 470px; }
+div.col.col2 { width: 200px; margin: 0; }

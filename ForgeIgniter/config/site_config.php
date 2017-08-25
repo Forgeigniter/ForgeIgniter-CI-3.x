@@ -1,0 +1,36 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * ForgeIgniter
+ *
+ * A user friendly, modular content management system.
+ * Forged on CodeIgniter - http://codeigniter.com
+ *
+ * @package		ForgeIgniter
+ * @author		ForgeIgniter Team
+ * @copyright	Copyright (c) 2015, ForgeIgniter
+ * @license		http://forgeigniter.com/license
+ * @link		http://forgeigniter.com/
+ * @since		Hal Version 1.0
+ * @filesource
+ */
+
+// ------------------------------------------------------------------------
+
+/**
+ * site config global variables
+ * $this->config->item('')
+**/
+
+// set paths
+$config['includesPath']		=	'includes/admin';	// path to admin header and footer files
+$config['uploadsPath']		=	'/static/uploads';	// where to upload files (must be 777)
+$config['staticPath']		=	'static';			// where are the images hosted
+$config['adminStaticPath']  =	'static/admin';		// Admin Theme Path
+$config['logoPath']			=	'';					// the administration logo
+$config['stagingSites']		=	FALSE;				// whether to create upload folders for each site automatically (for MSM)
+		
+// Blog
+$config['blogBtnClass']		=	'';					// Custom CSS Button Class for older & newer
+
+/* END OF FILE site_config.php */
+/* Location: ./ForgeIgniter/config/site_config.php */
