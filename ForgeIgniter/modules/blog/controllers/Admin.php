@@ -101,7 +101,7 @@ class Admin extends MX_Controller {
 			);
 
 			// tidy tags
-			$tags = '';
+			$tags = [];
 			if ($this->input->post('tags'))
 			{
 				foreach (explode(',', $this->input->post('tags')) as $tag)
@@ -175,7 +175,7 @@ class Admin extends MX_Controller {
 			}
 
 			// tidy tags
-			$tags = '';
+			$tags = [];
 			if ($this->input->post('tags'))
 			{
 				foreach (explode(',', $this->input->post('tags')) as $tag)
