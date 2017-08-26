@@ -39,6 +39,7 @@ www - FI-20-CI3-Close to complete
 	
 - Blog
 	¬ Fixed: Cannot access protected property MY_Pagination::$total_rows
+	¬ Fixed: [] operator not supported for strings (Admin)
 
 --------------------
 
