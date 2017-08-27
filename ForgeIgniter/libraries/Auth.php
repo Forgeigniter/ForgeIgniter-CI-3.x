@@ -67,7 +67,7 @@ class Auth {
 			{
 				// set cookie
 				$cookie = array(
-					'name'   => 'halogy',
+					'name'   => 'forgeigniter',
 					'value'  => $this->CI->core->encode(serialize(array($username, $password, $sessionName))),
 					'expire' => '604800',
 				);
@@ -161,7 +161,7 @@ class Auth {
 		}
 
 		// destroy any cookies
-		delete_cookie('halogy');
+		delete_cookie('forgeigniter');
 
 		// destroy session
 		$this->CI->session->sess_destroy();

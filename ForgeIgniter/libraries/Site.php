@@ -152,10 +152,10 @@ class Site {
 		// check no session is set
 		if (!$this->CI->session->userdata('session_user'))
 		{
-			if ($cookie = get_cookie('halogy'))
+			if ($cookie = get_cookie('forgeigniter'))
 			{
 				// get cookie
-				$cookie = get_cookie('halogy');
+				$cookie = get_cookie('forgeigniter');
 				$session = unserialize(base64_decode(strtr($cookie, '-_', '+/')));
 
 				// set admin session name, if given
