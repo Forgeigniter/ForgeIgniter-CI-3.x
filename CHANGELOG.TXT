@@ -10,6 +10,9 @@ www - FI-20-CI3-Close to complete
 	¬ Fixed: Cannot call session save handler in a recursive manner
 	¬ Fixed: HMVC - Call to undefined method
 	¬ Updated: Modular Extensions - HMVC
+	¬ Updated: Halogy module & helper To Forge.
+		Wanted to keep the name but oh well... =(
+	¬ Updated: RSS generatorAgent
 
 - CodeIgniter
 	¬ Updated to v3.1.5 http://www.codeigniter.com/user_guide/changelog.html
@@ -22,6 +25,7 @@ www - FI-20-CI3-Close to complete
 		Missing memcached config file.
 		Missing Migration config file.
 		Missing mimes config file + audio correction.
+		Missing default css
 	¬ Updated: Modular Extensions - HMVC
 	¬ Updated: Missing Config.
 	¬ Fixed: Unknown column 'FI_t1 .postID' in 'on clause'
