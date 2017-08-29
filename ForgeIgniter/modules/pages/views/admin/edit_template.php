@@ -1,4 +1,7 @@
 <script type="text/javascript" src="<?php echo base_url().$this->config->item('staticPath'); ?>/js/templates.js" /></script>
+
+<?php // Disable for now
+/*
 <script type="text/javascript">
 $(function(){
 	$('input#submit').click(function(){
@@ -15,17 +18,18 @@ $(function(){
 	});
 });
 </script>
+*/?>
 <form method="post" action="<?php echo site_url($this->uri->uri_string()); ?>" id="templateform" class="default">
 
 	<h1 class="headingleft">Edit Template <small>(<a href="<?php echo site_url('/admin/pages/templates'); ?>">Back to Templates</a>)</small></h1>
 
 	<div class="headingright">
-		<input type="button" id="default" value="Reset to Default" class="button blue" />	
+		<input type="button" id="default" value="Reset to Default" class="button blue" />
 		<input type="submit" id="submit" value="Save Changes" class="button" />
 	</div>
-	
-	<div class="clear"></div>	
-	
+
+	<div class="clear"></div>
+
 	<?php if ($errors = validation_errors()): ?>
 		<div class="error">
 			<?php echo $errors; ?>
@@ -35,7 +39,7 @@ $(function(){
 		<div class="message">
 			<?php echo $message; ?>
 		</div>
-	<?php endif; ?>	
+	<?php endif; ?>
 
 	<div class="showModuleName">
 		<label for="templateName">Name:</label>
@@ -44,13 +48,13 @@ $(function(){
 	</div>
 
 	<label for="moduleSelect">Module:</label>
-	<?php 
+	<?php
 		$values = array();
 		$values[''] = 'Not a module template';
 		$values['!'] = '---------------------------';
 		if (@in_array('blog', $this->permission->permissions)) $values['!blog'] = 'Blog';
-		if (@in_array('blog', $this->permission->permissions)) $values['blog'] = '-- View Posts';		
-		if (@in_array('blog', $this->permission->permissions)) $values['blog_single'] = '-- Single Post';		
+		if (@in_array('blog', $this->permission->permissions)) $values['blog'] = '-- View Posts';
+		if (@in_array('blog', $this->permission->permissions)) $values['blog_single'] = '-- Single Post';
 		if (@in_array('blog', $this->permission->permissions)) $values['blog_search'] = '-- Blog Search Results';
 		if (@in_array('community', $this->permission->permissions)) $values['!community'] = 'Community';
 		if (@in_array('community', $this->permission->permissions)) $values['community_account'] = '-- Account';
@@ -67,7 +71,7 @@ $(function(){
 		if (@in_array('community', $this->permission->permissions)) $values['community_view_profile'] = '-- View Profile';
 		if (@in_array('community', $this->permission->permissions)) $values['community_view_profile_private'] = '-- View Private Profile';
 		if (@in_array('events', $this->permission->permissions)) $values['!events'] = 'Events';
-		if (@in_array('events', $this->permission->permissions)) $values['events'] = '-- View Events';		
+		if (@in_array('events', $this->permission->permissions)) $values['events'] = '-- View Events';
 		if (@in_array('events', $this->permission->permissions)) $values['events_single'] = '-- Single Event';
 		if (@in_array('events', $this->permission->permissions)) $values['events_featured'] = '-- Featured Events';
 		if (@in_array('events', $this->permission->permissions)) $values['events_search'] = '-- Events Search Results';
@@ -84,30 +88,30 @@ $(function(){
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_browse'] = '-- Browse Products';
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_cancel'] = '-- Cancel Purchase';
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_cart'] = '-- Shopping Cart';
-		if (@in_array('shop', $this->permission->permissions)) $values['shop_checkout'] = '-- Checkout';		
+		if (@in_array('shop', $this->permission->permissions)) $values['shop_checkout'] = '-- Checkout';
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_create_account'] = '-- Create Account (Shop)';
-		if (@in_array('shop', $this->permission->permissions)) $values['shop_donation'] = '-- Successful Donation';		
+		if (@in_array('shop', $this->permission->permissions)) $values['shop_donation'] = '-- Successful Donation';
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_featured'] = '-- Featured Products';
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_forgotten'] = '-- Forgotten Password (Shop)';
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_login'] = '-- Login (Shop)';
-		if (@in_array('shop', $this->permission->permissions)) $values['shop_orders'] = '-- Orders';		
+		if (@in_array('shop', $this->permission->permissions)) $values['shop_orders'] = '-- Orders';
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_prelogin'] = '-- Pre-login';
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_product'] = '-- View Product';
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_recommend'] = '-- Recommend Product';
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_reset'] = '-- Reset Password (Shop)';
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_review'] = '-- Review Product';
-		if (@in_array('shop', $this->permission->permissions)) $values['shop_subscriptions'] = '-- Subscriptions';		
+		if (@in_array('shop', $this->permission->permissions)) $values['shop_subscriptions'] = '-- Subscriptions';
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_success'] = '-- Successful Transaction';
 		if (@in_array('shop', $this->permission->permissions)) $values['shop_view_order'] = '-- View Order';
 		if (@in_array('wiki', $this->permission->permissions)) $values['!wiki'] = 'Wiki';
 		if (@in_array('wiki', $this->permission->permissions)) $values['wiki'] = '-- Browse Pages';
 		if (@in_array('wiki', $this->permission->permissions)) $values['wiki_form'] = '-- Edit Page';
-		if (@in_array('wiki', $this->permission->permissions)) $values['wiki_page'] = '-- View Page';		
+		if (@in_array('wiki', $this->permission->permissions)) $values['wiki_page'] = '-- View Page';
 		if (@in_array('wiki', $this->permission->permissions)) $values['wiki_search'] = '-- Wiki Search Results';
 
 		$values['custom'] = 'Custom Module';
 
-		echo @form_dropdown('moduleSelect',$values, (($data['templateName'] == 'custom') ? 'custom' : $data['modulePath']), 'id="moduleSelect" class="formelement" rel="'.site_url('/admin/pages/module').'"'); 
+		echo @form_dropdown('moduleSelect',$values, (($data['templateName'] == 'custom') ? 'custom' : $data['modulePath']), 'id="moduleSelect" class="formelement" rel="'.site_url('/admin/pages/module').'"');
 	?>
 	<span class="tip">To make a module template (e.g. for the Blog) select the module here.</span>
 	<br class="clear" />
@@ -119,14 +123,22 @@ $(function(){
 	</div>
 
 	<div class="autosave">
+	<!-- Disable For now.
 		<span class="autosave-saving">Saving...</span>
 		<span class="autosave-complete"></span>
-		<label for="body">Markup:</label>
-		<?php echo @form_textarea('body', set_value('body', $data['body']), 'id="body" class="code editor"'); ?>
+	-->
+		<script src="<?= site_url('static/themes/assets/editors/ckeditor/ckeditor.js'); ?>"></script>
+		
+		<textarea name='body' id="body" class="code editor"><?=set_value('body', $data['body']);?></textarea>
+
+		<script type="text/javascript" >
+			<?=$this->config->item('settingsTemplates')?>
+		</script>
+
 		<br class="clear" />
 	</div>
 
-	<h2>Versions</h2>	
+	<h2>Versions</h2>
 
 	<ul>
 	<?php if ($versions): ?>
@@ -141,7 +153,7 @@ $(function(){
 		<?php endforeach; ?>
 	<?php endif; ?>
 	</ul>
-	
+
 	<p class="clear" style="text-align: right;"><a href="#" class="button grey" id="totop">Back to top</a></p>
 
 </form>

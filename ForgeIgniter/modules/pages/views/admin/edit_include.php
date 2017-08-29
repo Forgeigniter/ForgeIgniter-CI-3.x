@@ -1,3 +1,6 @@
+
+<?php /*
+Disable Save & Auto Save For now.
 <script type="text/javascript">
 $(function(){
 	$('input#submit').click(function(){
@@ -13,10 +16,11 @@ $(function(){
 	});
 });
 </script>
+*/ ?>
 
 <form method="post" action="<?php echo site_url($this->uri->uri_string()); ?>" class="default">
 
-	<h1 class="headingleft">Edit 
+	<h1 class="headingleft">Edit
 		<?php echo ($type == 'C' || $type == 'J') ? 'File' : 'Include'; ?>
 		<?php
 			if ($type == 'C') $typeLink = 'css';
@@ -25,13 +29,13 @@ $(function(){
 		?>
 		<small>(<a href="<?php echo site_url('/admin/pages/includes'); ?>/<?php echo $typeLink; ?>">Back to Includes</a>)</small>
 	</h1>
-	
+
 	<div class="headingright">
 		<input type="submit" value="Save Changes" id="submit" class="button" />
 	</div>
-	
-	<div class="clear"></div>	
-	
+
+	<div class="clear"></div>
+
 	<?php if ($errors = validation_errors()): ?>
 		<div class="error">
 			<?php echo $errors; ?>
@@ -70,14 +74,42 @@ $(function(){
 <?php endif; ?>
 
 	<div class="autosave">
+	<!-- Disable for now.
 		<span class="autosave-saving">Saving...</span>
 		<span class="autosave-complete"></span>
-		<label for="body">Markup:</label>	
-		<?php echo @form_textarea('body',set_value('body', $data['body']), 'id="body" class="code editor"'); ?>
+		<label for="body">Markup:</label>
+	-->
+
+		<?php // Default
+		/*
+		Need to make options to select editor [system_settings].
+		 - Default
+		 - CKeditor
+		 - tinymce
+
+		Also Load settings maybe from config.
+		 ckeditor_config.php
+
+		<textarea name='body' id="body" class="code editor"><?=set_value('body', $data['body']);?></textarea>
+		*/?>
+		<?php //CKeditor
+
+		$content = set_value('body', $data['body']);
+		?>
+		<script src="<?= site_url('static/themes/assets/editors/ckeditor/ckeditor.js'); ?>"></script>
+
+		<textarea name='body' id="body" class=""><?=$content?></textarea>
+
+		<script type="text/javascript" >
+
+			<?=$this->config->item('settingsIncludes')?>
+
+		</script>
+
 		<br class="clear" />
 	</div>
 
-	<h2>Versions</h2>	
+	<h2>Versions</h2>
 
 	<ul>
 	<?php if ($versions): ?>
@@ -89,10 +121,10 @@ $(function(){
 					<?php echo dateFmt($version['dateCreated'], '', '', TRUE).(($user = $this->core->lookup_user($version['userID'], TRUE)) ? ' <em>(by '.$user.')</em>' : ''); ?> - <?php echo anchor('/admin/pages/revert_include/'.$version['objectID'].'/'.$version['versionID'], 'Revert', 'onclick="return confirm(\'You will lose unsaved changes. Continue?\');"'); ?>
 				<?php endif; ?>
 			</li>
-		<?php endforeach; ?>	
+		<?php endforeach; ?>
 	<?php endif; ?>
 	</ul>
 
 	<p class="clear" style="text-align: right;"><a href="#" class="button grey" id="totop">Back to top</a></p>
 
-</form>	
+</form>

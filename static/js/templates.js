@@ -2,13 +2,13 @@ var selectedModule = '';
 
 function getTemplate(el){
 	selectedModule = $(el).attr('value');
-	
+
 	if (selectedModule.match('!')){
 		selectedModule = '';
 		$(el).attr('value', '');
 		alert('Please select a template within the module.');
 	}
-	
+
 	if (selectedModule != ''){
 		$('.showModuleName').hide();
 		$('#templateName').val(selectedModule);
@@ -23,13 +23,14 @@ function getTemplate(el){
 	}
 	else if (selectedModule == ''){
 		$('.showModuleName').show();
-		$('.showModulePath').hide();		
+		$('.showModulePath').hide();
 	}
 }
 
 function loadTemplate(data){
 	$('textarea#body').val(data);
 }
+
 
 function revertTemplate(){
 	if (confirm('By doing this you will lose any unsaved changes. Are you sure?')){
@@ -50,7 +51,7 @@ function revertTemplate(){
 }
 
 $(function(){
-	$('select#moduleSelect').change(function(){		
+	$('select#moduleSelect').change(function(){
 		revertTemplate();
 	});
 
@@ -59,5 +60,5 @@ $(function(){
 	});
 
 	getTemplate($('select#moduleSelect'));
-	
+
 });

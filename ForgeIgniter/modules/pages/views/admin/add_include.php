@@ -1,7 +1,7 @@
 
 <form method="post" action="<?php echo site_url($this->uri->uri_string()); ?>" class="default">
 
-	<h1 class="headingleft">Add 
+	<h1 class="headingleft">Add
 		<?php echo ($type == 'css' || $type == 'js') ? 'File' : 'Include'; ?>
 		<?php
 			if ($type == 'C') $typeLink = 'css';
@@ -14,8 +14,8 @@
 	<div class="headingright">
 		<input type="submit" value="Save Changes" class="button" />
 	</div>
-	
-	<div class="clear"></div>	
+
+	<div class="clear"></div>
 
 	<?php if ($errors = validation_errors()): ?>
 		<div class="error">
@@ -50,11 +50,18 @@
 <?php endif; ?>
 
 	<div class="autosave">
-		<label for="body">Markup:</label>	
-		<?php echo @form_textarea('body',set_value('body', $data['body']), 'id="body" class="code editor"'); ?>
+
+		<script src="<?= site_url('static/themes/assets/editors/ckeditor/ckeditor.js'); ?>"></script>
+
+		<textarea name='body' id="body" class="code editor"><?=set_value('body', $data['body']);?></textarea>
+
+		<script type="text/javascript" >
+			<?=$this->config->item('settingsIncludes')?>
+		</script>
+
 		<br class="clear" />
 	</div>
-		
+
 	<p class="clear" style="text-align: right;"><a href="#" class="button grey" id="totop">Back to top</a></p>
-	
+
 </form>
