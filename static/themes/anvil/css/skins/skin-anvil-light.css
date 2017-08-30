@@ -1,0 +1,239 @@
+/*
+ * Skin: Anvil Light
+ * ------------------
+ */
+/* skin-anvil-light navbar */
+
+.skin-anvil-light .extra-padding {
+	padding: 35px;
+}
+
+.skin-anvil-light .main-header {
+  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+}
+.skin-anvil-light .main-header .navbar-toggle {
+  color: #333;
+}
+.skin-anvil-light .main-header .navbar-brand {
+  color: #333;
+  border-right: 1px solid #eee;
+}
+.skin-anvil-light .main-header .navbar {
+  background-color: #ffffff;
+}
+.skin-anvil-light .main-header .navbar .nav > li > a {
+  color: #333333;
+}
+.skin-anvil-light .main-header .navbar .nav > li > a:hover,
+.skin-anvil-light .main-header .navbar .nav > li > a:active,
+.skin-anvil-light .main-header .navbar .nav > li > a:focus,
+.skin-anvil-light .main-header .navbar .nav .open > a,
+.skin-anvil-light .main-header .navbar .nav .open > a:hover,
+.skin-anvil-light .main-header .navbar .nav .open > a:focus,
+.skin-anvil-light .main-header .navbar .nav > .active > a {
+  background: #ffffff;
+  color: #999999;
+}
+
+.skin-anvil-light .main-header .navbar .nav > li > a:hover {
+  background-color: #222d32;
+  color: #d2d6de;
+  font-weight: 600;
+  
+  -webkit-box-shadow: inset -2px -26px 34px -37px rgba(255,255,255,1);
+  -moz-box-shadow: inset -2px -26px 34px -37px rgba(255,255,255,1);
+  box-shadow: inset -2px -26px 34px -37px rgba(255,255,255,1);
+}
+
+.skin-anvil-light .main-header .navbar .sidebar-toggle {
+  color: #333333;
+}
+.skin-anvil-light .main-header .navbar .sidebar-toggle:hover {
+  color: #999999;
+  background: #ffffff;
+}
+.skin-anvil-light .main-header .navbar > .sidebar-toggle {
+  color: #333;
+  border-right: 1px solid #eee;
+}
+.skin-anvil-light .main-header .navbar .navbar-nav > li > a {
+  border-right: 1px solid #eee;
+}
+.skin-anvil-light .main-header .navbar .navbar-custom-menu .navbar-nav > li > a,
+.skin-anvil-light .main-header .navbar .navbar-right > li > a {
+  border-left: 1px solid #eee;
+  border-right-width: 0;
+}
+.skin-anvil-light .main-header > .logo {
+  background-color: #ffffff;
+  color: #333333;
+  border-bottom: 0 solid transparent;
+  border-right: 1px solid #eee;
+}
+.skin-anvil-light .main-header > .logo:hover {
+  background-color: #fcfcfc;
+}
+@media (max-width: 767px) {
+  .skin-anvil-light .main-header > .logo {
+    background-color: #222222;
+    color: #ffffff;
+    border-bottom: 0 solid transparent;
+    border-right: none;
+  }
+  .skin-anvil-light .main-header > .logo:hover {
+    background-color: #1f1f1f;
+  }
+}
+.skin-anvil-light .main-header li.user-header {
+  background-color: #222;
+}
+.skin-anvil-light .content-header {
+  border-left: 1px solid rgba(238, 238, 238, 0.2);
+  padding:0 !important;
+  background: #222d32;
+  box-shadow: none;
+}
+.skin-anvil-light .content-header > h1 {
+  font-size:16px;
+  color: #eee;
+  line-height: 48px;
+  padding-left: 14px;
+}
+.skin-anvil-light .content-header > h1 > small {
+  font-size: 14px;
+  color: #bbb;
+  line-height: 48px;
+  padding-left: 4px;
+}
+.content-header > .breadcrumb {
+  top:8px;	
+}
+.content-header > .breadcrumb > li > a {
+  color:#999;
+}
+.content-header > .breadcrumb>.active {
+  color:#ccc;
+}
+.skin-anvil-light .wrapper,
+.skin-anvil-light .main-sidebar,
+.skin-anvil-light .left-side {
+  background-color: #222d32;
+}
+.skin-anvil-light .user-panel > .info,
+.skin-anvil-light .user-panel > .info > a {
+  color: #fff;
+}
+.skin-anvil-light .sidebar-menu > li.header {
+  color: #4b646f;
+  background: #1a2226;
+}
+.skin-anvil-light .sidebar-menu > li > a {
+  border-left: 2px solid transparent;
+}
+.skin-anvil-light .sidebar-menu > li.active > a {
+  color: #ffffff;
+  background: #1e282c;
+}
+.skin-anvil-light .sidebar-menu > li:hover > a,
+.skin-anvil-light .sidebar-menu > li.menu-open > a {
+  color: #ffffff;
+  background: #1e282c;
+  padding-left:7px;
+  
+  border-left: 1px solid #337ab7;
+  border-right: 1px solid #3c8dbc;
+  border-bottom: 1px solid rgba(51, 122, 183, 0.43);
+  border-top: 1px solid rgba(51, 122, 183, 0.46);
+  box-shadow: inset -2px -27px 34px -37px #3c8dbc;
+}
+.skin-anvil-light .sidebar-menu > li.active > a {
+  border-left-color: #3c8dbc;
+}
+.skin-anvil-light .sidebar-menu > li > .treeview-menu {
+  margin: 0 1px;
+  background: #2c3b41;
+}
+.skin-anvil-light .sidebar a {
+  color: #b8c7ce;
+}
+.skin-anvil-light .sidebar a:hover {
+  text-decoration: none;
+}
+.skin-anvil-light .sidebar-menu .treeview-menu > li > a {
+  color: #8aa4af;
+}
+.skin-anvil-light .sidebar-menu .treeview-menu > li.active > a,
+.skin-anvil-light .sidebar-menu .treeview-menu > li > a:hover {
+  color: #ffffff;
+}
+.skin-anvil-light .sidebar-form {
+  border-radius: 3px;
+  border: 1px solid #374850;
+  margin: 10px 10px;
+}
+.skin-anvil-light .sidebar-form input[type="text"],
+.skin-anvil-light .sidebar-form .btn {
+  box-shadow: none;
+  background-color: #374850;
+  border: 1px solid transparent;
+  height: 35px;
+}
+.skin-anvil-light .sidebar-form input[type="text"] {
+  color: #666;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 2px;
+}
+.skin-anvil-light .sidebar-form input[type="text"]:focus,
+.skin-anvil-light .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  background-color: #fff;
+  color: #666;
+}
+.skin-anvil-light .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  border-left-color: #fff;
+}
+.skin-anvil-light .sidebar-form .btn {
+  color: #999;
+  border-top-left-radius: 0;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 0;
+}
+.skin-anvil-light .pace .pace-progress {
+  background: #222;
+}
+.skin-anvil-light .pace .pace-activity {
+  border-top-color: #222;
+  border-left-color: #222;
+}
+
+.skin-anvil-light .box-header > .box-tools {
+
+  top:10px;
+	
+}
+
+.skin-anvil-light .box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title {
+  padding:8px;	
+}
+
+/* Box Colors */
+
+.skin-anvil-light .box.box-crey {
+  border-top-color: #738c9a;
+ }
+
+/* Buttons */
+
+.skin-anvil-light .btn-green {
+	color: #f4f4f4;
+	background-color: #329432;
+    border-color: #216716;
+}
+.skin-anvil-light .btn-light-green {
+	color: #fff;
+	background-color: #6ec621;
+    border-color: #57ab0e;
+}
