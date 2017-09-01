@@ -1,8 +1,10 @@
-<body class="hold-transition skin-anvil-light login-page">
+<?php
+	if(!$this->session->userdata('session_admin')) {
+?>
 <div class="login-box">
   <div class="login-logo">
 	<div class="header">
-		<a href="#"><b>Admin - Login</b></a>
+		<a href="#"><h2>Admin - Login</h2></a>
 	</div>
   </div>
   <!-- /.login-logo -->
@@ -41,3 +43,7 @@
   <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
+	
+<?php
+	}
+?>

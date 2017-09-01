@@ -1,30 +1,70 @@
+<?php
+	// Set Easy Vars
+
+	///Paths
+	$siteURL = base_url($this->uri->uri_string());
+	$staticPath = base_url($this->config->item('staticPath'));
+	$themePath = base_url($this->config->item('themePath'));
+	$loginPath = base_url('admin/login');
+
+	///
+	$websiteName = $this->site->config['siteName'];
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<link rel="icon" href="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/favicon.ico" type="image/x-icon" />
-	<link rel="stylesheet" type="text/css" href="<?= base_url() . $this->config->item('staticPath'); ?>/css/admin.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url() . $this->config->item('staticPath'); ?>/css/lightbox.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url() . $this->config->item('staticPath'); ?>/css/datepicker.css" media="screen" />
-	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/jquery.js"></script>
-	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/jquery.lightbox.js"></script>
-	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/default.js"></script>
-	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/admin.js"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title><?= (isset($websiteName)) ? $websiteName : 'Login to'; ?> Admin Login - ForgeIgniter</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="<?=$themePath?>anvil/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?=$themePath?>anvil/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="<?=$themePath?>anvil/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?=$themePath?>anvil/css/LTE.css">
+  <!-- Skins 
+		Anvil (Default)
+		Neo ( Dark With Gradient Colours)
+		Night ( Dark )
+		Dream ( Light With Gradient Colours)
+		White Rose ( White Theme)
 
-	<script language="JavaScript">
-		$(function(){
-			$('ul#menubar li').hover(
-				function() { $('ul', this).css('display', 'block').parent().addClass('hover'); },
-				function() { $('ul', this).css('display', 'none').parent().removeClass('hover'); }
-			);
-		});
-	</script>
+		Make selectable in backend for 2.1 - 2.2
+  -->
+  <link rel="stylesheet" href="<?=$themePath?>anvil/css/skins/skin-anvil-light.css">
 
-	<title><?php echo (isset($this->site->config['siteName'])) ? $this->site->config['siteName'] : 'Login to'; ?> Admin - ForgeIgniter</title>
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
+  <!-- Google Font -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+		
+  <link rel="stylesheet"
+		href="https://fonts.googleapis.com/css?family=Exo+2:300,400,500">
 </head>
-<body>
+<?php
+// Check if we're at admin login page
+if (strpos($siteURL,'admin/login') !== FALSE) {
+	// Login Body
+	echo "<body class='hold-transition skin-anvil-light login-page'>";
+}
+else {
+	// Default Body
+	echo "<body class='hold-transition skin-anvil-light sidebar-mini sidebar-collapse'>";
+}
+?>
 
+<?php if ($this->session->userdata('session_admin') && strpos($siteURL,'admin/login') == FALSE): ?>
+
+<!-- Old - Replace -->
 <div class="bg">
 
 	<div class="container">
@@ -223,3 +263,16 @@
 		</div>
 
 		<div id="content" class="content">
+ <!-- END Old - Replace -->
+<?php endif; ?>
+
+
+<?php if (($this->session->userdata('session_admin') && (strpos($siteURL,'admin/login') !== FALSE)) == TRUE): ?>
+
+	<h1>Logout</h1>
+
+	<p><a href="<?= site_url('admin/logout');?>">Click here to logout.</a></p>
+
+<?php endif; ?>
+
+
