@@ -28,7 +28,8 @@ $config['staticPath']		=	'static';			// where are the images hosted
 $config['adminStaticPath']  =	'static/admin';		// Admin Theme Path
 $config['logoPath']			=	'';					// the administration logo
 $config['stagingSites']		=	FALSE;				// whether to create upload folders for each site automatically (for MSM)
-		
+
+$config['themePath'] = 'static/themes/'; // Theme Path
 // Blog
 $config['blogBtnClass']		=	'';					// Custom CSS Button Class for older & newer
 
