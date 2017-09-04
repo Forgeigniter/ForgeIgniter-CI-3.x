@@ -1,3 +1,23 @@
+	<link rel="stylesheet" type="text/css" href="<?= base_url() . $this->config->item('staticPath'); ?>/css/admin.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url() . $this->config->item('staticPath'); ?>/css/lightbox.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url() . $this->config->item('staticPath'); ?>/css/datepicker.css" media="screen" />
+
+	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/jquery.js"></script>
+
+	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/jquery.lightbox.js"></script>
+	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/default.js"></script>
+	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/admin.js"></script>
+
+	<script language="JavaScript">
+		$(function(){
+			$('ul#menubar li').hover(
+				function() { $('ul', this).css('display', 'block').parent().addClass('hover'); },
+				function() { $('ul', this).css('display', 'none').parent().removeClass('hover'); }
+			);
+		});
+	</script>
+
+
 <script type="text/javascript">
 function preview(el){
 	$.post('<?php echo site_url('/admin/blog/preview'); ?>', { body: $(el).val() }, function(data){
@@ -79,7 +99,7 @@ $(function(){
 		<?php if ($categories): ?>
 		<?php foreach($categories as $category): ?>
 			<div class="category">
-				<?php echo @form_checkbox('catsArray['.$category['catID'].']', $category['catName']); ?><span><?php echo $category['catName']; ?></span>
+				<?php echo form_checkbox('catsArray['.$category['catID'].']', $category['catName']); ?><span><?php echo $category['catName']; ?></span>
 			</div>
 		<?php endforeach; ?>
 		<?php else: ?>

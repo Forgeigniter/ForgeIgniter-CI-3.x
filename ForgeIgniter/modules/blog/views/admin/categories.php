@@ -12,11 +12,22 @@ function initOrder(el){
 	    update: setOrder
 	});
 };
+/*
+
+$(function () {
+        $("a.toggle").click(function () {
+			$("#hidecat").removeClass( "hidden" );
+			$('div.hidden').slideToggle('400');
+        });
+    });
+*/
 
 $(function(){
+
 	$('a.toggle').click(function(event){ 
-		event.preventDefault();		
-		$('div.hidden').slideToggle('400');
+		event.preventDefault();
+		$("#hidecat").removeClass( "hidden", 10, "easeInBack");
+		$('div.hidden').slideToggle('300');
 	});
 
 	$('a.edit').click(function(event){
@@ -27,23 +38,38 @@ $(function(){
 
 	initOrder('ol.order');
 });
+
 </script>
+
+<style>
+#hidecat{
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+</style>
 
 <h1 class="headingleft">Blog Categories</h1>
 
 <div class="headingright">
 	<a href="<?php echo site_url('/admin/blog/viewall'); ?>" class="button blue">View Posts</a>
-	<a href="#" class="toggle button blue">Add Category</a>
+	<a href="#" id="#btnaddcat" class="toggle button blue">Add Category</a>
+
 </div>
 
 <div class="clear"></div>
 
-<div class="hidden">
+<div id="hidecat" class="hidden">
 	<form method="post" action="<?php echo site_url($this->uri->uri_string()); ?>" class="default">
 	
 		<label for="categoryName">Category name:</label>
 		
-		<?php echo @form_input('catName',$blog_cats['catName'], 'class="formelement" id="catName"'); ?>
+		<?php
+			$blog_cats = NULL;
+			echo form_input('catName',$blog_cats['catName'], 'class="formelement" id="catName"');
+		 ?>
 			
 		<input type="submit" value="Add Category" id="submit" class="button" />
 
@@ -61,7 +87,7 @@ $(function(){
 		<li id="blog_cats-<?php echo $category['catID']; ?>">
 			<div class="col1">
 				<span><strong><?php echo $category['catName']; ?></strong> <small>(<?php echo url_title(strtolower(trim($category['catName']))); ?>)</small></span>
-				<?php echo @form_input($category['catID'].'[catName]', $category['catName'], 'class="formelement hide" title="Category Name"'); ?><input type="submit" class="button hide" value="Edit" />
+				<?php echo form_input($category['catID'].'[catName]', $category['catName'], 'class="formelement hide" title="Category Name"'); ?><input type="submit" class="button hide" value="Edit" />
 			</div>
 			<div class="col2">
 				&nbsp;
