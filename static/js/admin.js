@@ -1,4 +1,33 @@
-(function(){$.fn.insertAtCaret=function(e,f){if(!f)f='';return this.each(function(){if(document.selection){this.focus();d=document.selection.createRange();d.text=e+d.text+f;return false}else if(this.selectionStart||this.selectionStart=='0'){var a=this.selectionStart;var b=this.selectionEnd;var c=this.scrollTop;var d=this.value.substring(a,b);if(e=="\t"){d=d.replace(/\n/ig,"\n\t")}this.value=this.value.substring(0,a)+(e+d+f)+this.value.substring(b,this.value.length);this.selectionStart=a+e.length;this.selectionEnd=a+e.length;this.scrollTop=c;return false}else{this.value+=e;return false}})};})();
+(function () {
+	$.fn.insertAtCaret = function (e, f) {
+		if (!f) f = '';
+		return this.each(function () {
+			if (document.selection) {
+				this.focus();
+				d = document.selection.createRange();
+				d.text = e + d.text + f;
+				return false
+			} else if (this.selectionStart || this.selectionStart == '0') {
+				var a = this.selectionStart;
+				var b = this.selectionEnd;
+				var c = this.scrollTop;
+				var d = this.value.substring(a, b);
+				if (e == "\t") {
+					d = d.replace(/\n/ig, "\n\t")
+				}
+				this.value = this.value.substring(0, a) + (e + d + f) + this.value.substring(b, this.value.length);
+				this.selectionStart = a + e.length;
+				this.selectionEnd = a + e.length;
+				this.scrollTop = c;
+				return false
+			} else {
+				this.value += e;
+				return false
+			}
+		})
+	};
+})();
+
 
 (function ($) {
 	var editactive = false;
@@ -149,74 +178,74 @@
 				return false
 			}
 		});
-		$('a.toggle').live('click', function () {
+		$('a.toggle').on('click', function () {
 			toggle();
 			return false
 		});
-		$('a.previewbutton').live('click', function () {
+		$('a.previewbutton').on('click', function () {
 			$(this).hide();
 			return false
 		});
-		$('.halogycms_confirm').live('click', function () {
+		$('.halogycms_confirm').on('click', function () {
 			return confirm('You may lose unsaved changes. Continue?')
 		});
-		$('a.halogycms_imagebutton').live('click', function () {
+		$('a.halogycms_imagebutton').on('click', function () {
 			showimages(this);
 			return false
 		});
-		$('.halogycms_insertimage').live('click', function () {
+		$('.halogycms_insertimage').on('click', function () {
 			insertimage(this);
 			return false
 		});
-		$('a.halogycms_filebutton').live('click', function () {
+		$('a.halogycms_filebutton').on('click', function () {
 			showfiles(this);
 			return false
 		});
-		$('.halogycms_insertfile').live('click', function () {
+		$('.halogycms_insertfile').on('click', function () {
 			insertfile(this);
 			return false
 		});
-		$('a.halogycms_close').live('click', function () {
+		$('a.halogycms_close').on('click', function () {
 			hidebrowser();
 			return false
 		});
-		$('a.boldbutton').live('click', function () {
+		$('a.boldbutton').on('click', function () {
 			formatting(this, 'bold');
 			return false
 		});
-		$('a.italicbutton').live('click', function () {
+		$('a.italicbutton').on('click', function () {
 			formatting(this, 'italic');
 			return false
 		});
-		$('a.h1button').live('click', function () {
+		$('a.h1button').on('click', function () {
 			formatting(this, 'h1');
 			return false
 		});
-		$('a.h2button').live('click', function () {
+		$('a.h2button').on('click', function () {
 			formatting(this, 'h2');
 			return false
 		});
-		$('a.h3button').live('click', function () {
+		$('a.h3button').on('click', function () {
 			formatting(this, 'h3');
 			return false
 		});
-		$('a.urlbutton').live('click', function () {
+		$('a.urlbutton').on('click', function () {
 			formatting(this, 'url');
 			return false
 		});
-		$('a.togglefolder').live('click', function () {
+		$('a.togglefolder').on('click', function () {
 			toggleFolder(this);
 			return false
 		});
-		$('a.showform').live('click', function () {
+		$('a.showform').on('click', function () {
 			showForm(this);
 			return false
 		});
-		$('input#cancel').live('click', function () {
+		$('input#cancel').on('click', function () {
 			hideForm(this);
 			return false
 		});
-		$('.cancel').live('click', function () {
+		$('.cancel').on('click', function () {
 			$('div.hidden').slideUp('100');
 			return false
 		});

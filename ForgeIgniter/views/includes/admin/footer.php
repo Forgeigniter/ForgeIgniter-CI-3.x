@@ -117,12 +117,36 @@
 
 <!-- REQUIRED JS SCRIPTS -->
 
-<!-- jQuery 3 -->
-<script src="<?=PATH['theme']?>anvil/bower_components/jquery/dist/jquery.min.js"></script>
+
+
 <!-- Bootstrap 3.3.7 -->
-<script src="<?=PATH['theme']?>anvil/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
+<script src="<?=PATH['theme']?>anvil/plugins/jQueryUI/jquery-ui.min.js"></script>
+<!-- App -->
 <script src="<?=PATH['theme']?>anvil/js/app.js"></script>
+
+
+	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/default.js"></script>
+	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/admin.js"></script>
+
+
+
+
+
+
+
+	<script language="JavaScript">
+		$(function(){
+			$('ul#menubar li').hover(
+				function() { $('ul', this).css('display', 'block').parent().addClass('hover'); },
+				function() { $('ul', this).css('display', 'none').parent().removeClass('hover'); }
+			);
+		});
+	</script>
+
+
+
+
+
 
 
 

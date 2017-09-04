@@ -45,10 +45,18 @@
 
   <!-- Google Font -->
   <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 		
   <link rel="stylesheet"
-		href="https://fonts.googleapis.com/css?family=Exo+2:300,400,500">
+    href="https://fonts.googleapis.com/css?family=Exo+2:300,400,500">
+    
+
+<!-- jQuery 3 -->
+<script src="<?=PATH['theme']?>anvil/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.0.0.js"></script>
+
+<link rel="stylesheet" type="text/css" href="<?= base_url() . $this->config->item('staticPath'); ?>/css/admin.css" media="all" />
+
 </head>
 <?php
 // Check if we're at admin login page
@@ -510,5 +518,6 @@ Not implemented yet.
 	<p><a href="<?= site_url('admin/logout');?>">Click here to logout.</a></p>
 
 <?php endif; ?>
+
 
 
