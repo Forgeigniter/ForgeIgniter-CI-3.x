@@ -1,3 +1,4 @@
+<!-- Pages - View All -->
 <script type="text/javascript">
 function setOrder(){
 	$.post('<?php echo site_url('/admin/pages/order/page'); ?>',$(this).sortable('serialize'),function(data){ });
@@ -24,8 +25,8 @@ $(function(){
 			$('.hiddenpage, .subpage, .draft').slideDown();
 		}
 	});
-	$('a.showform').live('click', function(event){showForm(this,event);});
-	$('input#cancel').live('click', function(event){hideForm(this,event);});
+	$('a.showform').on('click', function(event){showForm(this,event);});
+	$('input#cancel').on('click', function(event){hideForm(this,event);});
 	initOrder('ol.order, ol.order ol');
 });
 </script>
