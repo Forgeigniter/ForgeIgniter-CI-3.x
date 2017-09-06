@@ -92,6 +92,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .skin-anvil-light .main-header li.user-header {
 	background-color: #222;
 }
+.skin-anvil-light .main-header .navbar .nav > li > a > span.menu-icon-text {
+	padding-left: 7px;
+}
 .skin-anvil-light .content-header {
 	border-left: 1px solid rgba(238, 238, 238, 0.2);
 	padding:0 !important;
@@ -236,12 +239,66 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .skin-anvil-light .box.box-crey {
   border-top-color: #738c9a;
-  
 	-webkit-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
     /* box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22); */
- }
+}
 
+.skin-anvil-light .box.box-grey {
+  border-top-color: #777;
+	-webkit-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
+    /* box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22); */
+}
+ 
+.skin-anvil-light .box.box-success {
+    -webkit-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
+    /* box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22); */
+    border-top-color: #00a65a;
+}
+
+.skin-anvil-light .box.box-solid {
+	border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #868686;
+    border-top: 1px solid #ccc;
+    -webkit-box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.69);
+    -moz-box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.69);
+    box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.69);
+}
+.skin-anvil-light .box.box-solid a {
+	color:#fff;
+}
+
+/* Box Gradients */
+.skin-anvil-light .bg-light-blue-gradient {
+    background: #3c8dbc !important;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #053B5B), color-stop(1, #67a8ce)) !important;
+    background: -ms-linear-gradient(bottom, #053B5B, #67a8ce) !important;
+    background: -moz-linear-gradient(center bottom, #053B5B 0%, #67a8ce 100%) !important;
+    background: -o-linear-gradient(#67a8ce, #053B5B) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#67a8ce', endColorstr='#053B5B', GradientType=0) !important;
+    color: #fff;
+}
+.bg-blue-gradient {
+    background: #0073b7 !important;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #00395B), color-stop(1, #0089db)) !important;
+    background: -ms-linear-gradient(bottom, #00395B, #0089db) !important;
+    background: -moz-linear-gradient(center bottom, #00395B 0%, #0089db 100%) !important;
+    background: -o-linear-gradient(#0089db, #00395B) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0089db', endColorstr='#0073b7', GradientType=0) !important;
+    color: #fff;
+}
+.bg-green-gradient {
+    background: #00a65a !important;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #003C21), color-stop(1, #03A45A)) !important;
+    background: -ms-linear-gradient(bottom, #003C21, #03A45A) !important;
+    background: -moz-linear-gradient(center bottom, #003C21 0%, #03A45A 100%) !important;
+    background: -o-linear-gradient(#003C21, #03A45A) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#003C21', endColorstr='#03A45A', GradientType=0) !important;
+    color: #fff;
+}
 
 /* Buttons */
 
@@ -286,7 +343,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     height: 30px;
 	width: 135px;
     font-size: 14px;
-    right: 130px;
+    right: 100px;
     position: inherit;
     padding: 3px 4px 6px 10px;
 }
@@ -310,7 +367,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     padding: 0 0 0 15px;
 
 }
-
 .skin-anvil-light .spacer {
 	padding: 0px 5px 0px 5px;
 }
@@ -320,6 +376,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .skin-anvil-light td { 
 	padding-top:20px;
+}
+
+.skin-anvil-light .tiny {
+	width: 5%;
 }
 
 
@@ -358,9 +418,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .skin-anvil-light .login-box {
-	
-
-	
 	-webkit-box-shadow: 0px 6px 12px -2px rgba(0,0,0,0.63);
     -moz-box-shadow: 0px 6px 12px -2px rgba(0,0,0,0.63);
     box-shadow: 0px 6px 12px -2px rgba(0,0,0,0.63);
@@ -375,4 +432,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
 }
+
+/* Dashboard */
+
 

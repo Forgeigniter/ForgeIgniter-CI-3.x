@@ -1,11 +1,20 @@
 <script type="text/javascript">
 	var days = <?php echo $days; ?>;
 </script>
-<script type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/jquery.flot.js"></script>
+
+<!-- FLOT CHARTS -->
+<script src="<?=PATH['theme'];?>anvil/bower_components/Flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="<?=PATH['theme'];?>anvil/bower_components/Flot/jquery.flot.resize.js"></script>
+<!-- FLOT TIME PLUGIN -->
+<script src="<?=PATH['theme'];?>anvil/bower_components/Flot/jquery.flot.time.js"></script>
+
+<script type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/jquery.flot.init.js"></script>
+
 <!--[if IE]>
 	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/excanvas.js"></script>
 <![endif]-->
-<script type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/jquery.flot.init.js"></script>
+
 <script type="text/javascript">
 function refresh(){
 	$('div.loader').load('<?php echo site_url('/admin/activity_ajax'); ?>');
@@ -16,23 +25,64 @@ $(function(){
 });
 </script>
 
-<div id="tpl-2col">
-	
-	<div class="col1">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+		<?php echo ($this->session->userdata('firstName')) ? ucfirst($this->session->userdata('firstName')) : $this->session->userdata('username'); ?>'s Dashboard :
 
-		<h1><strong><?php echo ($this->session->userdata('firstName')) ? ucfirst($this->session->userdata('firstName')) : $this->session->userdata('username'); ?>'s</strong> Dashboard</h1>
-		
+        <small>Main Control Panel</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="<?= site_url('admin/dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Control Panel</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+
+
+<section class="content">
+
+	<!-- Main row -->
+	<div class="row">
+	<!-- Left col -->
+	<section class="col-lg-9">
+
 		<?php if ($errors = validation_errors()): ?>
-			<div class="error">
-				<?php echo $errors; ?>
-			</div>
+		<div class="callout callout-danger">
+			<h4>Warning!</h4>
+			<?php echo $errors; ?>
+     	</div>
 		<?php endif; ?>
 
 		<?php if ($message): ?>
-			<div class="message">
-				<?php echo $message; ?>
-			</div>
+		<div class="callout callout-info">
+			<h4>Notice</h4>
+			<?php echo $message; ?>
+     	</div>
 		<?php endif; ?>
+
+
+		<?php if ($this->site->config['plan'] > 0 && $this->site->config['plan'] < 6): ?>		
+
+			<div class="quota">
+				<div class="<?php echo ($quota > $this->site->plans['storage']) ? 'over' : 'used'; ?>" style="width: <?php echo ($quota > 0) ? (floor($quota / $this->site->plans['storage'] * 100)) : 0; ?>%"><?php echo floor($quota / $this->site->plans['storage'] * 100); ?>%</div>
+			</div>
+			
+			<p><small>You have used <strong><?php echo number_format($quota); ?>kb</strong> out of your <strong><?php echo number_format($this->site->plans['storage']); ?> KB</strong> quota.</small></p>
+
+		<?php endif; ?>		
+	
+		<!-- Stats -->
+		<div class="box box-grey">
+		<div class="box-header with-border">
+			<i class="fa fa-line-chart"></i>
+			<h3 class="box-title">Website Activity</h3>
+		</div>
+		<div class="box-body">
+			<div class="tab-content no-padding">
 
 		<ul class="dashboardnav">
 			<li class="<?php echo ($days == 30) ? 'active' : ''; ?>"><a href="<?php echo site_url('/admin'); ?>">Last 30 Days</a></li>
@@ -42,11 +92,29 @@ $(function(){
 		</ul>
 
 		<div id="placeholder"></div>
-		
-		<div id="activity" class="loader">
-			<?php echo $activity; ?>
-		</div>
 
+
+			</div>
+		</div><!-- /.box (chat box) -->
+
+		</div> 
+		
+		<!-- Website Activity -->
+		<div class="box box-success">
+		<div class="box-header with-border">
+			<i class="fa fa-comments-o"></i>
+			<h3 class="box-title">Website Activity</h3>
+		</div>
+		<div class="box-body">
+			<div id="activity" class="loader">
+				<?php echo $activity; ?>
+			</div>
+		</div>
+		</div><!-- /.box (chat box) -->
+
+		<!-- Nav Big Buttons -->
+		<div class="row">
+		<div class="col-md-3">
 		<?php if (@in_array('pages', $this->permission->permissions)): ?>
 
 			<div class="module">
@@ -60,8 +128,9 @@ $(function(){
 			</div>
 
 		<?php endif; ?>
+		</div>
 
-		
+		<div class="col-md-3">
 		<?php if (@in_array('pages_templates', $this->permission->permissions)): ?>
 
 			<div class="module last">
@@ -75,7 +144,9 @@ $(function(){
 			</div>
 			
 		<?php endif; ?>
+		</div>
 		
+		<div class="col-md-3">
 		<?php if (@in_array('images', $this->permission->permissions)): ?>
 
 			<div class="module">
@@ -89,7 +160,9 @@ $(function(){
 			</div>
 			
 		<?php endif; ?>
+		</div>
 		
+		<div class="col-md-3">
 		<?php if (@in_array('users', $this->permission->permissions)): ?>
 		
 			<div class="module last">
@@ -103,7 +176,9 @@ $(function(){
 			</div>
 
 		<?php endif; ?>
+		</div>
 
+		<div class="col-md-3">
 		<?php if (@in_array('blog', $this->permission->permissions)): ?>
 
 			<div class="module">
@@ -117,7 +192,9 @@ $(function(){
 			</div>
 			
 		<?php endif; ?>
+		</div>
 
+		<div class="col-md-3">
 		<?php if (@in_array('shop', $this->permission->permissions)): ?>
 			<div class="module last">
 			
@@ -129,124 +206,16 @@ $(function(){
 				
 			</div>
 		<?php endif; ?>
+		</div>
 
-		<br class="clear" /><br />
+		</div><!-- /.row -->
 
-		<?php if ($this->site->config['plan'] > 0 && $this->site->config['plan'] < 6): ?>		
-
-			<div class="quota">
-				<div class="<?php echo ($quota > $this->site->plans['storage']) ? 'over' : 'used'; ?>" style="width: <?php echo ($quota > 0) ? (floor($quota / $this->site->plans['storage'] * 100)) : 0; ?>%"><?php echo floor($quota / $this->site->plans['storage'] * 100); ?>%</div>
-			</div>
-			
-			<p><small>You have used <strong><?php echo number_format($quota); ?>kb</strong> out of your <strong><?php echo number_format($this->site->plans['storage']); ?> KB</strong> quota.</small></p>
-
-		<?php endif; ?>
-
-		<br />
-	
-	</div>
-	
-	<div class="col2">
-
-		<h3>Site Info</h3>
-		
-		<table class="default">
-			<tr>
-				<th class="narrow">Site name:</th>
-				<td><?php echo $this->site->config['siteName']; ?></td>
-			</tr>
-			<tr>
-				<th class="narrow">Site URL:</th>
-				<td><small><a href="<?php echo $this->site->config['siteURL']; ?>"><?php echo $this->site->config['siteURL']; ?></a></small></td>
-			</tr>
-			<tr>
-				<th class="narrow">Site email:</th>
-				<td><small>
-					<?php
-					$site_email = $this->site->config['siteEmail'];
-					if (empty($site_email)){
-						echo "No E-mail Set";
-					} else {
-						echo $site_email;
-					}
-					?>
-				</small></td>
-			</tr>
-		</table>
-
-		<h3>Site Stats</h3>
-		
-		<table class="default">
-			<tr>
-				<th class="narrow">Disk space used:</th>
-				<td><?php echo number_format($quota); ?> <small>KB</small></td>
-			</tr>
-			<tr>
-				<th class="narrow">Total page views:</th>
-				<td><?php echo number_format($numPageViews); ?> <small>views</small></td>
-			</tr>
-			<tr>
-				<th class="narrow">Pages:</th>
-				<td><?php echo $numPages; ?> <small>page<?php echo ($numPages != 1) ? 's' : ''; ?></small></td>
-			</tr>
-			<?php if (@in_array('blog', $this->permission->permissions)): ?>
-				<tr>
-					<th class="narrow">Blog posts:</th>
-					<td><?php echo $numBlogPosts ?> <small>post<?php echo ($numBlogPosts != 1) ? 's' : ''; ?></small></td>
-				</tr>
-			<?php endif; ?>
-		</table>
-
-		<h3>User Stats</h3>
-		
-		<table class="default">
-			<tr>
-				<th class="narrow">Total users:</th>
-				<td colspan="2"><?php echo number_format($numUsers); ?> <small>user<?php echo ($numUsers != 1) ? 's' : ''; ?></small></td>
-			</tr>
-			<tr>
-				<th class="narrow">New today:</th>
-				<td>			
-					<?php echo number_format($numUsersToday); ?> <small>user<?php echo ($numUsersToday != 1) ? 's' : ''; ?></small>
-				</td>
-				<td>
-					<?php
-						$difference = @round(100 / $numUsersYesterday * ($numUsersToday - $numUsersYesterday), 2);
-						$polarity = ($difference < 0) ? '' : '+';
-					?>						
-					<?php if ($difference != 0): ?>
-						<small>(<span style="color:<?php echo ($polarity == '+') ? 'green' : 'red'; ?>"><?php echo $polarity.$difference; ?>%</span>)</small>
-					<?php endif; ?>
-				</td>
-			</tr>
-			<tr>
-				<th class="narrow">New yesterday:</th>
-				<td colspan="2"><?php echo number_format($numUsersYesterday); ?> <small>user<?php echo ($numUsersYesterday != 1) ? 's' : ''; ?></small></td>
-			</tr>
-			<tr>
-				<th class="narrow">New this week:</th>
-				<td>
-					<?php echo number_format($numUsersWeek); ?> <small>user<?php echo ($numUsersWeek != 1) ? 's' : ''; ?></small>
-				</td>
-				<td>
-					<?php
-						$difference = @round(100 / $numUsersLastWeek * ($numUsersWeek - $numUsersLastWeek), 2);
-						$polarity = ($difference < 0) ? '' : '+';
-					?>				
-					<?php if ($difference != 0): ?>
-						<small>(<span style="color:<?php echo ($polarity == '+') ? 'green' : 'red'; ?>"><?php echo $polarity.$difference; ?>%</span>)</small>
-					<?php endif; ?>
-				</td>
-			</tr>
-			<tr>
-				<th class="narrow">New last week:</th>
-				<td colspan="2"><?php echo number_format($numUsersLastWeek); ?> <small>user<?php echo ($numUsersLastWeek != 1) ? 's' : ''; ?></small></td>
-			</tr>
-		</table>	
-
-		<h3>Most popular pages</h3>
+		<!-- Most Popular -->
+		<div class="row">
 
 		<?php if ($popularPages): ?>
+		<div class="col-md-4">
+		<h3>Most popular pages</h3>
 			<ol>		
 				<?php foreach ($popularPages as $page): ?>
 					<li><?php echo anchor('/admin/pages/edit/'.$page['pageID'], $page['pageName']); ?></li>
@@ -257,9 +226,10 @@ $(function(){
 		<?php endif; ?>
 
 		<br />
+		</div>
 		
-<?php if (@in_array('blog', $this->permission->sitePermissions)): ?>
-
+		<?php if (@in_array('blog', $this->permission->sitePermissions)): ?>
+		<div class="col-md-4">
 		<h3>Most popular blog posts</h3>
 
 		<?php if ($popularBlogPosts): ?>
@@ -273,11 +243,11 @@ $(function(){
 		<?php endif; ?>
 
 		<br />
-		
-<?php endif; ?>
+		</div>
+		<?php endif; ?>
 
-<?php if (@in_array('shop', $this->permission->sitePermissions)): ?>		
-
+		<?php if (@in_array('shop', $this->permission->sitePermissions)): ?>		
+		<div class="col-md-4">
 		<h3>Most popular shop products</h3>
 
 		<?php if ($popularShopProducts): ?>
@@ -286,14 +256,195 @@ $(function(){
 					<li><?php echo anchor('/admin/shop/edit_product/'.$product['productID'], $product['productName']); ?></li>
 				<?php endforeach; ?>
 			</ol>
-		<?php else: ?>
+			<?php else: ?>
 			<p><small>We don't have this information yet.</small></p>
+
+			<?php endif; ?>
 		<?php endif; ?>
+		</div><!-- /.row -->
 
-<?php endif; ?>
-		
-	</div>
+	</section><!-- /.Left col -->
 	
-	<br class="clear" />
+	<!-- right Sidebar -->
+	<section class="col-lg-3">
+	
+		<!-- Site Info -->
+		<div class="box box-solid bg-light-blue-gradient">
+		<div class="box-header with-border">
 
-</div>
+			<i class="fa fa-info-circle"></i>
+			<h3 class="box-title">
+				Site Information
+			</h3>
+		</div>
+		<div class="box-body">
+			<div class="small-box">
+				<table class="table no-border">
+				<tbody><tr>
+				</tr>
+				<tr>
+					<td>Site name :</td>
+					<td><?php echo $this->site->config['siteName']; ?></td>
+				</tr>
+				<tr>
+					<td>Site URL :</td>
+					<td>
+						<small>
+							<a href="<?php echo $this->site->config['siteURL']; ?>"><?php echo $this->site->config['siteURL']; ?></a>
+						</small>
+					</td>
+				</tr>
+				<tr>
+					<td>Site E-mail : </td>
+					<td>
+						<small>
+						<?php
+						$site_email = $this->site->config['siteEmail'];
+						if (empty($site_email)){
+							echo "No E-mail Set";
+						} else {
+							echo $site_email;
+						}
+						?>
+						</small>
+					</td>
+				</tr>
+				</tbody></table>
+			<div class="icon">
+				<i class="ion ion-ios-information"></i>
+			</div>
+			<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+
+		</div><!-- /.box-body-->
+		</div><!-- /.box -->
+		
+		<!-- Site Statistics -->
+		<div class="box box-solid bg-blue-gradient">
+		<div class="box-header with-border">
+
+			<i class="fa fa-bar-chart"></i>
+			<h3 class="box-title">
+				Site Statistics
+			</h3>
+		</div>
+		<div class="box-body">
+			<div class="small-box">
+				<table class="table no-border">
+				<tbody><tr></tr>
+				<tr>
+					<td>Disk Space Used :</td>
+					<td>
+						<?php echo number_format($quota); ?> <small>KB</small>
+					</td>
+				</tr>
+				<tr>
+					<td>Total Page Views:</td>
+					<td>
+						<?php echo number_format($numPageViews); ?> <small>views</small>
+					</td>
+				</tr>
+				<tr>
+					<td>Pages :</td>
+					<td><?php echo $numPages; ?> <small>page<?php echo ($numPages != 1) ? 's' : ''; ?></small></td>
+				</tr>
+
+				<?php if (@in_array('blog', $this->permission->permissions)): ?>
+				<tr>
+					<td>Blog posts :</td>
+					<td><?php echo $numBlogPosts ?> <small>post<?php echo ($numBlogPosts != 1) ? 's' : ''; ?></small></td>
+				</tr>
+				<?php endif; ?>
+
+				</tbody></table>
+			<div class="icon">
+				<i class="ion ion-stats-bars"></i>
+			</div>
+			<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+		</div><!-- /.box-body-->
+		</div><!-- /.box -->
+		
+		<!-- User Statistics -->
+		<div class="box box-solid bg-green-gradient">
+		<div class="box-header with-border">
+
+			<i class="fa fa-users"></i>
+			<h3 class="box-title">
+				User Statistics
+			</h3>
+		</div>
+		
+		<div class="box-body">
+			<div class="small-box">
+				<table class="table no-border">
+				<tbody><tr></tr>
+				<tr>
+					<td>Total users :</td>
+					<td>
+						<?php echo number_format($numUsers); ?> <small>user<?php echo ($numUsers != 1) ? 's' : ''; ?></small>
+					</td>
+				</tr>
+				<tr>
+					<td>New today:</td>
+					<td>
+						<?php echo number_format($numUsersToday); ?> <small>user<?php echo ($numUsersToday != 1) ? 's' : ''; ?>
+
+						<?php
+							$difference = @round(100 / $numUsersYesterday * ($numUsersToday - $numUsersYesterday), 2);
+							$polarity = ($difference < 0) ? '' : '+';
+						?>						
+						<?php if ($difference != 0): ?>
+							<small style="padding-left:5px;">
+								(<span style="color:<?php echo ($polarity == '+') ? '#00ff04' : '#ea604f'; ?>">
+									<?php echo $polarity.$difference; ?>%
+								</span>)
+							</small>
+						<?php endif; ?>
+					</td>
+				</tr>
+				<tr>
+					<td>New yesterday :</td>
+					<td>
+						<?php echo number_format($numUsersYesterday); ?>
+						<small>user<?php echo ($numUsersYesterday != 1) ? 's' : ''; ?></small>
+					</td>
+				</tr>
+				<tr>
+					<td>New This Week :</td>
+					<td>
+						<?php echo number_format($numUsersWeek); ?> <small>user<?php echo ($numUsersWeek != 1) ? 's' : ''; ?></small>
+
+						<?php
+							$difference = @round(100 / $numUsersLastWeek * ($numUsersWeek - $numUsersLastWeek), 2);
+							$polarity = ($difference < 0) ? '' : '+';
+						?>				
+						<?php if ($difference != 0): ?>
+							<small>
+								(<span style="color:<?php echo ($polarity == '+') ? '#00ff04' : '#ea604f'; ?>">
+									<?php echo $polarity.$difference; ?>%
+								</span>)
+							</small>
+						<?php endif; ?>
+					</td>
+				</tr>
+				<tr>
+					<td>New Last Week :</td>
+					<td>
+						<?php echo number_format($numUsersLastWeek); ?>
+						<small>user<?php echo ($numUsersLastWeek != 1) ? 's' : ''; ?></small>
+					</td>
+				</tr>
+				</tbody></table>
+			<div class="icon">
+				<i class="ion ion-ios-people"></i>
+			</div>
+			<a href="#" class="small-box-footer">Manage Users <i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+		</div><!-- /.box-body-->
+		</div><!-- /.box -->
+		
+	</section><!-- right col -->
+	</div><!-- /.row (main row) -->
+
+</section>
