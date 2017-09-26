@@ -155,11 +155,12 @@ img.loading { vertical-align: middle; margin: 10px 5px; display: none; text-alig
 ul.order, ol.order { list-style-type: none; padding: 0; margin: 0; line-height: 1.5em; }
 ul.order ul, ol.order ol { list-style-type: none; padding: 0; margin: 0; }
 ul.order li, ol.order li { margin: 0; padding: 0; cursor: move; background: #f6f6f6; border-top: 4px solid #fff; clear: both; clear: both; }
+ul.order li, ol.order li:hover { background: #e2e2e2; }
 ul.order ul li, ol.order ol li  { margin: 0; }
 ol.order { list-style-position: inside; }
-ol.order .col1 { display: inline; float: left; width: 460px; margin: 0; padding: 5px 10px; }
+ol.order .col1 { display: inline; float: left; width: 460px; margin: 0; padding: 10px 10px; }
 ol.order .col2 { display: inline; float: left; width: 388px; margin: 0; padding: 5px 10px; }
-ol.order .buttons { display: inline; float: left; width: 90px; padding: 5px 10px; text-align: right; }
+ol.order .buttons { display: inline; float: right; width: 90px; padding: 5px 10px; text-align: right; }
 .order img { margin: 0 5px 0 0; padding: 8px 0; vertical-align: middle; }
 .padded { margin: 0 10px 0 0; vertical-align: middle; }
 .padded img { float: left; margin: 2px 10px 2px 0; }
@@ -221,14 +222,13 @@ tr.alt { background: #eee; }
 	
 
 /* FORM */
-.formelement { background: #f5f5f5; border: 1px solid #aaa; padding: 7px; width: 250px; vertical-align: middle; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }	
+.formelement { background: #f5f5f5; border: 1px solid #aaa; padding: 7px; vertical-align: middle; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }	
 form.default { width: 100%; }
 form.default input, form.default select, form.default textarea, form.default button { font-family: "Lucida Grande", arial, sans-serif; font-size: 1em; color: #555; }
 form.default .formelement { float: left; }
 form.default label { float: left; width: 100%; font-weight: bold; clear: both; color: #444; }
 form.default label.radio { width: 180px; clear: none; }
 form.default input { margin: 0 4px 6px 0; }
-form.default select { width: 266px !important; margin: 0 4px 6px 0; } 
 form.default textarea { margin: 0 0 6px; }
 form.default label small { font-weight: normal; }
 form.default div.editorBox { float: left; margin: 0 0 6px; }
@@ -236,9 +236,9 @@ form.default .button { margin: 0 0 0 6px; }
 form.default .main { font-weight: bold; }
 form.default .nolabel { margin: 0; }
 form.default .readonly { float: left; padding: 6px; margin: 0 0 6px; }
-form.default .preview { float: left; width: 396px; height: 278px; background: url(../images/preview_bg.gif) no-repeat center; overflow: auto; border: 1px solid #ccc; padding: 6px; margin: 0 0 6px; }	
+form.default .preview { float: left; width: 45%; height: auto; min-height:614px; background: url(../images/preview_bg.gif) no-repeat center; overflow: auto; border: 1px solid #ccc; padding: 6px; margin: 1px 5px 5px 40px; }	
 form.default .preview img { max-width: 380px; }
-form.default .previewExcerpt { float: left; width: 396px; height: 80px; background: url(../images/preview_bg.gif) no-repeat center; overflow: auto; border: 1px solid #ccc; padding: 6px; margin: 0 0 6px; }	
+form.default .previewExcerpt { float: left; width: 45%; height: 116px; background: url(../images/preview_bg.gif) no-repeat center; overflow: auto; border: 1px solid #ccc; padding: 6px; margin: 1px 5px 5px 40px; }	
 form.default .previewExcerpt img { max-width: 380px; }
 form.default .small { width: 50px !important; }
 form.default .price { float: left; line-height: 30px; margin: 0 5px; }

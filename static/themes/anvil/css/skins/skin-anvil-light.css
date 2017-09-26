@@ -80,7 +80,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 @media (max-width: 767px) {
   .skin-anvil-light .main-header > .logo {
-    background-color: #222222;
+    background-color: #fff;
     color: #ffffff;
     border-bottom: 0 solid transparent;
     border-right: none;
@@ -238,14 +238,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 /* Box Colors */
 
 .skin-anvil-light .box.box-crey {
-  border-top-color: #738c9a;
+	border-top-color: #738c9a;
 	-webkit-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
     /* box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22); */
 }
 
 .skin-anvil-light .box.box-grey {
-  border-top-color: #777;
+	border-top-color: #777;
 	-webkit-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
     /* box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22); */
@@ -303,7 +303,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 /* Buttons */
 
 .skin-anvil-light .btn-green {
-
+	margin-left: 10px;
 	padding: 5px 20px;
 	border: 1px solid rgba(0,0,0,0.4);
 	text-shadow: 0 1px 0 #333;
@@ -326,6 +326,52 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	background-color: #329432;
 	border-color: #216716;
 }
+.skin-anvil-light .btn-blue {
+	padding: 5px 20px;
+	border: 1px solid rgba(0,0,0,0.4);
+	text-shadow: 0 1px 0 #333;
+	border-radius: 0.3em;
+	float: right;
+	font-weight: 500;
+	cursor: pointer;
+	font-size: 13px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.31), inset 0 12px 12px rgba(0, 0, 0, 0.1);
+    color: #f4f4f4;
+    background-color: #3c8dbc;
+    border-color: #2c5d79;
+}
+.skin-anvil-light .btn-blue:hover {
+    padding: 5px 20px;
+    border: 1px solid rgba(0,0,0,0.4);
+    text-shadow: 0 1px 0 #333;
+	box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), inset 0 10px 10px rgba(255,255,255,0.1);
+	color: #f4f4f4;
+	background-color: #4b8db3;
+	border-color: #2c5d79;
+}
+.skin-anvil-light .btn-crey {
+	padding: 5px 20px;
+	border: 1px solid rgba(0,0,0,0.4);
+	text-shadow: 0 1px 0 #333;
+	border-radius: 0.3em;
+	float: right;
+	font-weight: 500;
+	cursor: pointer;
+	font-size: 13px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.31), inset 0 12px 12px rgba(0, 0, 0, 0.1);
+    color: #f4f4f4;
+    background-color: #738c9a;
+    border-color: #3a4348;
+}
+.skin-anvil-light .btn-crey:hover {
+    padding: 5px 20px;
+    border: 1px solid rgba(0,0,0,0.4);
+    text-shadow: 0 1px 0 #333;
+	box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), inset 0 10px 10px rgba(255,255,255,0.1);
+	color: #f4f4f4;
+	background-color: #738c9a;
+	border-color: #3a4348;
+}
 .skin-anvil-light .btn-light-green {
 	color: #fff;
 	background-color: #6ec621;
@@ -333,10 +379,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 /* Tables */
-.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+.skin-anvil-light .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
 	padding: 12px;
 }
-
+.skin-anvil-light .table .draft {
+    background: rgba(255, 255, 236, 0.34) !important;
+}
+.skin-anvil-light .table .draft:hover {
+    background: #ffffec !important;
+}
 .skin-anvil-light .box-tools > select {
 	border: 1px solid rgba(51, 122, 183, 0.52);
     border-radius: 4px;
@@ -433,6 +484,5 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     border-bottom-left-radius: 4px;
 }
 
-/* Dashboard */
 
 
