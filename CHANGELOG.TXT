@@ -4,9 +4,27 @@
 
 ## Version 2.0 - In Development
 
+- Templates
+	¬ CKEditor
+		Added: Version 4.7.2
+		Added: CodeMirror 1.17 (Source) Syntax Highlighting
+		
+	¬ Page Templates
+		Added: Support for CKEditor
+		
+	¬ Module Templates
+		Added: Support for CKEditor
+		
+	¬ Includes
+		Added: Support for CKEditor
+
 - Authentication
 	¬ Updated Password db char length to 255
 	¬ Changed password hash
+	
+- ForgeIgniter
+	¬ Fixed: admin/login showing admin page instead of logout or redirect when logged in.
+	¬ Updated: constants, plus some common new ones.
 
 - Community
 	¬ Fixed Reading/Sending Messages.
@@ -16,6 +34,9 @@
 	¬ Fixed Cannot assign an empty string to a string offset
 	¬ Fixed Unknown column 'FI_t1 .messageID' in 'on clause'
 	¬ Fixed Unknown column 't1.siteID' in 'where clause'
+	
+- Admin Theme
+	¬ Ported Anvil over. Updated all pages to reflect.
 
 ## Version 1.2
 
