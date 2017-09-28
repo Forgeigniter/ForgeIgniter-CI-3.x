@@ -1,4 +1,6 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * CodeIgniter
  *
@@ -25,7 +27,7 @@
  */
 
 class MY_Parser extends CI_Parser {
-	
+
 	/**
 	 *  Parse a template
 	 *
@@ -41,7 +43,7 @@ class MY_Parser extends CI_Parser {
 
 	function parse($template, $data, $return = FALSE, $include = FALSE)
 	{
-		$CI =& get_instance();
+		$CI = & get_instance();
 
 		if ($template == '')
 		{
@@ -88,14 +90,14 @@ class MY_Parser extends CI_Parser {
 				}
 			}
 		}
-		
+
 		//$template = preg_replace('/{(.+)}/i', '', $template);
-		
+
 		if ($return == FALSE)
 		{
 			$CI->output->append_output($template);
 		}
-		
+
 		return $template;
 	}
 
@@ -103,13 +105,13 @@ class MY_Parser extends CI_Parser {
 
 	/**
 	 *  Parse conditional statments
-	 * 
-	 * @access    public
-	 * @param    string
-	 * @param    bool
-	 * @return    string
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	bool
+	 * @return	string
 	*/
-		
+
 	function conditionals($template, $data)
 	{
 		if (preg_match_all('/'.$this->l_delim.'if (.+)'.$this->r_delim.'(.+)'.$this->l_delim.'\/if'.$this->r_delim.'/siU', $template, $conditionals, PREG_SET_ORDER))
@@ -127,41 +129,41 @@ class MY_Parser extends CI_Parser {
 					// check code is valid
 					if (!preg_match('/('.$this->l_delim.'|'.$this->r_delim.')/', $condString, $condProblem))
 					{
-						if (!empty($code) || $condString != FALSE || !empty($insert))
+						if (!empty($code) || $condString !== FALSE || !empty($insert))
 						{
 							if (preg_match("/^!(.*)$/", $condString, $matches))
 							{
-								$condVar = (@!$data[trim($matches[1])]) ? 0 : $data[trim($matches[1])];
+								$condVar = (!$data[trim($matches[1])]) ? 0 : $data[trim($matches[1])];
 
-								@$result = (!$condVar) ? TRUE : FALSE;
+								$result = (!$condVar) ? TRUE : FALSE;
 							}
 							elseif (preg_match("/([a-z0-9\-_:\(\)]+)(\!=|=|==|>|<)([a-z0-9\-_\/]+)/", $condString, $matches))
 							{
-								$condVar = (@!$data[$matches[1]]) ? 0 : $data[trim($matches[1])];
+								$condVar = (!$data[$matches[1]]) ? 0 : $data[trim($matches[1])];
 
 								if ($matches[2] == '==' || $matches[2] == '=')
 								{
-									@$result = ($condVar === $matches[3]) ? TRUE : FALSE;
+									$result = ($condVar === $matches[3]) ? TRUE : FALSE;
 								}
 								elseif ($matches[2] == '!=')
 								{
-									@$result = ($condVar !== $matches[3]) ? TRUE : FALSE;
+									$result = ($condVar !== $matches[3]) ? TRUE : FALSE;
 								}
 								elseif ($matches[2] == '>')
 								{
-									@$result = ($condVar > $matches[3]) ? TRUE : FALSE;
+									$result = ($condVar > $matches[3]) ? TRUE : FALSE;
 								}
 								elseif ($matches[2] == '<')
 								{
-									@$result = ($condVar < $matches[3]) ? TRUE : FALSE;
-								}							
+									$result = ($condVar < $matches[3]) ? TRUE : FALSE;
+								}
 							}
 							else
 							{
 								// if the variable is set
 								if (isset($data[$condString]) && is_array($data[$condString]))
 								{
-									$result = (count($data[$condString]) > 0) ? TRUE : FALSE;							
+									$result = (count($data[$condString]) > 0) ? TRUE : FALSE;
 								}
 								else
 								{
@@ -172,7 +174,7 @@ class MY_Parser extends CI_Parser {
 							// filter for else
 							$insert = preg_split('/'.$this->l_delim.'else'.$this->r_delim.'/siU', $insert);
 
-							if ($result == TRUE)
+							if ( ! empty($result))
 							{
 								// show the string inside
 								$template = str_replace($code, $insert[0], $template);
@@ -197,16 +199,16 @@ class MY_Parser extends CI_Parser {
 						$template = str_replace($code, '', $template);
 					}
 				}
-			}					
+			}
 
 			//print_r($conditionals);
 		}
-		
+
 		return $template;
 	}
 
 	// --------------------------------------------------------------------
-	
+
 	/**
 	 *  Matches a variable pair
 	 *
@@ -214,20 +216,20 @@ class MY_Parser extends CI_Parser {
 	 * @param	string
 	 * @param	string
 	 * @return	mixed
-	 */ 
-	 
+	 */
+
 	function _match_pair($string, $variable)
 	{
 		$variable = str_replace('(', '\(', $variable);
-		$variable = str_replace(')', '\)', $variable);		
+		$variable = str_replace(')', '\)', $variable);
 
 		if ( ! preg_match("|".$this->l_delim . $variable . $this->r_delim."(.+?)".$this->l_delim . '/' . $variable . $this->r_delim."|s", $string, $match))
 		{
 			return FALSE;
 		}
-		
+
 		return $match;
-	}	
+	}
 
 }
 // END Parser Class
