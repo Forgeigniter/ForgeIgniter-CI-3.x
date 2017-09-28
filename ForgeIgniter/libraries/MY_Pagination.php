@@ -68,7 +68,7 @@ class MY_Pagination extends CI_Pagination {
 		preg_match('/\/'.$this->pagination_selector.'(\/)?([0-9]+)?$/i', $CI->uri->uri_string(), $matches);
 
         // Store pagination offset if it is set
-        if ($matches) {
+        if (! empty($matches)) {
 
 			// set uri based on matches
 			$uri = substr($CI->uri->uri_string(), 0, strrpos($CI->uri->uri_string(), $matches[0]));
