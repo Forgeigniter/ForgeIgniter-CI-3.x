@@ -10,8 +10,6 @@
  * @copyright	Copyright (c) 2015, ForgeIgniter
  * @license		http://forgeigniter.com/license
  * @link		http://forgeigniter.com/
- * @since		Hal Version 1.0
- * @filesource
  */
 
 // ------------------------------------------------------------------------
@@ -193,7 +191,7 @@ class Blog extends MX_Controller {
 				{
 					$this->form_validation->set_error('Sorry but your comment looks like spam. Please remove links and try again.');
 				}
-				elseif (isset($this->input->post['captcha']) && !$this->_captcha_check())
+				elseif (isset($this->input->post['captcha']) && $this->_captcha_check() !== FALSE)
 				{
 					$this->form_validation->set_error('Sorry you didn\'t pass the spam check. Please contact us to post a comment.');
 				}
@@ -563,6 +561,9 @@ class Blog extends MX_Controller {
 
 	function ac_search()
 	{
+		//Define Vars
+		$items = NULL;
+
 		$tags = strtolower($this->input->post["q"]);
         if (!$tags)
         {
@@ -610,6 +611,9 @@ class Blog extends MX_Controller {
 
     function _populate_posts($posts = '')
     {
+		//Define Vars
+		$data = NULL;
+
     	if ($posts && is_array($posts))
     	{
 			$x = 0;
