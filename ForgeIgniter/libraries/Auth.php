@@ -10,23 +10,22 @@
  * @copyright	Copyright (c) 2015, ForgeIgniter
  * @license		http://forgeigniter.com/license
  * @link		http://forgeigniter.com/
- * @since		Hal Version 1.0
- * @filesource
  */
 
-// MARKED FOR UPDATE IN FI V1.0
+// MARKED FOR UPDATE IN FI V2.0 Alpha 2
 
 // ------------------------------------------------------------------------
 
 class Auth {
 
 	// set defaults
-	var $CI;								// CI instance
-	var $table = 'users';					// default table
-	var $base_path = '';					// default base path
-	var $redirect = '';						// default redirect
-	var $sessionName = 'logged_in';			// name of session
-	var $error = '';						// error message
+	var $CI;	// CI instance
+	var $table = 'users';	// default table
+	var $base_path = NULL;
+	var $redirect = NULL;
+	var $sessionName = 'logged_in';
+	var $error = NULL;
+	var $siteID = NULL;
 
 	function __construct()
 	{
