@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * MY_Form_validation Class
  *
@@ -11,15 +11,15 @@
  * Note that this update should be used with the
  * form_validation library introduced in CI 1.7.0
  */
- 
+
 class MY_Form_validation extends CI_Form_validation {
 
 	function __construct()
 	{
 		parent::__construct();
-		
+
 		// set password error
-		$this->set_message('matches', 'The passwords do not match.');	    
+		$this->set_message('matches', 'The passwords do not match.');
 	}
 
 	// --------------------------------------------------------------------
@@ -54,7 +54,7 @@ class MY_Form_validation extends CI_Form_validation {
 		$CI->db->select('COUNT(*) dupe');
 		$query = $CI->db->get_where($table, array($column => $str));
 		$row = $query->row();
-		
+
 		return ($row->dupe > 0) ? FALSE : TRUE;
 	}
 
@@ -68,7 +68,7 @@ class MY_Form_validation extends CI_Form_validation {
 		$CI->db->select('COUNT(*) dupe');
 		$query = $CI->db->get_where($table, array($column => $str));
 		$row = $query->row();
-		
+
 		return ($row->dupe > 0) ? FALSE : TRUE;
 	}
 
@@ -87,7 +87,7 @@ class MY_Form_validation extends CI_Form_validation {
 			return TRUE;
 		}
 	}
-	
+
 }
 
 ?>

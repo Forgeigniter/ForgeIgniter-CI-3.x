@@ -1,5 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
 * @name MY_Pagination.php
 * @version 1.0
@@ -50,28 +49,28 @@ class MY_Pagination extends CI_Pagination {
 
 		log_message('debug', "MY_Pagination Class Initialized");
 
-		$this->_set_pagination_offset();
+        $this->_set_pagination_offset();
 
 	}
 
     /**
-     * Set dynamic pagination variables in $CI->data['pagvars']
-     *
-     */
+        * Set dynamic pagination variables in $CI->data['pagvars']
+        *
+        */
     function _set_pagination_offset()
     {
 
         // Instantiate the CI super object so we have access to the uri class
-        $CI =& get_instance();
+        $CI = & get_instance();
 
 		// parse uri
 		preg_match('/\/'.$this->pagination_selector.'(\/)?([0-9]+)?$/i', $CI->uri->uri_string(), $matches);
 
         // Store pagination offset if it is set
-        if (! empty($matches)) {
+        if ( ! empty($matches)) {
 
-			// set uri based on matches
-			$uri = substr($CI->uri->uri_string(), 0, strrpos($CI->uri->uri_string(), $matches[0]));
+            // set uri based on matches
+            $uri = substr($CI->uri->uri_string(), 0, strrpos($CI->uri->uri_string(), $matches[0]));
 
             // Get the segment offset for the pagination selector
             $segments = $CI->uri->segment_array();
