@@ -161,10 +161,10 @@
 				<div class="pull-left">
 					<a href="<?= site_url('/admin/pages/viewall');?>" class="btn btn-crey margin-bottom" style="margin-left: 15px;">Back to Pages</a>
 				</div>
-				<div class="col-md-3 pull-right">
-					<input type="submit" value="Publish" name="publish" class="btn btn-orange margin-bottom save" style="right:4%;position: absolute;top: 0px;" />
-					<input type="submit" value="Save Changes" name="save" id="save" class="btn btn-green margin-bottom save" style="right:26%;position: absolute;top: 0px;" />
-					<input type="submit" value="View Page" name="view" class="btn btn-blue margin-bottom save" style="right:58%;position: absolute;top: 0px;" />
+				<div class="col-md-6 pull-right">
+					<input type="submit" value="Publish" name="publish" class="btn btn-orange margin-bottom save" />
+					<input type="submit" value="Save Changes" name="save" id="save" class="btn btn-green margin-bottom save" />
+					<input type="submit" value="View Page" name="view" class="btn btn-blue margin-bottom save" />
 				</div>
 			</div>
 
