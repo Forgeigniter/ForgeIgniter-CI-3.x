@@ -185,7 +185,7 @@
 						<div class="tab-content">
 						<div class="tab-pane active" id="tab_details">
 							<div class="row">
-							<div class="col col-md-6" style="padding-left:30px; min-height:500px;">
+							<div class="col col-md-4" style="padding-left:30px;">
 								<h2 class="underline">Basic Information</h2>
 
 								<div style="padding-left:10px;"> <!-- Indent Content -->
@@ -254,7 +254,7 @@
 
 							</div>
 
-							<div class="col col-md-6" style="padding-left:30px; min-height:500px;">
+							<div class="col col-md-4" style="padding-left:30px;">
 
 								<h2 class="underline">Meta Data</h2>
 
@@ -285,7 +285,7 @@
 
 							</div>
 
-							<div class="col col-md-6" style="padding-left:30px;">
+							<div class="col col-md-4" style="padding-left:30px;">
 
 								<h2 class="underline">Visibility and Access</h2>
 
