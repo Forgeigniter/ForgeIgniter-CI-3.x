@@ -61,7 +61,7 @@ $(function(){
 		<small>Categories</small>
 	  </h1>
 	  <ol class="breadcrumb">
-		<li><a href="<?= site_url('admin/dashboard'); ?>"><i class="fa fa-newspaper-o"></i> Forum</a></li>
+		<li><a href="<?= site_url('admin/dashboard'); ?>"><i class="fa fa-list-alt"></i> Forum</a></li>
 		<li class="active">Categories</li>
 	  </ol>
 	</section>

@@ -5,7 +5,7 @@
 		<small>Manage</small>
 	  </h1>
 	  <ol class="breadcrumb">
-		<li><a href="<?= site_url('admin/dashboard'); ?>"><i class="fa fa-newspaper-o"></i> Forums</a></li>
+		<li><a href="<?= site_url('admin/dashboard'); ?>"><i class="fa fa-list-alt"></i> Forums</a></li>
 		<li class="active">Manage</li>
 	  </ol>
 	</section>
