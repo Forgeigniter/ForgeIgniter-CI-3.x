@@ -1,6 +1,3 @@
-
-
-
 <script type="text/javascript">
 function preview(el){
 	$.post('<?php echo site_url('/admin/blog/preview'); ?>', { body: $(el).val() }, function(data){
@@ -24,7 +21,7 @@ $(function(){
 				$(this).parent().removeClass('hover');
 			}
 		}
-	);	
+	);
 	$('div.category>span').click(function(){
 		if ($(this).prev('input').attr('checked')){
 			$(this).prev('input').attr('checked', false);
@@ -47,13 +44,12 @@ $(function(){
 	$('textarea#excerpt').focus(function(){
 		$('.previewExcerptbutton').show();
 	});
-	
+
 	$('textarea#excerpt').blur(function(){
 		previewExcerpt(this);
 	});
 	$('input.datebox').datepicker({dateFormat: 'dd M yy'});
 	previewExcerpt($('textarea#excerpt'));
-	
 
 });
 </script>
@@ -67,7 +63,7 @@ $(function(){
         <small>Edit Post</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?= site_url('admin/dashboard'); ?>"><i class="fa fa-dashboard"></i> Blog</a></li>
+        <li><a href="<?= site_url('admin/dashboard'); ?>"><i class="fa fa-newspaper-o"></i> Blog</a></li>
         <li class="active">Edit Post</li>
       </ol>
     </section>
@@ -86,7 +82,7 @@ $(function(){
 
 				</div>
 				<div class="col-md-3 pull-right">
-					<input 
+					<input
 						type="submit"
 						value="Save Changes"
 						class="btn btn-green margin-bottom"
@@ -110,7 +106,7 @@ $(function(){
 					<h4>Notice</h4>
 					<?php echo $message; ?>
 				</div>
-				<?php endif; ?>		
+				<?php endif; ?>
 
 				<!-- Posts -->
 				<div class="box box-crey">
@@ -152,7 +148,7 @@ $(function(){
 								'style'       => 'width:50%; margin-right:10px;',
 								'class'       => 'form-control formelement code short'
 							];
-							echo @form_textarea($options);
+							echo form_textarea($options);
 						?>
 						<div class="previewExcerpt"></div>
 					</div>
@@ -164,11 +160,11 @@ $(function(){
 						<a href="#" class="italicbutton"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_italic.png" alt="Italic" title="Italic" /></a>
 						<a href="#" class="h1button"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_h1.png" alt="Heading 1" title="Heading 1"/></a>
 						<a href="#" class="h2button"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_h2.png" alt="Heading 2" title="Heading 2" /></a>
-						<a href="#" class="h3button"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_h3.png" alt="Heading 3" title="Heading 3" /></a>	
+						<a href="#" class="h3button"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_h3.png" alt="Heading 3" title="Heading 3" /></a>
 						<a href="#" class="urlbutton"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_url.png" alt="Insert Link" title="Insert Link" /></a>
 						<a href="<?php echo site_url('/admin/images/browser'); ?>" class="halogycms_imagebutton"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_image.png" alt="Insert Image" title="Insert Image" /></a>
 						<a href="<?php echo site_url('/admin/files/browser'); ?>" class="halogycms_filebutton"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_file.png" alt="Insert File" title="Insert File" /></a>
-						<a href="#" class="previewbutton"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_save.png" alt="Preview" title="Preview" /></a>	
+						<a href="#" class="previewbutton"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_save.png" alt="Preview" title="Preview" /></a>
 					</div>
 
 					<div class="autosave">
@@ -183,7 +179,7 @@ $(function(){
 									'style'       => 'width:50%; margin-right:10px;',
 									'class'       => 'form-control formelement code half'
 							];
-							echo @form_textarea($options); ?>
+							echo form_textarea($options); ?>
 						<div class="preview"></div>
 					</div>
 					<br class="clear" /><br />
@@ -206,31 +202,36 @@ $(function(){
 
 						<div class="form-group">
             			<label for="tags">Tags :</label>
-							<?php echo form_input(
-								'tags',
-								 set_value('tags', $data['tags']),
-									'id="tags" class="form-control" placeholder="Separate tags with a comma,"'
-							);?>
+						<?php
+							$options = [
+								'id'			=> 'tags',
+								'name'			=> 'tags',
+								'value'			=> set_value('tags', $data['tags']),
+								'class'			=> 'form-control',
+								'placeholder'	=> 'Separate tags with a comma,'
+							];
+
+							echo form_input($options); ?>
             			</div>
 
 						<div class="form-group">
 							<label for="published">Publish:</label>
-								<?php 
+								<?php
 									$values = array(
 										1 => 'Yes',
 										0 => 'No (save as draft)',
 									);
-									echo form_dropdown('published',$values,set_value('published', $data['published']), 'id="published" class="form-control"'); 
+									echo form_dropdown('published',$values,set_value('published', $data['published']), 'id="published" class="form-control"');
 								?>
            				</div>
 
 						<label for="allowComments">Allow Comments?</label>
-						<?php 
+						<?php
 							$values = array(
 								1 => 'Yes',
 								0 => 'No',
 							);
-							echo form_dropdown('allowComments',$values,set_value('allowComments', $data['allowComments']), 'id="allowComments" class="form-control"'); 
+							echo form_dropdown('allowComments',$values,set_value('allowComments', $data['allowComments']), 'id="allowComments" class="form-control"');
 						?>
 
 						<label for="publishDate">Publish Date:</label>
@@ -238,17 +239,12 @@ $(function(){
 
 						<br />
 
-					</div>
-					<!-- /.box-body -->
+					</div> <!-- End box body -->
 				</div>
 
-
-			</div>
+			</div><!-- End rightsidebar -->
 
 		</div><!-- /.row -->
-
 	</section>
 
 </form>
-
-

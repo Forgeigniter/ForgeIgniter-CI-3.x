@@ -82,7 +82,7 @@ $(function(){
         <small>Add Post</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?= site_url('admin/dashboard'); ?>"><i class="fa fa-dashboard"></i> Blog</a></li>
+        <li><a href="<?= site_url('admin/dashboard'); ?>"><i class="fa fa-newspaper-o"></i> Blog</a></li>
         <li class="active">Add Blog Post</li>
       </ol>
     </section>
