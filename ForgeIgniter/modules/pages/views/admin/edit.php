@@ -146,16 +146,19 @@
 
 		<section class="content">
 
-		<?php if ($errors = validation_errors()): ?>
-			<div class="error clear">
+			<?php if ($errors = validation_errors()): ?>
+			<div class="callout callout-danger">
+				<h4>Warning!</h4>
 				<?php echo $errors; ?>
 			</div>
-		<?php endif; ?>
-		<?php if (isset($message)): ?>
-			<div class="message clear">
+			<?php endif; ?>
+
+			<?php if (isset($message)): ?>
+			<div class="callout callout-info">
+				<h4>Notice</h4>
 				<?php echo $message; ?>
 			</div>
-		<?php endif; ?>
+			<?php endif; ?>
 
 			<div class="row">
 				<div class="pull-left">
