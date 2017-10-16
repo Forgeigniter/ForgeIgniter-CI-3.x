@@ -29,19 +29,17 @@
 
 					</div>
 					<!-- /.box-header -->
-					<div class="box-body">
+					<div class="box-body table-responsive no-padding">
 
 					<?php if ($forums): ?>
 
 					<?php echo $this->pagination->create_links(); ?>
 
-					<table class="default clear">
+					<table class="table table-hover">
 						<tr>
 							<th><?php echo order_link('/admin/forums/forums','forumName','Forum'); ?></th>
 							<th><?php echo order_link('/admin/forums/forums','datecreated','Description'); ?></th>
 							<th><?php echo order_link('/admin/forums/forums','active','Active'); ?></th>
-							<th class="tiny">&nbsp;</th>
-							<th class="tiny">&nbsp;</th>
 							<th class="tiny">&nbsp;</th>
 						</tr>
 					<?php foreach ($forums as $forum): ?>
@@ -54,15 +52,15 @@
 									if (!$forum['active']) echo 'No';
 								?>
 							</td>
-							<td><?php echo anchor('/forums/viewforum/'.$forum['forumID'], 'View'); ?></td>
 							<td class="tiny">
+								<?php echo anchor('/forums/viewforum/'.$forum['forumID'], '<i class="fa fa-eye"></i>', 'class="table-view"'); ?>
+
 								<?php if (in_array('forums_edit', $this->permission->permissions)): ?>
-									<?php echo anchor('/admin/forums/edit_forum/'.$forum['forumID'], 'Edit'); ?>
+									<?php echo anchor('/admin/forums/edit_forum/'.$forum['forumID'], '<i class="fa fa-pencil"></i>', 'class="table-edit"'); ?>
 								<?php endif; ?>
-							</td>
-							<td class="tiny">
+
 								<?php if (in_array('forums_delete', $this->permission->permissions)): ?>
-									<?php echo anchor('/admin/forums/delete_forum/'.$forum['forumID'], 'Delete', 'onclick="return confirm(\'Are you sure you want to delete this?\')"'); ?>
+									<?php echo anchor('/admin/forums/delete_forum/'.$forum['forumID'], '<i class="fa fa-trash-o"></i>', 'class="table-delete"', 'onclick="return confirm(\'Are you sure you want to delete this?\')"'); ?>
 								<?php endif; ?>
 							</td>
 						</tr>

@@ -426,21 +426,38 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	vertical-align: middle;
 }
 
+.skin-anvil-light .table-view {
+	font-size: 20px;
+	color: #e48d02;
+}
+
 .skin-anvil-light .table-edit {
 	font-size: 20px;
 	color: #337ab7;
+	padding: 0 0 0 15px;
 }
+
 .skin-anvil-light .table-edit:hover {
 	font-size: 20px;
-	color: #337ab7;
+	color: #ff9b00;
 }
+
+.skin-anvil-light .table-edit:hover {
+	font-size: 20px;
+	color: #088dff;
+}
+
 .skin-anvil-light .table-delete {
 	font-size: 20px;
 	color: #dd4b39;
-
     padding: 0 0 0 15px;
-
 }
+
+.skin-anvil-light .table-delete:hover {
+	font-size: 20px;
+	color: #fb1c00;
+}
+
 .skin-anvil-light .spacer {
 	padding: 0px 5px 0px 5px;
 }
@@ -453,7 +470,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .skin-anvil-light .tiny {
-	width: 5%;
+	width: 7%;
 }
 
 /* Forms */
