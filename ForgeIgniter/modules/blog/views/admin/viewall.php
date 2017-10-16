@@ -1,13 +1,3 @@
-	<link rel="stylesheet" type="text/css" href="<?= base_url() . $this->config->item('staticPath'); ?>/css/admin.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url() . $this->config->item('staticPath'); ?>/css/lightbox.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url() . $this->config->item('staticPath'); ?>/css/datepicker.css" media="screen" />
-
-	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/jquery.js"></script>
-
-	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/jquery.lightbox.js"></script>
-	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/default.js"></script>
-	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/admin.js"></script>
-
 	<script language="JavaScript">
 		$(function(){
 			$('ul#menubar li').hover(
@@ -37,64 +27,53 @@
 	<div class="row extra-padding">
 		<div class="col-xs-12">
 			<div class="box box-crey">
-			<div class="box-header">
-				<i class="fa fa-newspaper-o"></i>
-				<h3 class="box-title">Blog Posts</h3>
-
-				<div class="box-tools">
-				  <select class="form-control">
-                    <option>Options</option>
-                    <option>Some Options</option>
-                  </select>
-				  <a href=""> </a>
-				  <a href="<?= site_url('/admin/blog/add_post'); ?>" class="mb-xs mt-xs mr-xs btn btn-green">Add Post</a>
+				<div class="box-header">
+					<i class="fa fa-newspaper-o"></i>
+					<h3 class="box-title">Blog Posts</h3>
+					<div class="box-tools">
+					  <a href="<?= site_url('/admin/blog/add_post'); ?>" class="mb-xs mt-xs mr-xs btn btn-green">Add Post</a>
+					</div>
 				</div>
-			</div>
 
-			<!-- /.box-header -->
-			<div class="box-body table-responsive no-padding">
-			
-				<table class="table table-hover">
+				<div class="box-body table-responsive no-padding">
 
-				<tr>
-					<th><?php echo order_link('/admin/blog/viewall','posttitle','Post'); ?></th>
-					<th><?php echo order_link('/admin/blog/viewall','datecreated','Date'); ?></th>
-					<th class="narrow"><?php echo order_link('/admin/blog/viewall','published','Published'); ?></th>
-					<th class="tiny">&nbsp;</th>
-				</tr>
-				<?php foreach ($blog_posts as $post): ?>
-				<tr class="<?php echo (!$post['published']) ? 'draft' : ''; ?>">
-					<td><?php echo (in_array('blog_edit', $this->permission->permissions)) ? anchor('/admin/blog/edit_post/'.$post['postID'], $post['postTitle']) : $post['postTitle']; ?></td>
-					<td><?php echo dateFmt($post['dateCreated'], '', '', TRUE); ?></td>
-					<td>
-						<?php
-							if ($post['published']) echo '<span style="color:green;">Yes</span>';
-							else echo 'No';
-						?>
-					</td>
-					<td class="tiny">
-						<?php if (in_array('blog_edit', $this->permission->permissions)): ?>
-							<?php echo anchor('/admin/blog/edit_post/'.$post['postID'], '<i class="fa fa-pencil"></i>', 'class="table-edit"'); ?>
-						<?php endif; ?>
-						<?php if (in_array('blog_delete', $this->permission->permissions)): ?>
-							<?php echo anchor('/admin/blog/delete_post/'.$post['postID'], '<i class="fa fa-trash-o"></i>', 'class="table-delete"', 'onclick="return confirm(\'Are you sure you want to delete this?\')"'); ?>
-						<?php endif; ?>
-					</td>
-				</tr>
-				<?php endforeach; ?>
-				</table>
-			
-			</div>
+					<table class="table table-hover">
 
-			<!-- /.box-body -->
-			</div>
-			<!-- /.box -->
+					<tr>
+						<th><?php echo order_link('/admin/blog/viewall','posttitle','Post'); ?></th>
+						<th><?php echo order_link('/admin/blog/viewall','datecreated','Date'); ?></th>
+						<th class="narrow"><?php echo order_link('/admin/blog/viewall','published','Published'); ?></th>
+						<th class="tiny">&nbsp;</th>
+					</tr>
+					<?php foreach ($blog_posts as $post): ?>
+					<tr class="<?php echo (!$post['published']) ? 'draft' : ''; ?>">
+						<td><?php echo (in_array('blog_edit', $this->permission->permissions)) ? anchor('/admin/blog/edit_post/'.$post['postID'], $post['postTitle']) : $post['postTitle']; ?></td>
+						<td><?php echo dateFmt($post['dateCreated'], '', '', TRUE); ?></td>
+						<td>
+							<?php
+								if ($post['published']) echo '<span style="color:green;">Yes</span>';
+								else echo 'No';
+							?>
+						</td>
+						<td class="tiny">
+							<?php if (in_array('blog_edit', $this->permission->permissions)): ?>
+								<?php echo anchor('/admin/blog/edit_post/'.$post['postID'], '<i class="fa fa-pencil"></i>', 'class="table-edit"'); ?>
+							<?php endif; ?>
+							<?php if (in_array('blog_delete', $this->permission->permissions)): ?>
+								<?php echo anchor('/admin/blog/delete_post/'.$post['postID'], '<i class="fa fa-trash-o"></i>', 'class="table-delete"', 'onclick="return confirm(\'Are you sure you want to delete this?\')"'); ?>
+							<?php endif; ?>
+						</td>
+					</tr>
+					<?php endforeach; ?>
+					</table>
+
+				</div> <!-- End Box body -->
+			</div> <!-- End Box -->
 		</div>
-	</div>
+	</div> <!-- End Row -->
 
 <?php else: ?>
 	<table class="table">
 		<td> There is no blog posts yet. </td>
-
 	</table>
 <?php endif; ?>
