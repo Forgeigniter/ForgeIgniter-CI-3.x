@@ -1,4 +1,5 @@
 <script type="text/javascript" src="<?php echo $this->config->item('staticPath'); ?>/js/templates.js" /></script>
+
 <form method="post" action="<?php echo site_url($this->uri->uri_string()); ?>" class="default">
 
 	<h1 class="headingleft">Add Template <small>(<a href="<?php echo site_url('/admin/pages/templates'); ?>">Back to Templates</a>)</small></h1>

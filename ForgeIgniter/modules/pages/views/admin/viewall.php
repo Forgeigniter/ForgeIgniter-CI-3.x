@@ -62,7 +62,6 @@ $(function(){
 							<option value="drafts">Hide drafts</option>
 						</select>
 						<?php if (in_array('pages_edit', $this->permission->permissions)): ?>
-							<a href="<?= site_url();?>"> WTF ? </a>
 							<a href="<?= site_url('/admin/pages/add'); ?>" class="mb-xs mt-xs mr-xs btn btn-green">Add Page</a>
 						<?php endif; ?>
 					</div>
