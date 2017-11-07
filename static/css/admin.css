@@ -144,7 +144,7 @@ div#totop { text-align: right; }
 
 form#search { float: left; width: 200px; }
 form#search .formelement { width: 140px; }
-form#search .inactive { color: #bbb; }	
+form#search .inactive { color: #bbb; }
 
 div.template { float: left; margin: 0 0 6px; }
 div.template a { display: block; width: auto !important; padding: 5px; margin: 0 5px 0 0; font-weight: normal; font-size: 1.1em; text-decoration: none; background: #fff !important; color: #555 !important; border-left: 1px solid #777 !important; }
@@ -160,13 +160,13 @@ ul.order ul li, ol.order ol li  { margin: 0; }
 ol.order { list-style-position: inside; }
 ol.order .col1 { display: inline; float: left; width: 460px; margin: 0; padding: 10px 10px; }
 ol.order .col2 { display: inline; float: left; width: 388px; margin: 0; padding: 5px 10px; }
-ol.order .buttons { display: inline; float: right; width: 90px; padding: 5px 10px; text-align: right; }
+ol.order .buttons { display: inline; float: right; width: 100px; padding: 10px 10px; text-align: right; }
 .order img { margin: 0 5px 0 0; padding: 8px 0; vertical-align: middle; }
 .padded { margin: 0 10px 0 0; vertical-align: middle; }
 .padded img { float: left; margin: 2px 10px 2px 0; }
 
-div.perm-heading { width: 376px; background: #eee; margin: 0 0 2px 0; padding: 0 2px; clear: both; }
-div.permissions { display: none; padding: 0 2px; clear: both; }
+div.perm-heading { width: 376px; margin: 0 0 2px 0; padding: 0 2px; clear: both; }
+div.permissions { display: none; clear: both; }
 
 ul.dashboardnav { margin: 10px 10px; text-align: right; }
 ul.dashboardnav li { display: inline; }
@@ -224,11 +224,10 @@ tr.alt { background: #eee; }
 /* FORM */
 .formelement { background: #f5f5f5; border: 1px solid #aaa; padding: 7px; vertical-align: middle; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }	
 form.default { width: 100%; }
-form.default input, form.default select, form.default textarea, form.default button { font-family: "Lucida Grande", arial, sans-serif; font-size: 1em; color: #555; }
 form.default .formelement { float: left; }
 form.default label { float: left; width: 100%; font-weight: bold; clear: both; color: #444; }
 form.default label.radio { width: 180px; clear: none; }
-form.default input { margin: 0 4px 6px 0; }
+
 form.default textarea { margin: 0 0 6px; }
 form.default label small { font-weight: normal; }
 form.default div.editorBox { float: left; margin: 0 0 6px; }
@@ -289,7 +288,7 @@ table .calblankbot { background-color: #fff; padding: 4px; }
 div.panes { width: 998px; overflow: hidden; clear: both; }
 div.pane { float: left; width: 998px; }
 
-div#editor, iframe#preview { width: 996px; height: 540px; margin-top: 10px; overflow: auto; border: 1px solid #ddd; }
+div#editor, iframe#preview { width: 100%; height: 100%; min-height: 600px; margin-top: 10px; overflow: auto; border: 1px solid #ddd; }
 div#editor, iframe#previewExcerpt { width: 996px; height: 540px; margin-top: 10px; overflow: auto; border: 1px solid #ddd; }
 
 div.uploadfile { float: left; width: 250px; padding: 6px; background: #ffeece; border: 1px solid #bbb; margin: 0 0 6px; }
