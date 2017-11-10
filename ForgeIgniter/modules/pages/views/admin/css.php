@@ -1,51 +1,83 @@
-<h1 class="headingleft">CSS Files</h1>
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+	  <h1>
+		Themes / Templates :
+		<small>Manage Page CSS</small>
+	  </h1>
+	  <ol class="breadcrumb">
+		<li><a href="<?= site_url('admin/pages/templates'); ?>"><i class="fa fa-paint-brush"></i> Themes / Templates</a></li>
+		<li class="active">Manage Page CSS</li>
+	  </ol>
+	</section>
 
-<div class="headingright">
-	<a href="<?php echo site_url('/admin/pages/templates'); ?>" class="button blue">Templates</a>
-	<a href="<?php echo site_url('/admin/pages/includes'); ?>" class="button blue">Includes</a>	
-	<a href="<?php echo site_url('/admin/pages/includes/js'); ?>" class="button blue">Javascript</a>	
-	<a href="<?php echo site_url('/admin/pages/add_include/css'); ?>" class="button">Add CSS</a>
-</div>
+	<!-- Main content -->
+	<section class="content container-fluid">
 
-<div class="hidden">
-	<p class="hide"><a href="#">x</a></p>
-	<div class="inner"></div>
-</div>
+		<section class="content">
+			<div class="row extra-padding">
 
-<?php if ($includes): ?>
+				<div class="box box-crey">
+					<div class="box-header with-border">
+					<i class="fa fa-paint-brush"></i>
+					<h3 class="box-title">Page CSS Files</h3>
 
-<?php echo $this->pagination->create_links(); ?>
+						<div class="box-tools">
 
-<table class="default clear">
-	<tr>
-		<th>Filename</th>
-		<th class="tiny">&nbsp;</th>
-		<th class="tiny">&nbsp;</th>
-	</tr>
-<?php
-	$i = 0;
-	foreach ($includes as $include):
-	$class = ($i % 2) ? ' class="alt"' : ''; $i++;
-?>
-	<tr<?php echo $class;?>>
-		<td><?php echo anchor('/admin/pages/edit_include/'.$include['includeID'], $include['includeRef']); ?></td>	
-		<td>
-			<?php echo anchor('/admin/pages/edit_include/'.$include['includeID'], 'Edit'); ?>
-		</td>
-		<td>			
-			<?php echo anchor('/admin/pages/delete_include/'.$include['includeID'].'/css', 'Delete', 'onclick="return confirm(\'Are you sure you want to delete this?\')"'); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-</table>
+							<a href="<?= site_url('/admin/pages/templates'); ?>" class="mb-xs mt-xs mr-xs btn btn-blue" style="float:none;">Templates</a>
+							<a href="<?= site_url('/admin/pages/includes'); ?>" class="toggle-zip mb-xs mt-xs mr-xs btn btn-blue" style="float:none;">Includes</a>
+							<a href="<?= site_url('/admin/pages/includes/js'); ?>" class="toggle-zip mb-xs mt-xs mr-xs btn btn-blue" style="float:none;">Javascript</a>
+							<a href="<?= site_url('/admin/pages/add_include/css'); ?>" class="mb-xs mt-xs mr-xs btn btn-green">Add CSS</a>
 
-<?php echo $this->pagination->create_links(); ?>
+						</div>
 
-<p class="clear" style="text-align: right;"><a href="#" class="button grey" id="totop">Back to top</a></p>
+					</div><!-- End box header -->
 
-<?php else: ?>
+					<div class="box-body table-responsive no-padding">
 
-<p class="clear">You haven't made any CSS files yet.</p>
+						<div class="hidden">
+							<p class="hide"><a href="#">x</a></p>
+							<div class="inner"></div>
+						</div>
 
-<?php endif; ?>
+						<?php if ($includes): ?>
 
+						<?php echo $this->pagination->create_links(); ?>
+
+						<table class="default clear">
+							<tr>
+								<th>Filename</th>
+								<th class="tiny">&nbsp;</th>
+								<th class="tiny">&nbsp;</th>
+							</tr>
+						<?php
+							$i = 0;
+							foreach ($includes as $include):
+							$class = ($i % 2) ? ' class="alt"' : ''; $i++;
+						?>
+							<tr<?php echo $class;?>>
+								<td><?php echo anchor('/admin/pages/edit_include/'.$include['includeID'], $include['includeRef']); ?></td>
+								<td>
+									<?php echo anchor('/admin/pages/edit_include/'.$include['includeID'], 'Edit'); ?>
+								</td>
+								<td>
+									<?php echo anchor('/admin/pages/delete_include/'.$include['includeID'].'/css', 'Delete', 'onclick="return confirm(\'Are you sure you want to delete this?\')"'); ?>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+						</table>
+
+						<?php echo $this->pagination->create_links(); ?>
+
+						<?php else: ?>
+
+						<div class="col col-md-4" style="padding:10px;">
+							<p class="clear">You haven't added any CSS Files yet.</p>
+						</div>
+
+						<?php endif; ?>
+
+					</div> <!-- End box body -->
+				</div> <!-- end box -->
+
+			</div> <!-- end row -->
+		</section>
