@@ -1,67 +1,121 @@
 
-<form method="post" action="<?php echo site_url($this->uri->uri_string()); ?>" class="default">
+<?php
+	// Note: This is naughty typelink will be removed, type is fine.
+ 	$typeLink = NULL;
+?>
 
-	<h1 class="headingleft">Add
-		<?php echo ($type == 'css' || $type == 'js') ? 'File' : 'Include'; ?>
-		<?php
-			if ($type == 'C') $typeLink = 'css';
-			elseif ($type == 'J') $typeLink = 'js';
-			else $typeLink = '';
-		?>
-		<small>(<a href="<?php echo site_url('/admin/pages/includes/'.$typeLink); ?>">Back to Includes</a>)</small>
-	</h1>
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+	  <h1>
+		Themes / Templates :
+		<small>Add Include Type</small>
+	  </h1>
+	  <ol class="breadcrumb">
+		<li><a href="<?= site_url('admin/dashboard'); ?>"><i class="fa fa-paint-brush"></i> Themes / Templates</a></li>
+		<li class="active">Add Include Type</li>
+	  </ol>
+	</section>
 
-	<div class="headingright">
-		<input type="submit" value="Save Changes" class="button" />
-	</div>
+	<!-- Main content -->
+	<section class="content container-fluid">
 
-	<div class="clear"></div>
+		<section class="content">
+			<div class="row extra-padding">
 
-	<?php if ($errors = validation_errors()): ?>
-		<div class="error">
-			<?php echo $errors; ?>
-		</div>
-	<?php endif; ?>
+			<form method="post" action="<?php echo site_url($this->uri->uri_string()); ?>" class="default">
 
-<?php if ($type == 'css'): ?>
+				<div class="row">
+					<div class="pull-left">
+						<a href="<?= site_url('/admin/pages/includes/'.$typeLink); ?>" class="btn btn-crey margin-bottom" style="margin-left: 15px;">Back to Includes</a>
+					</div>
+					<div class="col-md-3 pull-right">
+						<input
+							type="submit"
+							value="Save Changes"
+							class="btn btn-green margin-bottom"
+							style="right:4%;position: absolute;top: 0px;"
+						/>
+					</div>
+				</div>
 
-	<label for="includeRef">Filename:</label>
-	<?php echo @form_input('includeRef',set_value('includeRef', $data['includeRef']), 'id="includeRef" class="formelement"'); ?>
-	<span class="tip">Your file will be found at &ldquo;/css/filename.css&rdquo; (make sure you use the '.css' extension).</span><br class="clear" />
+				<!-- Main row -->
+				<div class="row">
 
-	<?php echo @form_hidden('type', 'C'); ?>
+					<?php if ($errors = validation_errors()): ?>
+					<div class="callout callout-danger">
+						<h4>Warning!</h4>
+						<?php echo $errors; ?>
+					</div>
+					<?php endif; ?>
 
-<?php elseif ($type == 'js'): ?>
+					<?php if (isset($message)): ?>
+					<div class="callout callout-info">
+						<h4>Notice</h4>
+						<?php echo $message; ?>
+					</div>
+					<?php endif; ?>
 
-	<label for="includeRef">Filename:</label>
-	<?php echo @form_input('includeRef',set_value('includeRef', $data['includeRef']), 'id="includeRef" class="formelement"'); ?>
-	<span class="tip">Your file will be found at &ldquo;/js/filename.js&rdquo; (make sure you use the '.js' extension).</span><br class="clear" />
+					<div class="box box-crey">
+						<div class="box-header with-border">
+							<i class="fa fa-paint-brush"></i>
+							<h3 class="box-title">Add <?= $type ?>
+								<?php echo ($type == 'css' || $type == 'js') ? 'File' : 'Include'; ?>
+								<?php
+									if ($type == 'C') $typeLink = 'css';
+									elseif ($type == 'J') $typeLink = 'js';
+									else $typeLink = NULL;
+								?>
+							</h3>
+						</div>
 
-	<?php echo @form_hidden('type', 'J'); ?>
+						<div class="box-body">
 
-<?php else: ?>
+							<?php if ($type == 'css'): ?>
 
-	<label for="includeRef">Reference:</label>
-	<?php echo @form_input('includeRef',set_value('includeRef', $data['includeRef']), 'id="includeRef" class="formelement"'); ?>
-	<span class="tip">To access this include just use {include:REFERENCE} in your template.</span><br class="clear" />
+								<label for="includeRef">Filename:</label>
+								<?php echo @form_input('includeRef',set_value('includeRef', $data['includeRef']), 'id="includeRef" class="formelement"'); ?>
+								<span class="tip">Your file will be found at &ldquo;/css/filename.css&rdquo; (make sure you use the '.css' extension).</span><br class="clear" />
 
-	<?php echo @form_hidden('type', 'H'); ?>
+								<?php echo @form_hidden('type', 'C'); ?>
 
-<?php endif; ?>
+							<?php elseif ($type == 'js'): ?>
 
-	<div class="autosave">
+								<label for="includeRef">Filename:</label>
+								<?php echo @form_input('includeRef',set_value('includeRef', $data['includeRef']), 'id="includeRef" class="formelement"'); ?>
+								<span class="tip">Your file will be found at &ldquo;/js/filename.js&rdquo; (make sure you use the '.js' extension).</span><br class="clear" />
 
-		<script src="<?= site_url('static/themes/assets/editors/ckeditor/ckeditor.js'); ?>"></script>
+								<?php echo @form_hidden('type', 'J'); ?>
 
-		<textarea name='body' id="body" class="code editor"><?=set_value('body', $data['body']);?></textarea>
+							<?php else: ?>
 
-		<script type="text/javascript" >
-			<?=$this->config->item('settingsIncludes')?>
-		</script>
+								<label for="includeRef">Reference:</label>
+								<?php echo @form_input('includeRef',set_value('includeRef', $data['includeRef']), 'id="includeRef" class="formelement"'); ?>
+								<span class="tip">To access this include just use {include:REFERENCE} in your template.</span><br class="clear" />
 
-		<br class="clear" />
-	</div>
+								<?php echo @form_hidden('type', 'H'); ?>
 
-	<p class="clear" style="text-align: right;"><a href="#" class="button grey" id="totop">Back to top</a></p>
+							<?php endif; ?>
 
-</form>
+								<div class="autosave">
+
+									<script src="<?= site_url('static/themes/assets/editors/ckeditor/ckeditor.js'); ?>"></script>
+
+									<textarea name='body' id="body" class="code editor"><?=@set_value('body', $data['body']);?></textarea>
+
+									<script type="text/javascript" >
+										<?=$this->config->item('settingsIncludes')?>
+									</script>
+
+									<br class="clear" />
+								</div>
+
+						</div> <!-- end body -->
+
+					</div> <!-- end box -->
+
+				</div> <!-- end row -->
+
+			</form>
+
+			</div> <!-- end row -->
+		</section>
