@@ -39,7 +39,7 @@ $(function(){
 					<i class="fa fa-shopping-cart"></i>
 					<h3 class="box-title">Upsells</h3>
 					<div class="box-tools">
-					  <a href="<?= site_url('/admin/shop/add_upsell'); ?>" class="showform mb-xs mt-xs mr-xs btn btn-green">Add Upsell</a>
+					  <a href="<?= site_url('/admin/shop/add_upsell'); ?>" class="mb-xs mt-xs mr-xs btn btn-green">Add Upsell</a>
 					</div>
 				</div>
 
@@ -96,7 +96,7 @@ $(function(){
 									<?php endif; ?>
 								</div>
 								<div class="buttons">
-									<a href="<?php echo site_url('/admin/shop/edit_upsell/'.$upsell['upsellID']); ?>" class="showform"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_edit.png" alt="Edit" /></a>
+									<a href="<?php echo site_url('/admin/shop/edit_upsell/'.$upsell['upsellID']); ?>" class=""><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_edit.png" alt="Edit" /></a>
 									<a href="<?php echo site_url('/admin/shop/delete_upsell/'.$upsell['upsellID']); ?>" onclick="return confirm('Are you sure you want to delete this?')"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_delete.png" alt="Delete" /></a>
 								</div>
 								<div class="clear"></div>
