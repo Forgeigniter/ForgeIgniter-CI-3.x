@@ -49,8 +49,8 @@ $(function(){
 								<td><?php echo $modifier['modifierName']; ?></td>
 								<td><?php echo $modifier['bandName']; ?></td>
 								<td>
-									<?php echo anchor('/admin/shop/edit_modifier/'.$modifier['modifierID'], 'Edit', 'class="showform"'); ?>
-									<?php echo anchor('/admin/shop/delete_modifier/'.$modifier['modifierID'], 'Delete', 'onclick="return confirm(\'Are you sure you want to delete this?\');"'); ?>
+									<?php echo anchor('/admin/shop/edit_modifier/'.$modifier['modifierID'], '<i class="fa fa-pencil"></i>', 'class="table-edit"'); ?>
+									<?php echo anchor('/admin/shop/delete_modifier/'.$modifier['modifierID'], '<i class="fa fa-trash-o"></i>', 'class="table-delete"', 'onclick="return confirm(\'Are you sure you want to delete this?\');"'); ?>
 								</td>
 							</tr>
 						<?php endforeach; ?>

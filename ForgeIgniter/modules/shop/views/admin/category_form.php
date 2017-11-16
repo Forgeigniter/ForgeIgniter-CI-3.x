@@ -58,7 +58,7 @@
 
 				  	<label for="templateID">Parent:</label>
 				  	<?php
-				  		$options = '';
+				  		$options = NULL;
 				  		$options[0] = 'Top Level';
 				  		if ($parents):
 				  			foreach ($parents as $parent):
