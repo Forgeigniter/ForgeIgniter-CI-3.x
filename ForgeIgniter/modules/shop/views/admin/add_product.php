@@ -98,7 +98,7 @@ $(function(){
 	<small>Add Product</small>
   </h1>
   <ol class="breadcrumb">
-	<li><a href="<?= site_url('admin/dashboard'); ?>"><i class="fa fa-shopping-cart"></i> Shop</a></li>
+	<li><a href="<?= site_url('admin/shop'); ?>"><i class="fa fa-shopping-cart"></i> Shop</a></li>
 	<li class="active">Add Product</li>
   </ol>
 </section>
@@ -342,7 +342,7 @@ $(function(){
 
 								<label for="files">File:</label>
 								<?php
-									$options = '';
+									$options = NULL;
 									$options[0] = 'This product is not a file';
 									if ($files):
 										foreach ($files as $file):
@@ -359,7 +359,7 @@ $(function(){
 
 								<label for="bands">Shipping Band:</label>
 								<?php
-									$options = '';
+									$options = NULL;
 									$options[0] = 'No product is not restricted';
 									if ($bands):
 										foreach ($bands as $band):
