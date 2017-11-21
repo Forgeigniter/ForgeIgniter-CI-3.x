@@ -37,7 +37,7 @@ $(function(){
 		$("#upload-zip").addClass("hidden");
 	});
 
-	$('.edit').click(function(event){
+	$('.editz').click(function(event){
 		event.preventDefault();
 		$.scrollTo(0, '200');
 		$('div#loader').load(this.href, function(){
