@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/bower_components/Ionicons/css/ionicons.min.css">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/css/LTE.css">
   <!-- Skins 
@@ -80,11 +81,11 @@ else {
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><img src="<?=PATH['theme'];?>anvil/img/fi-logo.jpg" height="32px"></span>
+      <span class="logo-mini"><img src="<?=PATH['theme'];?>anvil/img/logo/fi-logo.jpg" height="32px"></span>
       <!-- logo for regular state and mobile devices --
       <span class="logo-lg"><b>F</b>orge<b>I</b>gniter</span>
 	  -->
-	  <span class="logo-lg"><img src="<?=PATH['theme'];?>anvil/img/ForgeIgniter-Logo.jpg" height="36px"></span>
+	  <span class="logo-lg"><img src="<?=PATH['theme'];?>anvil/img/logo/forgeigniter-logo.jpg" height="36px"></span>
     </a>
 
     <!-- Header Navbar -->
@@ -239,10 +240,6 @@ Not implemented yet.
                 </div>
               </li>
             </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
         </ul>
       </div>
@@ -493,20 +490,6 @@ Not implemented yet.
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Page Header
-        <small>Optional description</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
-    </section>
-
-    <!-- Main content -->
-    <section class="content container-fluid">
 
 <?php endif; ?>
 
