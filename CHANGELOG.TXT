@@ -2,7 +2,19 @@
 # CodeIgniter 3.x Branch
 --------------------------
 
-## Version 2.0 - In Development
+
+	
+## Version 2.0 - Alpha 2
+
+- CodeIgniter
+	¬ Updated to v3.1.7 http://www.codeigniter.com/user_guide/changelog.html
+
+--------------------
+
+## Version 2.0 - Alpha 1
+
+This version fixes problems introduced with PHP7.1 and the latest version of CI.
+Additionally added some great new features and improvements.
 
 - Templates
 	¬ CKEditor
@@ -23,8 +35,12 @@
 	¬ Changed password hash
 	
 - ForgeIgniter
+	¬ Added: Anvil Admin Theme (1.0)
 	¬ Fixed: admin/login showing admin page instead of logout or redirect when logged in.
 	¬ Updated: constants, plus some common new ones.
+	¬ Updated: Core - Corrected paths to editor icons while in content view.
+	¬ Updated: Modular Extensions - HMVC
+	¬ Minor Bug Fixes plus cleanups.
 
 - Community
 	¬ Fixed Reading/Sending Messages.
@@ -35,9 +51,34 @@
 	¬ Fixed Unknown column 'FI_t1 .messageID' in 'on clause'
 	¬ Fixed Unknown column 't1.siteID' in 'where clause'
 	
-- Admin Theme
-	¬ Ported Anvil over. Updated all pages to reflect.
+- Users
+	¬ Fixed Ordering problem on sorting.
+	¬ Fixed incorrect input on Community section.
+	
+- Events
+	¬ Update: Reorder Body & Excerpt.
+	¬ Added: Preview for Excerpt.
+	
+- Shop
+	¬ Update: Reorder Body & Excerpt.
+	¬ Added: Preview for Excerpt.
+	¬ Fixed: File options displaying incorrect file.
+	¬ Fixed: Shipping Band and Discount selector displaying wrong value.
+	
+- Pages
+	¬ Added: Custom Navigation
+		new menu items + permissions.
+		
+- Images / Files
+	¬ Fixed: Illegal string offsets.
+	¬ Fixed: Undefined index.
+	¬ Fixed: options selector displaying wrong value.
 
+- CodeIgniter
+	¬ Updated to v3.1.6 http://www.codeigniter.com/user_guide/changelog.html
+
+--------------------
+	
 ## Version 1.2
 
 - ForgeIgniter
@@ -51,6 +92,8 @@
 - CodeIgniter
 	¬ Updated to v3.1.5 http://www.codeigniter.com/user_guide/changelog.html
 
+--------------------
+	
 ## Version 1.1
 
 - ForgeIgniter
