@@ -17,7 +17,7 @@ https://github.com/Forgeigniter/ForgeIgniter-CI-3.x/tree/v1.x
 Inlcudes, all the default features but with the addition of a new base theme, flexi auth and new admin template (Anvil).
 
 ## Detailed Information / Features
-- Codeigniter 3.1.6  
+- Codeigniter 3.1.7  
 - PHP 7.1  
 
 ## ForgeIgniter-CI-4.x - Version (Codename: Reignited)
