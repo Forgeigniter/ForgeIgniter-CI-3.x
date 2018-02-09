@@ -106,7 +106,7 @@ else {
             <a href="<?= site_url('/admin/site/'); ?>"><i class="fa fa-sitemap"></i><span class="menu-icon-text"> My Site</span></a>
           </li>
 					<li>
-            <a href="<?= base_url('/static/docs'); ?>" target="_blank"><i class="fa fa-book"></i><span class="menu-icon-text"> Docs</span></a>
+            <a href="http://www.forgeigniter.com/support" target="_blank"><i class="fa fa-book"></i><span class="menu-icon-text"> Docs</span></a>
           </li>
 				<?php endif; ?>
 
