@@ -11,3 +11,10 @@ RewriteRule (.*) index.php/$1 [L]
     Header set Access-Control-Allow-Origin "*"
   </FilesMatch>
 </IfModule>
+
+# Allow access for JS & CSS
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css)$">
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+</IfModule>
