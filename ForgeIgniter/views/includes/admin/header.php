@@ -27,7 +27,7 @@
 
   <!-- Theme style -->
   <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/css/LTE.css">
-  <!-- Skins 
+  <!-- Skins
 		Anvil (Default)
 		Neo ( Dark With Gradient Colours)
 		Night ( Dark )
@@ -47,10 +47,10 @@
   <!-- Google Font -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-		
+
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Exo+2:300,400,500">
-    
+
 
 <!-- jQuery 3 -->
 <script src="<?=PATH['theme']?>anvil/bower_components/jquery/dist/jquery.min.js"></script>
@@ -79,7 +79,7 @@ else {
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="<?=base_url('/admin');?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><img src="<?=PATH['theme'];?>anvil/img/logo/fi-logo.jpg" height="32px"></span>
       <!-- logo for regular state and mobile devices --
@@ -245,7 +245,7 @@ Not implemented yet.
       </div>
     </nav>
   </header>
-  
+
 
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
@@ -468,7 +468,7 @@ Not implemented yet.
 
         <?php if (in_array('users', $this->permission->permissions)): ?>
           <li class="treeview">
-            <a href="#"><i class="fa fa-users"></i> <span>Users &amp Groups</span>
+            <a href="#"><i class="fa fa-users"></i> <span>Users &amp; Groups</span>
               <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -501,6 +501,3 @@ Not implemented yet.
 	<p><a href="<?= site_url('admin/logout');?>">Click here to logout.</a></p>
 
 <?php endif; ?>
-
-
-
