@@ -2,9 +2,17 @@
 # CodeIgniter 3.x Branch
 --------------------------
 
+## Version 2.0 - Alpha 2.1 - In Development
 
-	
-## Version 2.0 - Alpha 2
+- CodeIgniter
+	¬ Updated to v3.1.8 http://www.codeigniter.com/user_guide/changelog.html
+
+--------------------
+
+## Version 2.0 - Alpha 2 - In Development
+
+- ForgeIgniter
+	¬ Fixed some typo's ( kindly pointed out by HendrikEduard. )
 
 - CodeIgniter
 	¬ Updated to v3.1.7 http://www.codeigniter.com/user_guide/changelog.html
@@ -20,20 +28,20 @@ Additionally added some great new features and improvements.
 	¬ CKEditor
 		Added: Version 4.7.2
 		Added: CodeMirror 1.17 (Source) Syntax Highlighting
-		
+
 	¬ Page Templates
 		Added: Support for CKEditor
-		
+
 	¬ Module Templates
 		Added: Support for CKEditor
-		
+
 	¬ Includes
 		Added: Support for CKEditor
 
 - Authentication
 	¬ Updated Password db char length to 255
 	¬ Changed password hash
-	
+
 - ForgeIgniter
 	¬ Added: Anvil Admin Theme (1.0)
 	¬ Fixed: admin/login showing admin page instead of logout or redirect when logged in.
@@ -50,25 +58,25 @@ Additionally added some great new features and improvements.
 	¬ Fixed Cannot assign an empty string to a string offset
 	¬ Fixed Unknown column 'FI_t1 .messageID' in 'on clause'
 	¬ Fixed Unknown column 't1.siteID' in 'where clause'
-	
+
 - Users
 	¬ Fixed Ordering problem on sorting.
 	¬ Fixed incorrect input on Community section.
-	
+
 - Events
 	¬ Update: Reorder Body & Excerpt.
 	¬ Added: Preview for Excerpt.
-	
+
 - Shop
 	¬ Update: Reorder Body & Excerpt.
 	¬ Added: Preview for Excerpt.
 	¬ Fixed: File options displaying incorrect file.
 	¬ Fixed: Shipping Band and Discount selector displaying wrong value.
-	
+
 - Pages
 	¬ Added: Custom Navigation
 		new menu items + permissions.
-		
+
 - Images / Files
 	¬ Fixed: Illegal string offsets.
 	¬ Fixed: Undefined index.
@@ -78,7 +86,7 @@ Additionally added some great new features and improvements.
 	¬ Updated to v3.1.6 http://www.codeigniter.com/user_guide/changelog.html
 
 --------------------
-	
+
 ## Version 1.2
 
 - ForgeIgniter
@@ -93,7 +101,7 @@ Additionally added some great new features and improvements.
 	¬ Updated to v3.1.5 http://www.codeigniter.com/user_guide/changelog.html
 
 --------------------
-	
+
 ## Version 1.1
 
 - ForgeIgniter
@@ -114,10 +122,10 @@ Additionally added some great new features and improvements.
 
 - CodeIgniter
 	¬ Updated to v3.1.0 http://www.codeigniter.com/user_guide/changelog.html
-	
+
 - Wiki
 	¬ Fixed: Recent changes not showing
-	
+
 - Blog
 	¬ Fixed: Cannot access protected property MY_Pagination::$total_rows
 	¬ Fixed: [] operator not supported for strings (Admin)
@@ -131,7 +139,7 @@ Additionally added some great new features and improvements.
 	¬ Fixed: admin dashboard errors on mysql join alias interpretation
 	¬ Updated: Now functions with CI3, a quick summery found below.
 		SQL dump, Mimes, Main Config, All modules class names, db config,
-		error pages, routes & modules routes, root index, 
+		error pages, routes & modules routes, root index,
 
 - CodeIgniter
 	¬ Updated to v3.0.3 http://www.codeigniter.com/user_guide/changelog.html
@@ -185,7 +193,7 @@ Additionally added some great new features and improvements.
 
 - Markdown ITF Lib
 	¬ Updated: to support 1.5.0
-	
+
 - ForgeIgniter
 	¬ Updated: Lib time format
 	¬ Updated: Doctypes
@@ -195,7 +203,7 @@ Additionally added some great new features and improvements.
 	¬ Updated: doctype to 403 files and added missing 403 files.
 	¬ Updated: Information on all files
 	¬ Updated: Error Messages.
-	
+
 - CodeIgniter
 	¬ Updated to v2.2.2 (http://www.codeigniter.com/userguide2/changelog.html)
 
@@ -205,14 +213,14 @@ Additionally added some great new features and improvements.
 
 - Admin Dashboard
 	¬ Added: E-mail Setup Check.
-	
+
 - Pages
 	¬ Fixed: Sub Page button views.
-	
+
 - Forge
 	¬ Updated to reflect new name.
 	¬ Updated: Modular Extensions - HMVC
-	
+
 - CodeIgniter
 	¬ Updated to v2.2.1
 
@@ -235,21 +243,21 @@ Updates move officially to ForgeIgniter.
 	¬ Fixed: Close Image not showing in Lightbox.
 	¬ Tweak: Style and display in browser viewer.
 	¬ Fixed: Subdomain Support.
-	
+
 - File Manager
 	¬ Tweak: Style and display in browser viewer.
 	¬ Fixed: Subdomain Support.
-	
+
 - Blog
 	¬ Updated: Search function change on query.
-	
+
 - WIKI
 	¬ Updated: Search function change on query.
-	
+
 - Events
 	¬ Fixed: Search link display blink
 	¬ Updated: Search function change on query.
-	
+
 - Halogy
 	¬ HTML 5 is a go ! (Backend updated to HTML5)
 	¬ Tweek: footer font color.
@@ -274,7 +282,7 @@ Updates move officially to ForgeIgniter.
 - Halogy
 	¬ Sites missing js file.
 	¬ Added: BBcode - now has [color=] & 9 Smiles, yes like :-)
-	
+
 --------------------
 
 ## Version 1.2.0 | CE 1.2.0
@@ -305,8 +313,8 @@ Updates move officially to ForgeIgniter.
 	¬ No need for manually going to : /halogy/install/
 	¬ Updated dashboard message if install were there.
 
---------------------	
-	
+--------------------
+
 ## Version 1.2.0 - CE 1.1.0
 
 - Added mySQL DB Setup.
