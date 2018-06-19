@@ -7,16 +7,16 @@
 <?php if (@$folders): ?>
 
 	<?php foreach ($folders as $folder): ?>
-		<?php if ($folder['images']): ?>	
+		<?php if ($folder['images']): ?>
 			<ul>
 				<li class="halogycms_title"><a href="#" class="halogycms_togglefolder"><strong><?php echo $folder['folderName']; ?></strong></a></li>
 			</ul>
-		
+
 			<ul>
 				<?php foreach ($folder['images'] as $image):
 					$imageData = $this->uploads->load_image($image['imageRef']);
 					$imagePath = $imageData['src'];
-					$imageData = $this->uploads->load_image($image['imageRef'], true);				
+					$imageData = $this->uploads->load_image($image['imageRef'], true);
 					$imageThumbPath = $imageData['src'];
 				?>
 					<li class="fixed">
@@ -27,10 +27,10 @@
 						</div>
 						<div class="halogycms_description">
 							<a href="#" class="halogycms_insertimage" title="<?php echo $image['imageRef']; ?>"><?php echo $image['imageRef']; ?></a>
-						</div>	
+						</div>
 					</li>
 				<?php endforeach; ?>
-					
+
 			</ul>
 		<?php endif; ?>
 	<?php endforeach; ?>
@@ -47,7 +47,7 @@
 		<?php foreach ($images as $image):
 			$imageData = $this->uploads->load_image($image['imageRef']);
 			$imagePath = $imageData['src'];
-			$imageData = $this->uploads->load_image($image['imageRef'], true);				
+			$imageData = $this->uploads->load_image($image['imageRef'], true);
 			$imageThumbPath = $imageData['src'];
 		?>
 			<li class="fixed">
@@ -58,12 +58,12 @@
 				</div>
 				<div class="halogycms_description">
 					<a href="#" class="halogycms_insertimage" title="<?php echo $image['imageRef']; ?>"><?php echo $image['imageRef']; ?></a>
-				</div>	
+				</div>
 			</li>
 		<?php endforeach; ?>
-			
+
 	</ul>
-	
+
 <?php else: ?>
 
 	<p class="clear">You haven't uploaded any images yet.</p>

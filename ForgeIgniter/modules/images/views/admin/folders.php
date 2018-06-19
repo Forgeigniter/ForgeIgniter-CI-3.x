@@ -4,9 +4,9 @@ function setOrder(){
 };
 
 function initOrder(el){
-	$(el).sortable({ 
+	$(el).sortable({
 		axis: 'y',
-	    revert: false, 
+	    revert: false,
 	    delay: '80',
 	    opacity: '0.5',
 	    update: setOrder
@@ -14,8 +14,8 @@ function initOrder(el){
 };
 
 $(function(){
-	$('a.toggle').click(function(event){ 
-		event.preventDefault();		
+	$('a.toggle').click(function(event){
+		event.preventDefault();
 		$('div.hidden').slideToggle('400');
 	});
 
@@ -40,15 +40,15 @@ $(function(){
 
 <div class="hidden">
 	<form method="post" action="<?php echo site_url($this->uri->uri_string()); ?>" class="default">
-	
+
 		<label for="folderName">Folder Name:</label>
-		
+
 		<?php echo @form_input('folderName',$images_folders['folderName'], 'class="formelement" id="folderName"'); ?>
-			
+
 		<input type="submit" value="Add Folder" id="submit" class="button" />
 
 		<br class="clear" />
-		
+
 	</form>
 </div>
 
@@ -82,4 +82,3 @@ $(function(){
 <p>No folders have been created yet.</p>
 
 <?php endif; ?>
-
