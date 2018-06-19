@@ -1,4 +1,4 @@
-<?php 
+<?php
 echo '<?xml version="1.0" encoding="utf-8"?>' . "
 ";
 ?>
@@ -19,7 +19,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>' . "
 	<dc:creator><?php echo $creator_email; ?></dc:creator>
 
 	<dc:rights>Copyright <?php echo gmdate("Y", time()); ?></dc:rights>
-	<admin:generatorAgent rdf:resource="http://www.halogy.com/" />
+	<admin:generatorAgent rdf:resource="<?php echo site_url(); ?>" />
 
 	<?php foreach($posts as $entry): ?>
 

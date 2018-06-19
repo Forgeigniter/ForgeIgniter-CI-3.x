@@ -1889,10 +1889,10 @@ class Shop extends MX_Controller {
 				}
 				elseif ($this->shop->validate_subscription())
 				{
-					// HALOGY ADD SITE
-					if ($this->siteID == 1 && $this->shop->response_data['desc'] == 'Halogy Premium')
+					// ForgeIgniter ADD SITE
+					if ($this->siteID == 1 && $this->shop->response_data['desc'] == 'ForgeIgniter Premium')
 					{
-						$this->_halogy_premium();
+						$this->_forge_premium();
 					}
 
 					// add subscription

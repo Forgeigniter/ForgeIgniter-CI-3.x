@@ -25,7 +25,7 @@ if($_POST) {
 		} else if ($database->create_tables($_POST) == false) {
 			$message = $core->show_message('error',"The database tables could not be created, please verify your settings.");
 		} else if ($core->write_config($_POST) == false) {
-			$message = $core->show_message('error',"The database configuration file could not be written, please chmod halogy/config/database.php file to 777");
+			$message = $core->show_message('error',"The database configuration file could not be written, please chmod ForgeIgniter/config/database.php file to 777");
 		}
 
 		// If no errors, redirect to next page
@@ -33,7 +33,7 @@ if($_POST) {
 		  $redir = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
       $redir .= "://".$_SERVER['HTTP_HOST'];
       $redir .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
-      $redir = str_replace('install/','',$redir); 
+      $redir = str_replace('install/','',$redir);
 			header( 'Location: ' . $redir . 'install/complete.php' ) ;
 		}
 
@@ -53,22 +53,22 @@ if($_POST) {
 		<link rel="stylesheet" type="text/css" href="includes/style.css" />
 	</head>
 	<body>
-	
+
     <?php if(is_writable($db_config_path)){?>
-		
+
 		<form id="install_form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 		  <h1>ForgeIgniter - MYSQL Setup</h1>
 		  <hr class="hazar-separator">
-		  
+
 		<div class="row">
-			<div class="col-md-4 colstyle" style="height:320px">			
+			<div class="col-md-4 colstyle" style="height:320px">
 				<div id="navside">
 					<ul id="sidenav" class="nav nav-pills nav-stacked">
 						<li class="active"><a href="#" style="background-color:rgb(50, 99, 50);" ><strong>1. The Checks</strong></a></li>
 						<li class="active"><a href="#" style="sidefun" ><strong>2. Database Setup</strong></a></li>
 						<li class="li-style"><strong>3. Setup Complete</strong></a></li>
-						
-						
+
+
 						<!-- Create Super User ?
 						<li class="li-style"><strong>Admin Setup</strong></li>
 						-->
@@ -100,7 +100,7 @@ if($_POST) {
 			  </div>
 			</div>
 		</div>
-		  
+
 		  <hr class="hazar-separator">
 
 		  <p class="p-container">
@@ -108,11 +108,11 @@ if($_POST) {
 			<input type="submit" name="submit" id="submit" value="Next">
 		  </p>
 		</form>
-		
+
 	<?php } else { ?>
       <p class="error">Please make sure config/database.php file writable. <strong>Example</strong>:<br /><br /><code>chmod 777 forgeigniter/config/database.php</code> <br /> if this is true then double check username and password.</p>
 	<?php } ?>
-	
+
 
 	</body>
 </html>
