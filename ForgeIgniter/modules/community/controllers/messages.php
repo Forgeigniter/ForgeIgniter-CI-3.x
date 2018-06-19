@@ -76,7 +76,7 @@ class Messages extends MX_Controller {
 			{
 				$output['messages'][] = array(
 					'message:class' => ($message['unread'] && $message['userID'] != $this->session->userdata('userID')) ? ' unread ' : '',
-					'user:avatar' => anchor('/users/profile/'.$message['userID'], display_image($this->users->get_avatar($message['avatar']), 'User Avatar', 40, 'class="avatar"', $this->config->item('staticPath').'/images/noavatar.gif')),
+					'user:avatar' => anchor('/users/profile/'.$message['userID'], display_image($this->users->get_avatar($message['avatar']), 'User Avatar', 40, 'class="avatar"', base_url($this->config->item('staticPath').'/images/noavatar.gif'))),
 					'user:name' => ($message['displayName']) ? $message['displayName'] : $message['firstName'].' '.$message['lastName'],
 					'user:link' => site_url('/users/profile/'.$message['userID']),
 					'message:link' => site_url('/messages/read/'.(($message['parentID'] > 0) ? $message['parentID'].'#reply'.$message['lastMessageID'] : $message['messageID'])),
@@ -119,7 +119,7 @@ class Messages extends MX_Controller {
 			{
 				$output['message:replies'][] = array(
 					'reply:id' => $reply['messageID'],
-					'reply:avatar' => anchor('/users/profile/'.$reply['userID'], display_image($this->users->get_avatar($reply['avatar']), 'User Avatar', 60, 'class="avatar"', $this->config->item('staticPath').'/images/noavatar.gif')),
+					'reply:avatar' => anchor('/users/profile/'.$reply['userID'], display_image($this->users->get_avatar($reply['avatar']), 'User Avatar', 60, 'class="avatar"', base_url($this->config->item('staticPath').'/images/noavatar.gif'))),
 					'reply:link' => site_url('/users/profile/'.$reply['userID']),
 					'reply:name' => ($reply['displayName']) ? $reply['displayName'] : $reply['firstName'].' '.$reply['lastName'],
 					'reply:title' => $reply['subject'],
@@ -130,7 +130,7 @@ class Messages extends MX_Controller {
 		}
 
 		// get user details
-		$output['user:avatar'] = anchor('/users/profile/'.$message['userID'], display_image($this->users->get_avatar($message['avatar']), 'User Avatar', 80, 'class="avatar"', $this->config->item('staticPath').'/images/noavatar.gif'));
+		$output['user:avatar'] = anchor('/users/profile/'.$message['userID'], display_image($this->users->get_avatar($message['avatar']), 'User Avatar', 80, 'class="avatar"', base_url($this->config->item('staticPath').'/images/noavatar.gif')));
 		$output['user:name'] = (($message['displayName']) ? $message['displayName'] : $message['firstName'].' '.$message['lastName']);
 		$output['user:link'] = site_url('/users/profile/'.$message['userID']);
 
@@ -321,7 +321,7 @@ class Messages extends MX_Controller {
 			{
 				$output['messages'][] = array(
 					'message:class' => ($message['unread'] && $message['userID'] != $this->session->userdata('userID')) ? ' unread ' : '',
-					'user:avatar' => anchor('/users/profile/'.$message['userID'], display_image($this->users->get_avatar($message['avatar']), 'User Avatar', 40, 'class="avatar"', $this->config->item('staticPath').'/images/noavatar.gif')),
+					'user:avatar' => anchor('/users/profile/'.$message['userID'], display_image($this->users->get_avatar($message['avatar']), 'User Avatar', 40, 'class="avatar"', base_url($this->config->item('staticPath').'/images/noavatar.gif'))),
 					'user:name' => ($message['displayName']) ? $message['displayName'] : $message['firstName'].' '.$message['lastName'],
 					'user:link' => site_url('/users/profile/'.$message['userID']),
 					'message:link' => site_url('/messages/read/'.(($message['parentID'] > 0) ? $message['parentID'].'#reply'.$message['lastMessageID'] : $message['messageID'])),
