@@ -762,7 +762,7 @@ class Template {
 							$imageHTML = display_image($imageData['src'], $imageData['imageName']);
 							$imageHTML = preg_replace('/src=("[^"]*")/i', 'src="'.site_url('/images/'.$imageData['imageRef'].strtolower($imageData['ext'])).'"', $imageHTML);
 
-							$thumbTMLL = display_image($imageData['src'], $imageData['imageName']);
+							$thumbHTML = display_image($imageData['src'], $imageData['imageName']);
 							$thumbHTML = preg_replace('/src=("[^"]*")/i', 'src="'.site_url('/thumbs/'.$imageData['imageRef'].strtolower($imageData['ext'])).'"', $imageHTML);
 
 							$template[$headlineID][$i] = array(
