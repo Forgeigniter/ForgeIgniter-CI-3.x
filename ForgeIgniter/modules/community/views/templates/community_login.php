@@ -9,9 +9,9 @@
 <div class="box">
 
 	<h1>Login</h1>
-	
+
 	<form action="{page:uri}" method="post" class="default">
-					
+
 		<label for="email">Email:</label>
 		<input type="text" id="email" name="email" class="formelement" />
 		<br class="clear" />
@@ -26,10 +26,10 @@
 
 		<a href="{site:url}users/forgotten" class="nolabel">Forgotten your password?</a>
 		<br class="clear" /><br />
-	
+
 		<input type="submit" id="login" name="login" value="Login" class="nolabel button" />
 		<br class="clear" />
-		
+
 	</form>
 
 </div>
@@ -41,7 +41,7 @@
 <p>Sign up by clicking the button below to create an account with us.</p>
 
 <p class="buttons"><a href="{site:url}users/create_account" class="button">Sign Up</a></p>
-		
+
 <br class="clear" />
 
 

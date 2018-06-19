@@ -21,7 +21,7 @@
 	<br class="clear" /><br />
 
 	<input type="submit" value="Send Message" id="submit" class="button nolabel" />
-	
+
 </form>
-	
+
 {include:footer}

@@ -8,7 +8,7 @@
 
 <h1>Your Details</h1>
 
-<p>Please fill in the form below with your details.</p>	
+<p>Please fill in the form below with your details.</p>
 
 <form method="post" action="{page:uri}" class="default">
 
@@ -43,9 +43,9 @@
 	<label for="country">Country:</label>
 	{select:country}
 	<br class="clear" /><br />
-		
+
 	<input type="submit" id="submit" value="Create Account" class="button nolabel" />
-	
+
 </form>
 
 <hr />
@@ -54,7 +54,7 @@
 	<h3>Terms of Use</h3>
 
 	<div class="scroll">
-	
+
 		<p>Please remember that we are not responsible for any content that is posted. We do not vouch for or warrant the accuracy, completeness or usefulness of any content, and are not responsible for the contents of any message, post, article, event or other data which may be posted by a user of this site.</p>
 
 		<p>The posted content express the views of the author of the content, not necessarily the views of this site. Any user who feels that particular content is objectionable is encouraged to contact us immediately by email. We have the ability to remove objectionable content and we will make every effort to do so, within a reasonable time frame, if we determine that removal is necessary.</p>
@@ -70,7 +70,7 @@
 	</div>
 
 	<br />
-	
+
 </div>
 
 {include:footer}

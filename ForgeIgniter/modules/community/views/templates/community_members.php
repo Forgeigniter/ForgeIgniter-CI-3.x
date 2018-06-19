@@ -13,7 +13,7 @@
 		<input type="image" src="{site:url}static/images/btn_search.gif" id="searchbutton" />
 		<br class="clear" />
 
-	</form>		
+	</form>
 
 </div>
 
@@ -24,15 +24,15 @@
 	<br class="clear" />
 
 	{members}
-	
+
 		<div class="avatarbox">
 			{member:avatar}
 			<br />
 			<a href="{member:link}">{member:name}</a>
 		</div>
-	
+
 	{/members}
-	
+
 	<br class="clear" /><br />
 
 	{pagination}

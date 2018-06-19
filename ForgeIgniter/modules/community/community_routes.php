@@ -10,9 +10,9 @@
 	$route['messages/page/(:num)'] = 'community/messages/index/page/$1';
 
 	// messages
-	$route['messages'] = 'community/messages';	
+	$route['messages'] = 'community/messages';
 	$route['messages/(.*)'] = 'community/messages/$1';
 	$route['messages/(.*)/(.*)'] = 'community/messages/$1/$2';
 	$route['messages/(.*)/(.*)/(.*)'] = 'community/messages/$1/$2/$3';
-		
+
 ?>

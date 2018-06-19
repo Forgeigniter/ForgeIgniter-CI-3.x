@@ -42,16 +42,16 @@ class Messages extends MX_Controller {
 		if (!in_array('community', $this->permission->sitePermissions))
 		{
 			show_error('You do not have permission to view this page');
-		}		
+		}
 
 		// get siteID, if available
 		if (defined('SITEID'))
 		{
 			$this->siteID = SITEID;
-		}	
+		}
 
 		// load libs etc
-		$this->load->library('tags');		
+		$this->load->library('tags');
 		$this->load->model('community_model', 'community');
 		$this->load->model('messages_model', 'messages');
 		$this->load->model('users_model', 'users');
@@ -66,10 +66,10 @@ class Messages extends MX_Controller {
 	}
 
 	function view_messages()
-	{	
+	{
 		// load helper
-		$this->load->helper('bbcode');		
-	
+		$this->load->helper('bbcode');
+
 		if ($messages = $this->messages->get_messages())
 		{
 			foreach($messages as $message)
@@ -92,18 +92,18 @@ class Messages extends MX_Controller {
 		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';
 
 		// set title
-		$output['page:title'] = $this->site->config['siteName'].' - Messages';	
+		$output['page:title'] = $this->site->config['siteName'].' - Messages';
 		$output['page:heading'] = 'Messages';
 
-		// display with cms layer	
-		$this->pages->view('community_messages', $output, 'community');	
+		// display with cms layer
+		$this->pages->view('community_messages', $output, 'community');
 	}
 
 	function read($messageID)
-	{	
+	{
 		// load helper
-		$this->load->helper('bbcode');		
-	
+		$this->load->helper('bbcode');
+
 		if (!$message = $this->messages->get_message($messageID))
 		{
 			show_error('You are not authorised to read this message.');
@@ -138,13 +138,13 @@ class Messages extends MX_Controller {
 		$output['message:title'] = $message['subject'];
 		$output['message:body'] = bbcode($message['message']);
 		$output['message:id'] = $message['messageID'];
-		
-		// set title
-		$output['page:title'] = $this->site->config['siteName'].' - Messages';	
 
-		// display with cms layer	
-		$this->pages->view('community_messages_read', $output, 'community');	
-	}	
+		// set title
+		$output['page:title'] = $this->site->config['siteName'].' - Messages';
+
+		// display with cms layer
+		$this->pages->view('community_messages_read', $output, 'community');
+	}
 
 	function send_message($toUserID = '', $popup = FALSE)
 	{
@@ -156,15 +156,15 @@ class Messages extends MX_Controller {
 
 		// required
 		$this->core->required = array(
-			'subject' => array('label' => 'Subject', 'rules' => 'required'),		
+			'subject' => array('label' => 'Subject', 'rules' => 'required'),
 			'message' => array('label' => 'Message', 'rules' => 'required')
 		);
 
 		// get values
-		$data['data'] = $this->core->get_values('community_messages');	
-		
+		$data['data'] = $this->core->get_values('community_messages');
+
 		if (count($_POST))
-		{			
+		{
 			// set date
 			$this->core->set['dateCreated'] = date("Y-m-d H:i:s");
 			$this->core->set['userID'] = $this->session->userdata('userID');
@@ -174,7 +174,7 @@ class Messages extends MX_Controller {
 			{
 				// get message ID
 				$messageID = $this->db->insert_id();
-				
+
 				// add message map
 				$this->messages->add_messagemap($toUserID, $messageID);
 
@@ -188,11 +188,11 @@ class Messages extends MX_Controller {
 					$emailHeader = str_replace('{email}', $data['user']['email'], $emailHeader);
 					$emailFooter = str_replace('{name}', $data['user']['firstName'].' '.$data['user']['lastName'], $this->site->config['emailFooter']);
 					$emailFooter = str_replace('{email}', $data['user']['email'], $emailFooter);
-										
+
 					// send email
 					$this->load->library('email');
 					$this->email->from($this->site->config['siteEmail'], $this->site->config['siteName']);
-					$this->email->to($data['user']['email']);			
+					$this->email->to($data['user']['email']);
 					$this->email->subject('New Message on '.$this->site->config['siteName']);
 					$this->email->message($emailHeader."\n\n".$this->session->userdata('firstName')." ".$this->session->userdata('lastName')." has sent you a message. You can log in using the link below and read your new message.\n\n".site_url('/messages')."\n\n----------------------------------------\n\nThey said:\n\n".$this->input->post('message')."\n\n----------------------------------------\n\n".$emailFooter);
 					$this->email->send();
@@ -205,9 +205,9 @@ class Messages extends MX_Controller {
 
 		// populate template
 		$output['form:to'] = ($this->input->post('to')) ? $this->input->post('to') : $data['user']['firstName'].' '.$data['user']['lastName'];
-		$output['form:recipient-id'] = $data['user']['userID'];		
+		$output['form:recipient-id'] = $data['user']['userID'];
 		$output['form:subject'] = set_value('subject', $this->input->post('subject'));
-		$output['form:message'] = set_value('mesage', $this->input->post('message'));	
+		$output['form:message'] = set_value('mesage', $this->input->post('message'));
 
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' - Send Message';
@@ -218,12 +218,12 @@ class Messages extends MX_Controller {
 		// load content into a popup
 		if ($popup !== FALSE && $popup == 'popup')
 		{
-			// display with cms layer	
+			// display with cms layer
 			$this->pages->view('community_messages_popup', $output, 'community');
 		}
 		else
 		{
-			// display with cms layer	
+			// display with cms layer
 			$this->pages->view('community_messages_form', $output, 'community');
 		}
 	}
@@ -243,9 +243,9 @@ class Messages extends MX_Controller {
 
 		// get values
 		$data['data'] = $this->core->get_values('community_messages');
-		
+
 		if (count($_POST))
-		{			
+		{
 			// set date
 			$this->core->set['dateCreated'] = date("Y-m-d H:i:s");
 			$this->core->set['userID'] = $this->session->userdata('userID');
@@ -259,7 +259,7 @@ class Messages extends MX_Controller {
 
 				// set toUserID
 				$toUserID = $this->messages->get_recipient($messageID);
-				
+
 				// add message map
 				$this->messages->add_messagemap($toUserID, $replyID, $messageID);
 
@@ -273,15 +273,15 @@ class Messages extends MX_Controller {
 					$emailHeader = str_replace('{email}', $data['user']['email'], $emailHeader);
 					$emailFooter = str_replace('{name}', $data['user']['firstName'].' '.$data['user']['lastName'], $this->site->config['emailFooter']);
 					$emailFooter = str_replace('{email}', $data['user']['email'], $emailFooter);
-										
+
 					// send email
 					$this->load->library('email');
 					$this->email->from($this->site->config['siteEmail'], $this->site->config['siteName']);
-					$this->email->to($data['user']['email']);			
+					$this->email->to($data['user']['email']);
 					$this->email->subject('New Message on '.$this->site->config['siteName']);
 					$this->email->message($emailHeader."\n\n".$this->session->userdata('firstName')." ".$this->session->userdata('lastName')." has sent you a message. You can log in using the link below and read your new message.\n\n".site_url('/messages')."\n\n".$emailFooter);
 					$this->email->send();
-				}				
+				}
 
 				// redirect
 				redirect('messages/read/'.$messageID.'#reply'.$replyID);
@@ -291,7 +291,7 @@ class Messages extends MX_Controller {
 		// populate template
 		$output['form:to'] = set_value('to', $this->input->post('to'));
 		$output['form:subject'] = set_value('subject', $this->input->post('subject'));
-		$output['form:message'] = set_value('mesage', $this->input->post('message'));		
+		$output['form:message'] = set_value('mesage', $this->input->post('message'));
 
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' | Send Reply';
@@ -299,17 +299,17 @@ class Messages extends MX_Controller {
 		// load errors
 		$output['errors'] = (validation_errors()) ? validation_errors() : FALSE;
 
-		// display with cms layer	
+		// display with cms layer
 		$this->pages->view('community_messages_form', $output, 'community');
 	}
 
 	function search($query = '')
-	{				
+	{
 		// load helper
 		$this->load->helper('bbcode');
-		
+
 		// get partials
-		$output = $this->partials;	
+		$output = $this->partials;
 
 		// set query
 		$data['query'] = ($query) ? $query : $this->input->post('query');
@@ -331,16 +331,16 @@ class Messages extends MX_Controller {
 					'message:id' => $message['messageID']
 				);
 			}
-		}		
+		}
 
 		// set pagination
 		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';
 
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' - Searching Messages for "'.$data['query'].'"';
-		$output['page:heading'] = 'Search Messages for: "'.$data['query'].'"';	
+		$output['page:heading'] = 'Search Messages for: "'.$data['query'].'"';
 
-		// display with cms layer	
+		// display with cms layer
 		$this->pages->view('community_messages', $output, 'community');
 	}
 
@@ -367,7 +367,7 @@ class Messages extends MX_Controller {
         {
         	return FALSE;
         }
-	
+
 		// form dropdown and myql get countries
 		if ($searches = $this->messages->search_messages($query))
 		{
@@ -388,6 +388,6 @@ class Messages extends MX_Controller {
 				$this->output->set_output("$key|$id|$name\n");
 			}
 		}
-	}	
-		
+	}
+
 }

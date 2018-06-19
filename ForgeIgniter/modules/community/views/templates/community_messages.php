@@ -13,7 +13,7 @@
 	</form>
 
 </div>
-	
+
 {if messages}
 
 <table class="default">
@@ -28,7 +28,7 @@
 	{pagination}
 
 	{messages}
-	
+
 		<tr class="{message:class}">
 
 			<td align="center">
@@ -48,9 +48,9 @@
 			</td>
 			<td><small>{message:date}</small></td>
 			<td><a href="{site:url}messages/delete_message/{message:id}" onclick="return confirm('This will delete all the messages in the thread.\n\nAre you sure you want to delete these messages?');">Delete</a></td>
-			
+
 		</tr>
-	
+
 	{/messages}
 
 	</table>

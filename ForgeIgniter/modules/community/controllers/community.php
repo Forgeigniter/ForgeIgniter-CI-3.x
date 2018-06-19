@@ -53,7 +53,7 @@ class Community extends MX_Controller {
 		if (defined('SITEID'))
 		{
 			$this->siteID = SITEID;
-		}		
+		}
 
 		// load libs etc
 		$this->load->library('tags');
@@ -71,7 +71,7 @@ class Community extends MX_Controller {
 		if ($users = $this->users->get_public_users())
 		{
 			foreach($users as $user)
-			{	
+			{
 				$output['members'][] = array(
 					'member:id' => $user['userID'],
 					'member:avatar' => anchor('/users/profile/'.$user['userID'], display_image($this->users->get_avatar($user['avatar']), 'User Avatar', 80, 'class="avatar"', site_url().$this->config->item('staticPath').'/images/noavatar.gif')),
@@ -89,13 +89,13 @@ class Community extends MX_Controller {
 
 		// set pagination
 		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';
-		
+
 		//User Count
 		$output['user:count'] = ($count = $this->community->count_users()) ? $count : 0;
-		
 
-		// display with cms layer	
+
+		// display with cms layer
 		$this->pages->view('community_members', $output, TRUE);
 	}
-	
+
 }

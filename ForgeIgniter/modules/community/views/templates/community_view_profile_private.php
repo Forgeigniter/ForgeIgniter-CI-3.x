@@ -1,26 +1,26 @@
 {include:header}
 
 <div id="tpl-community" class="module">
-		
+
 	<div class="col col1">
-	
-		<h1>{page:heading}</h1>			
-		
+
+		<h1>{page:heading}</h1>
+
 		<p>This profile is private.</p>
-		
+
 	</div>
 	<div class="col col2">
-		
+
 		<div class="avatar">
 			{user:avatar}
 		</div>
-		
+
 		<br />
 
 		<ul class="menu">
 			{profile:navigation}
 		</ul>
-		
+
 		<br />
 		
 		<form method="post" action="{site:url}users/search" class="default">
@@ -31,9 +31,9 @@
 			<br class="clear" />
 
 		</form>
-	
+
 	</div>
 
 </div>
-		
+
 {include:footer}

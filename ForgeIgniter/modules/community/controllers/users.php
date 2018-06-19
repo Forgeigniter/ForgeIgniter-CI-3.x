@@ -37,7 +37,7 @@ class Users extends MX_Controller {
 		{
 			show_error('You do not have permission to view this page');
 		}
-		
+
 		// get siteID, if available
 		if (defined('SITEID'))
 		{
@@ -45,14 +45,14 @@ class Users extends MX_Controller {
 		}
 
 		//  load models and libs
-		$this->load->library('tags');		
+		$this->load->library('tags');
 		$this->load->model('community_model', 'community');
 		$this->load->model('users_model', 'users');
 		$this->load->library('auth');
 		$this->load->library('email');
 
 		// load modules
-		$this->load->module('pages');		
+		$this->load->module('pages');
 	}
 
 	function index()
@@ -62,7 +62,7 @@ class Users extends MX_Controller {
 
 	function login($redirect = '')
 	{
-		$output = '';
+		$output = array();
 
 		// set redirect to default if not given
 		if ($redirect == '')
@@ -78,9 +78,9 @@ class Users extends MX_Controller {
 		{
 			// login
 			if ($this->input->post('password'))
-			{	
+			{
 				$username = array('field' => 'email', 'label' => 'Email address', 'value' => $this->input->post('email'));
-			
+
 				// set admin session name, if given
 				if ($output = $this->auth->login($username, $this->input->post('password'), 'session_user', FALSE, $this->input->post('remember')))
 				{
@@ -93,7 +93,7 @@ class Users extends MX_Controller {
 					// redirect
 					redirect($redirect);
 				}
-				
+
 				// get error message
 				else
 				{
@@ -108,14 +108,14 @@ class Users extends MX_Controller {
 				redirect($redirect);
 			}
 		}
-	
+
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' Login';
 
 		// load errors
 		$output['errors'] = (validation_errors()) ? validation_errors() : FALSE;
 
-		// display with cms layer	
+		// display with cms layer
 		$this->pages->view('community_login', $output, 'community');
 	}
 
@@ -141,13 +141,13 @@ class Users extends MX_Controller {
 		// require password confirm?
 		if (isset($_POST['confirmPassword']))
 		{
-			$this->form_validation->set_rules('password', 'Password', 'required|matches[confirmPassword]');
+			$this->form_validation->set_rules('confirmPassword', 'Password', 'required|matches[confirmPassword]');
 		}
 		else
 		{
 			$this->form_validation->set_rules('password', 'Password', 'required');
 		}
-		
+
 		// require first name?
 		if (isset($_POST['firstName']))
 		{
@@ -159,19 +159,19 @@ class Users extends MX_Controller {
 		{
 			$this->form_validation->set_rules('lastName', 'Last Name', 'required');
 		}
-		
+
 		// run create account script
 		if (count($_POST) && $this->form_validation->run())
 		{
 			// create user
 			$this->core->create_user();
-			
+
 			// set default redirect
 			if (!$redirect)
 			{
 				$redirect = $this->core->encode('/users/');
 			}
-			
+
 			// set login username
 			$username = array('field' => 'email', 'label' => 'Email address', 'value' => $this->input->post('email'));
 
@@ -183,14 +183,14 @@ class Users extends MX_Controller {
 			$emailAccount = str_replace('{name}', trim($this->input->post('firstName').' '.$this->input->post('lastName')), $this->site->config['emailAccount']);
 			$emailAccount = str_replace('{email}', $this->input->post('email'), $emailAccount);
 			$emailAccount = str_replace('{password}', $this->input->post('password'), $emailAccount);
-			
-		
-			// send email			
+
+
+			// send email
 			$this->email->from($this->site->config['siteEmail'], $this->site->config['siteName']);
-			$this->email->to($this->input->post('email'));			
+			$this->email->to($this->input->post('email'));
 			$this->email->subject('New account set up on '.$this->site->config['siteName']);
 			$this->email->message($emailHeader."\n\n".$emailAccount."\n\n".$emailFooter);
-			$this->email->send();		
+			$this->email->send();
 
 			// set admin session name, if given
 			if (!$this->site->config['activation'])
@@ -203,8 +203,8 @@ class Users extends MX_Controller {
 				// at least set the name and email in to a session
 				$this->session->set_userdata('email', $this->input->post('email'));
 				$this->session->set_userdata('firstName', $this->input->post('firstName'));
-				$this->session->set_userdata('lastName', $this->input->post('lastName'));			
-				
+				$this->session->set_userdata('lastName', $this->input->post('lastName'));
+
 				redirect($this->core->decode($redirect));
 			}
 		}
@@ -222,9 +222,9 @@ class Users extends MX_Controller {
 		$output['form:lastName'] = set_value('lastName', $this->input->post('lastName'));
 		$output['form:postcode'] = set_value('postcode', $this->input->post('postcode'));
 		$output['select:country'] = @display_countries('country', set_value('country', $this->input->post('country')), 'id="country" class="formelement"');
-		
+
 		// display with cms layer
-		$this->pages->view('community_create_account', $output, 'community');			
+		$this->pages->view('community_create_account', $output, 'community');
 	}
 
 	function account($redirect = '')
@@ -248,7 +248,7 @@ class Users extends MX_Controller {
 		);
 
 		// set object ID
-		$objectID = array('userID' => $this->session->userdata('userID'));		
+		$objectID = array('userID' => $this->session->userdata('userID'));
 
 		// get values
 		$data = $this->core->get_values('users', $objectID);
@@ -257,7 +257,7 @@ class Users extends MX_Controller {
 		{
 			// set default error message
 			$error = '';
-			
+
 			// upload image
 			if (@$_FILES['image']['name'] != '')
 			{
@@ -305,7 +305,7 @@ class Users extends MX_Controller {
 				$this->form_validation->set_error($error);
 			}
 			else
-			{	
+			{
 				// security check
 				if ($this->input->post('username')) $this->core->set['username'] = $data['username'];
 				if ($this->input->post('subscribed')) $this->core->set['subscribed'] = $data['subscribed'];
@@ -314,31 +314,31 @@ class Users extends MX_Controller {
 				if ($this->input->post('resellerID')) $this->core->set['resellerID'] = $data['resellerID'];
 				if ($this->input->post('kudos')) $this->core->set['kudos'] = $data['kudos'];
 				if ($this->input->post('posts')) $this->core->set['posts'] = $data['posts'];
-			
-				// update			
+
+				// update
 				if ($this->core->update('users', $objectID))
 				{
 					// get updated row
 					$row = $this->core->viewall('users', $objectID, NULL, 1);
-					
+
 					// remove the password field
 					unset($row['users'][0]['password']);
-			
+
 					// set session data
 					$this->session->set_userdata($row['users'][0]);
-					
+
 					// update image data in session
 					if (isset($imageData))
 					{
 						$this->session->set_userdata('avatar', $imageData['file_name']);
 					}
-					
+
 					// set success message
 					$this->session->set_flashdata('success', 'Your details have been updated.');
 
 					// redirect
 					if ($redirect)
-					{				
+					{
 						redirect('/users/'.$redirect);
 					}
 					else
@@ -348,9 +348,9 @@ class Users extends MX_Controller {
 				}
 			}
 		}
-	
+
 		// set title
-		$output['page:title'] = $this->site->config['siteName'].' - Account';		
+		$output['page:title'] = $this->site->config['siteName'].' - Account';
 
 		// load errors
 		$output['errors'] = (validation_errors()) ? validation_errors() : FALSE;
@@ -359,11 +359,11 @@ class Users extends MX_Controller {
 		if ($message = $this->session->flashdata('success'))
 		{
 			$output['message'] = $message;
-		}		
+		}
 
 		// populate template
 		$output['user:avatar'] = anchor('/users/profile/'.$data['userID'], display_image($this->users->get_avatar($data['avatar']), 'User Avatar', 150, 'class="bordered"', base_url().$this->config->item('staticPath').'/images/noavatar.gif'));
-		$output['user:logo'] = anchor('/users/profile/'.$data['userID'], display_image($this->users->get_avatar($data['companyLogo']), 'Company Logo', 150, 'class="bordered"'));		
+		$output['user:logo'] = anchor('/users/profile/'.$data['userID'], display_image($this->users->get_avatar($data['companyLogo']), 'Company Logo', 150, 'class="bordered"'));
 		$output['form:email'] = set_value('email', $data['email']);
 		$output['form:displayName'] = set_value('displayName', $data['displayName']);
 		$output['form:firstName'] = set_value('firstName', $data['firstName']);
@@ -373,7 +373,7 @@ class Users extends MX_Controller {
 		$output['form:signature'] = set_value('signature', $data['signature']);
 		$output['form:companyName'] = set_value('companyName', $data['companyName']);
 		$output['form:companyEmail'] = set_value('companyEmail', $data['companyEmail']);
-		$output['form:companyWebsite'] = set_value('companyWebsite', $data['companyWebsite']);				
+		$output['form:companyWebsite'] = set_value('companyWebsite', $data['companyWebsite']);
 		$output['form:companyDescription'] = set_value('companyDescription', $data['companyDescription']);
 		$output['form:address1'] = set_value('address1', $data['address1']);
 		$output['form:address2'] = set_value('address2', $data['address2']);
@@ -394,8 +394,8 @@ class Users extends MX_Controller {
 		$output['select:notifications'] = @form_dropdown('notifications',$values,set_value('notifications', $data['notifications']), 'id="notifications" class="formelement"');
 		$output['select:currency'] = @form_dropdown('currency', currencies(), set_value('currency', $data['currency']), 'id="currency" class="formelement"');
 		$output['select:language'] = @form_dropdown('language', languages(), set_value('language', $data['language']), 'id="language" class="formelement"');
-		
-		// display with cms layer	
+
+		// display with cms layer
 		$this->pages->view('community_account', $output, 'community');
 	}
 
@@ -405,22 +405,22 @@ class Users extends MX_Controller {
 		if (!$this->session->userdata('session_user'))
 		{
 			redirect('/users/login/');
-		}		
-		
+		}
+
 		// check the user is themself
 		if ($user = $this->users->get_user($this->session->userdata('userID')))
 		{
-			// remove reference to avatar			
+			// remove reference to avatar
 			if ($this->users->delete_avatar())
-			{	
+			{
 				if ($this->uploads->delete_file('avatars/'.$user['avatar']))
-				{	
+				{
 					redirect('users/account');
 				}
 				else
 				{
 					show_error('Something went wrong!');
-				}				
+				}
 			}
 			else
 			{
@@ -428,29 +428,29 @@ class Users extends MX_Controller {
 			}
 		}
 	}
-	
+
 	function delete_logo()
 	{
 		// check user is logged in, if not send them away from this controller
 		if (!$this->session->userdata('session_user'))
 		{
 			redirect('/users/login/');
-		}		
-		
+		}
+
 		// check the user is themself
 		if ($user = $this->users->get_user($this->session->userdata('userID')))
 		{
-			// remove reference to avatar			
+			// remove reference to avatar
 			if ($this->users->delete_logo())
-			{	
+			{
 				if ($this->uploads->delete_file('avatars/'.$user['companyLogo']))
-				{	
+				{
 					redirect('users/account');
 				}
 				else
 				{
 					show_error('Something went wrong!');
-				}				
+				}
 			}
 			else
 			{
@@ -465,7 +465,7 @@ class Users extends MX_Controller {
 		if (!$this->session->userdata('session_user'))
 		{
 			redirect('/users/login/'.$this->core->encode($this->uri->uri_string()));
-		}		
+		}
 
 		// redirect so that the permalink is set to their ID
 		if (!$userID)
@@ -484,20 +484,20 @@ class Users extends MX_Controller {
 
 		// show logged in user profile
 		if ($userID == $this->session->userdata('userID'))
-		{	
+		{
 			// set title
 			$output['page:title'] = 'Your Profile - '.$this->site->config['siteName'];
-	
+
 			// set view file
 			$viewFile = 'community_home';
 		}
-		
+
 		// show user data for selected user
 		else
-		{			
+		{
 			// get user data
 			if ($data['user'] = $this->users->get_user($userID))
-			{			
+			{
 				// set title
 				$output['page:title'] = $this->site->config['siteName'].' | '.$data['user']['firstName'].'\'s Profile';
 
@@ -526,10 +526,10 @@ class Users extends MX_Controller {
 		// load bio
 		$data['user']['bio'] .= ($userID == $this->session->userdata('userID')) ? '  [[url=/users/account#changebio]Update[/url]]' : '';
 		$output['user:bio'] = (($data['user']['privacy'] == 'V' || $data['user']['userID'] == $this->session->userdata('userID')) && $data['user']['bio']) ? bbcode($data['user']['bio']) : FALSE;
-		
+
 		// load website
 		$output['user:website'] = ($data['user']['website']) ? $data['user']['website'] : '';
-		
+
 		// load company
 		$output['user:company'] = ($data['user']['companyName']) ? $data['user']['companyName'] : '';
 		$output['user:company-website'] = ($data['user']['companyWebsite']) ? $data['user']['companyWebsite'] : '';
@@ -540,16 +540,16 @@ class Users extends MX_Controller {
 		$output['profile:navigation'] = $this->parser->parse('partials/profile_navigation', $data, TRUE);
 
 		// set page heading
-		$output['page:heading'] = $data['user']['firstName'].' '.$data['user']['lastName'] . (($data['user']['displayName']) ? ' <small>('.$data['user']['displayName'].')</small>' : '');		
+		$output['page:heading'] = $data['user']['firstName'].' '.$data['user']['lastName'] . (($data['user']['displayName']) ? ' <small>('.$data['user']['displayName'].')</small>' : '');
 
 		// display with cms layer
 		$this->pages->view($viewFile, $output, 'community');
 	}
 
 	function search($tag = '')
-	{				
+	{
 		// get partials
-		$output = $this->partials;	
+		$output = $this->partials;
 
 		// set tags
 		$query = ($tag) ? $tag : strip_tags($this->input->post('query', TRUE));
@@ -572,13 +572,13 @@ class Users extends MX_Controller {
 
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' | Searching Users for "'.$query.'"';
-		$output['page:heading'] = 'Search Users for: "'.$query.'"';	
+		$output['page:heading'] = 'Search Users for: "'.$query.'"';
 
 		// set pagination
 		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';
-		
+
 		// display with cms layer
-		$this->pages->view('community_members', $output, 'community');		
+		$this->pages->view('community_members', $output, 'community');
 	}
 
 	function ac_search()
@@ -590,7 +590,7 @@ class Users extends MX_Controller {
         }
 
 		if ($objectIDs = $this->users->search_users($tags))
-		{		
+		{
 			// form dropdown and myql get countries
 			if ($searches = $this->users->get_users($objectIDs))
 			{
@@ -634,14 +634,14 @@ class Users extends MX_Controller {
 				$emailHeader = str_replace('{email}', $user['email'], $emailHeader);
 				$emailFooter = str_replace('{name}', $user['firstName'].' '.$user['lastName'], $this->site->config['emailFooter']);
 				$emailFooter = str_replace('{email}', $user['email'], $emailFooter);
-				
-				// send email			
+
+				// send email
 				$this->email->from($this->site->config['siteEmail'], $this->site->config['siteName']);
-				$this->email->to($user['email']);			
+				$this->email->to($user['email']);
 				$this->email->subject('Password reset request on '.$this->site->config['siteName']);
 				$this->email->message($emailHeader."\n\nA password reset request has been submitted on ".$this->site->config['siteName'].". If you did not request to have your password reset please ignore this email.\n\nIf you did want to reset your password please click on the link below.\n\n".site_url('users/reset/'.$key)."\n\n".$emailFooter);
 				$this->email->send();
-				
+
 				$output['message'] = 'Thank you. An email was sent out with instructions on how to reset your password.';
 			}
 			else
@@ -652,8 +652,8 @@ class Users extends MX_Controller {
 
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' | Forgotten Password';
-		$output['page:heading'] = 'Forgotten Password';	
-		
+		$output['page:heading'] = 'Forgotten Password';
+
 		// display with cms layer
 		$this->pages->view('community_forgotten', $output, 'community');
 	}
@@ -677,11 +677,11 @@ class Users extends MX_Controller {
 		else
 		{
 			// set object ID
-			$objectID = array('userID' => $user['userID']);		
-	
+			$objectID = array('userID' => $user['userID']);
+
 			// get values
 			$data = $this->core->get_values('users', $objectID);
-	
+
 			if (count($_POST))
 			{
 				// unset key
@@ -696,36 +696,36 @@ class Users extends MX_Controller {
 				if ($this->input->post('kudos')) $this->core->set['kudos'] = $data['kudos'];
 				if ($this->input->post('posts')) $this->core->set['posts'] = $data['posts'];
 
-				// update			
+				// update
 				if ($this->core->update('users', $objectID))
-				{	
+				{
 					// set header and footer
 					$emailHeader = str_replace('{name}', $user['firstName'].' '.$user['lastName'], $this->site->config['emailHeader']);
 					$emailHeader = str_replace('{email}', $user['email'], $emailHeader);
 					$emailFooter = str_replace('{name}', $user['firstName'].' '.$user['lastName'], $this->site->config['emailFooter']);
 					$emailFooter = str_replace('{email}', $user['email'], $emailFooter);
-								
-					// send email			
+
+					// send email
 					$this->email->from($this->site->config['siteEmail'], $this->site->config['siteName']);
-					$this->email->to($user['email']);			
+					$this->email->to($user['email']);
 					$this->email->subject('Your password was reset on '.$this->site->config['siteName']);
 					$this->email->message($emailHeader."\n\nYour password for ".$this->site->config['siteName']." has been reset!\n\n".$emailFooter);
 					$this->email->send();
-					
+
 					$output['message'] = 'Thank you. Your password was reset.';
 				}
 			}
 
 			// load errors
-			$output['errors'] = (validation_errors()) ? validation_errors() : FALSE;			
+			$output['errors'] = (validation_errors()) ? validation_errors() : FALSE;
 		}
-	
-	
+
+
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' | Reset Password';
-		$output['page:heading'] = $this->site->config['siteName'].' | Reset Password';	
-		
+		$output['page:heading'] = $this->site->config['siteName'].' | Reset Password';
+
 		// display with cms layer
-		$this->pages->view('community_reset', $output, 'community');		
+		$this->pages->view('community_reset', $output, 'community');
 	}
 }
