@@ -1,4 +1,4 @@
-# ForgeIgniter-CI-3.x
+# ForgeIgniter v2.x - CI-3.x
 Friendly open source CMS forged on Codeigniter 3
 
 ## Installation
@@ -17,7 +17,7 @@ https://github.com/Forgeigniter/ForgeIgniter-CI-3.x/tree/v1.x
 Inlcudes, all the default features but with the addition of a new base theme, flexi auth and new admin template (Anvil).
 
 ## Detailed Information / Features
-- Codeigniter 3.1.8  
+- Codeigniter 3.1.9  
 - PHP 7.1  
 
 ## ForgeIgniter-CI-4.x - Version (Codename: Reignited)
