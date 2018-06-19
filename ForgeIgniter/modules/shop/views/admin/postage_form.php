@@ -14,15 +14,15 @@
 	<span class="price"><?php echo currency_symbol(); ?></span><?php echo @form_input('total', $data['total'], 'class="formelement small" id="total"'); ?>
 	<span class="tip">When the shopping cart total reaches the given amount, then this rate will be applied.</span>
 	<br class="clear" />
-		
+
 	<label for="cost">Cost:</label>
 	<span class="price"><?php echo currency_symbol(); ?></span><?php echo @form_input('cost', $data['cost'], 'class="formelement small" id="cost"'); ?>
 	<span class="tip">What do you want to charge for this rate?</span>
 	<br class="clear" /><br />
-		
+
 	<input type="submit" value="Save Changes" class="button nolabel" />
 	<input type="button" value="Cancel" id="cancel" class="button grey" />
-	
+
 </form>
 
 <br class="clear" />

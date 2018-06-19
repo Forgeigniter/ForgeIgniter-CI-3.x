@@ -5,17 +5,17 @@
 	<div class="col col1">
 
 		<h1>Shopping Cart</h1>
-		
+
 		{if errors}
 			<div class="error">
 				{errors}
 			</div>
-		{/if}		
-		
+		{/if}
+
 		<form action="{site:url}shop/cart/update" method="post" id="cart_form" class="default">
-		
+
 			<p>Your shopping cart contains:</p>
-		
+
 			<table class="default">
 				<tr>
 					<th>Product</th>
@@ -23,7 +23,7 @@
 					<th width="80">Price ({site:currency})</th>
 				</tr>
 					{if cart:items}
-						{cart:items}				
+						{cart:items}
 					{else}
 						<tr>
 							<td colspan="3">Your cart is empty!</td>
@@ -55,12 +55,12 @@
 					<tr>
 						<td colspan="2"><strong>Total amount:</strong></td>
 						<td><strong>{cart:total}</strong></td>
-					</tr>					
+					</tr>
 					<tr>
 						<td colspan="3" ><hr /></td>
-					</tr>					
+					</tr>
 			</table>
-	
+
 			<label for="shippingBand">Shipping Band:</label>
 			<select name="shippingBand" id="shippingBand" onchange="document.getElementById('cart_form').submit();" class="formelement">
 				{cart:bands}
@@ -68,13 +68,13 @@
 			<br class="clear" /><br />
 
 			{if cart:modifiers}
-		
+
 				<label for="shippingModifier">Shipping Modifier:</label>
 				<select name="shippingModifier" id="shippingModifier" onchange="document.getElementById('cart_form').submit();" class="formelement">
 					{cart:modifiers}
 				</select>
 				<br class="clear" /><br />
-				
+
 			{/if}
 
 			<label for="discountCode">Discount Code:</label>
@@ -82,28 +82,28 @@
 			<br class="clear"><br />
 
 			{if cart:items}
-		
+
 				<div style="float:right;">
 					<input type="submit" value="Update Cart" class="button" />
 					<input name="checkout" type="submit" value="Checkout &gt;&gt;" class="button" />
 				</div>
-				<br class="clear" />					
+				<br class="clear" />
 
 			{/if}
-		
+
 		</form>
 
 	</div>
 	<div class="col col2">
-	
+
 		<h3>Categories</h3>
-	
+
 		<ul class="menu">
 			{shop:categories}
 		</ul>
-		
+
 	</div>
 
 </div>
-	
+
 {include:footer}

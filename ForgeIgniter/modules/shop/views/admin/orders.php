@@ -2,7 +2,7 @@
 .ac_results { padding: 0px; border: 1px solid black; background-color: white; overflow: hidden; z-index: 99999; }
 .ac_results ul { width: 100%; list-style-position: outside; list-style: none; padding: 0; margin: 0; }
 .ac_results li { margin: 0px; padding: 2px 5px; cursor: default; display: block; font: menu; font-size: 12px; line-height: 16px; overflow: hidden; }
-.ac_results li span.email { font-size: 10px; } 
+.ac_results li span.email { font-size: 10px; }
 .ac_loading { background: white url('<?php echo $this->config->item('staticPath'); ?>/images/loader.gif') right center no-repeat; }
 .ac_odd { background-color: #eee; }
 .ac_over { background-color: #0A246A; color: white; }
@@ -21,7 +21,7 @@ $(function(){
 	$('select#filter').change(function(){
 		var status = ($(this).val());
 		window.location.href = '<?php echo site_url('/admin/shop/orders'); ?>/'+status;
-	});	
+	});
 });
 </script>
 
@@ -36,16 +36,16 @@ $(function(){
 
 	<label for="filter">
 		Filter
-	</label> 
+	</label>
 
 	<?php
 		foreach ($statusArray as $key => $status):
 			$options[$key] = $status;
 		endforeach;
-		
+
 		echo form_dropdown('filter',$options,$trackingStatus,'id="filter"');
 	?>
-	
+
 	<a href="<?php echo site_url('/admin/shop/export_orders'); ?>" class="button blue">Export Orders as CSV</a>
 
 </div>
@@ -67,7 +67,7 @@ $(function(){
 		<th class="tiny">&nbsp;</th>
 		<th class="tiny">&nbsp;</th>
 	</tr>
-<?php foreach ($orders as $order): 
+<?php foreach ($orders as $order):
 	if (!$order['viewed']) $class = 'style="font-weight: bold;"'; else $class='';
 ?>
 	<tr <?php echo $class ?>>
@@ -101,4 +101,3 @@ $(function(){
 <p class="clear">There were no orders found.</p>
 
 <?php endif; ?>
-

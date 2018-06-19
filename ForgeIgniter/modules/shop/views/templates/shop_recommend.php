@@ -6,7 +6,7 @@
 	<div class="error">
 		{errors}
 	</div>
-{/if}		
+{/if}
 
 <form method="post" action="{site:url}shop/recommend/{product:id}" class="default">
 	<label>Your Name:</label>
@@ -31,7 +31,7 @@
 
 	<input type="submit" value="Send Message" class="button nolabel" />
 	<br class="clear" />
-		
+
 </form>
 
 {include:footer}

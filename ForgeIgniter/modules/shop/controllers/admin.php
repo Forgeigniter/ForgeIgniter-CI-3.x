@@ -23,7 +23,7 @@ class Admin extends MX_Controller {
 	var $includes_path = '/includes/admin';				// path to includes for header and footer
 	var $redirect = '/admin/shop/products';				// default redirect
 	var $permissions = array();
-	
+
 	function __construct()
 	{
 		parent::__construct();
@@ -33,7 +33,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/login/'.$this->core->encode($this->uri->uri_string()));
 		}
-		
+
 		// get permissions and redirect if they don't have access to this module
 		if (!$this->permission->permissions)
 		{
@@ -54,22 +54,22 @@ class Admin extends MX_Controller {
 		$this->load->model('shop_model', 'shop');
 		$this->load->library('tags');
 	}
-	
+
 	function index()
 	{
 		redirect($this->redirect);
 	}
-	
+
 	function products($catID = '')
-	{		
+	{
 		// get featured
 		$featured = ($catID == 'featured') ? TRUE : FALSE;
-		
+
 		// set order segment
 		if (is_numeric($catID) || $catID == 'featured')
 		{
 			$this->shop->uri_assoc_segment = 5;
-			
+
 			// output selected category
 			$output['catID'] = $catID;
 		}
@@ -77,19 +77,19 @@ class Admin extends MX_Controller {
 		{
 			$output['catID'] = '';
 		}
-		
+
 		// check catID isnt paging or featured
 		$catID = ($catID == 'page' || $catID == 'featured' || $catID == 'orderasc' || $catID == 'orderdesc') ? '' : $catID;
-		
+
 		// set limit
 		$limit = (!$catID) ? $this->site->config['paging'] : 999;
-		
+
 		// get products
 		$output['products'] = $this->shop->get_products($catID, $this->input->post('searchbox'), $featured, $limit);
-		
+
 		// get categories
 		$output['categories'] = $this->shop->get_categories();
-		
+
 		$this->load->view($this->includes_path.'/header');
 		$this->load->view('admin/products',$output);
 		$this->load->view($this->includes_path.'/footer');
@@ -102,7 +102,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// required
 		$this->core->required = array(
 			'productName' => 'Product name',
@@ -110,11 +110,11 @@ class Admin extends MX_Controller {
 		);
 
 		if ($this->input->post('cancel'))
-		{			
+		{
 			redirect($this->redirect);
 		}
 		else
-		{			
+		{
 			// set date
 			$this->core->set['dateCreated'] = date("Y-m-d H:i:s");
 			$this->core->set['userID'] = $this->session->userdata('userID');
@@ -127,9 +127,9 @@ class Admin extends MX_Controller {
 					$this->core->set['imageName'] = $imageData['file_name'];
 				}
 			}
-			
+
 			// get values
-			$output['data'] = $this->core->get_values('shop_products');	
+			$output['data'] = $this->core->get_values('shop_products');
 
 			// get image errors if there are any
 			if ($this->uploads->errors)
@@ -148,10 +148,10 @@ class Admin extends MX_Controller {
 					}
 					$tags = implode(', ', $tags);
 				}
-				
+
 				// set tags
 				$this->core->set['tags'] = $tags;
-				
+
 				// update
 				if ($this->core->update('shop_products') && count($_POST))
 				{
@@ -166,7 +166,7 @@ class Admin extends MX_Controller {
 							$varID = $this->shop->add_variation($productID, 1, $this->input->post('variation1-'.$x), $this->input->post('variation1_price-'.$x));
 						}
 					}
-		
+
 					// add variation 2
 					for ($x=1; $x<6; $x++)
 					{
@@ -184,18 +184,18 @@ class Admin extends MX_Controller {
 							$varID = $this->shop->add_variation($productID, 3, $this->input->post('variation3-'.$x), $this->input->post('variation3_price-'.$x));
 						}
 					}
-					
+
 					// update categories
 					$this->shop->update_cats($productID, $this->input->post('catsArray'));
-					
+
 					// update tags
 					$this->tags->update_tags('shop_products', $productID, $tags);
-					
+
 					// where to redirect to
 					redirect($this->redirect);
 				}
 			}
-			
+
 			// get categories
 			$output['categories'] = $this->shop->get_categories();
 
@@ -204,7 +204,7 @@ class Admin extends MX_Controller {
 
 			// get bands
 			$output['bands'] = $this->shop->get_bands();
-			
+
 			// set default stock
 			$output['data']['stock'] = 1;
 		}
@@ -222,25 +222,25 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// required
 		$this->core->required = array(
 			'productName' => 'Product name',
-			'catalogueID' => array('label' => 'Catalogue ID', 'rules' => 'required|unique[shop_products.catalogueID]|trim')			
+			'catalogueID' => array('label' => 'Catalogue ID', 'rules' => 'required|unique[shop_products.catalogueID]|trim')
 		);
 
 		// where
-		$objectID = array('productID' => $productID);	
+		$objectID = array('productID' => $productID);
 
 		// get values
-		$output['data'] = $this->core->get_values('shop_products', $objectID);	
+		$output['data'] = $this->core->get_values('shop_products', $objectID);
 
 		if ($this->input->post('cancel'))
-		{			
+		{
 			redirect($this->redirect);
 		}
 		else
-		{	
+		{
 			// upload image
 			if (@$_FILES['image']['name'] != '')
 			{
@@ -263,7 +263,7 @@ class Admin extends MX_Controller {
 					$this->core->set['stock'] = 0;
 					$this->core->set['status'] = 'O';
 				}
-					
+
 				// tidy tags
 				$tags = '';
 				if ($this->input->post('tags'))
@@ -274,16 +274,16 @@ class Admin extends MX_Controller {
 					}
 					$tags = implode(', ', $tags);
 				}
-				
+
 				// set tags
 				$this->core->set['tags'] = $tags;
-				
+
 				// update
 				if ($this->core->update('shop_products', $objectID) && count($_POST))
 				{
 					// clear variations
 					$this->shop->clear_variations($productID);
-					
+
 					// add variation 1
 					for ($x=1; $x<6; $x++)
 					{
@@ -292,7 +292,7 @@ class Admin extends MX_Controller {
 							$varID = $this->shop->add_variation($productID, 1, $this->input->post('variation1-'.$x), $this->input->post('variation1_price-'.$x));
 						}
 					}
-		
+
 					// add variation 2
 					for ($x=1; $x<6; $x++)
 					{
@@ -310,7 +310,7 @@ class Admin extends MX_Controller {
 							$varID = $this->shop->add_variation($productID, 3, $this->input->post('variation3-'.$x), $this->input->post('variation3_price-'.$x));
 						}
 					}
-					
+
 					// update categories
 					$this->shop->update_cats($productID, $this->input->post('catsArray'));
 
@@ -326,12 +326,12 @@ class Admin extends MX_Controller {
 						redirect('/shop/'.$productID.'/'.strtolower(url_title($this->input->post('productName'))));
 					}
 					else
-					{																	
+					{
 						// where to redirect to
 						redirect('/admin/shop/edit_product/'.$productID);
 					}
 				}
-			}		
+			}
 
 			// set message
 			if ($message = $this->session->flashdata('success'))
@@ -344,28 +344,28 @@ class Admin extends MX_Controller {
 			$output['imagePath'] = $image['src'];
 			$image = $this->uploads->load_image($productID, false, true);
 			$output['imageThumbPath'] = $image['src'];
-			
+
 			// get categories
 			$output['categories'] = $this->shop->get_categories();
-			
+
 			// get categories for this product
 			$output['data']['categories'] = $this->shop->get_cats_for_product($productID);
 
 			// get variations
 			$output['variation1'] = $this->shop->get_variations($productID, 1);
 			$output['variation2'] = $this->shop->get_variations($productID, 2);
-			$output['variation3'] = $this->shop->get_variations($productID, 3);	
+			$output['variation3'] = $this->shop->get_variations($productID, 3);
 
 			// get bands
 			$output['bands'] = $this->shop->get_bands();
 
 			// get products
-			$output['files'] = $this->shop->get_files();	
+			$output['files'] = $this->shop->get_files();
 
 			// templates
 			$this->load->view($this->includes_path.'/header');
 			$this->load->view('admin/edit_product',$output);
-			$this->load->view($this->includes_path.'/footer');			
+			$this->load->view($this->includes_path.'/footer');
 		}
 	}
 
@@ -376,7 +376,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		if ($this->core->soft_delete('shop_products', array('productID' => $productID)));
 		{
 			// remove category mappings
@@ -394,7 +394,7 @@ class Admin extends MX_Controller {
 
 		// filter for scripts
 		$html = preg_replace('/<script(.*)<\/script>/is', '<em>This block contained scripts, please refresh page.</em>', $html);
-		
+
 		// output
 		$this->output->set_output($html);
 	}
@@ -406,7 +406,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-			
+
 		// get parents
 		if ($parents = $this->shop->get_category_parents())
 		{
@@ -441,16 +441,16 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values();
-		
+
 		// deal with post
 		if (count($_POST))
 		{
 			if ($this->core->check_errors())
-			{							
+			{
 				// set stuff
 				$this->core->set['dateModified'] = date("Y-m-d H:i:s");
 				$this->core->set['catSafe'] = url_title(strtolower(trim($this->input->post('catName'))));
-				
+
 				// update
 				if ($this->core->update('shop_cats'))
 				{
@@ -460,7 +460,7 @@ class Admin extends MX_Controller {
 		}
 
 		// get parents
-		$output['parents'] = $this->shop->get_category_parents();		
+		$output['parents'] = $this->shop->get_category_parents();
 
 		// templates
 		if (!$this->core->is_ajax()) $this->load->view($this->includes_path.'/header');
@@ -489,16 +489,16 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values($row);
-		
+
 		// deal with post
 		if (count($_POST))
 		{
 			if ($this->core->check_errors())
-			{							
+			{
 				// set stuff
 				$this->core->set['dateModified'] = date("Y-m-d H:i:s");
 				$this->core->set['catSafe'] = url_title(strtolower(trim($this->input->post('catName'))));
-				
+
 				// update
 				if ($this->core->update('shop_cats', $objectID))
 				{
@@ -508,7 +508,7 @@ class Admin extends MX_Controller {
 		}
 
 		// get parents
-		$output['parents'] = $this->shop->get_category_parents();		
+		$output['parents'] = $this->shop->get_category_parents();
 
 		// templates
 		if (!$this->core->is_ajax()) $this->load->view($this->includes_path.'/header');
@@ -523,20 +523,20 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// where
-		$objectID = array('catID' => $catID);	
-		
+		$objectID = array('catID' => $catID);
+
 		if ($this->core->soft_delete('shop_cats', $objectID))
 		{
 			// delete sub categories
 			$objectID = array('parentID' => $catID);
-			
+
 			$this->core->soft_delete('shop_cats', $objectID);
-			
+
 			// where to redirect to
 			redirect('/admin/shop/categories');
-		}		
+		}
 	}
 
 	function order($field = '')
@@ -551,7 +551,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-						
+
 		// grab data and display
 		$output['orders'] = $this->shop->get_orders($status, NULL, $this->input->post('searchbox'));
 
@@ -564,30 +564,30 @@ class Admin extends MX_Controller {
 	}
 
 	function view_order($transactionID)
-	{	
+	{
 		// check permissions for this page
 		if (!in_array('shop_orders', $this->permission->permissions))
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// set object ID
 		$objectID = array('transactionID' => $transactionID);
-	
+
 		// get values
 		$output['data'] = $this->core->get_values('shop_transactions', $objectID);
 
 		// grab data and display
 		$output['order'] = $this->shop->get_order($transactionID);
 		$output['transactionID'] = $transactionID;
-		
+
 		if (count($_POST))
 		{
 			// force unpaid uncheckout to paid and send order email
 			if (!$output['data']['paid'] && $this->input->post('trackingStatus') != 'N')
 			{
 				modules::run('shop/shop/_create_order', $output['data']['transactionCode']);
-				
+
 				$this->core->set['paid'] = 1;
 			}
 			elseif ($this->input->post('trackingStatus') == 'N')
@@ -595,7 +595,7 @@ class Admin extends MX_Controller {
 				$this->core->set['trackingStatus'] = 'U';
 				$this->core->set['paid'] = 0;
 			}
-			
+
 			// update
 			if ($this->core->update('shop_transactions', $objectID))
 			{
@@ -609,24 +609,24 @@ class Admin extends MX_Controller {
 					$emailDispatch = str_replace('{name}', $output['order']['firstName'].' '.$output['order']['lastName'], $this->site->config['emailDispatch']);
 					$emailDispatch = str_replace('{email}', $output['order']['email'], $emailDispatch);
 					$emailDispatch = str_replace('{order-id}', '#'.$output['order']['transactionCode'], $emailDispatch);
-									
+
 					// send shipping email to customer
 					$userBody = $emailHeader."\n\n".$emailDispatch."\n\n";
 					$footerBody = $emailFooter;
-			
+
 					// load email lib and email user and admin
 					$this->load->library('email');
-		
+
 					$this->email->to($output['order']['email']);
 					$this->email->subject('Your order has been shipped (#'.$output['order']['transactionCode'].')');
 					$this->email->message($userBody.$footerBody);
-					$this->email->from($this->shop->siteVars['siteEmail'], $this->shop->siteVars['siteName']);			
+					$this->email->from($this->shop->siteVars['siteEmail'], $this->shop->siteVars['siteName']);
 					$this->email->send();
 				}
-				
+
 				// set success message
 				$this->session->set_flashdata('success', 'Your changes were saved.');
-	
+
 				redirect('/admin/shop/view_order/'.$transactionID);
 			}
 		}
@@ -636,21 +636,21 @@ class Admin extends MX_Controller {
 		{
 			$this->shop->view_order($transactionID);
 		}
-		
+
 		$output['item_orders'] = $this->shop->get_item_orders($transactionID);
 		$output['statusArray'] = $this->shop->statusArray;
-		
+
 		// set message
 		if ($message = $this->session->flashdata('success'))
 		{
 			$output['message'] = '<p>'.$message.'</p>';
-		}		
+		}
 
 		$this->load->view($this->includes_path.'/header');
 		$this->load->view('admin/view_order',$output);
 		$this->load->view($this->includes_path.'/footer');
 	}
-	
+
 	function delete_order($transactionID)
 	{
 		// check permissions for this page
@@ -658,18 +658,18 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// set object ID
 		$objectID = array('transactionID' => $transactionID);
-	
+
 		// get values
 		$output['data'] = $this->core->get_values('shop_transactions', $objectID);
-		
+
 		if ($this->core->delete('shop_transactions', $objectID))
 		{
 			// where to redirect to
 			redirect('/admin/shop/orders');
-		}		
+		}
 	}
 
 	function bands()
@@ -679,7 +679,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// grab data and display
 		$output = $this->core->viewall('shop_bands', NULL, 'multiplier', 99);
 
@@ -704,12 +704,12 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values();
-		
+
 		// deal with post
 		if (count($_POST))
 		{
 			if ($this->core->check_errors())
-			{							
+			{
 				// update
 				if ($this->core->update('shop_bands'))
 				{
@@ -749,12 +749,12 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values($row);
-		
+
 		// deal with post
 		if (count($_POST))
 		{
 			if ($this->core->check_errors())
-			{							
+			{
 				// update
 				if ($this->core->update('shop_bands', $objectID))
 				{
@@ -776,15 +776,15 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// where
-		$objectID = array('bandID' => $bandID);	
-		
+		$objectID = array('bandID' => $bandID);
+
 		if ($this->core->delete('shop_bands', $objectID))
 		{
 			// where to redirect to
 			redirect('/admin/shop/bands');
-		}		
+		}
 	}
 
 	function postages()
@@ -794,7 +794,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// grab data and display
 		$output = $this->core->viewall('shop_postages', NULL, 'total', 99);
 
@@ -820,13 +820,13 @@ class Admin extends MX_Controller {
 		// populate form
 		$output['data'] = $this->core->get_values();
 		$output['data']['total'] = '0.00';
-		$output['data']['cost'] = '5.00';		
-		
+		$output['data']['cost'] = '5.00';
+
 		// deal with post
 		if (count($_POST))
 		{
 			if ($this->core->check_errors())
-			{							
+			{
 				// update
 				if ($this->core->update('shop_postages'))
 				{
@@ -863,12 +863,12 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values($row);
-		
+
 		// deal with post
 		if (count($_POST))
 		{
 			if ($this->core->check_errors())
-			{							
+			{
 				// update
 				if ($this->core->update('shop_postages', $objectID))
 				{
@@ -890,15 +890,15 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// where
-		$objectID = array('postageID' => $postageID);	
-		
+		$objectID = array('postageID' => $postageID);
+
 		if ($this->core->delete('shop_postages', $objectID))
 		{
 			// where to redirect to
 			redirect('/admin/shop/postages');
-		}		
+		}
 	}
 
 	function modifiers()
@@ -908,7 +908,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// grab data and display
 		$output['shop_modifiers'] = $this->shop->get_modifiers();
 
@@ -933,12 +933,12 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values();
-		
+
 		// deal with post
 		if (count($_POST))
 		{
 			if ($this->core->check_errors())
-			{							
+			{
 				// update
 				if ($this->core->update('shop_modifiers'))
 				{
@@ -979,12 +979,12 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values($row);
-		
+
 		// deal with post
 		if (count($_POST))
 		{
 			if ($this->core->check_errors())
-			{							
+			{
 				// update
 				if ($this->core->update('shop_modifiers', $objectID))
 				{
@@ -1009,15 +1009,15 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// where
-		$objectID = array('modifierID' => $modifierID);	
-		
+		$objectID = array('modifierID' => $modifierID);
+
 		if ($this->core->delete('shop_modifiers', $objectID))
 		{
 			// where to redirect to
 			redirect('/admin/shop/modifiers');
-		}		
+		}
 	}
 
 	function discounts()
@@ -1027,7 +1027,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// grab data and display
 		$output = $this->core->viewall('shop_discounts', NULL, 'expiryDate');
 
@@ -1053,20 +1053,20 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values();
-		
+
 		// deal with post
 		if (count($_POST))
-		{			
+		{
 			// set dates
-			$this->core->set['dateCreated'] = date("Y-m-d H:i:s");		
+			$this->core->set['dateCreated'] = date("Y-m-d H:i:s");
 			$this->core->set['expiryDate'] = date("Y-m-d 23:59:59", strtotime($this->input->post('expiryDate').' 11.59PM'));
 
 			// set object ID
 			if ($this->input->post('catID')) $this->core->set['objectID'] = $this->input->post('catID');
 			if ($this->input->post('productID') > 0) $this->core->set['objectID'] = implode(',', $this->input->post('productID'));
-			
+
 			if ($this->core->check_errors())
-			{							
+			{
 				// update
 				if ($this->core->update('shop_discounts'))
 				{
@@ -1079,7 +1079,7 @@ class Admin extends MX_Controller {
 		$output['products'] = $this->shop->get_all_products();
 
 		// get categories
-		$output['categories'] = $this->shop->get_categories();		
+		$output['categories'] = $this->shop->get_categories();
 
 		// templates
 		if (!$this->core->is_ajax()) $this->load->view($this->includes_path.'/header');
@@ -1110,20 +1110,20 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values($row);
-		
+
 		// deal with post
 		if (count($_POST))
-		{	
+		{
 			// set dates
-			$this->core->set['dateCreated'] = date("Y-m-d H:i:s");	
+			$this->core->set['dateCreated'] = date("Y-m-d H:i:s");
 			$this->core->set['expiryDate'] = date("Y-m-d 23:59:59", strtotime($this->input->post('expiryDate').' 11.59PM'));
 
 			// set object ID
 			if ($this->input->post('catID') > 0) $this->core->set['objectID'] = $this->input->post('catID');
 			if ($this->input->post('productID') > 0) $this->core->set['objectID'] = implode(',', $this->input->post('productID'));
-			
+
 			if ($this->core->check_errors())
-			{							
+			{
 				// update
 				if ($this->core->update('shop_discounts', $objectID))
 				{
@@ -1151,15 +1151,15 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// where
-		$objectID = array('discountID' => $discountID);	
-		
+		$objectID = array('discountID' => $discountID);
+
 		if ($this->core->delete('shop_discounts', $objectID))
 		{
 			// where to redirect to
 			redirect('/admin/shop/discounts');
-		}		
+		}
 	}
 
 	function reviews()
@@ -1169,7 +1169,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-		
+
 		// grab data and display
 		$output['reviews'] = $this->shop->get_reviews();
 
@@ -1185,7 +1185,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-		
+
 		if ($this->shop->approve_review($reviewID))
 		{
 			redirect('/admin/shop/reviews');
@@ -1199,20 +1199,20 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-		
+
 		// check permissions for this page
 		if (!in_array('shop_delete', $this->permission->permissions))
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		if ($this->core->soft_delete('shop_reviews', array('reviewID' => $objectID)))
 		{
 			// where to redirect to
 			redirect('/admin/shop/reviews/');
 		}
 	}
-	
+
 	function upsells()
 	{
 		// check permissions for this page
@@ -1220,7 +1220,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// grab data and display
 		$output = $this->core->viewall('shop_upsells', NULL, 'upsellOrder', 99);
 
@@ -1239,7 +1239,7 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values();
-		
+
 		// deal with post
 		if (count($_POST))
 		{
@@ -1247,10 +1247,10 @@ class Admin extends MX_Controller {
 			{
 				// set dates
 				$this->core->set['dateCreated'] = date("Y-m-d H:i:s");
-	
+
 				// set product IDs
 				if ($this->input->post('productIDs') > 0) $this->core->set['productIDs'] = implode(',', $this->input->post('productIDs'));
-				
+
 				// update
 				if ($this->core->update('shop_upsells'))
 				{
@@ -1284,7 +1284,7 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values($row);
-		
+
 		// deal with post
 		if (count($_POST))
 		{
@@ -1295,7 +1295,7 @@ class Admin extends MX_Controller {
 			if ($this->input->post('productIDs') > 0) $this->core->set['productIDs'] = implode(',', $this->input->post('productIDs'));
 
 			if ($this->core->check_errors())
-			{							
+			{
 				// update
 				if ($this->core->update('shop_upsells', $objectID))
 				{
@@ -1303,7 +1303,7 @@ class Admin extends MX_Controller {
 				}
 			}
 		}
-		
+
 		// get products
 		$output['products'] = $this->shop->get_all_products();
 
@@ -1320,15 +1320,15 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// where
-		$objectID = array('upsellID' => $upsellID);	
-		
+		$objectID = array('upsellID' => $upsellID);
+
 		if ($this->core->delete('shop_upsells', $objectID))
 		{
 			// where to redirect to
 			redirect('/admin/shop/upsells');
-		}		
+		}
 	}
 
 	function renew_downloads($transactionID)
@@ -1342,16 +1342,16 @@ class Admin extends MX_Controller {
 			redirect('/admin/shop/view_order/'.$transactionID);
 		}
 	}
-	
+
 	function export_orders()
 	{
 		// export orders as CSV
 		$this->load->dbutil();
 
 		$query = $this->shop->export_orders();
-		
-		$csv = $this->dbutil->csv_from_result($query); 
-		
+
+		$csv = $this->dbutil->csv_from_result($query);
+
 		header("Pragma: public");
 		header("Expires: 0");
 		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -1360,56 +1360,56 @@ class Admin extends MX_Controller {
 		header("Content-Length: " .(string)(strlen($csv)));
 		header("Content-Disposition: attachment; filename=shop-orders-".date('U').".csv");
 		header("Content-Description: File Transfer");
-		
+
 		$this->output->set_output($csv);
 	}
 
 	function ac_products()
-	{	
+	{
 		$q = strtolower($_POST["q"]);
 		if (!$q) return;
-		
+
 		// form dropdown
 		$results = $this->shop->get_products(NULL, $q);
-		
+
 		// go foreach
 		foreach((array)$results as $row)
 		{
 			$items[$row['catalogueID']] = $row['productName'];
 		}
-		
+
 		// output
 		$output = '';
 		foreach ($items as $key=>$value)
 		{
 			$output .= "$key|$value\n";
 		}
-		
+
 		$this->output->set_output($output);
 	}
-	
+
 	function ac_orders()
-	{	
+	{
 		$q = strtolower($_POST["q"]);
 		if (!$q) return;
-		
+
 		// form dropdown
 		$results = $this->shop->get_orders(NULL, NULL, $q);
-		
+
 		// go foreach
 		foreach((array)$results as $row)
 		{
 			$items[$row['transactionCode']] = trim($row['firstName'].' '.$row['lastName']);
 		}
-		
+
 		// output
 		$output = '';
 		foreach ($items as $key=>$value)
 		{
 			$output .= "$key|$value\n";
 		}
-		
+
 		$this->output->set_output($output);
 	}
-	
+
 }

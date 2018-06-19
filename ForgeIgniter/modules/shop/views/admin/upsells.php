@@ -4,9 +4,9 @@ function setOrder(){
 };
 
 function initOrder(el){
-	$(el).sortable({ 
+	$(el).sortable({
 		axis: 'y',
-	    revert: false, 
+	    revert: false,
 	    delay: '80',
 	    opacity: '0.5',
 	    update: setOrder
@@ -20,7 +20,7 @@ $(function(){
 
 <h1 class="headingleft">Upsells</h1>
 
-<div class="headingright">	
+<div class="headingright">
 	<a href="<?php echo site_url('/admin/shop/add_upsell'); ?>" class="showform button blue">Add Upsell</a>
 </div>
 
@@ -36,7 +36,7 @@ $(function(){
 	<ol class="order">
 	<?php $x=0; foreach ($shop_upsells as $upsell): $x++; ?>
 		<li id="shop_upsells-<?php echo $upsell['upsellID']; ?>">
-			<div class="col1">			
+			<div class="col1">
 				<span>
 					<?php echo $x; ?>.
 					If

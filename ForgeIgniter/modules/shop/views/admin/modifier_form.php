@@ -9,9 +9,9 @@
 <?php endif; ?>
 
 <?php if ($bands): ?>
-	
+
 	<form method="post" action="<?php echo site_url($this->uri->uri_string()); ?>" class="default">
-	
+
 		<label for="modifierName">Name:</label>
 		<?php echo @form_input('modifierName', $data['modifierName'], 'class="formelement" id="modifierName"'); ?>
 		<br class="clear" />
@@ -22,19 +22,19 @@
 			foreach ($bands as $band):
 				$options[$band['bandID']] = $band['bandName'];
 			endforeach;
-			
+
 			echo @form_dropdown('bandID', $options, $data['bandID'], 'id="bandID" class="formelement"');
-		?>	
+		?>
 		<br class="clear" />
-			
+
 		<label for="multiplier">Multiplier:</label>
 		<?php echo @form_input('multiplier', set_value('multiplier', $data['multiplier']), 'class="formelement small" id="multiplier"'); ?>
 		<span class="price">x</span>
 		<br class="clear" />
-			
+
 		<input type="submit" value="Save Changes" class="button nolabel" />
 		<input type="button" value="Cancel" id="cancel" class="button grey" />
-		
+
 	</form>
 
 <?php else: ?>

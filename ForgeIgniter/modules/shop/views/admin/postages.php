@@ -7,7 +7,7 @@ $(function(){
 
 <h1 class="headingleft">Shipping Costs</h1>
 
-<div class="headingright">	
+<div class="headingright">
 	<a href="<?php echo site_url('/admin/shop/add_postage'); ?>" class="showform button blue">Add Shipping Rate</a>
 </div>
 
@@ -19,7 +19,7 @@ $(function(){
 	<tr>
 		<th>Total</th>
 		<th>Cost</th>
-		<th class="tiny"></th>		
+		<th class="tiny"></th>
 		<th class="tiny"></th>
 	</tr>
 	<?php foreach($shop_postages as $postage): ?>

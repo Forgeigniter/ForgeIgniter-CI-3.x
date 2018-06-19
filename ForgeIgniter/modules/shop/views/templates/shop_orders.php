@@ -7,9 +7,9 @@
 		<h1>Your Orders</h1>
 
 		{if orders}
-		
+
 			{pagination}
-			
+
 			<table class="default">
 				<tr>
 					<th>Order ID</th>
@@ -37,16 +37,16 @@
 
 	</div>
 	<div class="col col2">
-	
+
 		<ul class="menu">
 			<li><a href="{site:url}shop">Back to Shop</a></li>
-			<li><a href="{site:url}shop/account">My Account</a></li>				
+			<li><a href="{site:url}shop/account">My Account</a></li>
 			<li><a href="{site:url}shop/subscriptions">My Subscriptions</a></li>
-			<li><a href="{site:url}shop/orders">My Orders</a></li>						
+			<li><a href="{site:url}shop/orders">My Orders</a></li>
 		</ul>
-		
+
 	</div>
 
 </div>
-	
+
 {include:footer}

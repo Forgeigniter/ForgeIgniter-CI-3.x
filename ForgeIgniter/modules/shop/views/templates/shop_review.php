@@ -6,7 +6,7 @@
 	<div class="error">
 		{errors}
 	</div>
-{/if}		
+{/if}
 
 <form method="post" action="{site:url}shop/review/{product:id}" class="default" id="reviewsform">
 
@@ -24,7 +24,7 @@
 		<option value="2">2 / 5</option>
 		<option value="3">3 / 5</option>
 		<option value="4">4 / 5</option>
-		<option value="5">5 / 5</option>																
+		<option value="5">5 / 5</option>
 	</select>
 	<br class="clear" />
 

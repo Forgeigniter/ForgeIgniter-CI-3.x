@@ -7,7 +7,7 @@ $(function(){
 
 <h1 class="headingleft">Discount Codes</h1>
 
-<div class="headingright">	
+<div class="headingright">
 	<a href="<?php echo site_url('/admin/shop/add_discount'); ?>" class="showform button blue">Add Discount</a>
 </div>
 
@@ -36,8 +36,8 @@ $(function(){
 			else echo 'Total';
 		?></td>
 		<td><?php echo ($discount['modifier'] == 'A') ? currency_symbol().number_format($discount['discount'],2) : $discount['discount'].'%'; ?></td>
-		<td><?php echo (strtotime($discount['expiryDate']) < time()) ? 
-			'<span style="color:red;">'.dateFmt($discount['expiryDate']).'</span>' : 
+		<td><?php echo (strtotime($discount['expiryDate']) < time()) ?
+			'<span style="color:red;">'.dateFmt($discount['expiryDate']).'</span>' :
 			'<span style="color:green;">'.dateFmt($discount['expiryDate']).'</span>'; ?></td>
 		<td><?php echo anchor('/admin/shop/edit_discount/'.$discount['discountID'], 'Edit', 'class="showform"'); ?></td>
 		<td><?php echo anchor('/admin/shop/delete_discount/'.$discount['discountID'], 'Delete', 'onclick="return confirm(\'Are you sure you want to delete this?\')"'); ?></td>

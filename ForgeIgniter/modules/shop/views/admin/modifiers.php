@@ -7,7 +7,7 @@ $(function(){
 
 <h1 class="headingleft">Shipping Modifiers</h1>
 
-<div class="headingright">	
+<div class="headingright">
 	<a href="<?php echo site_url('/admin/shop/add_modifier'); ?>" class="showform button blue">Add Modifier</a>
 </div>
 
@@ -19,8 +19,8 @@ $(function(){
 	<tr>
 		<th>Multiplier</th>
 		<th>Name</th>
-		<th>Band</th>		
-		<th class="tiny"></th>		
+		<th>Band</th>
+		<th class="tiny"></th>
 		<th class="tiny"></th>
 	</tr>
 	<?php foreach($shop_modifiers as $modifier): ?>

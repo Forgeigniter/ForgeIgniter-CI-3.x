@@ -37,18 +37,18 @@ $(function(){
 <?php endif; ?>
 
 <form method="post" action="<?php echo site_url($this->uri->uri_string()); ?>" class="default">
-	
+
 	<label for="type">If the:</label>
-	<?php 
+	<?php
 		$values = array(
 			'V' => 'Total value of cart',
 			'N' => 'Number of products in the cart',
 			'P' => 'Products in cart'
 		);
-		echo @form_dropdown('type',$values, set_value('type', $data['type']), 'id="type" class="formelement"'); 
+		echo @form_dropdown('type',$values, set_value('type', $data['type']), 'id="type" class="formelement"');
 	?>
 	<br class="clear" />
-	
+
 	<div id="value">
 		<label for="value">Is greater than:</label>
 		<span class="price" id="currency"><?php echo currency_symbol(); ?></span>
@@ -62,11 +62,11 @@ $(function(){
 		<?php echo @form_input('numProducts', set_value('numProducts', $data['numProducts']), 'class="formelement small" id="discount"'); ?>
 		<br class="clear" />
 	</div>
-	
+
 	<div style="display: none;" id="products">
 		<label for="productIDs">Include:</label>
 		<?php
-			$options = '';		
+			$options = '';
 			if ($products):
 				foreach ($products as $product):
 					$options[$product['productID']] = $product['productName'];
@@ -74,39 +74,39 @@ $(function(){
 			endif;
 			$objectIDArray = (isset($data['productIDs'])) ? @explode(',',$data['productIDs']) : $this->input->post('productIDs');
 			echo @form_dropdown('productIDs[]',$options, $objectIDArray, 'id="productIDs" class="formelement" multiple="multiple"');
-		?>	
+		?>
 		<br class="clear" />
 	</div>
-	
+
 	<label for="productID">Then upsell:</label>
 	<?php
-		$options = '';		
+		$options = '';
 		if ($products):
 			foreach ($products as $products):
 				$options[$products['productID']] = $products['productName'];
 			endforeach;
 		endif;
 		echo @form_dropdown('productID', $options, set_value('productID', $data['productID']), 'id="productID" class="formelement"');
-	?>	
+	?>
 	<br class="clear" />
-	
+
 	<div style="display: none;" id="remove">
 		<label for="remove">Remove original products?</label>
-		<?php 
+		<?php
 			$values = array(
 				'0' => 'No',
 				'1' => 'Yes',
 			);
-			echo @form_dropdown('remove',$values, set_value('remove', $data['remove']), 'id="remove" class="formelement"'); 
+			echo @form_dropdown('remove',$values, set_value('remove', $data['remove']), 'id="remove" class="formelement"');
 		?>
 		<br class="clear" />
 	</div>
-	
+
 	<br />
-		
+
 	<input type="submit" value="Save Changes" class="button nolabel" />
 	<input type="button" value="Cancel" id="cancel" class="button grey" />
-	
+
 </form>
 
 <br class="clear" />

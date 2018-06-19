@@ -1,19 +1,19 @@
-<?php 
+<?php
 if ($cart):
 
-	foreach ($cart as $key => $item): 
+	foreach ($cart as $key => $item):
 
 		$variationHTML = '';
-		
+
 		// get variation 1
 		if ($item['variation1']) $variationHTML .= ' ('.$this->site->config['shopVariation1'].': '.$item['variation1'].')';
-		
+
 		// get variations 2
 		if ($item['variation2']) $variationHTML .= ' ('.$this->site->config['shopVariation2'].': '.$item['variation2'].')';
-	
+
 		// get variations 3
 		if ($item['variation3']) $variationHTML .= ' ('.$this->site->config['shopVariation3'].': '.$item['variation3'].')';
-	
+
 		$key = $this->core->encode($key);
 ?>
 

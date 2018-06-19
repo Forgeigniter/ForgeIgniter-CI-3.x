@@ -7,7 +7,7 @@ $(function(){
 
 <h1 class="headingleft">Shipping Bands</h1>
 
-<div class="headingright">	
+<div class="headingright">
 	<a href="<?php echo site_url('/admin/shop/add_band'); ?>" class="showform button blue">Add Band</a>
 </div>
 
@@ -19,7 +19,7 @@ $(function(){
 	<tr>
 		<th>Multiplier</th>
 		<th>Name</th>
-		<th class="tiny"></th>		
+		<th class="tiny"></th>
 		<th class="tiny"></th>
 	</tr>
 	<?php foreach($shop_bands as $band): ?>

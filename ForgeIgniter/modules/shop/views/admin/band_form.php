@@ -13,15 +13,15 @@
 	<label for="bandName">Name:</label>
 	<?php echo @form_input('bandName', $data['bandName'], 'class="formelement" id="bandName"'); ?>
 	<br class="clear" />
-		
+
 	<label for="multiplier">Multiplier:</label>
 	<?php echo @form_input('multiplier', $data['multiplier'], 'class="formelement small" id="multiplier"'); ?>
-	<span class="price">x</span>	
+	<span class="price">x</span>
 	<br class="clear" />
-		
+
 	<input type="submit" value="Save Changes" class="button nolabel" />
 	<input type="button" value="Cancel" id="cancel" class="button grey" />
-	
+
 </form>
 
 <br class="clear" />

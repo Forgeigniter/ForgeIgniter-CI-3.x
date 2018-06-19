@@ -4,9 +4,9 @@ function setOrder(){
 };
 
 function initOrder(el){
-	$(el).sortable({ 
+	$(el).sortable({
 		axis: 'y',
-	    revert: false, 
+	    revert: false,
 	    delay: '80',
 	    opacity: '0.5',
 	    update: setOrder
@@ -20,7 +20,7 @@ $(function(){
 
 <h1 class="headingleft">Shop Categories</h1>
 
-<div class="headingright">	
+<div class="headingright">
 	<a href="<?php echo site_url('/admin/shop/products'); ?>" class="button blue">View Products</a>
 	<a href="<?php echo site_url('/admin/shop/add_cat'); ?>" class="showform button blue">Add Category</a>
 </div>
@@ -37,7 +37,7 @@ $(function(){
 	<ol class="order">
 	<?php foreach ($parents as $cat): ?>
 		<li id="shop_cats-<?php echo $cat['catID']; ?>" class="<?php echo (@$children[$cat['catID']]) ? 'haschildren' : ''; ?>">
-			<div class="col1">			
+			<div class="col1">
 				<span><strong><?php echo $cat['catName']; ?></strong></span>
 				<small>(<?php echo $cat['catSafe']; ?>)</small>
 			</div>

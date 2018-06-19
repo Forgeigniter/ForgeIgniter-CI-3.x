@@ -12,7 +12,7 @@
 				<th width="50%">Shipping Status</th>
 			</tr>
 			<tr>
-				<td valign="top">		
+				<td valign="top">
 					<p>
 						{order:first-name} {order:last-name}<br />
 						{order:address1}<br />
@@ -32,31 +32,31 @@
 					{/if}
 					{if order:status = L}
 						<p><strong>Allocated</strong> - we are just processing the order and getting it ready for shipping.</p>
-					{/if}						
+					{/if}
 					{if order:status = A}
 						<p><span style="color:red;"><strong>Awaiting goods</strong></span> - we are just waiting on stock.</p>
-					{/if}					
+					{/if}
 					{if order:status = O}
 						<p><span style="color:red;"><strong>Other complications</strong></span> - please contact us.</p>
 					{/if}
 					{if order:status = D}
 						<p><span style="color:green;"><strong>Shipped</strong></span> - your order has been shipped.</p>
 					{/if}
-				
+
 					{if order:notes}
 						<p>{order:notes}</p>
 					{else}
 						<p><small>There are no shipping notes.</small></p>
 					{/if}
-				</td>					
+				</td>
 			</tr>
 
 		</table>
-	
+
 		<br />
-	
+
 		<h3>Products Ordered</h3>
-		
+
 		<table class="default">
 			<tr>
 				<th>Product</th>
@@ -64,12 +64,12 @@
 				<th width="80">Price ({site:currency})</th>
 			</tr>
 			{if items}
-				{items}		
+				{items}
 				<tr>
 					<td><a href="{item:link}">{item:title}</a> <small>{item:details}</small></td>
 					<td>{item:quantity}</td>
 					<td>{item:amount}</td>
-				</tr>				
+				</tr>
 				{/items}
 			{/if}
 			<tr>
@@ -101,23 +101,23 @@
 			</tr>
 			<tr>
 				<td colspan="3" ><hr /></td>
-			</tr>								
+			</tr>
 		</table>
 
 		<br />
 
 	</div>
 	<div class="col col2">
-	
+
 		<ul class="menu">
 			<li><a href="{site:url}shop">Back to Shop</a></li>
-			<li><a href="{site:url}shop/account">My Account</a></li>				
+			<li><a href="{site:url}shop/account">My Account</a></li>
 			<li><a href="{site:url}shop/subscriptions">My Subscriptions</a></li>
-			<li><a href="{site:url}shop/orders">My Orders</a></li>						
+			<li><a href="{site:url}shop/orders">My Orders</a></li>
 		</ul>
-		
+
 	</div>
 
 </div>
-	
+
 {include:footer}

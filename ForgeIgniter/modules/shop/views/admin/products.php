@@ -2,7 +2,7 @@
 .ac_results { padding: 0px; border: 1px solid black; background-color: white; overflow: hidden; z-index: 99999; }
 .ac_results ul { width: 100%; list-style-position: outside; list-style: none; padding: 0; margin: 0; }
 .ac_results li { margin: 0px; padding: 2px 5px; cursor: default; display: block; font: menu; font-size: 12px; line-height: 16px; overflow: hidden; }
-.ac_results li span.email { font-size: 10px; } 
+.ac_results li span.email { font-size: 10px; }
 .ac_loading { background: white url('<?php echo $this->config->item('staticPath'); ?>/images/loader.gif') right center no-repeat; }
 .ac_odd { background-color: #eee; }
 .ac_over { background-color: #0A246A; color: white; }
@@ -22,9 +22,9 @@ var fixHelper = function (e, a) {
 	return a
 };
 function initOrder(el){
-	$(el).sortable({ 
+	$(el).sortable({
 		axis: 'y',
-	    revert: false, 
+	    revert: false,
 	    delay: '80',
 	    opacity: '0.5',
 	    update: setOrder,
@@ -41,13 +41,13 @@ $(function(){
 	$('#searchbox').result(function(event, data, formatted){
 		$(this).parent('form').submit();
 	});
-	
+
 	$('select#category').change(function(){
 		var folderID = ($(this).val());
 		window.location.href = '<?php echo site_url('/admin/shop/products'); ?>/'+folderID;
-	});	
-	
-	initOrder('table.order tbody');	
+	});
+
+	initOrder('table.order tbody');
 });
 </script>
 
@@ -59,10 +59,10 @@ $(function(){
 		<input type="text" name="searchbox" id="searchbox" class="formelement inactive" title="Search Products..." />
 		<input type="image" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_search.gif" id="searchbutton" />
 	</form>
-	
+
 	<label for="category">
 		Category
-	</label> 
+	</label>
 
 	<?php
 		$options = array(
@@ -73,11 +73,11 @@ $(function(){
 			foreach ($categories as $category):
 				$options[$category['catID']] = ($category['parentID']) ? '-- '.$category['catName'] : $category['catName'];
 			endforeach;
-		endif;					
+		endif;
 		echo @form_dropdown('catID', $options, set_value('catID', $catID), 'id="category" class="formelement"');
-	?>	
+	?>
 
-	<?php if (in_array('shop_edit', $this->permission->permissions)): ?>	
+	<?php if (in_array('shop_edit', $this->permission->permissions)): ?>
 		<a href="<?php echo site_url('/admin/shop/add_product'); ?>" class="button">Add Product</a>
 	<?php endif; ?>
 </div>
@@ -101,14 +101,14 @@ $(function(){
 			<?php endif; ?>
 			<th class="narrow"><?php echo order_link('/admin/shop/products'.(($catID) ? '/'.$catID : ''),'published','Published', (($catID) ? 5 : 4)); ?></th>
 			<th class="tiny">&nbsp;</th>
-			<th class="tiny">&nbsp;</th>		
+			<th class="tiny">&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody id="shop_products">
 	<?php foreach ($products as $product): ?>
 		<tr class="<?php echo (!$product['published']) ? 'draft' : ''; ?>" id="shop_products-<?php echo $product['productID']; ?>">
 			<td class="col1"><?php echo (in_array('shop_edit', $this->permission->permissions)) ? anchor('/admin/shop/edit_product/'.$product['productID'], $product['productName']) : $product['productName']; ?></td>
-			<td class="col2"><?php echo $product['subtitle']; ?></td>		
+			<td class="col2"><?php echo $product['subtitle']; ?></td>
 			<td class="col3"><?php echo $product['catalogueID']; ?></td>
 			<td class="col4"><?php echo dateFmt($product['dateCreated'], '', '', TRUE); ?></td>
 			<td class="col5"><?php echo currency_symbol(); ?><?php echo number_format($product['price'],2); ?></td>
@@ -122,12 +122,12 @@ $(function(){
 				?>
 			</td>
 			<td class="col8 tiny">
-				<?php if (in_array('shop_edit', $this->permission->permissions)): ?>	
+				<?php if (in_array('shop_edit', $this->permission->permissions)): ?>
 					<?php echo anchor('/admin/shop/edit_product/'.$product['productID'], 'Edit'); ?>
 				<?php endif; ?>
 			</td>
 			<td class="col9 tiny">
-				<?php if (in_array('shop_delete', $this->permission->permissions)): ?>	
+				<?php if (in_array('shop_delete', $this->permission->permissions)): ?>
 					<?php echo anchor('/admin/shop/delete_product/'.$product['productID'], 'Delete', 'onclick="return confirm(\'Are you sure you want to delete this?\')"'); ?>
 				<?php endif; ?>
 			</td>
@@ -146,4 +146,3 @@ $(function(){
 
 
 <?php endif; ?>
-

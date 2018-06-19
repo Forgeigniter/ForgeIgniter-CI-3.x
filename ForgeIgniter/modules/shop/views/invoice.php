@@ -9,7 +9,7 @@
 		/* layout */
 		body { font-size: 76%; background: #fff; font-family: "Lucida Grande", arial, sans-serif; margin-top: 40px; color: #171717; }
 		div.content { width: 90%; margin: 0 auto; }
-	
+
 		/* content styles */
 		div.content h1 { font-size: 2.2em; font-weight: normal; color: #171717; margin-bottom: 20px; }
 		div.content h2 { font-size: 1.6em; font-weight: normal; color: #2194cd; margin-bottom: 10px; }
@@ -31,7 +31,7 @@
 		table.default td { padding: 6px; background: #fff; }
 		table.default tr.header th { font-size: 1em; background: #eaeaea; color: #222; }
 		table.default .narrow { width: 60px; }
-		table.default .medium { width: 150px; }		
+		table.default .medium { width: 150px; }
 	</style>
 
 </head>
@@ -46,9 +46,9 @@
 					<?php echo @nl2br($this->site->config['siteAddress']); ?>
 					<br />
 					<small>Tel.</small> <?php echo @$this->site->config['siteTel']; ?><br />
-					
+
 				</td>
-			</tr>			
+			</tr>
 		</table>
 
 		<br />
@@ -57,7 +57,7 @@
 			<tr>
 				<td>
 					<h1>Invoice</h1>
-				
+
 					<h3>
 						<strong>Ref #:</strong> <?php echo $ref; ?><br />
 						<strong>Date:</strong> <?php echo dateFmt($paymentDate, ((@$this->site->config['dateOrder'] == 'MD') ? 'M jS Y' : 'jS M Y')); ?>
@@ -65,26 +65,26 @@
 				</td>
 				<td width="140">
 					<h3>Invoiced to:</h3>
-			
+
 					<p>
 						ATTN: <?php echo $fullName; ?><br />
 						<?php echo nl2br(trim($address)); ?><br />
 						<?php echo $postcode; ?>
 					</p>
 				</td>
-			</tr>			
+			</tr>
 		</table>
-		
+
 		<br />
 
 		<table class="default">
 			<tr>
 				<th>Item</th>
-				<th width="140">Cost (<?php echo $currency; ?>)</th>				
-			</tr>		
+				<th width="140">Cost (<?php echo $currency; ?>)</th>
+			</tr>
 			<tr>
 				<td><?php echo $this->site->config['siteName']; ?> Subscription Payment (#<?php echo $referenceID; ?>)</td>
-				<td><?php echo currency_symbol(TRUE, $currency).number_format($paymentAmount, 2); ?></td>				
+				<td><?php echo currency_symbol(TRUE, $currency).number_format($paymentAmount, 2); ?></td>
 			</tr>
 			<tr>
 				<td colspan="2"><hr /></td>
