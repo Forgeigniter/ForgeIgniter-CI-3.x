@@ -5,7 +5,7 @@ function preview(el){
 	});
 }
 function previewExcerpt(el){
-	$.post('<?php echo site_url('/admin/blog/preview'); ?>', { body: $(el).val() }, function(data){
+	$.post('<?php echo site_url('/admin/shop/preview'); ?>', { body: $(el).val() }, function(data){
 		$('div.previewExcerpt').html(data);
 	});
 }

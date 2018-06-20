@@ -13,7 +13,7 @@
 <table class="default clear">
 	<tr>
 		<th><?php echo order_link('/admin/events/viewall','eventtitle','Event'); ?></th>
-		<th><?php echo order_link('/admin/events/viewall','location','Location'); ?></th>		
+		<th><?php echo order_link('/admin/events/viewall','location','Location'); ?></th>
 		<th><?php echo order_link('/admin/events/viewall','eventDate','Event Start'); ?></th>
 		<th><?php echo order_link('/admin/events/viewall','eventEnd','Event End'); ?></th>
 		<th>Active</th>
@@ -23,7 +23,7 @@
 <?php foreach ($events as $event): ?>
 	<tr>
 		<td><?php echo (in_array('events_edit', $this->permission->permissions)) ? anchor('/admin/events/edit_event/'.$event['eventID'], $event['eventTitle']) : $event['eventTitle']; ?></td>
-		<td><?php echo $event['location']; ?></td>		
+		<td><?php echo $event['location']; ?></td>
 		<td><?php echo dateFmt($event['eventDate'], '', FALSE); ?></td>
 		<td><?php echo dateFmt($event['eventEnd'], '', FALSE); ?></td>
 		<td>
@@ -37,7 +37,7 @@
 				<?php echo anchor('/admin/events/edit_event/'.$event['eventID'], 'Edit'); ?>
 			<?php endif; ?>
 		</td>
-		<td class="tiny">			
+		<td class="tiny">
 			<?php if (in_array('events_delete', $this->permission->permissions)): ?>
 				<?php echo anchor('/admin/events/delete_event/'.$event['eventID'], 'Delete', 'onclick="return confirm(\'Are you sure you want to delete this?\')"'); ?>
 			<?php endif; ?>
