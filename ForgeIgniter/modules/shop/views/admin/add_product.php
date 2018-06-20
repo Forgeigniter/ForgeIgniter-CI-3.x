@@ -4,6 +4,11 @@ function preview(el){
 		$('div.preview').html(data);
 	});
 }
+function previewExcerpt(el){
+	$.post('<?php echo site_url('/admin/blog/preview'); ?>', { body: $(el).val() }, function(data){
+		$('div.previewExcerpt').html(data);
+	});
+}
 $(function(){
 	$('div.category>span, div.category>input').hover(
 		function() {
@@ -11,7 +16,7 @@ $(function(){
 				$(this).parent().addClass('hover');
 			}
 		},
-		function() {
+	function() {
 			if (!$(this).prev('input').attr('checked') && !$(this).attr('checked')){
 				$(this).parent().removeClass('hover');
 			}
@@ -71,6 +76,17 @@ $(function(){
 		preview(this);
 	});
 	preview($('textarea#body'));
+
+	//Excerpt Preview Button
+	$('textarea#excerpt').focus(function(){
+		$('.previewExcerptbutton').show();
+	});
+
+	$('textarea#excerpt').blur(function(){
+		previewExcerpt(this);
+	});
+	previewExcerpt($('textarea#excerpt'));
+  $('a.lightbox').lightBox({imageLoading:'<?php echo base_url($this->config->item('staticPath')); ?>/images/loading.gif',imageBtnClose: '<?php echo base_url($this->config->item('staticPath')); ?>/images/lightbox_close.gif',imageBtnNext:'<?php echo base_url($this->config->item('staticPath')); ?>/image/lightbox_btn_next.gif',imageBtnPrev:'<?php echo base_url($this->config->item('staticPath')); ?>/image/lightbox_btn_prev.gif'});
 });
 </script>
 
@@ -198,6 +214,24 @@ $(function(){
 
 	<h2 class="underline">Product Description</h2>
 
+	<label for="excerpt">Introduction <i>(Excerpt)</i>:</label>
+	<span class="tip nolabel">The excerpt is a brief description of your product which is used in some templates.</span>
+	<br class="clear" /><br />
+	<?php
+		$options = [
+			'name'        => 'excerpt',
+			'id'          => 'excerpt',
+			'value'       => @set_value('excerpt', $data['excerpt']),
+			'rows'        => '10',
+			'cols'        => '10',
+			'style'       => 'width:57%; margin-right:5px; height: 81px;',
+			'class'       => 'formelement code half'
+		];
+		echo form_textarea($options);
+	?>
+	<div class="previewExcerpt"></div>
+	<br class="clear" /><br />
+
 	<div class="buttons">
 		<a href="#" class="boldbutton"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_bold.png" alt="Bold" title="Bold" /></a>
 		<a href="#" class="italicbutton"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_italic.png" alt="Italic" title="Italic" /></a>
@@ -212,12 +246,6 @@ $(function(){
 	<label for="body">Body:</label>
 	<?php echo @form_textarea('description', set_value('description', $data['description']), 'id="body" class="formelement code half"'); ?>
 	<div class="preview"></div>
-	<br class="clear" /><br />
-
-	<label for="excerpt">Excerpt:</label>
-	<?php echo @form_textarea('excerpt',set_value('excerpt', $data['excerpt']), 'id="excerpt" class="formelement short"'); ?>
-	<br class="clear" />
-	<span class="tip nolabel">The excerpt is a brief description of your product which is used in some templates.</span>
 	<br class="clear" /><br />
 
 </div>
