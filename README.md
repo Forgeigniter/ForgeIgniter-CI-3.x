@@ -9,11 +9,11 @@ the installer will handle the rest for you.
 ## Getting Started & Guides 
 We'd like to think FI is intuitive, but for the bits you can't work out on your own, we made friendly [user guides](http://www.forgeigniter.com/support) , just for you.
 
-## v1.x - Branch
+## v1.x  
 Older version, prefered by some as it uses the old lite theme and all moduels.  
-https://github.com/Forgeigniter/ForgeIgniter-CI-3.x/tree/v1.x
+https://github.com/Forgeigniter/ForgeIgniter-v1.x-CI-3.x
 
-## v2.x - Branch 
+## v2.x 
 Inlcudes, all the default features but with the addition of a new base theme, flexi auth and new admin template (Anvil).
 
 ## Detailed Information / Features
