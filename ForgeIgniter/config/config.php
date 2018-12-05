@@ -28,6 +28,9 @@ $config['base_url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 
 $config['base_url'] .= '://' . $_SERVER['HTTP_HOST'];
 $config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 
+// If all else fails, manually set URL
+//$config['base_url']	= '';
+
 
 /*
 |--------------------------------------------------------------------------
