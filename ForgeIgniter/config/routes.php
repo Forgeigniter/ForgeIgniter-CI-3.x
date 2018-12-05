@@ -78,7 +78,7 @@ if ($handle)
 				include(APPPATH.'modules/'.$module.'/'.$module.'_routes.php');
 			}
 
-			if ( file_exists(APPPATH.'modules/'.$module.'/controllers/admin.php') )
+			if ( file_exists(APPPATH.'modules/'.$module.'/controllers/Admin.php') )
 			{
 				$route['admin/'.$module] = $module.'/admin';
 				$route['admin/'.$module.'/(.*)'] = $module.'/admin/$1';
