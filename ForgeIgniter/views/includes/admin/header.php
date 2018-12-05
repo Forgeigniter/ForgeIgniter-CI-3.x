@@ -19,14 +19,14 @@
   <title><?= (isset($websiteName)) ? $websiteName : 'Login to'; ?> Admin Login - ForgeIgniter</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="<?=$themePath?>anvil/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?=$themePath?>anvil/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="<?=$themePath?>anvil/bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/bower_components/Ionicons/css/ionicons.min.css">
 
   <!-- Theme style -->
-  <link rel="stylesheet" href="<?=$themePath?>anvil/css/LTE.css">
+  <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/css/LTE.css">
   <!-- Skins
 		Anvil (Default)
 		Neo ( Dark With Gradient Colours)
@@ -36,7 +36,7 @@
 
 		Make selectable in backend for 2.1 - 2.2
   -->
-  <link rel="stylesheet" href="<?=$themePath?>anvil/css/skins/skin-anvil-light.css">
+  <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/css/skins/skin-anvil-light.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -51,12 +51,31 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Exo+2:300,400,500">
 
+<link rel="stylesheet" type="text/css" href="<?= base_url($this->config->item('staticPath'));?>/css/admin.css" media="all" />
 
 <!-- jQuery 3 -->
-<script src="<?=$themePath?>anvil/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="<?=PATH['theme'];?>anvil/bower_components/jquery/jquery-3.3.1.min.js"></script>
 <script src="https://code.jquery.com/jquery-migrate-3.0.0.js"></script>
 
-<link rel="stylesheet" type="text/css" href="<?= base_url($this->config->item('staticPath'));?>/css/admin.css" media="all" />
+<!-- jQuery UI -->
+<script src="<?=PATH['theme'];?>anvil/plugins/jQueryUI/jquery-ui.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="<?=PATH['theme'];?>anvil/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- App -->
+<script src="<?=PATH['theme'];?>anvil/js/app.js"></script>
+
+	<script language="javascript" type="text/javascript" src="<?=PATH['static'];?>/js/default.js"></script>
+	<script language="javascript" type="text/javascript" src="<?=PATH['static'];?>/js/admin.js"></script>
+
+	<script language="JavaScript">
+		$(function(){
+			$('ul#menubar li').hover(
+				function() { $('ul', this).css('display', 'block').parent().addClass('hover'); },
+				function() { $('ul', this).css('display', 'none').parent().removeClass('hover'); }
+			);
+		});
+	</script>
 
 </head>
 <?php
@@ -81,11 +100,12 @@ else {
     <!-- Logo -->
     <a href="<?=base_url('/admin');?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><img src="<?=$themePath?>anvil/img/logo/fi-logo.jpg" height="32px"></span>
-      <!-- logo for regular state and mobile devices --
+      <span class="logo-mini"><img src="<?=PATH['theme'];?>anvil/img/logo/fi-logo.jpg" height="32px"></span>
+      <!-- logo for regular state and mobile devices
       <span class="logo-lg"><b>F</b>orge<b>I</b>gniter</span>
-	  -->
-	  <span class="logo-lg"><img src="<?=$themePath?>anvil/img/logo/forgeigniter-logo.jpg" height="36px"></span>
+			-->
+
+	  <span class="logo-lg"><img src="<?=PATH['theme'];?>anvil/img/logo/forgeigniter-logo.jpg" height="36px"></span>
     </a>
 
     <!-- Header Navbar -->
@@ -216,14 +236,14 @@ Not implemented yet.
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="<?=$themePath?>anvil/img/avatar.png" class="user-image" alt="User Image">
+              <img src="<?=PATH['theme'];?>anvil/img/avatar.png" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs"><?= $this->session->userdata('username'); ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="<?=$themePath?>anvil/img/avatar.png" class="img-circle" alt="User Image">
+                <img src="<?=PATH['theme'];?>anvil/img/avatar.png" class="img-circle" alt="User Image">
 
                 <p>
                   <?= $this->session->userdata('username'); ?><!-- - Site Role / Rank -->
@@ -255,7 +275,7 @@ Not implemented yet.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?=$themePath?>anvil/img/avatar.png" class="img-rounded" alt="User Image">
+          <img src="<?=PATH['theme'];?>anvil/img/avatar.png" class="img-rounded" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?= $this->session->userdata('username'); ?></p>

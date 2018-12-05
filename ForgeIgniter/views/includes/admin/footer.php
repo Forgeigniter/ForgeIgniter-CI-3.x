@@ -13,7 +13,7 @@
 
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      <strong>Forged on:</strong> Codeigniter <?= CI_VERSION; ?> | ForgeIgniter v2.0 A2.1
+      <strong>Forged on:</strong> Codeigniter <?= CI_VERSION; ?> | ForgeIgniter v2.0 A2.2
     </div>
   </footer>
 
@@ -37,15 +37,15 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery UI -->
-<script src="<?=PATH['theme']?>anvil/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script src="<?=PATH['theme'];?>anvil/plugins/jQueryUI/jquery-ui.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="<?=PATH['theme']?>anvil/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<?=PATH['theme'];?>anvil/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <!-- App -->
 <script src="<?=PATH['theme']?>anvil/js/app.js"></script>
 
-	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/default.js"></script>
-	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/admin.js"></script>
+	<script language="javascript" type="text/javascript" src="<?=PATH['static'];?>/js/default.js"></script>
+	<script language="javascript" type="text/javascript" src="<?=PATH['static'];?>/js/admin.js"></script>
 
 	<script language="JavaScript">
 		$(function(){

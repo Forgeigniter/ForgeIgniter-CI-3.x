@@ -87,12 +87,11 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 /*
 |  Setting: Common Paths
 */
-
 define('BASE_URL', "http://" . $_SERVER['SERVER_NAME'] . "/");
 define('FULL_URL', "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']);
 
-define('PATH', [
+const PATH = [
     'adminLogin' => BASE_URL . 'admin/login',
-    'static' => BASE_URL. 'static/',
+    'static' => BASE_URL . 'static/',
     'theme' => BASE_URL . 'static/themes/'
-]);
+];
