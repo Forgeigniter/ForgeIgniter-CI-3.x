@@ -17,47 +17,8 @@
     </div>
   </footer>
 
-
-<?php
-
-  /*
-
-    Display:
-       Selected Notifications (Set from backend, IE new comment etc...)
-       Project Tasks
-       Who's Online (Friends)
-
-  */
-
-?>
-
 </div>
 <!-- ./wrapper -->
-
-<!-- REQUIRED JS SCRIPTS -->
-
-<!-- jQuery UI -->
-<script src="<?=PATH['theme'];?>anvil/plugins/jQueryUI/jquery-ui.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="<?=PATH['theme'];?>anvil/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<!-- App -->
-<script src="<?=PATH['theme']?>anvil/js/app.js"></script>
-
-	<script language="javascript" type="text/javascript" src="<?=PATH['static'];?>/js/default.js"></script>
-	<script language="javascript" type="text/javascript" src="<?=PATH['static'];?>/js/admin.js"></script>
-
-	<script language="JavaScript">
-		$(function(){
-			$('ul#menubar li').hover(
-				function() { $('ul', this).css('display', 'block').parent().addClass('hover'); },
-				function() { $('ul', this).css('display', 'none').parent().removeClass('hover'); }
-			);
-		});
-	</script>
-
-<!-- Optionally, add Slimscroll and FastClick plugins.
- -->
 
 <?php endif; ?>
 </body>

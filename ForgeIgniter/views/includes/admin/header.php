@@ -19,11 +19,10 @@
   <title><?= (isset($websiteName)) ? $websiteName : 'Login to'; ?> Admin Login - ForgeIgniter</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<!-- Bootstrap -->
+  <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/components/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/components/font-awesome/css/font-awesome.min.css">
 
   <!-- Theme style -->
   <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/css/LTE.css">
@@ -51,31 +50,36 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Exo+2:300,400,500">
 
+
+	<!-- REQUIRED JS SCRIPTS -->
+
+	<!-- jQuery 3 -->
+	<script src="<?=PATH['theme'];?>anvil/components/jquery/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-migrate-3.0.0.js"></script>
+
+	<!-- jQuery UI -->
+	<script src="<?=PATH['theme'];?>anvil/plugins/jQueryUI/jquery-ui.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="<?=PATH['theme'];?>anvil/components/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- App -->
+	<script src="<?=PATH['theme'];?>anvil/js/app.js"></script>
+
+		<script language="javascript" type="text/javascript" src="<?=PATH['static'];?>/js/default.js"></script>
+		<script language="javascript" type="text/javascript" src="<?=PATH['static'];?>/js/admin.js"></script>
+
+		<script language="JavaScript">
+			$(function(){
+				$('ul#menubar li').hover(
+					function() { $('ul', this).css('display', 'block').parent().addClass('hover'); },
+					function() { $('ul', this).css('display', 'none').parent().removeClass('hover'); }
+				);
+			});
+		</script>
+
+
 <link rel="stylesheet" type="text/css" href="<?= base_url($this->config->item('staticPath'));?>/css/admin.css" media="all" />
 
-<!-- jQuery 3 -->
-<script src="<?=PATH['theme'];?>anvil/bower_components/jquery/jquery-3.3.1.min.js"></script>
-<script src="https://code.jquery.com/jquery-migrate-3.0.0.js"></script>
-
-<!-- jQuery UI -->
-<script src="<?=PATH['theme'];?>anvil/plugins/jQueryUI/jquery-ui.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="<?=PATH['theme'];?>anvil/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<!-- App -->
-<script src="<?=PATH['theme'];?>anvil/js/app.js"></script>
-
-	<script language="javascript" type="text/javascript" src="<?=PATH['static'];?>/js/default.js"></script>
-	<script language="javascript" type="text/javascript" src="<?=PATH['static'];?>/js/admin.js"></script>
-
-	<script language="JavaScript">
-		$(function(){
-			$('ul#menubar li').hover(
-				function() { $('ul', this).css('display', 'block').parent().addClass('hover'); },
-				function() { $('ul', this).css('display', 'none').parent().removeClass('hover'); }
-			);
-		});
-	</script>
 
 </head>
 <?php
@@ -104,8 +108,7 @@ else {
       <!-- logo for regular state and mobile devices
       <span class="logo-lg"><b>F</b>orge<b>I</b>gniter</span>
 			-->
-
-	  <span class="logo-lg"><img src="<?=PATH['theme'];?>anvil/img/logo/forgeigniter-logo.jpg" height="36px"></span>
+	  	<span class="logo-lg"><img src="<?=PATH['theme'];?>anvil/img/logo/forgeigniter-logo.jpg" height="36px"></span>
     </a>
 
     <!-- Header Navbar -->
@@ -309,10 +312,10 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-				<li><a href="<?php echo site_url('/admin/pages/templates'); ?>">All Templates</a></li>
-				<li><a href="<?php echo site_url('/admin/pages/includes'); ?>">Includes</a></li>
-				<li><a href="<?php echo site_url('/admin/pages/includes/css'); ?>">CSS</a></li>
-				<li><a href="<?php echo site_url('/admin/pages/includes/js'); ?>">Javascript</a></li>
+							<li><a href="<?php echo site_url('/admin/pages/templates'); ?>">All Templates</a></li>
+							<li><a href="<?php echo site_url('/admin/pages/includes'); ?>">Includes</a></li>
+							<li><a href="<?php echo site_url('/admin/pages/includes/css'); ?>">CSS</a></li>
+							<li><a href="<?php echo site_url('/admin/pages/includes/js'); ?>">Javascript</a></li>
             </ul>
           </li>
         <?php endif; ?>
@@ -325,16 +328,16 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-				<li><a href="<?php echo site_url('/admin/images/viewall'); ?>">Images</a></li>
-				<?php if (in_array('images_all', $this->permission->permissions)): ?>
-					<li><a href="<?php echo site_url('/admin/images/folders'); ?>">Image Folders</a></li>
-				<?php endif; ?>
-				<?php if (in_array('files', $this->permission->permissions)): ?>
-					<li><a href="<?php echo site_url('/admin/files/viewall'); ?>">Files</a></li>
-					<?php if (in_array('files_all', $this->permission->permissions)): ?>
-						<li><a href="<?php echo site_url('/admin/files/folders'); ?>">File Folders</a></li>
-					<?php endif; ?>
-				<?php endif; ?>
+							<li><a href="<?php echo site_url('/admin/images/viewall'); ?>">Images</a></li>
+							<?php if (in_array('images_all', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/images/folders'); ?>">Image Folders</a></li>
+							<?php endif; ?>
+							<?php if (in_array('files', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/files/viewall'); ?>">Files</a></li>
+								<?php if (in_array('files_all', $this->permission->permissions)): ?>
+									<li><a href="<?php echo site_url('/admin/files/folders'); ?>">File Folders</a></li>
+								<?php endif; ?>
+							<?php endif; ?>
             </ul>
           </li>
         <?php endif; ?>
@@ -347,11 +350,11 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-				<li><a href="<?php echo site_url('/admin/webforms/tickets'); ?>">Tickets</a></li>
-				<?php if (in_array('webforms_edit', $this->permission->permissions)): ?>
-					<li><a href="<?php echo site_url('/admin/webforms/viewall'); ?>">All Web Forms</a></li>
-					<li><a href="<?php echo site_url('/admin/webforms/add_form'); ?>">Add Web Form</a></li>
-				<?php endif; ?>
+							<li><a href="<?php echo site_url('/admin/webforms/tickets'); ?>">Tickets</a></li>
+							<?php if (in_array('webforms_edit', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/webforms/viewall'); ?>">All Web Forms</a></li>
+								<li><a href="<?php echo site_url('/admin/webforms/add_form'); ?>">Add Web Form</a></li>
+							<?php endif; ?>
             </ul>
           </li>
         <?php endif; ?>
@@ -366,14 +369,13 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-				<li><a href="<?php echo site_url('/admin/pages/viewall'); ?>">All Pages</a></li>
-				<?php if (in_array('pages_edit', $this->permission->permissions)): ?>
-					<li><a href="<?php echo site_url('/admin/pages/add'); ?>">Add Page</a></li>
-				<?php endif; ?>
+							<li><a href="<?php echo site_url('/admin/pages/viewall'); ?>">All Pages</a></li>
+							<?php if (in_array('pages_edit', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/pages/add'); ?>">Add Page</a></li>
+							<?php endif; ?>
             </ul>
           </li>
         <?php endif; ?>
-
 
           <li class="treeview">
             <a href="#"><i class="fa fa-newspaper-o"></i> <span>Blog</span>
@@ -382,16 +384,16 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-			<?php if (in_array('blog', $this->permission->permissions)): ?>
-				<li><a href="<?php echo site_url('/admin/blog/viewall'); ?>">All Posts</a></li>
-			<?php endif; ?>
-			<?php if (in_array('blog_edit', $this->permission->permissions)): ?>
-				<li><a href="<?php echo site_url('/admin/blog/add_post'); ?>">Add Post</a></li>
-			<?php endif; ?>
-			<?php if (in_array('blog_cats', $this->permission->permissions)): ?>
-				<li><a href="<?php echo site_url('/admin/blog/categories'); ?>">Categories</a></li>
-			<?php endif; ?>
-			<li><a href="<?php echo site_url('/admin/blog/comments'); ?>">Comments</a></li>
+							<?php if (in_array('blog', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/blog/viewall'); ?>">All Posts</a></li>
+							<?php endif; ?>
+							<?php if (in_array('blog_edit', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/blog/add_post'); ?>">Add Post</a></li>
+							<?php endif; ?>
+							<?php if (in_array('blog_cats', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/blog/categories'); ?>">Categories</a></li>
+							<?php endif; ?>
+							<li><a href="<?php echo site_url('/admin/blog/comments'); ?>">Comments</a></li>
             </ul>
           </li>
 
@@ -403,12 +405,12 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-			<?php if (in_array('forums', $this->permission->permissions)): ?>
-				<li><a href="<?php echo site_url('/admin/forums/forums'); ?>">Forums</a></li>
-			<?php endif; ?>
-			<?php if (in_array('forums_cats', $this->permission->permissions)): ?>
-				<li><a href="<?php echo site_url('/admin/forums/categories'); ?>">Forum Categories</a></li>
-			<?php endif; ?>
+						<?php if (in_array('forums', $this->permission->permissions)): ?>
+							<li><a href="<?php echo site_url('/admin/forums/forums'); ?>">Forums</a></li>
+						<?php endif; ?>
+						<?php if (in_array('forums_cats', $this->permission->permissions)): ?>
+							<li><a href="<?php echo site_url('/admin/forums/categories'); ?>">Forum Categories</a></li>
+						<?php endif; ?>
             </ul>
           </li>
         <?php endif; ?>
@@ -421,30 +423,30 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-				<li><a href="<?php echo site_url('/admin/shop/products'); ?>">All Products</a></li>
-				<?php if (in_array('shop_edit', $this->permission->permissions)): ?>
-					<li><a href="<?php echo site_url('/admin/shop/add_product'); ?>">Add Product</a></li>
-				<?php endif; ?>
-				<?php if (in_array('shop_cats', $this->permission->permissions)): ?>
-					<li><a href="<?php echo site_url('/admin/shop/categories'); ?>">Categories</a></li>
-				<?php endif; ?>
-				<?php if (in_array('shop_orders', $this->permission->permissions)): ?>
-					<li><a href="<?php echo site_url('/admin/shop/orders'); ?>">View Orders</a></li>
-				<?php endif; ?>
-				<?php if (in_array('shop_shipping', $this->permission->permissions)): ?>
-					<li><a href="<?php echo site_url('/admin/shop/bands'); ?>">Shipping Bands</a></li>
-					<li><a href="<?php echo site_url('/admin/shop/postages'); ?>">Shipping Costs</a></li>
-					<li><a href="<?php echo site_url('/admin/shop/modifiers'); ?>">Shipping Modifiers</a></li>
-				<?php endif; ?>
-				<?php if (in_array('shop_discounts', $this->permission->permissions)): ?>
-					<li><a href="<?php echo site_url('/admin/shop/discounts'); ?>">Discount Codes</a></li>
-				<?php endif; ?>
-				<?php if (in_array('shop_reviews', $this->permission->permissions)): ?>
-					<li><a href="<?php echo site_url('/admin/shop/reviews'); ?>">Reviews</a></li>
-				<?php endif; ?>
-				<?php if (in_array('shop_upsells', $this->permission->permissions)): ?>
-					<li><a href="<?php echo site_url('/admin/shop/upsells'); ?>">Upsells</a></li>
-				<?php endif; ?>
+							<li><a href="<?php echo site_url('/admin/shop/products'); ?>">All Products</a></li>
+							<?php if (in_array('shop_edit', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/shop/add_product'); ?>">Add Product</a></li>
+							<?php endif; ?>
+							<?php if (in_array('shop_cats', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/shop/categories'); ?>">Categories</a></li>
+							<?php endif; ?>
+							<?php if (in_array('shop_orders', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/shop/orders'); ?>">View Orders</a></li>
+							<?php endif; ?>
+							<?php if (in_array('shop_shipping', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/shop/bands'); ?>">Shipping Bands</a></li>
+								<li><a href="<?php echo site_url('/admin/shop/postages'); ?>">Shipping Costs</a></li>
+								<li><a href="<?php echo site_url('/admin/shop/modifiers'); ?>">Shipping Modifiers</a></li>
+							<?php endif; ?>
+							<?php if (in_array('shop_discounts', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/shop/discounts'); ?>">Discount Codes</a></li>
+							<?php endif; ?>
+							<?php if (in_array('shop_reviews', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/shop/reviews'); ?>">Reviews</a></li>
+							<?php endif; ?>
+							<?php if (in_array('shop_upsells', $this->permission->permissions)): ?>
+								<li><a href="<?php echo site_url('/admin/shop/upsells'); ?>">Upsells</a></li>
+							<?php endif; ?>
             </ul>
           </li>
         <?php endif; ?>
@@ -457,10 +459,10 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-				<li><a href="<?php echo site_url('/admin/events/viewall'); ?>">All Events</a></li>
-			<?php if (in_array('events_edit', $this->permission->permissions)): ?>
-				<li><a href="<?php echo site_url('/admin/events/add_event'); ?>">Add Event</a></li>
-			<?php endif; ?>
+							<li><a href="<?php echo site_url('/admin/events/viewall'); ?>">All Events</a></li>
+						<?php if (in_array('events_edit', $this->permission->permissions)): ?>
+							<li><a href="<?php echo site_url('/admin/events/add_event'); ?>">Add Event</a></li>
+						<?php endif; ?>
             </ul>
           </li>
         <?php endif; ?>
@@ -473,13 +475,13 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-				<?php if (in_array('wiki_edit', $this->permission->permissions)): ?>
-					<li><a href="<?php echo site_url('/admin/wiki/viewall'); ?>">All Wiki Pages</a></li>
-				<?php endif; ?>
-				<?php if (in_array('wiki_cats', $this->permission->permissions)): ?>
-					<li><a href="<?php echo site_url('/admin/wiki/categories'); ?>">Wiki Categories</a></li>
-				<?php endif; ?>
-				<li><a href="<?php echo site_url('/admin/wiki/changes'); ?>">Recent Changes</a></li>
+						<?php if (in_array('wiki_edit', $this->permission->permissions)): ?>
+							<li><a href="<?php echo site_url('/admin/wiki/viewall'); ?>">All Wiki Pages</a></li>
+						<?php endif; ?>
+						<?php if (in_array('wiki_cats', $this->permission->permissions)): ?>
+							<li><a href="<?php echo site_url('/admin/wiki/categories'); ?>">Wiki Categories</a></li>
+						<?php endif; ?>
+						<li><a href="<?php echo site_url('/admin/wiki/changes'); ?>">Recent Changes</a></li>
             </ul>
           </li>
         <?php endif; ?>
@@ -495,8 +497,8 @@ Not implemented yet.
             </a>
             <ul class="treeview-menu">
             <?php if (in_array('users_groups', $this->permission->permissions)): ?>
-				<li><a href="<?php echo site_url('/admin/users/viewall'); ?>">All Users</a></li>
-				<li><a href="<?php echo site_url('/admin/users/groups'); ?>">User Groups</a></li>
+							<li><a href="<?php echo site_url('/admin/users/viewall'); ?>">All Users</a></li>
+							<li><a href="<?php echo site_url('/admin/users/groups'); ?>">User Groups</a></li>
             <?php endif; ?>
             </ul>
           </li>
