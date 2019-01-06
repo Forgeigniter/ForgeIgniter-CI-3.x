@@ -1,11 +1,11 @@
 var selectedModule = '';
 
 function getTemplate(el){
-	selectedModule = $(el).attr('value');
+	selectedModule = $(el).val();
 
 	if (selectedModule.match('!')){
 		selectedModule = '';
-		$(el).attr('value', '');
+		$(el).val('');
 		alert('Please select a template within the module.');
 	}
 
