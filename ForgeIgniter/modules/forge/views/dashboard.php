@@ -3,13 +3,13 @@
 </script>
 
 <!-- FLOT CHARTS -->
-<script src="<?=PATH['theme'];?>anvil/bower_components/Flot/jquery.flot.js"></script>
+<script type="text/javascript" src="<?=PATH['theme'];?>anvil/plugins/flot/jquery.flot.min.js"></script>
 <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
-<script src="<?=PATH['theme'];?>anvil/bower_components/Flot/jquery.flot.resize.js"></script>
+<script type="text/javascript" src="<?=PATH['theme'];?>anvil/plugins/flot/jquery.flot.resize.min.js"></script>
 <!-- FLOT TIME PLUGIN -->
-<script src="<?=PATH['theme'];?>anvil/bower_components/Flot/jquery.flot.time.js"></script>
+<script type="text/javascript" src="<?=PATH['theme'];?>anvil/plugins/flot/jquery.flot.time.min.js"></script>
 
-<script type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/jquery.flot.init.js"></script>
+<script type="text/javascript" src="<?=PATH['theme'];?>anvil/plugins/flot/jquery.flot.init.js"></script>
 
 <!--[if IE]>
 	<script language="javascript" type="text/javascript" src="<?php echo base_url() . $this->config->item('staticPath'); ?>/js/excanvas.js"></script>
@@ -65,16 +65,16 @@ $(function(){
 		<?php endif; ?>
 
 
-		<?php if ($this->site->config['plan'] > 0 && $this->site->config['plan'] < 6): ?>		
+		<?php if ($this->site->config['plan'] > 0 && $this->site->config['plan'] < 6): ?>
 
 			<div class="quota">
 				<div class="<?php echo ($quota > $this->site->plans['storage']) ? 'over' : 'used'; ?>" style="width: <?php echo ($quota > 0) ? (floor($quota / $this->site->plans['storage'] * 100)) : 0; ?>%"><?php echo floor($quota / $this->site->plans['storage'] * 100); ?>%</div>
 			</div>
-			
+
 			<p><small>You have used <strong><?php echo number_format($quota); ?>kb</strong> out of your <strong><?php echo number_format($this->site->plans['storage']); ?> KB</strong> quota.</small></p>
 
-		<?php endif; ?>		
-	
+		<?php endif; ?>
+
 		<!-- Stats -->
 		<div class="box box-grey">
 		<div class="box-header with-border">
@@ -97,8 +97,8 @@ $(function(){
 			</div>
 		</div><!-- /.box (chat box) -->
 
-		</div> 
-		
+		</div>
+
 		<!-- Website Activity -->
 		<div class="box box-success">
 		<div class="box-header with-border">
@@ -118,13 +118,13 @@ $(function(){
 		<?php if (@in_array('pages', $this->permission->permissions)): ?>
 
 			<div class="module">
-			
+
 				<h2><strong>Manage Your Pages</strong></h2>
-			
+
 				<p>You can set up a new page or edit other pages on your website easily.</p>
-			
+
 				<p><a href="<?php echo site_url('/admin/pages'); ?>" class="button">Manage Pages</a></p>
-				
+
 			</div>
 
 		<?php endif; ?>
@@ -134,45 +134,45 @@ $(function(){
 		<?php if (@in_array('pages_templates', $this->permission->permissions)): ?>
 
 			<div class="module last">
-			
+
 				<h2><strong>Build Templates</strong></h2>
-			
+
 				<p>Gain full control over templates for pages and modules (such as the Blog).</p>
-	
+
 				<p><a href="<?php echo site_url('/admin/pages/templates'); ?>" class="button">Manage Templates</a></p>
-				
+
 			</div>
-			
+
 		<?php endif; ?>
 		</div>
-		
+
 		<div class="col-md-3">
 		<?php if (@in_array('images', $this->permission->permissions)): ?>
 
 			<div class="module">
-			
+
 				<h2><strong>Upload Images</strong></h2>
-			
+
 				<p>Upload images to your website, either individually or with a ZIP file.</p>
-	
+
 				<p><a href="<?php echo site_url('/admin/images'); ?>" class="button">Manage Images</a></p>
-				
+
 			</div>
-			
+
 		<?php endif; ?>
 		</div>
-		
+
 		<div class="col-md-3">
 		<?php if (@in_array('users', $this->permission->permissions)): ?>
-		
+
 			<div class="module last">
-			
+
 				<h2><strong>Manage Your Users</strong></h2>
-			
+
 				<p>See who's using your site or add administrators to help you run it.</p>
-	
+
 				<p><a href="<?php echo site_url('/admin/users'); ?>" class="button">Manage Users</a></p>
-				
+
 			</div>
 
 		<?php endif; ?>
@@ -182,28 +182,28 @@ $(function(){
 		<?php if (@in_array('blog', $this->permission->permissions)): ?>
 
 			<div class="module">
-			
+
 				<h2><strong>Get Using the Blog</strong></h2>
-			
+
 				<p>Add posts to your blog and view comments made by others.</p>
-	
+
 				<p><a href="<?php echo site_url('/admin/blog'); ?>" class="button">Manage Blog</a></p>
-				
+
 			</div>
-			
+
 		<?php endif; ?>
 		</div>
 
 		<div class="col-md-3">
 		<?php if (@in_array('shop', $this->permission->permissions)): ?>
 			<div class="module last">
-			
+
 				<h2><strong>Build Your Shop</strong></h2>
-			
+
 				<p>Set up categories, add products and sell online through the shop.</p>
-			
+
 				<p><a href="<?php echo site_url('/admin/shop'); ?>" class="button">Manage Shop</a></p>
-				
+
 			</div>
 		<?php endif; ?>
 		</div>
@@ -216,7 +216,7 @@ $(function(){
 		<?php if ($popularPages): ?>
 		<div class="col-md-4">
 		<h3>Most popular pages</h3>
-			<ol>		
+			<ol>
 				<?php foreach ($popularPages as $page): ?>
 					<li><?php echo anchor('/admin/pages/edit/'.$page['pageID'], $page['pageName']); ?></li>
 				<?php endforeach; ?>
@@ -227,13 +227,13 @@ $(function(){
 
 		<br />
 		</div>
-		
+
 		<?php if (@in_array('blog', $this->permission->sitePermissions)): ?>
 		<div class="col-md-4">
 		<h3>Most popular blog posts</h3>
 
 		<?php if ($popularBlogPosts): ?>
-			<ol>		
+			<ol>
 				<?php foreach ($popularBlogPosts as $post): ?>
 					<li><?php echo anchor('/admin/blog/edit_post/'.$post['postID'], $post['postTitle']); ?></li>
 				<?php endforeach; ?>
@@ -246,12 +246,12 @@ $(function(){
 		</div>
 		<?php endif; ?>
 
-		<?php if (@in_array('shop', $this->permission->sitePermissions)): ?>		
+		<?php if (@in_array('shop', $this->permission->sitePermissions)): ?>
 		<div class="col-md-4">
 		<h3>Most popular shop products</h3>
 
 		<?php if ($popularShopProducts): ?>
-			<ol>		
+			<ol>
 				<?php foreach ($popularShopProducts as $product): ?>
 					<li><?php echo anchor('/admin/shop/edit_product/'.$product['productID'], $product['productName']); ?></li>
 				<?php endforeach; ?>
@@ -264,10 +264,10 @@ $(function(){
 		</div><!-- /.row -->
 
 	</section><!-- /.Left col -->
-	
+
 	<!-- right Sidebar -->
 	<section class="col-lg-3">
-	
+
 		<!-- Site Info -->
 		<div class="box box-solid bg-light-blue-gradient">
 		<div class="box-header with-border">
@@ -318,7 +318,7 @@ $(function(){
 
 		</div><!-- /.box-body-->
 		</div><!-- /.box -->
-		
+
 		<!-- Site Statistics -->
 		<div class="box box-solid bg-blue-gradient">
 		<div class="box-header with-border">
@@ -364,7 +364,7 @@ $(function(){
 			</div>
 		</div><!-- /.box-body-->
 		</div><!-- /.box -->
-		
+
 		<!-- User Statistics -->
 		<div class="box box-solid bg-green-gradient">
 		<div class="box-header with-border">
@@ -374,7 +374,7 @@ $(function(){
 				User Statistics
 			</h3>
 		</div>
-		
+
 		<div class="box-body">
 			<div class="small-box">
 				<table class="table no-border">
@@ -393,7 +393,7 @@ $(function(){
 						<?php
 							$difference = @round(100 / $numUsersYesterday * ($numUsersToday - $numUsersYesterday), 2);
 							$polarity = ($difference < 0) ? '' : '+';
-						?>						
+						?>
 						<?php if ($difference != 0): ?>
 							<small style="padding-left:5px;">
 								(<span style="color:<?php echo ($polarity == '+') ? '#00ff04' : '#ea604f'; ?>">
@@ -418,7 +418,7 @@ $(function(){
 						<?php
 							$difference = @round(100 / $numUsersLastWeek * ($numUsersWeek - $numUsersLastWeek), 2);
 							$polarity = ($difference < 0) ? '' : '+';
-						?>				
+						?>
 						<?php if ($difference != 0): ?>
 							<small>
 								(<span style="color:<?php echo ($polarity == '+') ? '#00ff04' : '#ea604f'; ?>">
@@ -443,7 +443,7 @@ $(function(){
 			</div>
 		</div><!-- /.box-body-->
 		</div><!-- /.box -->
-		
+
 	</section><!-- right col -->
 	</div><!-- /.row (main row) -->
 
