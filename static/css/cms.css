@@ -58,7 +58,7 @@ div.ficms_buttons a.ficms_savebutton { display: none; z-index: 550; }
 #ficms_browser a { color: #333; text-decoration: none; }
 #ficms_browser p { margin: 12px; }
 #ficms_browser img { border: none !important; }
-#ficms_browser ul img { padding: 0; margin: 0; vertical-align: middle; }
+#ficms_browser ul img { padding: 5px; margin: 0; vertical-align: middle; width:55px }
 #ficms_browser ul { display: inline; float: left; width: 100%; list-style-type: none; margin: 0; padding: 0; clear: both; }
 #ficms_browser ul li { display: inline; float: left; width: 100%; margin: 0; padding: 5px 0; border-bottom: 1px solid #eee; clear: both; }
 #ficms_browser ul li.fixed { height: 60px; }
@@ -67,7 +67,7 @@ div.ficms_buttons a.ficms_savebutton { display: none; z-index: 550; }
 #ficms_browser ul .ficms_title:hover { background: none; }
 #ficms_browser ul li:hover { background: #f4f4f4; }
 #ficms_browser .ficms_thumb { display: inline; float: left; width: 70px; height; 70px; padding: 0; text-align: center; }
-#ficms_browser .ficms_description { display: inline; float: left; width: 160px; height; 60px; }
+#ficms_browser .ficms_description { display: inline; float: left; width: 160px; padding-top: 5px; }
 #ficms_popup { display: none; position: fixed; right: 20px; top: 20px; width: 250px; height: auto !important; height: 50px; min-height: 50px; background: #fff; border:1px solid #ddd; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; -moz-box-shadow: 0px 0px 15px #ccc; -webkit-box-shadow: 0px 0px 15px #ccc; box-shadow: 0px 0px 15px #ccc; padding: 0; z-index: 1000; font-family: "Lucida Grande", verdana, sans-serif !important; font-size: 11px; }
 #ficms_popup.loading { background: #fff url(../images/loader.gif) no-repeat center; }
 #ficms_popup #ficms_scroll { height: 450px; width: 100%; border-top: 1px solid #ddd; overflow: auto; }
