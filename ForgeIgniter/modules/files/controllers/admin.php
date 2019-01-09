@@ -22,9 +22,9 @@ class Admin extends MX_Controller {
 	var $table = 'files';								// table to update
 	var $includes_path = '/includes/admin';				// path to includes for header and footer
 	var $redirect = '/admin/files/viewall';			// default redirect
-	var $objectID = 'fileID';							// default unique ID									
+	var $objectID = 'fileID';							// default unique ID
 	var $permissions = array();
-	
+
 	function __construct()
 	{
 		parent::__construct();
@@ -34,16 +34,16 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/login/'.$this->core->encode($this->uri->uri_string()));
 		}
-		
+
 		// get permissions and redirect if they don't have access to this module
 		if (!$this->permission->permissions)
 		{
 			if (@$this->core->is_ajax())
 			{
-				die('<p>Sorry, you do not have permissions to do what you just tried to do. <a class="halogycms_close" href="#">Close</a>.</p>');
+				die('<p>Sorry, you do not have permissions to do what you just tried to do. <a class="ficms_close" href="#">Close</a>.</p>');
 			}
 			else
-			{			
+			{
 				redirect('/admin/dashboard/permissions');
 			}
 		}
@@ -51,10 +51,10 @@ class Admin extends MX_Controller {
 		{
 			if (@$this->core->is_ajax())
 			{
-				die('<p>Sorry, you do not have permissions to do what you just tried to do. <a class="halogycms_close" href="#">Close</a>.</p>');
+				die('<p>Sorry, you do not have permissions to do what you just tried to do. <a class="ficms_close" href="#">Close</a>.</p>');
 			}
 			else
-			{			
+			{
 				redirect('/admin/dashboard/permissions');
 			}
 		}
@@ -66,14 +66,14 @@ class Admin extends MX_Controller {
 		}
 
 		// load libs etc
-		$this->load->model('files_model', 'files');				
+		$this->load->model('files_model', 'files');
 	}
-	
+
 	function index()
 	{
 		redirect($this->redirect);
 	}
-	
+
 	function viewall($folderID = '')
 	{
 		if (count($_FILES))
@@ -82,7 +82,7 @@ class Admin extends MX_Controller {
 			if ($oldFileName = @$_FILES['file']['name'])
 			{
 				$this->uploads->allowedTypes = 'pdf|doc|mp3|zip|js|swf|flv|mp4|js|css|ico|txt|xls|ppt|ttf|cff|svg|woff|eot';
-				
+
 				if ($fileData = $this->uploads->upload_file())
 				{
 					$this->core->set['filename'] = $fileData['file_name'];
@@ -98,19 +98,19 @@ class Admin extends MX_Controller {
 					// format filename
 					$filenames = explode('.', $oldFileName);
 					$extension = end($filenames);
-					$filename = str_replace('.'.$extension, '', $oldFileName); 
-									
+					$filename = str_replace('.'.$extension, '', $oldFileName);
+
 					// set file reference and only add to db if its unique
-					$fileRef = url_title(trim(strtolower($filename)));	
-										
+					$fileRef = url_title(trim(strtolower($filename)));
+
 					if ($this->form_validation->unique($fileRef, 'files.fileRef'))
-					{						
+					{
 						// set file ref
 						$this->core->set['dateCreated'] = date("Y-m-d H:i:s");
 						$this->core->set['fileRef'] = $fileRef;
 						$this->core->set['filesize'] = $fileData['file_size'];
 						$this->core->set['userID'] = $this->session->userdata('userID');
-				
+
 						// update
 						if ($this->core->update('files'))
 						{
@@ -125,54 +125,54 @@ class Admin extends MX_Controller {
 				}
 			}
 		}
-		
+
 		// search
 		if ($this->input->post('searchbox'))
 		{
 			$output['files'] = $this->files->search_files($this->input->post('searchbox'));
 		}
-		
+
 		else
 		{
 			// set default wheres
 			$where = array('siteID' => $this->siteID, 'deleted' => 0);
-	
+
 			// get preset selections for this dropdown
 			if ($folderID == '' && @array_key_exists('folderID', $this->selections))
 			{
 				$folderID = $this->selections['folderID'];
 			}
-			
-			// folderID	
+
+			// folderID
 			if ($folderID != '')
 			{
 				// get ones uploaded by this user
 				if ($folderID == 'me')
 				{
 					$where['userID'] = $this->session->userdata('userID');
-				}		
-				
+				}
+
 				// make sure that all is not selected
 				elseif ($folderID != 'all' && $folderID != 'page' && $folderID != 'me')
 				{
 					$where['folderID'] = $folderID;
 				}
-				
+
 				// set preset selections for this dropdown
 				$this->session->set_userdata('selections', array($this->uri->segment(2) => array('folderID' => $folderID)));
 			}
-	
+
 			// check they have permissions to see all files
 			if (!@in_array('files_all', $this->permission->permissions))
 			{
 				$where['userID'] = $this->session->userdata('userID');
 			}
-			
+
 			// grab data and display
-			$output = $this->core->viewall($this->table, $where, NULL, 24);	
+			$output = $this->core->viewall($this->table, $where, NULL, 24);
 		}
 
-		// get folderID if set	
+		// get folderID if set
 		$output['folderID'] = $folderID;
 
 		// get quota
@@ -188,7 +188,7 @@ class Admin extends MX_Controller {
 	}
 
 	function edit($fileID, $redirect = '', $popup = FALSE)
-	{		
+	{
 		// set object ID
 		$objectID = array($this->objectID => $fileID);
 
@@ -204,28 +204,28 @@ class Admin extends MX_Controller {
 				$this->form_validation->set_error($this->uploads->errors);
 			}
 			else
-			{			
+			{
 				// update
 				if ($this->core->update('files', $objectID))
 				{
 					// if its not coming from ajax then just go to admin
 					if (!$redirect && !$popup)
-					{						
+					{
 						$redirect = '/admin/files/viewall';
 					}
-					
+
 					// where to redirect to
 					redirect($redirect);
-				}			
+				}
 			}
 		}
 
 		// define view (based on popup)
 		$view = ($popup) ? 'admin/popup' : 'admin/edit';
-		
+
 		// get categories
 		$output['folders'] = $this->files->get_folders();
-		
+
 		// templates
 		if (!@$this->core->is_ajax()) $this->load->view($this->includes_path.'/header');
 		$this->load->view($view, $output);
@@ -240,9 +240,9 @@ class Admin extends MX_Controller {
 		{
 			$this->uploads->delete_file($row['filename']);
 		}
-		
+
 		if ($this->core->delete($this->table, array($this->objectID => $objectID)));
-		{	
+		{
 			// where to redirect to
 			redirect($this->redirect);
 		}
@@ -276,7 +276,7 @@ class Admin extends MX_Controller {
 
 		$this->load->view('admin/browser',$output);
 	}
-	
+
 	function folders()
 	{
 		// check permissions for this page
@@ -284,7 +284,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// required fields
 		$this->core->required = array('folderName' => 'Folder Name');
 
@@ -323,7 +323,7 @@ class Admin extends MX_Controller {
 			foreach($listArray as $ID => $value)
 			{
 				if ($ID != '' && sizeof($value) > 0)
-				{	
+				{
 					// set object ID
 					$objectID = array('folderID' => $ID);
 					$this->core->set['folderName'] = $value['folderName'];
@@ -333,8 +333,8 @@ class Admin extends MX_Controller {
 		}
 
 		// where to redirect to
-		redirect('/admin/files/folders');		
-	}	
+		redirect('/admin/files/folders');
+	}
 
 	function delete_folder($folderID)
 	{
@@ -343,46 +343,46 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// where
-		$objectID = array('folderID' => $folderID);	
-		
+		$objectID = array('folderID' => $folderID);
+
 		if ($this->core->soft_delete('file_folders', $objectID))
 		{
 			// set children to no parent
 			$this->files->update_children($folderID);
-			
+
 			// where to redirect to
 			redirect('/admin/files/folders');
-		}		
+		}
 	}
 
 	function order($field = '')
 	{
 		$this->core->order(key($_POST), $field);
 	}
-	
+
 	function ac_files()
-	{	
+	{
 		$q = strtolower($_POST["q"]);
 		if (!$q) return;
-		
+
 		// form dropdown
 		$results = $this->files->search_files($q);
-		
+
 		// go foreach
 		foreach((array)$results as $row)
 		{
 			$items[$row['fileRef']] = $row['fileRef'];
 		}
-		
+
 		// output
 		$output = '';
 		foreach ($items as $key=>$value)
 		{
 			$output .= "$key|$value\n";
 		}
-		
+
 		$this->output->set_output($output);
 	}
 

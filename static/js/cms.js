@@ -7,10 +7,10 @@
 	var editactive = false;
 	var activeBlock = '';
 	function edit(a) {
-		var b = $(a).closest('div.halogycms_edit');
-		var c = $(b).children('div.halogycms_blockelement');
-		var d = $(b).children('div.halogycms_editblock');
-		var e = $(b).children('div.halogycms_buttons');
+		var b = $(a).closest('div.ficms_edit');
+		var c = $(b).children('div.ficms_blockelement');
+		var d = $(b).children('div.ficms_editblock');
+		var e = $(b).children('div.ficms_buttons');
 		var f = $(a).siblings('a').show();
 		activeBlock = $(b).contents().find('textarea.code');
 		var g = $(activeBlock).val();
@@ -20,8 +20,8 @@
 			$(b).width('202px');
 		}
 		$(activeBlock).css("margin-top", $(e).height() + 5);
-		$(d).addClass('halogycms_active');
-		$(b).addClass('halogycms_active');
+		$(d).addClass('ficms_active');
+		$(b).addClass('ficms_active');
 		showadmin();
 		$(a).hide();
 		$(c).hide();
@@ -29,31 +29,31 @@
 		$(activeBlock).focus();
 	}
 	function cancel(a) {
-		var b = $(a).closest('div.halogycms_edit');
-		var c = $(b).children('div.halogycms_blockelement');
-		var d = $(b).children('div.halogycms_editblock');
+		var b = $(a).closest('div.ficms_edit');
+		var c = $(b).children('div.ficms_blockelement');
+		var d = $(b).children('div.ficms_editblock');
 		var e = $(a).siblings('a').hide();
-		var f = $(a).siblings('a.halogycms_editbutton').show();
-		$(b).removeClass('halogycms_active');
-		$(d).removeClass('halogycms_active');
+		var f = $(a).siblings('a.ficms_editbutton').show();
+		$(b).removeClass('ficms_active');
+		$(d).removeClass('ficms_active');
 		hideadmin();
 		$(a).hide();
 		$(d).hide();
 		$(c).show()
 	}
 	function save(b) {
-		var c = $(b).closest('div.halogycms_edit');
-		var d = $(c).children('div.halogycms_blockelement');
-		var e = $(c).children('div.halogycms_editblock');
+		var c = $(b).closest('div.ficms_edit');
+		var d = $(c).children('div.ficms_blockelement');
+		var e = $(c).children('div.ficms_editblock');
 		var f = $(b).siblings('a').hide();
-		var g = $(b).siblings('a.halogycms_editbutton').show();
-		var h = $(c).contents().find('textarea.code').val() + '[!!ADDBLOCK!!]';		
-		$(c).removeClass('halogycms_active');
-		$(e).removeClass('halogycms_active');
+		var g = $(b).siblings('a.ficms_editbutton').show();
+		var h = $(c).contents().find('textarea.code').val() + '[!!ADDBLOCK!!]';
+		$(c).removeClass('ficms_active');
+		$(e).removeClass('ficms_active');
 		hideadmin();
 		$(b).hide();
 		$(e).hide();
-		$(d).html('<p class="halogycms_loader">Loading...</p>');
+		$(d).html('<p class="ficms_loader">Loading...</p>');
 		$(d).show();
 		$.post(b.href, {
 			body: h
@@ -70,14 +70,14 @@
 	}
 	function autosave(f) {
 		var g = $(f).attr('href');
-		var h = ($('div.halogycms_edit.halogycms_active').length);
+		var h = ($('div.ficms_edit.ficms_active').length);
 		var i = 0;
 		if (h > 0) {
-			$('div.halogycms_edit.halogycms_active').each(function () {
-				var b = $(this).children('div.halogycms_blockelement');
-				var c = $(this).children('div.halogycms_editblock');
+			$('div.ficms_edit.ficms_active').each(function () {
+				var b = $(this).children('div.ficms_blockelement');
+				var c = $(this).children('div.ficms_editblock');
 				var d = $(c).find('textarea.code').val();
-				var e = $(this).find('.halogycms_savebutton').attr('href');
+				var e = $(this).find('.ficms_savebutton').attr('href');
 				$.post(e, {
 					body: d
 				}, function (a) {
@@ -95,42 +95,42 @@
 	}
 	function preview(a) {
 		if (!$(a).hasClass('preview')) {
-			cancel('.halogycms_cancelbutton');
-			$('#halogycms_browser').hide();
-			$('.halogycms_buttons').hide();
-			$('div.halogycms_edit').addClass('halogycms_preview');
-			$('div#halogycms_admin').addClass('halogycms_hidden');
+			cancel('.ficms_cancelbutton');
+			$('#ficms_browser').hide();
+			$('.ficms_buttons').hide();
+			$('div.ficms_edit').addClass('ficms_preview');
+			$('div#ficms_admin').addClass('ficms_hidden');
 			$(a).text('Edit').addClass('preview')
 		} else {
-			$('div.halogycms_edit').removeClass('halogycms_preview');
-			$('div,a').removeClass('halogycms_hover');
-			$('.halogycms_buttons').show();
+			$('div.ficms_edit').removeClass('ficms_preview');
+			$('div,a').removeClass('ficms_hover');
+			$('.ficms_buttons').show();
 			$(a).text('Preview').removeClass('preview')
 		}
 	}
 	function showadmin() {
-		$('div#halogycms_admin').animate({
+		$('div#ficms_admin').animate({
 			'top': '-12px',
 			'height': '25px'
 		}, 20, '', function () {
-			$(this).find('.halogycms_button').fadeIn(100)
+			$(this).find('.ficms_button').fadeIn(100)
 		})
 	}
 	function hideadmin() {
-		if (!$('.halogycms_edit').hasClass('halogycms_active')) {
-			$('div#halogycms_admin').animate({
+		if (!$('.ficms_edit').hasClass('ficms_active')) {
+			$('div#ficms_admin').animate({
 				'top': '-20px',
 				'height': '18px'
 			}, 20, '', function () {
-				$(this).find('.halogycms_button').hide()
+				$(this).find('.ficms_button').hide()
 			})
 		}
 	}
 	function editpic(a) {
 		if ($(a).length > 0) {
 			var b = $(a).offset();
-			var c = $('#halogycms_editpic').attr('rel') + '/' + $(a).attr('id');
-			$('#halogycms_editpic').attr('href', c).css({
+			var c = $('#ficms_editpic').attr('rel') + '/' + $(a).attr('id');
+			$('#ficms_editpic').attr('href', c).css({
 				'top': b.top,
 				'left': b.left
 			}).show()
@@ -139,24 +139,24 @@
 		}
 	}
 	function editshow() {
-		$('#halogycms_editpic').show()
+		$('#ficms_editpic').show()
 	}
 	function edithide() {
 		if (!editactive) {
-			$('#halogycms_editpic').hide()
+			$('#ficms_editpic').hide()
 		}
 	}
 	function showpopup(a) {
 		var b = $(a).attr('href');
-		$('#halogycms_popup').fadeIn(300).load(b, {}, function () {
+		$('#ficms_popup').fadeIn(300).load(b, {}, function () {
 			$(this).removeClass('loading')
 		})
 	}
 	function showimages(a) {
-		var b = $(a).closest('div.halogycms_edit');
+		var b = $(a).closest('div.ficms_edit');
 		activeBlock = $(b).contents().find('textarea.code');
 		$(activeBlock).focus();
-		$('#halogycms_browser').fadeIn(300).load($(a).attr('href'), {}, function () {
+		$('#ficms_browser').fadeIn(300).load($(a).attr('href'), {}, function () {
 			$(this).removeClass('loading')
 		})
 	}
@@ -166,10 +166,10 @@
 		hidebrowser()
 	}
 	function showfiles(a) {
-		var b = $(a).closest('div.halogycms_edit');
+		var b = $(a).closest('div.ficms_edit');
 		activeBlock = $(b).contents().find('textarea.code');
 		$(activeBlock).focus();
-		$('#halogycms_browser').fadeIn(300).load($(a).attr('href'), {}, function () {
+		$('#ficms_browser').fadeIn(300).load($(a).attr('href'), {}, function () {
 			$(this).removeClass('loading')
 		})
 	}
@@ -179,7 +179,7 @@
 		hidebrowser()
 	}
 	function hidebrowser() {
-		$('#halogycms_browser, #halogycms_popup').fadeOut(300, function () {
+		$('#ficms_browser, #ficms_popup').fadeOut(300, function () {
 			$(this).html('');
 			$(this).addClass('loading')
 		})
@@ -188,7 +188,7 @@
 		$(a).parent().parent('ul').next('ul').slideToggle(200)
 	}
 	function formatting(a, b) {
-		var c = $(a).closest('div.halogycms_edit');
+		var c = $(a).closest('div.ficms_edit');
 		var d = $(c).contents().find('textarea.code');
 		if (b == 'bold') {
 			$(d).insertAtCaret('**', '**')
@@ -230,85 +230,85 @@
 		}
 	});
 	$('textarea.code').resizer();
-	$('.halogycms_confirm').live('click', function () {
+	$('.ficms_confirm').live('click', function () {
 		return confirm('You may lose unsaved changes. Continue?')
 	});
-	$('a.halogycms_toggle').live('click', function () {
+	$('a.ficms_toggle').live('click', function () {
 		preview(this);
 		return false
 	});
-	$('a.halogycms_editbutton').live('click', function () {
+	$('a.ficms_editbutton').live('click', function () {
 		edit(this);
 		return false
 	});
-	$('div.halogycms_edit:not(.halogycms_preview)').live('dblclick', function () {
-		edit($(this).find('a.halogycms_editbutton'));
+	$('div.ficms_edit:not(.ficms_preview)').live('dblclick', function () {
+		edit($(this).find('a.ficms_editbutton'));
 		return false
 	});
-	$('a.halogycms_cancelbutton').live('click', function () {
+	$('a.ficms_cancelbutton').live('click', function () {
 		cancel(this);
 		return false
 	});
-	$('a.halogycms_saveall').live('click', function () {
+	$('a.ficms_saveall').live('click', function () {
 		return autosave(this)
 	});
-	$('a.halogycms_imagebutton').live('click', function () {
+	$('a.ficms_imagebutton').live('click', function () {
 		showimages(this);
 		return false
 	});
-	$('.halogycms_insertimage').live('click', function () {
+	$('.ficms_insertimage').live('click', function () {
 		insertimage(this);
 		return false
 	});
-	$('a.halogycms_filebutton').live('click', function () {
+	$('a.ficms_filebutton').live('click', function () {
 		showfiles(this);
 		return false
 	});
-	$('.halogycms_insertfile').live('click', function () {
+	$('.ficms_insertfile').live('click', function () {
 		insertfile(this);
 		return false
 	});
-	$('a.halogycms_close').live('click', function () {
+	$('a.ficms_close').live('click', function () {
 		hidebrowser();
 		return false
 	});
-	$('a.halogycms_boldbutton').live('click', function () {
+	$('a.ficms_boldbutton').live('click', function () {
 		formatting(this, 'bold');
 		return false
 	});
-	$('a.halogycms_italicbutton').live('click', function () {
+	$('a.ficms_italicbutton').live('click', function () {
 		formatting(this, 'italic');
 		return false
 	});
-	$('a.halogycms_h1button').live('click', function () {
+	$('a.ficms_h1button').live('click', function () {
 		formatting(this, 'h1');
 		return false
 	});
-	$('a.halogycms_h2button').live('click', function () {
+	$('a.ficms_h2button').live('click', function () {
 		formatting(this, 'h2');
 		return false
 	});
-	$('a.halogycms_h3button').live('click', function () {
+	$('a.ficms_h3button').live('click', function () {
 		formatting(this, 'h3');
 		return false
 	});
-	$('a.halogycms_urlbutton').live('click', function () {
+	$('a.ficms_urlbutton').live('click', function () {
 		formatting(this, 'url');
 		return false
 	});
-	$('a.halogycms_togglefolder').live('click', function () {
+	$('a.ficms_togglefolder').live('click', function () {
 		toggleFolder(this);
 		return false
 	});
-	$('a.halogycms_savebutton').live('click', function () {
+	$('a.ficms_savebutton').live('click', function () {
 		save(this);
 		return false
 	});
-	$('#halogycms_editpic').live('click', function () {
+	$('#ficms_editpic').live('click', function () {
 		showpopup(this);
 		return false
 	});
-	$('div#halogycms_admin').hover(function () {
+	$('div#ficms_admin').hover(function () {
 		showadmin()
 	}, function () {
 		hideadmin()
@@ -316,18 +316,18 @@
 	$('img.pic').live('mouseover', function () {
 		editpic(this)
 	});
-	$('#halogycms_editpic').live('mouseover', function () {
+	$('#ficms_editpic').live('mouseover', function () {
 		editshow()
 	});
-	$('img,#halogycms_editpic').live('mouseout', function () {
+	$('img,#ficms_editpic').live('mouseout', function () {
 		edithide()
 	});
-	$('div.halogycms_edit:not(.halogycms_active,.halogycms_preview)').live('mouseover', function () {
-		$(this).children('.halogycms_buttons').children('a.halogycms_editbutton').addClass('halogycms_hover');
-		$(this).addClass('halogycms_hover')
+	$('div.ficms_edit:not(.ficms_active,.ficms_preview)').live('mouseover', function () {
+		$(this).children('.ficms_buttons').children('a.ficms_editbutton').addClass('ficms_hover');
+		$(this).addClass('ficms_hover')
 	});
-	$('div.halogycms_edit:not(.halogycms_active)').live('mouseout', function () {
-		$(this).children('.halogycms_buttons').children('a.halogycms_editbutton').removeClass('halogycms_hover');
-		$(this).removeClass('halogycms_hover')
+	$('div.ficms_edit:not(.ficms_active)').live('mouseout', function () {
+		$(this).children('.ficms_buttons').children('a.ficms_editbutton').removeClass('ficms_hover');
+		$(this).removeClass('ficms_hover')
 	});
 })(jQuery);

@@ -45,11 +45,11 @@
 		if (!success) return false;
 
 		$('#target').val($(el).attr('name'));
-		var blocks = ($('#preview').contents().find('a.halogycms_savebutton').length);
+		var blocks = ($('#preview').contents().find('a.ficms_savebutton').length);
 		var updated = 0;
-		$('#preview').contents().find('a.halogycms_savebutton').each(function(){
-			var blockElement = $(this).parent().siblings('div.halogycms_blockelement');
-			var blockForm = $(blockElement).siblings('div.halogycms_editblock');
+		$('#preview').contents().find('a.ficms_savebutton').each(function(){
+			var blockElement = $(this).parent().siblings('div.ficms_blockelement');
+			var blockForm = $(blockElement).siblings('div.ficms_editblock');
 			var body = $(blockForm).find('textarea').val();
 			$.post(this.href,{body: body}, function(data){
 				$(blockElement).html(data);

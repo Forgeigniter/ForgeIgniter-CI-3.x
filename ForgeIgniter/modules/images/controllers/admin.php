@@ -22,11 +22,11 @@ class Admin extends CI_Controller {
 	var $table = 'images';								// table to update
 	var $includes_path = '/includes/admin';				// path to includes for header and footer
 	var $redirect = '/admin/images/viewall';			// default redirect
-	var $objectID = 'imageID';							// default unique ID									
+	var $objectID = 'imageID';							// default unique ID
 	var $permissions = array();
-	var $sitePermissions = array();	
+	var $sitePermissions = array();
 	var $selections = array();
-	
+
 	function __construct()
 	{
 		parent::__construct();
@@ -39,16 +39,16 @@ class Admin extends CI_Controller {
 
 		// get site permissions and redirect if it don't have access to this module
 		$this->permission->sitePermissions = $this->permission->get_group_permissions($this->site->config['groupID']);
-				
+
 		// get permissions and redirect if they don't have access to this module
 		if (!$this->permission->permissions)
 		{
 			if (@$this->core->is_ajax())
 			{
-				die('<p>Sorry, you do not have permissions to do what you just tried to do. <a class="halogycms_close" href="#">Close</a></p>');
+				die('<p>Sorry, you do not have permissions to do what you just tried to do. <a class="ficms_close" href="#">Close</a></p>');
 			}
 			else
-			{			
+			{
 				redirect('/admin/dashboard/permissions');
 			}
 		}
@@ -56,10 +56,10 @@ class Admin extends CI_Controller {
 		{
 			if (@$this->core->is_ajax())
 			{
-				die('<p>Sorry, you do not have permissions to do what you just tried to do. <a class="halogycms_close" href="#">Close</a></p>');
+				die('<p>Sorry, you do not have permissions to do what you just tried to do. <a class="ficms_close" href="#">Close</a></p>');
 			}
 			else
-			{			
+			{
 				redirect('/admin/dashboard/permissions');
 			}
 		}
@@ -77,19 +77,19 @@ class Admin extends CI_Controller {
 		// load libs etc
 		$this->load->model('images_model', 'images');
 	}
-	
+
 	function index()
 	{
 		redirect($this->redirect);
 	}
-	
+
 	function viewall($folderID = '')
 	{
 		if (count($_FILES))
-		{			
+		{
 			// allowed ZIP mime types
 			$allowedZips = array('application/x-zip', 'application/zip', 'application/x-zip-compressed');
-			
+
 			if ($this->input->post('upload_zip'))
 			{
 				if (substr($_FILES['zip']['name'],-3) == 'zip' && in_array($_FILES['zip']['type'], $allowedZips))
@@ -99,10 +99,10 @@ class Admin extends CI_Controller {
 					$this->load->library('zip');
 					$this->load->library('encrypt');
 					$this->load->library('image_lib');
-	
+
 					// unzip files
 					$uploadsPath = $this->uploads->uploadsPath;
-					
+
 					$zip = zip_open($_FILES['zip']['tmp_name']);
 					if ($zip)
 					{
@@ -121,13 +121,13 @@ class Admin extends CI_Controller {
 									$filenames = explode('.', zip_entry_name($zip_entry));
 									$filename = trim(basename($filenames[0]));
 									$extension = end($filenames);
-									
+
 									// get file name
 									$imageRef = url_title(trim(strtolower($filename)));
-		
+
 									// check ref is unique and upload
 									if ($this->form_validation->unique($imageRef, 'images.imageRef'))
-									{																
+									{
 										// set stuff
 										$this->core->set['dateCreated'] = date("Y-m-d H:i:s");
 										$this->core->set['imageName'] = 'Graphic';
@@ -139,9 +139,9 @@ class Admin extends CI_Controller {
 
 										// update and then unset easy
 										if ($this->core->update('images'));
-																				
+
 										// upload file
-										$fp = fopen('.'.$uploadsPath.'/'.md5($filename).'.'.$extension, "w+");				
+										$fp = fopen('.'.$uploadsPath.'/'.md5($filename).'.'.$extension, "w+");
 										if (zip_entry_open($zip, $zip_entry, "r"))
 										{
 											$buf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
@@ -149,7 +149,7 @@ class Admin extends CI_Controller {
 										}
 										fwrite($fp, $buf);
 										fclose($fp);
-										
+
 										// get image size
 										$imageSize = @getimagesize('.'.$uploadsPath.'/'.md5($filename).'.'.$extension);
 
@@ -162,19 +162,19 @@ class Admin extends CI_Controller {
 											$config['maintain_ratio'] = true;
 											$config['width'] = $this->uploads->thumbSize;
 											$config['height'] = $this->uploads->thumbSize;
-										
+
 											$this->image_lib->initialize($config);
 											$this->image_lib->resize();
 										}
-	
-										$success = TRUE;							
+
+										$success = TRUE;
 									}
 								}
 							}
 						}
 						zip_close($zip);
 					}
-	
+
 					// redirect
 					if ($success === TRUE)
 					{
@@ -184,55 +184,55 @@ class Admin extends CI_Controller {
 				else
 				{
 					$this->form_validation->set_error('<p>There was a problem opening the zip file, sorry.</p>');
-				}				
+				}
 			}
 
 			// upload image
 			elseif ($oldFileName = @$_FILES['image']['name'])
 			{
 				$this->uploads->allowedTypes = 'jpg|gif|png';
-				
+
 				// get image name
 				$imageName = ($this->input->post('imageName')) ? $this->input->post('imageName') : preg_replace('/.([a-z]+)$/i', '', $oldFileName);
-				
+
 				// set image reference and only add to db if its unique
 				$imageRef = url_title(trim(substr(strtolower($imageName),0,30)));
-		
+
 				if ($this->form_validation->unique($imageRef, 'images.imageRef'))
-				{	
+				{
 					if ($imageData = $this->uploads->upload_image())
 					{
 						$this->core->set['filename'] = $imageData['file_name'];
-						$this->core->set['filesize'] = $imageData['file_size'];						
+						$this->core->set['filesize'] = $imageData['file_size'];
 					}
-		
+
 					// get image errors if there are any
 					if ($this->uploads->errors)
 					{
 						$this->form_validation->set_error($this->uploads->errors);
 					}
 					else
-					{						
+					{
 						// set image ref
 						$this->core->set['class'] = 'default';
 						$this->core->set['imageRef'] = $imageRef;
 						$this->core->set['imageName'] = ($this->input->post('imageName')) ? $this->input->post('imageName') : 'Image';
 						$this->core->set['dateCreated'] = date("Y-m-d H:i:s");
-						$this->core->set['userID'] = $this->session->userdata('userID');												
-				
+						$this->core->set['userID'] = $this->session->userdata('userID');
+
 						// update
 						if ($this->core->update('images'))
 						{
 							// where to redirect to
 							redirect('/admin/images/viewall/'.(($this->input->post('folderID')) ? $this->input->post('folderID') : ''));
-						}			
+						}
 					}
 				}
 				else
 				{
 					$this->form_validation->set_error('<p>The image reference you entered has already been used, please try another.</p>');
-				}		
-			}			
+				}
+			}
 		}
 
 		// search
@@ -240,50 +240,50 @@ class Admin extends CI_Controller {
 		{
 			$output['images'] = $this->images->search_images($this->input->post('searchbox'));
 		}
-		
+
 		// get images
 		else
 		{
 			// set default wheres
 			$where = array('siteID' => $this->siteID, 'deleted' => 0);
-			
+
 			// get preset selections for this dropdown
 			if ($folderID == '' && @array_key_exists('folderID', $this->selections))
 			{
 				$folderID = $this->selections['folderID'];
 			}
-			
-			// folderID	
+
+			// folderID
 			if ($folderID != '')
 			{
 				// get ones uploaded by this user
 				if ($folderID == 'me')
 				{
 					$where['userID'] = $this->session->userdata('userID');
-				}		
-				
+				}
+
 				// make sure that all is not selected
 				elseif ($folderID != 'all' && $folderID != 'page' && $folderID != 'me')
 				{
 					$where['folderID'] = $folderID;
 				}
-				
+
 				// set preset selections for this dropdown
 				$this->session->set_userdata('selections', array($this->uri->segment(2) => array('folderID' => $folderID)));
 			}
-	
+
 			// check they have permissions to see all images
 			if (!@in_array('images_all', $this->permission->permissions))
 			{
 				$where['userID'] = $this->session->userdata('userID');
 			}
-			
+
 			// grab data and display
 			$output = $this->core->viewall($this->table, $where, NULL, 15);
 		}
 
-		// get folderID if set	
-		$output['folderID'] = $folderID;		
+		// get folderID if set
+		$output['folderID'] = $folderID;
 
 		// get quota
 		$output['quota'] = $this->site->get_quota();
@@ -302,7 +302,7 @@ class Admin extends CI_Controller {
 		$this->core->required = array(
 			'imageRef' => array('label' => 'Image name', 'rules' => 'required|unique[images.imageRef]')
 		);
-		
+
 		// set object ID
 		$objectID = array($this->objectID => $imageID);
 
@@ -314,13 +314,13 @@ class Admin extends CI_Controller {
 		{
 			// set image reference and only add to db if its unique
 			$imageRef = url_title(trim(substr(strtolower($this->input->post('imageRef')),0,30)));
-			
+
 			if ($oldFileName = @$_FILES['image']['name'])
 			{
 				$this->uploads->allowedTypes = 'jpg|gif|png';
-						
+
 				if (!$this->form_validation->unique($imageRef, 'images.imageRef') && $this->input->post('imageRef') != $output['data']['imageRef'])
-				{	
+				{
 					$this->uploads->errors = '<p>The image reference you entered has already been used, please try another.</p>';
 				}
 				else
@@ -329,7 +329,7 @@ class Admin extends CI_Controller {
 					{
 						$this->core->set['filename'] = $imageData['file_name'];
 						$this->core->set['filesize'] = $imageData['file_size'];
-					}					
+					}
 				}
 			}
 
@@ -339,36 +339,36 @@ class Admin extends CI_Controller {
 				$this->form_validation->set_error($this->uploads->errors);
 			}
 			else
-			{			
+			{
 				// set image ref
 				$this->core->set['imageRef'] = $imageRef;
-				$this->core->set['dateModified'] = date("Y-m-d H:i:s");	
-		
+				$this->core->set['dateModified'] = date("Y-m-d H:i:s");
+
 				// update
 				if ($this->core->update('images', $objectID))
 				{
 					// if its not coming from ajax then just go to admin
 					if ($redirect && !$popup)
-					{						
+					{
 						$redirect = $this->core->decode($redirect);
 					}
 					elseif (!$redirect && !$popup)
-					{						
+					{
 						$redirect = '/admin/images/viewall';
 					}
-					
+
 					// where to redirect to
 					redirect($redirect);
-				}			
+				}
 			}
 		}
 
 		// define view (based on popup)
 		$view = ($popup) ? 'admin/popup' : 'admin/edit';
-		
+
 		// get categories
 		$output['folders'] = $this->images->get_folders();
-		
+
 		// templates
 		if (!@$this->core->is_ajax()) $this->load->view($this->includes_path.'/header');
 		$this->load->view($view, $output);
@@ -383,11 +383,11 @@ class Admin extends CI_Controller {
 		{
 			$this->uploads->delete_file($row['filename']);
 		}
-		
+
 		if ($this->core->delete($this->table, array($this->objectID => $objectID)));
-		{	
+		{
 			$redirect = ($redirect) ? $this->core->decode($redirect) : $this->redirect;
-		
+
 			// where to redirect to
 			redirect($redirect);
 		}
@@ -432,7 +432,7 @@ class Admin extends CI_Controller {
 
 		$this->load->view('admin/browser',$output);
 	}
-	
+
 	function folders()
 	{
 		// check permissions for this page
@@ -440,7 +440,7 @@ class Admin extends CI_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// required fields
 		$this->core->required = array('folderName' => 'Folder Name');
 
@@ -480,7 +480,7 @@ class Admin extends CI_Controller {
 			foreach($listArray as $ID => $value)
 			{
 				if ($ID != '' && sizeof($value) > 0)
-				{	
+				{
 					// set object ID
 					$objectID = array('folderID' => $ID);
 					$this->core->set['folderName'] = $value['folderName'];
@@ -491,8 +491,8 @@ class Admin extends CI_Controller {
 		}
 
 		// where to redirect to
-		redirect('/admin/images/folders');		
-	}	
+		redirect('/admin/images/folders');
+	}
 
 	function delete_folder($folderID)
 	{
@@ -501,46 +501,46 @@ class Admin extends CI_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// where
-		$objectID = array('folderID' => $folderID);	
-		
+		$objectID = array('folderID' => $folderID);
+
 		if ($this->core->soft_delete('image_folders', $objectID))
 		{
 			// set children to no parent
 			$this->images->update_children($folderID);
-			
+
 			// where to redirect to
 			redirect('/admin/images/folders');
-		}		
+		}
 	}
 
 	function order($field = '')
 	{
 		$this->core->order(key($_POST), $field);
 	}
-	
+
 	function ac_images()
-	{	
+	{
 		$q = strtolower($_POST["q"]);
 		if (!$q) return;
-		
+
 		// form dropdown
 		$results = $this->images->search_images($q);
-		
+
 		// go foreach
 		foreach((array)$results as $row)
 		{
 			$items[$row['imageRef']] = $row['imageName'];
 		}
-		
+
 		// output
 		$output = '';
 		foreach ($items as $key=>$value)
 		{
 			$output .= "$key|$value\n";
 		}
-		
+
 		$this->output->set_output($output);
 	}
 

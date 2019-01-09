@@ -158,23 +158,23 @@ class Core {
 				if ($admin)
 				{
 					$page[$blockRef] = '
-						<div class="halogycms_container">
-							<div id="'.$blockRef.'" class="halogycms_edit">
-								<div class="halogycms_buttons">
-									<a href="#" class="halogycms_boldbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_bold.png" alt="Bold" title="Bold" class="halogycms_helper" /></a>
-									<a href="#" class="halogycms_italicbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_italic.png" alt="Italic" title="Italic" class="halogycms_helper" /></a>
-									<a href="#" class="halogycms_h1button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_h1.png" alt="Heading 1" title="Heading 1" class="halogycms_helper" /></a>
-									<a href="#" class="halogycms_h2button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_h2.png" alt="Heading 2" title="Heading 2" class="halogycms_helper" /></a>
-									<a href="#" class="halogycms_h3button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_h3.png" alt="Heading 3" title="Heading 3" class="halogycms_helper" /></a>
-									<a href="#" class="halogycms_urlbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_url.png" alt="Insert Link" title="Insert Link" class="halogycms_helper" /></a>
-									<a href="'.site_url('/admin/images/browser').'" class="halogycms_imagebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_image.png" alt="Insert Image" title="Insert Image" class="halogycms_helper" /></a>
-									<a href="'.site_url('/admin/files/browser').'" class="halogycms_filebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_file.png" alt="Insert File" title="Insert File" class="halogycms_helper" /></a>
-									<a href="#" class="halogycms_cancelbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_cancel.png" alt="Cancel" title="Cancel Changes" class="halogycms_helper" /></a>
-									<a href="'.site_url('/admin/pages/add_block/'.$versionID.'/'.$blockRef).'" class="halogycms_savebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_save.png" alt="Save" title="Save Changes" class="halogycms_helper" /></a>
-									<a href="#" class="halogycms_editbutton">Edit</a>
+						<div class="ficms_container">
+							<div id="'.$blockRef.'" class="ficms_edit">
+								<div class="ficms_buttons">
+									<a href="#" class="ficms_boldbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_bold.png" alt="Bold" title="Bold" class="ficms_helper" /></a>
+									<a href="#" class="ficms_italicbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_italic.png" alt="Italic" title="Italic" class="ficms_helper" /></a>
+									<a href="#" class="ficms_h1button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_h1.png" alt="Heading 1" title="Heading 1" class="ficms_helper" /></a>
+									<a href="#" class="ficms_h2button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_h2.png" alt="Heading 2" title="Heading 2" class="ficms_helper" /></a>
+									<a href="#" class="ficms_h3button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_h3.png" alt="Heading 3" title="Heading 3" class="ficms_helper" /></a>
+									<a href="#" class="ficms_urlbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_url.png" alt="Insert Link" title="Insert Link" class="ficms_helper" /></a>
+									<a href="'.site_url('/admin/images/browser').'" class="ficms_imagebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_image.png" alt="Insert Image" title="Insert Image" class="ficms_helper" /></a>
+									<a href="'.site_url('/admin/files/browser').'" class="ficms_filebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_file.png" alt="Insert File" title="Insert File" class="ficms_helper" /></a>
+									<a href="#" class="ficms_cancelbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_cancel.png" alt="Cancel" title="Cancel Changes" class="ficms_helper" /></a>
+									<a href="'.site_url('/admin/pages/add_block/'.$versionID.'/'.$blockRef).'" class="ficms_savebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_save.png" alt="Save" title="Save Changes" class="ficms_helper" /></a>
+									<a href="#" class="ficms_editbutton">Edit</a>
 								</div>
-								<div class="halogycms_blockelement">'.@$mkdnBody[$blockRef].'</div>
-								<div class="halogycms_editblock"><textarea rows="8" cols="10" class="code">'.@$body[$blockRef].'</textarea></div>
+								<div class="ficms_blockelement">'.@$mkdnBody[$blockRef].'</div>
+								<div class="ficms_editblock"><textarea rows="8" cols="10" class="code">'.@$body[$blockRef].'</textarea></div>
 							</div>
 						</div>
 					';

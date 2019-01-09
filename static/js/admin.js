@@ -107,7 +107,7 @@
 	function showimages(a) {
 		var b = $('textarea#body');
 		$(b).focus();
-		$('#halogycms_browser').fadeIn(300).load($(a).attr('href'), {}, function () {
+		$('#ficms_browser').fadeIn(300).load($(a).attr('href'), {}, function () {
 			$(this).removeClass('loading')
 		})
 	}
@@ -120,7 +120,7 @@
 	function showfiles(a) {
 		var b = $('textarea#body');
 		$(b).focus();
-		$('#halogycms_browser').fadeIn(300).load($(a).attr('href'), {}, function () {
+		$('#ficms_browser').fadeIn(300).load($(a).attr('href'), {}, function () {
 			$(this).removeClass('loading')
 		})
 	}
@@ -131,7 +131,7 @@
 		hidebrowser()
 	}
 	function hidebrowser() {
-		$('#halogycms_browser').fadeOut(300, function () {
+		$('#ficms_browser').fadeOut(300, function () {
 			$(this).html('');
 			$(this).addClass('loading')
 		})
@@ -186,26 +186,26 @@
 			$(this).hide();
 			return false
 		});
-		$('.halogycms_confirm').on('click', function () {
+		$('.ficms_confirm').on('click', function () {
 			return confirm('You may lose unsaved changes. Continue?')
 		});
-		$('a.halogycms_imagebutton').on('click', function () {
+		$('a.ficms_imagebutton').on('click', function () {
 			showimages(this);
 			return false
 		});
-		$('.halogycms_insertimage').on('click', function () {
+		$('.ficms_insertimage').on('click', function () {
 			insertimage(this);
 			return false
 		});
-		$('a.halogycms_filebutton').on('click', function () {
+		$('a.ficms_filebutton').on('click', function () {
 			showfiles(this);
 			return false
 		});
-		$('.halogycms_insertfile').on('click', function () {
+		$('.ficms_insertfile').on('click', function () {
 			insertfile(this);
 			return false
 		});
-		$('a.halogycms_close').on('click', function () {
+		$('a.ficms_close').on('click', function () {
 			hidebrowser();
 			return false
 		});
