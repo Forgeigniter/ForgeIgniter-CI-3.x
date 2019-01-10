@@ -64,7 +64,7 @@
 
 						<?php else: ?>
 
-						<p class="clear">There are no comments yet.</p>
+						<p class="clear" style="padding:10px;">There are no comments yet.</p>
 
 						<?php endif; ?>
 
