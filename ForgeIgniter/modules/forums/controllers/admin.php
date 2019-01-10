@@ -13,6 +13,7 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
@@ -32,7 +33,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/login/'.$this->core->encode($this->uri->uri_string()));
 		}
-		
+
 		// get permissions and redirect if they don't have access to this module
 		if (!$this->permission->permissions)
 		{
@@ -45,22 +46,22 @@ class Admin extends MX_Controller {
 
 		//  load models and libs
 		$this->load->model('forums_model', 'forums');
-		$this->load->library('tags');		
-		
+		$this->load->library('tags');
+
 		// get siteID, if available
 		if (defined('SITEID'))
 		{
 			$this->siteID = SITEID;
 		}
 	}
-	
+
 	function index()
 	{
 		redirect($this->redirect);
 	}
-	
+
 	function forums()
-	{		
+	{
 		// grab data and display
 		$output = $this->core->viewall('forums');
 
@@ -79,26 +80,26 @@ class Admin extends MX_Controller {
 
 		// get values
 		$output['data'] = $this->core->get_values('forums');
-		$output['groups'] = $this->permission->get_groups();		
+		$output['groups'] = $this->permission->get_groups();
 
 		// get categories
 		$output['categories'] = $this->forums->get_categories();
-		
+
 		if (count($_POST))
-		{	
+		{
 			// required
 			$this->core->required = array(
 				'forumName' => array('label' => 'Forum Name', 'rules' => 'required|trim'),
 			);
-	
+
 			// set date
 			$this->core->set['dateCreated'] = date("Y-m-d H:i:s");
-					
+
 			// update
 			if ($this->core->update('forums'))
 			{
 				$forumID = $this->db->insert_id();
-							
+
 				// where to redirect to
 				redirect($this->redirect);
 			}
@@ -117,30 +118,30 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-		
+
 		// set object ID
 		$objectID = array('forumID' => $forumID);
 
 		// get values
 		$output['data'] = $this->core->get_values('forums', $objectID);
-		$output['groups'] = $this->permission->get_groups();		
+		$output['groups'] = $this->permission->get_groups();
 
 		// get categories
 		$output['categories'] = $this->forums->get_categories();
 
 		if (count($_POST))
-		{				
+		{
 			// required
 			$this->core->required = array(
 				'forumName' => array('label' => 'forum Name', 'rules' => 'required|trim'),
-			);	
-	
+			);
+
 			// set date
 			$this->core->set['dateModified'] = date("Y-m-d H:i:s");
-			
+
 			// update
 			if ($this->core->update('forums', $objectID))
-			{											
+			{
 				// where to redirect to
 				redirect($this->redirect);
 			}
@@ -158,8 +159,8 @@ class Admin extends MX_Controller {
 		if (!in_array('forums_delete', $this->permission->permissions))
 		{
 			redirect('/admin/dashboard/permissions');
-		}		
-		
+		}
+
 		if ($this->core->soft_delete('forums', array('forumID' => $objectID)))
 		{
 			// where to redirect to
@@ -174,7 +175,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// required fields
 		$this->core->required = array('catName' => 'Category name');
 
@@ -213,7 +214,7 @@ class Admin extends MX_Controller {
 			foreach($listArray as $ID => $value)
 			{
 				if ($ID != '' && sizeof($value) > 0)
-				{	
+				{
 					// set object ID
 					$objectID = array('catID' => $ID);
 					$this->core->set['catName'] = $value['catName'];
@@ -223,8 +224,8 @@ class Admin extends MX_Controller {
 		}
 
 		// where to redirect to
-		redirect('/admin/forums/categories');		
-	}	
+		redirect('/admin/forums/categories');
+	}
 
 	function delete_cat($catID)
 	{
@@ -233,21 +234,21 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// where
-		$objectID = array('catID' => $catID);	
-		
+		$objectID = array('catID' => $catID);
+
 		if ($this->core->soft_delete('forums_cats', $objectID))
 		{
 			// where to redirect to
 			redirect('/admin/forums/categories');
-		}		
+		}
 	}
 
 	function order($field = '')
 	{
 		$this->core->order(key($_POST), $field);
 	}
-	
+
 
 }

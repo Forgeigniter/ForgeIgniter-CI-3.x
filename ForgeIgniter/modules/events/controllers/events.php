@@ -13,13 +13,14 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
 class Events extends MX_Controller {
 
 	var $partials = array();
-	
+
 	function __construct()
 	{
 		parent::__construct();
@@ -38,19 +39,19 @@ class Events extends MX_Controller {
 		if (!in_array($this->uri->segment(1), $this->permission->sitePermissions))
 		{
 			show_error('You do not have permission to view this page');
-		}		
+		}
 
 		// load models and modules
 		$this->load->library('tags');
 		$this->load->library('calendar', array(
 												'show_next_prev' => TRUE,
 												'next_prev_url' => site_url('/events')
-												
+
 											)
-												
-							);		
+
+							);
 		$this->load->model('events_model', 'events');
-		$this->load->module('pages');		
+		$this->load->module('pages');
 
 		// load partials - archive
 		if ($archive = $this->events->get_archive())
@@ -76,7 +77,7 @@ class Events extends MX_Controller {
 					'latest:date' => date((($this->site->config['dateOrder'] == 'MD') ? 'M jS Y' : 'jS M Y'), strtotime($event['eventDate'])),
 				);
 			}
-		}	
+		}
 
 		// load partials - calendar
 		$month = ($this->uri->segment(3) && intval($this->uri->segment(2))) ? $this->uri->segment(3) : date('m', time());
@@ -96,7 +97,7 @@ class Events extends MX_Controller {
 	{
 		// get partials
 		$output = $this->partials;
-						
+
 		// get latest events
 		$events = $this->events->get_events(10);
 		$output['events:events'] = $this->_populate_events($events);
@@ -110,16 +111,16 @@ class Events extends MX_Controller {
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' | Events';
 		$output['page:heading'] = 'Upcoming Events';
-		
+
 		// display with cms layer
-		$this->pages->view('events', $output, TRUE);	
+		$this->pages->view('events', $output, TRUE);
 	}
-	
+
 	function featured()
 	{
 		// get partials
 		$output = $this->partials;
-						
+
 		// get latest events
 		$events = $this->events->get_featured_events();
 		$output['events:featured'] = $this->_populate_events($events);
@@ -133,19 +134,19 @@ class Events extends MX_Controller {
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' | Events';
 		$output['page:heading'] = 'Featured Events';
-		
+
 		// display with cms layer
-		$this->pages->view('events_featured', $output, TRUE);	
+		$this->pages->view('events_featured', $output, TRUE);
 	}
 
 	function viewevent($eventID = '')
 	{
 		// get partials
 		$output = $this->partials;
-				
+
 		// get event
 		if ($event = $this->events->get_event($eventID))
-		{				
+		{
 
 			// populate template
 			$output['event:title'] = $event['eventTitle'];
@@ -163,17 +164,17 @@ class Events extends MX_Controller {
 			// set title
 			$output['page:title'] = $this->site->config['siteName'].' Events - '.$event['eventTitle'];
 			$output['keywords'] = $event['tags'];
-			
+
 			// set meta description
 			if ($event['excerpt'])
 			{
 				$output['page:description'] = $event['excerpt'];
 			}
-			
+
 			// output other stuff
 			$data['event'] = $event;
-			$data['tags'] = explode(' ', $event['tags']);	
-						
+			$data['tags'] = explode(' ', $event['tags']);
+
 			// display with cms layer
 			$this->pages->view('events_single', $output, TRUE);
 		}
@@ -184,7 +185,7 @@ class Events extends MX_Controller {
 	}
 
 	function tag($tag = '')
-	{		
+	{
 		// get partials
 		$output = $this->partials;
 
@@ -194,11 +195,11 @@ class Events extends MX_Controller {
 
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' | Events';
-		$output['page:heading'] = 'Events on "'.$tag.'"';		
+		$output['page:heading'] = 'Events on "'.$tag.'"';
 
 		// set pagination
 		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';
-						
+
 		// display with cms layer
 		$this->pages->view('events', $output, TRUE);
 	}
@@ -210,7 +211,7 @@ class Events extends MX_Controller {
 
 		// get event based on uri
 		$year = $this->uri->segment(2);
-		$month = $this->uri->segment(3);		
+		$month = $this->uri->segment(3);
 
 		// get tags
 		$events = $this->events->get_events_by_date($year, $month);
@@ -218,22 +219,22 @@ class Events extends MX_Controller {
 
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' | Events - '.date('F Y', mktime(0,0,0,$month,1,$year));
-		$output['page:heading'] = date('F Y', mktime(0,0,0,$month,1,$year));			
+		$output['page:heading'] = date('F Y', mktime(0,0,0,$month,1,$year));
 
 		// set pagination
-		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';		
+		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';
 
 		// display with cms layer
-		$this->pages->view('events', $output, TRUE);	
+		$this->pages->view('events', $output, TRUE);
 	}
-	
+
 	function year()
 	{
 		// get partials
 		$output = $this->partials;
 
 		// get event based on uri
-		$year = $this->uri->segment(2);	
+		$year = $this->uri->segment(2);
 
 		// get tags
 		$events = $this->events->get_events_by_date($year);
@@ -241,13 +242,13 @@ class Events extends MX_Controller {
 
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' | Events - '.date('Y', mktime(0,0,0,1,1,$year));
-		$output['page:heading'] = date('Y', mktime(0,0,0,1,1,$year));			
+		$output['page:heading'] = date('Y', mktime(0,0,0,1,1,$year));
 
 		// set pagination
-		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';		
+		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';
 
 		// display with cms layer
-		$this->pages->view('events', $output, TRUE);	
+		$this->pages->view('events', $output, TRUE);
 	}
 
 	function day()
@@ -258,7 +259,7 @@ class Events extends MX_Controller {
 		// get event based on uri
 		$year = $this->uri->segment(2);
 		$month = $this->uri->segment(3);
-		$day = $this->uri->segment(4);	
+		$day = $this->uri->segment(4);
 
 		// get tags
 		$events = $this->events->get_events_by_date($year, $month, $day);
@@ -269,10 +270,10 @@ class Events extends MX_Controller {
 		$output['page:heading'] = date('D jS F Y', mktime(0,0,0,$month,$day,$year));
 
 		// set pagination
-		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';	
-				
+		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';
+
 		// display with cms layer
-		$this->pages->view('events', $output, TRUE);	
+		$this->pages->view('events', $output, TRUE);
 	}
 
 	function search($query = '')
@@ -288,17 +289,17 @@ class Events extends MX_Controller {
 
 		$events = $this->events->search_events($query, $objectIDs);
 		$output['events:events'] = $this->_populate_events($events);
-		$output['query'] = $query;		
-		
+		$output['query'] = $query;
+
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' | Events - Searching Events for "'.$output['query'].'"';
 		$output['page:heading'] = 'Search events for: "'.$output['query'].'"';
 
 		// set pagination
-		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';	
-		
+		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';
+
 		// display with cms layer
-		$this->pages->view('events_search', $output, TRUE);		
+		$this->pages->view('events_search', $output, TRUE);
 	}
 
 	function ac_search()
@@ -310,7 +311,7 @@ class Events extends MX_Controller {
         }
 
 		if ($objectIDs = $this->tags->search('events', $tags))
-		{		
+		{
 			// form dropdown and myql get countries
 			if ($searches = $this->events->search_events($objectIDs))
 			{
@@ -333,13 +334,13 @@ class Events extends MX_Controller {
 			}
 		}
 	}
-	
+
 	function feed()
 	{
 		$tagdata = array();
 
 		$this->load->helper('xml');
-		
+
 		$data['encoding'] = 'utf-8';
 		$data['feed_name'] = $this->site->config['siteName'] . ' | Events RSS Feed';
 		$data['feed_url'] = site_url('/events');
@@ -347,7 +348,7 @@ class Events extends MX_Controller {
 		$data['page_language'] = 'en';
 		$data['creator_email'] = $this->site->config['siteEmail'];
 		$data['events'] = $this->events->get_events(10);
-		
+
         $this->output->set_header('Content-Type: application/rss+xml');
 		$this->load->view('rss', $data);
 	}
@@ -364,18 +365,18 @@ class Events extends MX_Controller {
 					'event:link' => site_url('events/viewevent/'.$event['eventID']),
 					'event:title' => $event['eventTitle'],
 					'event:location' => $event['location'],
-					'event:date' => date(($this->site->config['dateOrder'] == 'MD') ? 'M jS Y' : 'jS M Y', strtotime($event['eventDate'])). 
+					'event:date' => date(($this->site->config['dateOrder'] == 'MD') ? 'M jS Y' : 'jS M Y', strtotime($event['eventDate'])).
 						(($event['time']) ? ' ('.$event['time'].')' : '').
 						(($event['eventEnd'] > 0) ? ' - '.date(($this->site->config['dateOrder'] == 'MD') ? 'M jS Y' : 'jS M Y', strtotime($event['eventEnd'])) : ''),
 					'event:day' => date('d', strtotime($event['eventDate'])),
 					'event:month' => date('M', strtotime($event['eventDate'])),
-					'event:year' => date('y', strtotime($event['eventDate'])),																
+					'event:year' => date('y', strtotime($event['eventDate'])),
 					'event:body' => $this->template->parse_body($event['description'], TRUE, site_url('events/viewevent/'.$event['eventID'])),
 					'event:excerpt' => $this->template->parse_body($event['excerpt'], TRUE, site_url('events/viewevent/'.$event['eventID'])),
 					'event:author' => $this->events->lookup_user($event['userID'], TRUE),
 					'event:author-id' => $event['userID']
 				);
-	
+
 				// get tags
 				if ($event['tags'])
 				{
@@ -386,11 +387,11 @@ class Events extends MX_Controller {
 					{
 						$data[$x]['event:tags'][$i]['tag:link'] = site_url('blog/tag/'.$tag);
 						$data[$x]['event:tags'][$i]['tag'] = $tag;
-						
+
 						$i++;
 					}
 				}
-	
+
 				$x++;
 			}
 

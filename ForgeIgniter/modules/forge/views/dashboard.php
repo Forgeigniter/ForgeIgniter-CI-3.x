@@ -41,8 +41,6 @@ $(function(){
     <!-- Main content -->
     <section class="content container-fluid">
 
-
-
 <section class="content">
 
 	<!-- Main row -->
@@ -64,7 +62,6 @@ $(function(){
      	</div>
 		<?php endif; ?>
 
-
 		<?php if ($this->site->config['plan'] > 0 && $this->site->config['plan'] < 6): ?>
 
 			<div class="quota">
@@ -84,15 +81,14 @@ $(function(){
 		<div class="box-body">
 			<div class="tab-content no-padding">
 
-		<ul class="dashboardnav">
-			<li class="<?php echo ($days == 30) ? 'active' : ''; ?>"><a href="<?php echo site_url('/admin'); ?>">Last 30 Days</a></li>
-			<li class="<?php echo ($days == 60) ? 'active' : ''; ?>"><a href="<?php echo site_url('/admin/dashboard/60'); ?>">Last 60 Days</a></li>
-			<li class="<?php echo ($days == 90) ? 'active' : ''; ?>"><a href="<?php echo site_url('/admin/dashboard/90'); ?>">3 Months</a></li>
-			<li><a href="<?php echo site_url('/admin/tracking'); ?>">Most Recent Visits</a></li>
-		</ul>
+				<ul class="dashboardnav">
+					<li class="<?php echo ($days == 30) ? 'active' : ''; ?>"><a href="<?php echo site_url('/admin'); ?>">Last 30 Days</a></li>
+					<li class="<?php echo ($days == 60) ? 'active' : ''; ?>"><a href="<?php echo site_url('/admin/dashboard/60'); ?>">Last 60 Days</a></li>
+					<li class="<?php echo ($days == 90) ? 'active' : ''; ?>"><a href="<?php echo site_url('/admin/dashboard/90'); ?>">3 Months</a></li>
+					<li><a href="<?php echo site_url('/admin/tracking'); ?>">Most Recent Visits</a></li>
+				</ul>
 
-		<div id="placeholder"></div>
-
+				<div id="placeholder"></div>
 
 			</div>
 		</div><!-- /.box (chat box) -->
@@ -116,79 +112,50 @@ $(function(){
 		<div class="row">
 		<div class="col-md-3">
 		<?php if (@in_array('pages', $this->permission->permissions)): ?>
-
 			<div class="module">
-
 				<h2><strong>Manage Your Pages</strong></h2>
-
 				<p>You can set up a new page or edit other pages on your website easily.</p>
-
 				<p><a href="<?php echo site_url('/admin/pages'); ?>" class="button">Manage Pages</a></p>
-
 			</div>
-
 		<?php endif; ?>
 		</div>
 
 		<div class="col-md-3">
 		<?php if (@in_array('pages_templates', $this->permission->permissions)): ?>
-
 			<div class="module last">
-
 				<h2><strong>Build Templates</strong></h2>
-
 				<p>Gain full control over templates for pages and modules (such as the Blog).</p>
-
 				<p><a href="<?php echo site_url('/admin/pages/templates'); ?>" class="button">Manage Templates</a></p>
-
 			</div>
-
 		<?php endif; ?>
 		</div>
 
 		<div class="col-md-3">
 		<?php if (@in_array('images', $this->permission->permissions)): ?>
-
 			<div class="module">
-
 				<h2><strong>Upload Images</strong></h2>
-
 				<p>Upload images to your website, either individually or with a ZIP file.</p>
-
 				<p><a href="<?php echo site_url('/admin/images'); ?>" class="button">Manage Images</a></p>
-
 			</div>
-
 		<?php endif; ?>
 		</div>
 
 		<div class="col-md-3">
 		<?php if (@in_array('users', $this->permission->permissions)): ?>
-
 			<div class="module last">
-
 				<h2><strong>Manage Your Users</strong></h2>
-
 				<p>See who's using your site or add administrators to help you run it.</p>
-
 				<p><a href="<?php echo site_url('/admin/users'); ?>" class="button">Manage Users</a></p>
-
 			</div>
-
 		<?php endif; ?>
 		</div>
 
 		<div class="col-md-3">
 		<?php if (@in_array('blog', $this->permission->permissions)): ?>
-
 			<div class="module">
-
 				<h2><strong>Get Using the Blog</strong></h2>
-
 				<p>Add posts to your blog and view comments made by others.</p>
-
 				<p><a href="<?php echo site_url('/admin/blog'); ?>" class="button">Manage Blog</a></p>
-
 			</div>
 
 		<?php endif; ?>
@@ -197,13 +164,9 @@ $(function(){
 		<div class="col-md-3">
 		<?php if (@in_array('shop', $this->permission->permissions)): ?>
 			<div class="module last">
-
 				<h2><strong>Build Your Shop</strong></h2>
-
 				<p>Set up categories, add products and sell online through the shop.</p>
-
 				<p><a href="<?php echo site_url('/admin/shop'); ?>" class="button">Manage Shop</a></p>
-
 			</div>
 		<?php endif; ?>
 		</div>
@@ -322,7 +285,6 @@ $(function(){
 		<!-- Site Statistics -->
 		<div class="box box-solid bg-blue-gradient">
 		<div class="box-header with-border">
-
 			<i class="fa fa-bar-chart"></i>
 			<h3 class="box-title">
 				Site Statistics
@@ -389,7 +351,6 @@ $(function(){
 					<td>New today:</td>
 					<td>
 						<?php echo number_format($numUsersToday); ?> <small>user<?php echo ($numUsersToday != 1) ? 's' : ''; ?>
-
 						<?php
 							$difference = @round(100 / $numUsersYesterday * ($numUsersToday - $numUsersYesterday), 2);
 							$polarity = ($difference < 0) ? '' : '+';
@@ -414,7 +375,6 @@ $(function(){
 					<td>New This Week :</td>
 					<td>
 						<?php echo number_format($numUsersWeek); ?> <small>user<?php echo ($numUsersWeek != 1) ? 's' : ''; ?></small>
-
 						<?php
 							$difference = @round(100 / $numUsersLastWeek * ($numUsersWeek - $numUsersLastWeek), 2);
 							$polarity = ($difference < 0) ? '' : '+';

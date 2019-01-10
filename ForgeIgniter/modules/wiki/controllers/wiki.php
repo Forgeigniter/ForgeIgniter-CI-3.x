@@ -13,15 +13,16 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
-	
+
 class Wiki extends MX_Controller {
 
 	var $partials = array();
 	var $permissions = array();
 	var $sitePermissions = array();
-	
+
 	function __construct()
 	{
 		parent::__construct();
@@ -46,9 +47,9 @@ class Wiki extends MX_Controller {
 		if (defined('SITEID'))
 		{
 			$this->siteID = SITEID;
-		}		
+		}
 
-		// load libs etc		
+		// load libs etc
 		$this->load->model('wiki_model', 'wiki');
 		$this->load->module('pages');
 		$this->load->library('parser');
@@ -59,9 +60,9 @@ class Wiki extends MX_Controller {
 		$data['categories'] = $this->wiki->get_categories();
 		$this->partials['wiki:categories'] = $this->parser->parse('partials/categories', $data, TRUE);
 	}
-	
+
 	function index()
-	{			
+	{
 		if ($this->uri->segment(2))
 		{
 			// deprecated uri code (now its always just the uri string)
@@ -79,15 +80,15 @@ class Wiki extends MX_Controller {
 		{
 			$uri = 'home';
 		}
-		
+
 		$this->view($uri);
 	}
-	
+
 	function view($page)
 	{
 		// get partials
 		$output = $this->partials;
-		
+
 		// load wiki page
 		$wikipage = $this->wiki->get_page(FALSE, $page);
 
@@ -104,7 +105,7 @@ class Wiki extends MX_Controller {
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' | Wiki - '.$wikipage['pageName'];
 		$output['page:heading'] = $wikipage['pageName'];
-		
+
 		// display with cms layer
 		$this->pages->view('wiki_page', $output, TRUE);
 	}
@@ -116,7 +117,7 @@ class Wiki extends MX_Controller {
 		{
 			redirect('/users/login/'.$this->core->encode($this->uri->uri_string()));
 		}
-		
+
 		// get page
 		$uri = $this->core->decode($page);
 
@@ -145,7 +146,7 @@ class Wiki extends MX_Controller {
 						'</strong>' :
 						dateFmt($version['dateCreated']).
 							(($user = $this->wiki->lookup_user($version['userID'], TRUE)) ? ', by '.$user : '').
-							(($notes = $version['notes']) ? ' <em>('.$notes.')</em>' : '').							
+							(($notes = $version['notes']) ? ' <em>('.$notes.')</em>' : '').
 						' | '.anchor('/wiki/revert/'.$this->core->encode($uri).'/'.$version['versionID'], 'Revert', 'onclick="return confirm(\'You will lose unsaved changes. Continue?\');"')
 				);
 			}
@@ -160,7 +161,7 @@ class Wiki extends MX_Controller {
 			}
 		}
 		$options[0] = 'No Category';
-				
+
 
 		// populate template
 		$output['wikipage:link'] = site_url('/wiki/'.$wikipage['uri']);
@@ -168,11 +169,11 @@ class Wiki extends MX_Controller {
 		$output['select:categories'] = @form_dropdown('catID',$options,set_value('catID', $wikipage['catID']),'id="category" class="formelement"');
 		$output['form:body'] = $wikipage['body'];
 		$output['form:notes'] = $this->input->post('notes');
-		
+
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' | Edit Wiki';
 		$output['page:heading'] = 'Edit Page - "'.$uri.'"';
-		
+
 		// display with cms layer
 		$this->pages->view('wiki_form', $output, TRUE);
 	}
@@ -184,10 +185,10 @@ class Wiki extends MX_Controller {
 		{
 			show_error('Something went wrong!');
 		}
-		
+
 		// get page
 		$uri = $this->core->decode($page);
-		
+
 		if (!$page = $this->wiki->get_page(FALSE, $uri))
 		{
 			show_error('No page found!');
@@ -209,7 +210,7 @@ class Wiki extends MX_Controller {
 		$row = null;
 		// get category or fail
 		$category = ($catID && $row = $this->wiki->get_categories($catID)) ? $row['catName'] : 'Uncategorised';
-		
+
 		// get partials
 		$output = $this->partials;
 
@@ -230,21 +231,21 @@ class Wiki extends MX_Controller {
 		$output['page:title'] = $this->site->config['siteName'].' | Wiki - '.$category;
 		$output['page:heading'] = $category;
 		$output['page:description'] = mkdn($row['description']);
-		
+
 		// display with cms layer
-		$this->pages->view('wiki', $output, TRUE);	
+		$this->pages->view('wiki', $output, TRUE);
 	}
 
 	function search($tag = '')
 	{
 		// get partials
 		$output = $this->partials;
-				
+
 		// set tags
 		$query = ($tag) ? $tag : strip_tags($this->input->post('query', TRUE));
 
 		if ($pageIDs = $this->wiki->search_wiki($query))
-		{		
+		{
 			if ($pages = $this->wiki->get_pages(NULL, $pageIDs))
 			{
 				foreach($pages as $page)
@@ -256,16 +257,16 @@ class Wiki extends MX_Controller {
 				}
 			}
 		}
-		
+
 		// set pagination
 		$output['pagination'] = ($pagination = $this->pagination->create_links()) ? $pagination : '';
 
 		// set title
 		$output['page:title'] = $this->site->config['siteName'].' | Searching wiki for "'.$query.'"';
-		$output['page:heading'] = 'Search wiki for: "'.$query.'"';	
-		
+		$output['page:heading'] = 'Search wiki for: "'.$query.'"';
+
 		// display with cms layer
-		$this->pages->view('wiki_search', $output, TRUE);	
+		$this->pages->view('wiki_search', $output, TRUE);
 	}
-	
+
 }

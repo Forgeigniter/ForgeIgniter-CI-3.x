@@ -13,13 +13,14 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
 class Tickets_model extends CI_Model {
 
 	var $siteID;
-	
+
 	function __construct()
 	{
 		parent::__construct();
@@ -34,10 +35,10 @@ class Tickets_model extends CI_Model {
 	function get_all_web_forms()
 	{
 		$this->db->where('siteID', $this->siteID);
-		$this->db->where('deleted', 0);	
+		$this->db->where('deleted', 0);
 
-		$this->db->order_by('formName');	
-			
+		$this->db->order_by('formName');
+
 		$query = $this->db->get('web_forms');
 
 		if ($query->num_rows() > 0)
@@ -53,10 +54,10 @@ class Tickets_model extends CI_Model {
 	function get_web_form($formID = '')
 	{
 		$this->db->where('siteID', $this->siteID);
-		$this->db->where('deleted', 0);	
+		$this->db->where('deleted', 0);
 
 		$this->db->where('formID', $formID);
-			
+
 		$query = $this->db->get('web_forms', 1);
 
 		if ($query->num_rows() > 0)
@@ -76,5 +77,5 @@ class Tickets_model extends CI_Model {
 		$this->db->where('siteID', $this->siteID);
 		$this->db->update('tickets');
 	}
-	
+
 }

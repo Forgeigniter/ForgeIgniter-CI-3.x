@@ -13,11 +13,12 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
 class Events_Model extends CI_Model {
-	
+
 	function __construct()
 	{
 		parent::__construct();
@@ -26,7 +27,7 @@ class Events_Model extends CI_Model {
 		if (defined('SITEID'))
 		{
 			$this->siteID = SITEID;
-		}	
+		}
 	}
 
 	function get_all_events()
@@ -34,7 +35,7 @@ class Events_Model extends CI_Model {
 		$this->db->where('deleted', 0);
 		$this->db->where('published', 1);
 		$this->db->where('siteID', $this->siteID);
-		
+
 		$query = $this->db->get('events');
 
 		if ($query->num_rows() > 0)
@@ -47,38 +48,38 @@ class Events_Model extends CI_Model {
 			return FALSE;
 		}
 	}
-	
+
 	function get_event($eventID)
-	{				
+	{
 		$this->db->where('eventID', $eventID);
 		$this->db->where('deleted', 0);
-		$this->db->where('published', 1);		
+		$this->db->where('published', 1);
 		$this->db->where('siteID', $this->siteID);
-		
+
 		$query = $this->db->get('events', 1);
-		
+
 		if ( $query->num_rows() == 1 )
 		{
 			$event = $query->row_array();
-						
+
 			return $event;
 		}
 		else
 		{
 			return FALSE;
 		}
-	}		
+	}
 
 	function get_post_by_id($eventID)
 	{
 		$this->db->where('eventID', $eventID);
-		
+
 		$query = $this->db->get('event_post', 1);
-		
+
 		if ($query->num_rows())
 		{
 			$post = $query->row_array();
-			
+
 			return $post;
 		}
 		else
@@ -89,9 +90,9 @@ class Events_Model extends CI_Model {
 
 	function get_tags()
 	{
-		$this->db->join('tags_ref', 'tags_ref.tag_id = tags.id');	
+		$this->db->join('tags_ref', 'tags_ref.tag_id = tags.id');
 		$this->db->where('tags_ref.siteID', $this->siteID);
-		
+
 		$query = $this->db->get('tags');
 
 		if ($query->num_rows())
@@ -102,7 +103,7 @@ class Events_Model extends CI_Model {
 		{
 			return FALSE;
 		}
-	}	
+	}
 
 	function update_tags($eventID = '', $tags = '')
 	{
@@ -110,12 +111,12 @@ class Events_Model extends CI_Model {
 		if ($tags)
 		{
 			$this->tags->delete_tag_ref(
-			array(			 		
+			array(
 				'table' => 'events',
 				'row_id' => $eventID,
 				'siteID' => $this->siteID)
 			);
-			
+
 			$tags = str_replace(',', ' ', trim($tags));
 			$tagsArray = explode(' ', $tags);
 			foreach($tagsArray as $key => $tag)
@@ -153,7 +154,7 @@ class Events_Model extends CI_Model {
 
 		// wheres
 		$this->db->where($where);
-		
+
 		// check event isn't passed
 		$this->db->where('IF(eventEnd > 0, eventEnd, eventDate) >=', date("Y-m-d H:i:s", time()));
 
@@ -162,7 +163,7 @@ class Events_Model extends CI_Model {
 
 		// get rows with paging
 		$query = $this->db->get('events', $num);
-		
+
 		if ($query->num_rows())
 		{
 			return $query->result_array();
@@ -191,7 +192,7 @@ class Events_Model extends CI_Model {
 
 		// get rows with paging
 		$query = $this->db->get('events');
-		
+
 		if ($query->num_rows())
 		{
 			return $query->result_array();
@@ -207,7 +208,7 @@ class Events_Model extends CI_Model {
 		// default where
 		$where = array(
 			'deleted' => 0,
-			'published' => 1,			
+			'published' => 1,
 			'siteID' => $this->siteID
 		);
 
@@ -218,7 +219,7 @@ class Events_Model extends CI_Model {
 
 		$from =  date("Y-m-d H:i:s", mktime(0, 0, 0, $month, 1, $year));
 		$to =  date("Y-m-d H:i:s", mktime(23, 59, 59, $next_month, 0, $year));
-		
+
 		$where['eventDate >='] = $from;
 		$where['eventDate <='] = $to;
 
@@ -239,7 +240,7 @@ class Events_Model extends CI_Model {
 		{
 			return FALSE;
 		}
-	}	
+	}
 
 	function get_events_by_tag($tag, $limit = 10)
 	{
@@ -258,7 +259,7 @@ class Events_Model extends CI_Model {
 		// default where
 		$this->db->where(array(
 			'deleted' => 0,
-			'published' => 1,			
+			'published' => 1,
 			'siteID' => $this->siteID
 		));
 
@@ -268,9 +269,9 @@ class Events_Model extends CI_Model {
 		// where tags
 		$this->db->where_in('eventID', $tagsArray);
 		$this->db->order_by('eventDate', 'asc');
-		
+
 		$query = $this->db->get('events', $limit);
-		
+
 		if ($query->num_rows() > 0)
 		{
 			return $query->result_array();
@@ -292,16 +293,16 @@ class Events_Model extends CI_Model {
 		{
 			$from = date("Y-m-d H:i:s", mktime(0, 0, 0, 1, ((!$day) ? 1 : $day), $year));
 			$to = date("Y-m-d H:i:s", mktime(0, 0, 0, 1, 1, ($year+1)));
-		}	
+		}
 
 		$this->db->where('eventDate >=', $from);
 		$this->db->where('eventDate <=', $to);
-		$this->db->where('deleted', 0);	
+		$this->db->where('deleted', 0);
 		$this->db->where('published', 1);
 		$this->db->where('siteID', $this->siteID);
 
 		$this->db->order_by('eventDate');
-				
+
 		$query = $this->db->get('events');
 
 		if ($query->num_rows() > 0)
@@ -317,10 +318,10 @@ class Events_Model extends CI_Model {
 	function get_post_by_title($title = '')
 	{
 		$this->db->where('eventTitle', $title);
-		$this->db->where('deleted', 0);	
-		$this->db->where('published', 1);		
+		$this->db->where('deleted', 0);
+		$this->db->where('published', 1);
 		$this->db->where('siteID', $this->siteID);
-				
+
 		$query = $this->db->get('events');
 
 		if ($query->num_rows() > 0)
@@ -338,15 +339,15 @@ class Events_Model extends CI_Model {
 		// selects
 		$this->db->select('COUNT(eventID) as numEvents, DATE_FORMAT(eventDate, "%M %Y") as dateStr, DATE_FORMAT(eventDate, "%m") as month, DATE_FORMAT(eventDate, "%Y") as year', FALSE);
 		$this->db->where('deleted', 0);
-		$this->db->where('published', 1);		
-		$this->db->where('siteID', $this->siteID);	
+		$this->db->where('published', 1);
+		$this->db->where('siteID', $this->siteID);
 
 		// check event isn't passed
 		$this->db->where('IF(eventEnd > 0, eventEnd, eventDate) >=', date("Y-m-d H:i:s", time()));
 
 		// group by month
 		$this->db->group_by('dateStr');
-		
+
 		$query = $this->db->get('events');
 
 		if ($query->num_rows() > 0)
@@ -390,14 +391,14 @@ class Events_Model extends CI_Model {
 			$sql .= ' OR eventID IN ('.implode(',', $ids).')';
 		}
 		$this->db->where($sql);
-	
+
 		// check event isn't passed
 		$this->db->where('IF(eventEnd > 0, eventEnd, eventDate) >=', date("Y-m-d H:i:s", time()));
-		
-		$this->db->order_by('eventDate', 'asc');			
-	
+
+		$this->db->order_by('eventDate', 'asc');
+
 		$query = $this->db->get('events');
-		
+
 		if ($query->num_rows() > 0)
 		{
 
@@ -420,7 +421,7 @@ class Events_Model extends CI_Model {
 		if ($query->num_rows())
 		{
 			$row = $query->row_array();
-			
+
 			if ($display !== FALSE)
 			{
 				return ($row['displayName']) ? $row['displayName'] : $row['firstName'].' '.$row['lastName'];
@@ -433,34 +434,34 @@ class Events_Model extends CI_Model {
 		else
 		{
 			return FALSE;
-		}		
+		}
 	}
 
 
 
 
 	/// OLD!!! ///
-	
-		
+
+
 	function tag_cloud($num)
 	{
 		$this->db->select('t.tag, COUNT(pt.tagID) as qty', FALSE);
 		$this->db->join('tags pt', 'pt.tag_id = t.id', 'inner');
 		$this->db->groupby('t.id');
-		
+
 		$query = $this->db->get('tags t');
-		
+
 		$built = array();
-		
+
 		if ($query->num_rows > 0)
 		{
 			$result = $query->result_array();
-			
+
 			foreach ($result as $row)
 			{
 				$built[$row['tag']] = $row['qty'];
 			}
-			
+
 			return $built;
 		}
 		else
@@ -468,5 +469,5 @@ class Events_Model extends CI_Model {
 			return array();
 		}
 	}
-			
+
 }

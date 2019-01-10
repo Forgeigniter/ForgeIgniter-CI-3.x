@@ -13,6 +13,7 @@
  * @since		Hal Version 1.0
  * @version		1.1
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 

@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 	$route['blog/more'] = 'blog/more';
 	$route['blog/more/page/(:num)'] = 'blog/more/page/$1';
 	$route['blog/category/(:any)'] = 'blog/category/$1';

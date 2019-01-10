@@ -13,17 +13,18 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
 class Pages_model extends CI_Model {
 
 	var $siteID;
-	
+
 	function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->table = 'pages';
 
 		if (!$this->siteID)
@@ -47,10 +48,10 @@ class Pages_model extends CI_Model {
 		$this->db->select('pages.*, page_versions.userID', FALSE);
 		$this->db->join('page_versions', 'pages.draftID = page_versions.versionID', 'left');
 
-		$this->db->order_by('pageOrder');		
+		$this->db->order_by('pageOrder');
 
 		$query = $this->db->get($this->table);
-		
+
 		if ($query->num_rows() > 0)
 		{
 			return $query->result_array();
@@ -78,18 +79,18 @@ class Pages_model extends CI_Model {
 
 		// find out if its modified
 		$this->db->select(' (SELECT COUNT(*) FROM '.$this->db->dbprefix.'page_blocks WHERE '.$this->db->dbprefix.'page_blocks.versionID = '.$this->db->dbprefix.'pages.draftID AND '.$this->db->dbprefix.'page_blocks.dateCreated > DATE_ADD(dateModified, INTERVAL 5 SECOND)) AS newBlocks', FALSE);
-		
+
 		// find out if its modified
 		$this->db->select(' (SELECT COUNT(*) FROM '.$this->db->dbprefix.'page_versions WHERE '.$this->db->dbprefix.'page_versions.pageID = '.$this->db->dbprefix.'pages.pageID AND '.$this->db->dbprefix.'page_versions.dateCreated > DATE_ADD(datePublished, INTERVAL 5 SECOND)) AS newVersions', FALSE);
 
 		// join versions
 		$this->db->select('pages.*, page_versions.userID', FALSE);
 		$this->db->join('page_versions', 'pages.draftID = page_versions.versionID', 'left');
-		
+
 		$this->db->order_by('pageOrder', 'asc');
-		
+
 		$query = $this->db->get('pages');
-		
+
 		if ($query->num_rows())
 		{
 			return $query->result_array();
@@ -97,7 +98,7 @@ class Pages_model extends CI_Model {
 		else
 		{
 			return FALSE;
-		}		
+		}
 	}
 
 	function get_page_children($pageID = '')
@@ -111,22 +112,22 @@ class Pages_model extends CI_Model {
 		{
 			$this->db->where('groupID', $this->session->userdata('groupID'));
 		}
-		
+
 		// get page by ID
 		$this->db->where('parentID', $pageID);
-		
+
 		// find out if its modified
 		$this->db->select(' (SELECT COUNT(*) FROM '.$this->db->dbprefix.'page_blocks WHERE '.$this->db->dbprefix.'page_blocks.versionID = '.$this->db->dbprefix.'pages.draftID AND '.$this->db->dbprefix.'page_blocks.dateCreated > DATE_ADD(dateModified, INTERVAL 5 SECOND)) AS newBlocks', FALSE);
-		
+
 		// find out if its modified
-		$this->db->select(' (SELECT COUNT(*) FROM '.$this->db->dbprefix.'page_versions WHERE '.$this->db->dbprefix.'page_versions.pageID = '.$this->db->dbprefix.'pages.pageID AND '.$this->db->dbprefix.'page_versions.dateCreated > DATE_ADD(datePublished, INTERVAL 5 SECOND)) AS newVersions', FALSE);		
+		$this->db->select(' (SELECT COUNT(*) FROM '.$this->db->dbprefix.'page_versions WHERE '.$this->db->dbprefix.'page_versions.pageID = '.$this->db->dbprefix.'pages.pageID AND '.$this->db->dbprefix.'page_versions.dateCreated > DATE_ADD(datePublished, INTERVAL 5 SECOND)) AS newVersions', FALSE);
 
 		// join versions
 		$this->db->select('pages.*, page_versions.userID', FALSE);
 		$this->db->join('page_versions', 'pages.draftID = page_versions.versionID', 'left');
-		
+
 		$this->db->order_by('pageOrder', 'asc');
-		
+
 		$query = $this->db->get('pages');
 
 		if ($query->num_rows())
@@ -136,9 +137,9 @@ class Pages_model extends CI_Model {
 		else
 		{
 			return FALSE;
-		}		
+		}
 	}
-	
+
 	function get_page($pageID)
 	{
 		$this->db->where('pages.siteID', $this->siteID);
@@ -155,10 +156,10 @@ class Pages_model extends CI_Model {
 		$this->db->select('pages.*, page_versions.userID', FALSE);
 		$this->db->join('page_versions', 'pages.draftID = page_versions.versionID', 'left');
 
-		$this->db->order_by('pageOrder');		
+		$this->db->order_by('pageOrder');
 
 		$query = $this->db->get($this->table, 1);
-		
+
 		if ($query->num_rows() > 0)
 		{
 			return $query->row_array();
@@ -213,7 +214,7 @@ class Pages_model extends CI_Model {
 		{
 			$this->db->where('modulePath !=', '');
 		}
-		
+
 		// select
 		$this->db->select('t1.*, t2.body, t2.dateCreated, t2.userID');
 
@@ -225,10 +226,10 @@ class Pages_model extends CI_Model {
 		// order
 		$this->db->order_by('modulePath', 'asc');
 		$this->db->order_by('templateName', 'asc');
-		
-		// get all templates		
+
+		// get all templates
 		$query = $this->db->get();
-		
+
 		if ($query->num_rows())
 		{
 			return $query->result_array();
@@ -249,9 +250,9 @@ class Pages_model extends CI_Model {
 
 		// where
 		$this->db->where('templateID', $templateID);
-		
+
 		$query = $this->db->get('pages');
-	
+
 		if ($query->num_rows())
 		{
 			$row = $query->row_array();
@@ -268,9 +269,9 @@ class Pages_model extends CI_Model {
 		$this->db->where('objectID', $templateID);
 
 		$this->db->order_by('dateCreated', 'desc');
-	
+
 		$query = $this->db->get('template_versions', 30);
-		
+
 		// get data
 		if ($query->num_rows())
 		{
@@ -279,7 +280,7 @@ class Pages_model extends CI_Model {
 		else
 		{
 			return false;
-		}		
+		}
 	}
 
 	function get_include($includeRef = '', $includeID = '')
@@ -315,7 +316,7 @@ class Pages_model extends CI_Model {
 
 		// join revisions
 		$this->db->join('include_versions t2', 't2.versionID = t1.versionID', 'left');
-		
+
 		// get em
 		$query = $this->db->get();
 
@@ -326,7 +327,7 @@ class Pages_model extends CI_Model {
 		else
 		{
 			return FALSE;
-		}		
+		}
 	}
 
 	function get_includes($type = '')
@@ -340,7 +341,7 @@ class Pages_model extends CI_Model {
 		{
 			$this->db->where('type', $type);
 		}
-		
+
 		// select
 		$this->db->select('t1.*, t2.body, t2.dateCreated, t2.userID');
 
@@ -351,10 +352,10 @@ class Pages_model extends CI_Model {
 
 		// order
 		$this->db->order_by('includeRef', 'asc');
-		
-		// get all includes		
+
+		// get all includes
 		$query = $this->db->get();
-		
+
 		if ($query->num_rows())
 		{
 			return $query->result_array();
@@ -370,9 +371,9 @@ class Pages_model extends CI_Model {
 		$this->db->where('objectID', $includeID);
 
 		$this->db->order_by('dateCreated', 'desc');
-	
+
 		$query = $this->db->get('include_versions', 30);
-		
+
 		// get data
 		if ($query->num_rows())
 		{
@@ -381,7 +382,7 @@ class Pages_model extends CI_Model {
 		else
 		{
 			return FALSE;
-		}		
+		}
 	}
 
 	function add_temp_page()
@@ -419,7 +420,7 @@ class Pages_model extends CI_Model {
 		if (!$query->num_rows())
 		{
 			$this->db->set('siteID', $this->siteID);
-			$this->db->set('dateCreated', date("Y-m-d H:i:s"));			
+			$this->db->set('dateCreated', date("Y-m-d H:i:s"));
 			$this->db->set('uri', $path);
 			$this->db->set('navName', $pageName);
 			$this->db->insert('navigation');
@@ -427,12 +428,12 @@ class Pages_model extends CI_Model {
 
 		return TRUE;
 	}
-	
+
 	function import_template($file, $body)
-	{		
+	{
 		// set flags
 		$success = FALSE;
-		$includes = FALSE;		
+		$includes = FALSE;
 
 		// get file info
 		$filenames = explode('.', $file);
@@ -487,7 +488,7 @@ class Pages_model extends CI_Model {
 				// remove footer from content
 				$content = str_replace($footer, '', $content);
 				$content = preg_replace('/<!--ENDCONTENT-->/i', '', $content);
-				
+
 				// get file name
 				$includeRef = $themeRef.'footer';
 
@@ -514,11 +515,11 @@ class Pages_model extends CI_Model {
 			{
 				$content = preg_replace('/<!--BLOCK-->/i', '{block'.($x+1).'}', $content, 1);
 			}
-			
+
 			// get file name
 			$templateName = ($theme) ? '['.$theme.'] '.$templateName : $templateName;
 
-			$templateID = $this->add_template($templateName, $content, $module);			
+			$templateID = $this->add_template($templateName, $content, $module);
 		}
 
 		// add css file
@@ -553,7 +554,7 @@ class Pages_model extends CI_Model {
 		}
 		else
 		{
-			$this->db->where('templateName', $templateName);			
+			$this->db->where('templateName', $templateName);
 			$this->db->where('modulePath', '');
 		}
 		$query = $this->db->get('templates', 1);
@@ -596,7 +597,7 @@ class Pages_model extends CI_Model {
 		// filter body
 		$body = htmlentities(iconv('UTF-8', 'UTF-8//IGNORE', $body), NULL, 'UTF-8');
 		$body = html_entity_decode($body, NULL, 'UTF-8');
-		
+
 		// check page
 		if (!$data = $this->get_template($templateID))
 		{
@@ -607,24 +608,24 @@ class Pages_model extends CI_Model {
 		if ($versions = $this->get_template_versions($templateID))
 		{
 			if ($versions[0]['body'] == $body)
-			{	
+			{
 				return FALSE;
 			}
 		}
 
 		// check version is not the same as current one
 		if ($data['body'] == $body)
-		{			
+		{
 			return FALSE;
 		}
-		
+
 		// add version
 		$this->db->set('objectID', $templateID);
 		$this->db->set('dateCreated', date("Y-m-d H:i:s"));
 		$this->db->set('userID', $this->session->userdata('userID'));
 		$this->db->set('body', $body);
 		$this->db->set('siteID', $this->siteID);
-		
+
 		$this->db->insert('template_versions');
 
 		// get version ID
@@ -635,7 +636,7 @@ class Pages_model extends CI_Model {
 		$this->db->where('siteID', $this->siteID);
 		$this->db->where('templateID', $templateID);
 		$this->db->update('templates');
-		
+
 		return $versionID;
 	}
 
@@ -688,7 +689,7 @@ class Pages_model extends CI_Model {
 		}
 
 		return TRUE;
-	}	
+	}
 
 	function add_include_version($includeID, $body = '')
 	{
@@ -698,7 +699,7 @@ class Pages_model extends CI_Model {
 		// filter body
 		$body = htmlentities($body, NULL, 'UTF-8');
 		$body = html_entity_decode($body, NULL, 'UTF-8');
-		
+
 		// check page
 		if (!$data = $this->get_include(NULL, $includeID))
 		{
@@ -709,24 +710,24 @@ class Pages_model extends CI_Model {
 		if ($versions = $this->get_include_versions($includeID))
 		{
 			if ($versions[0]['body'] == $body)
-			{	
+			{
 				return FALSE;
 			}
 		}
 
 		// check version is not the same as current one
 		if ($data['body'] == $body)
-		{			
+		{
 			return FALSE;
 		}
-		
+
 		// add version
 		$this->db->set('objectID', $includeID);
 		$this->db->set('dateCreated', date("Y-m-d H:i:s"));
 		$this->db->set('userID', $this->session->userdata('userID'));
 		$this->db->set('body', $body);
 		$this->db->set('siteID', $this->siteID);
-		
+
 		$this->db->insert('include_versions');
 
 		// get version ID
@@ -737,7 +738,7 @@ class Pages_model extends CI_Model {
 		$this->db->where('siteID', $this->siteID);
 		$this->db->where('includeID', $includeID);
 		$this->db->update('includes');
-		
+
 		return $versionID;
 	}
 
@@ -761,5 +762,5 @@ class Pages_model extends CI_Model {
 
 		return TRUE;
 	}
-	
+
 }

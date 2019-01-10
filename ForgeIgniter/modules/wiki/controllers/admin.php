@@ -13,6 +13,7 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
@@ -22,7 +23,7 @@ class Admin extends MX_Controller {
 	var $includes_path = '/includes/admin';				// path to includes for header and footer
 	var $redirect = '/admin/wiki/viewall';			// default redirect
 	var $permissions = array();
-	
+
 	function __construct()
 	{
 		parent::__construct();
@@ -32,7 +33,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/login/'.$this->core->encode($this->uri->uri_string()));
 		}
-		
+
 		// get permissions and redirect if they don't have access to this module
 		if (!$this->permission->permissions)
 		{
@@ -48,16 +49,16 @@ class Admin extends MX_Controller {
 		{
 			$this->siteID = SITEID;
 		}
-		
+
 		//  load models and libs
 		$this->load->model('wiki_model', 'wiki');
 	}
-	
+
 	function index()
 	{
 		redirect($this->redirect);
 	}
-	
+
 	function viewall()
 	{
 		// grab data and display
@@ -84,7 +85,7 @@ class Admin extends MX_Controller {
 		$this->core->required = array(
 			'pageName' => array('label' => 'Title', 'rules' => 'required|trim'),
 			'uri' => array('label' => 'URI', 'rules' => 'unique[wiki.uri]|trim'),
-		);	
+		);
 
 		// get values
 		$output['data'] = $this->core->get_values('wiki');
@@ -94,18 +95,18 @@ class Admin extends MX_Controller {
 
 		// handle post
 		if (count($_POST))
-		{	
+		{
 			// set date
 			$this->core->set['dateCreated'] = date("Y-m-d H:i:s");
-			
+
 			// update
 			if ($this->core->update('wiki'))
-			{							
+			{
 				// where to redirect to
 				redirect($this->redirect);
 			}
 		}
-		
+
 		// templates
 		$this->load->view($this->includes_path.'/header');
 		$this->load->view('admin/add_page',$output);
@@ -118,7 +119,7 @@ class Admin extends MX_Controller {
 		$this->core->required = array(
 			'pageName' => array('label' => 'Title', 'rules' => 'required|trim'),
 			'uri' => array('label' => 'URI', 'rules' => 'unique[wiki.uri]|trim'),
-		);	
+		);
 
 		// set object ID
 		$objectID = array('pageID' => $pageID);
@@ -131,18 +132,18 @@ class Admin extends MX_Controller {
 
 		// handle post
 		if (count($_POST))
-		{	
+		{
 			// set date
 			$this->core->set['dateModified'] = date("Y-m-d H:i:s");
-			
+
 			// update
 			if ($this->core->update('wiki', $objectID))
-			{							
+			{
 				// where to redirect to
 				redirect($this->redirect);
 			}
 		}
-		
+
 		// templates
 		$this->load->view($this->includes_path.'/header');
 		$this->load->view('admin/edit_page',$output);
@@ -156,9 +157,9 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		if ($this->core->soft_delete('wiki', array('pageID' => $objectID)));
-		{	
+		{
 			// where to redirect to
 			redirect($this->redirect);
 		}
@@ -171,7 +172,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-			
+
 		// get parents
 		if ($parents = $this->wiki->get_category_parents())
 		{
@@ -206,15 +207,15 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values();
-		
+
 		// deal with post
 		if (count($_POST))
 		{
 			if ($this->core->check_errors())
-			{							
+			{
 				// set stuff
 				$this->core->set['dateModified'] = date("Y-m-d H:i:s");
-				
+
 				// update
 				if ($this->core->update('wiki_cats'))
 				{
@@ -224,7 +225,7 @@ class Admin extends MX_Controller {
 		}
 
 		// get parents
-		$output['parents'] = $this->wiki->get_category_parents();		
+		$output['parents'] = $this->wiki->get_category_parents();
 
 		// templates
 		if (!$this->core->is_ajax()) $this->load->view($this->includes_path.'/header');
@@ -253,15 +254,15 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values($row);
-		
+
 		// deal with post
 		if (count($_POST))
 		{
 			if ($this->core->check_errors())
-			{							
+			{
 				// set stuff
 				$this->core->set['dateModified'] = date("Y-m-d H:i:s");
-				
+
 				// update
 				if ($this->core->update('wiki_cats', $objectID))
 				{
@@ -271,7 +272,7 @@ class Admin extends MX_Controller {
 		}
 
 		// get parents
-		$output['parents'] = $this->wiki->get_category_parents();		
+		$output['parents'] = $this->wiki->get_category_parents();
 
 		// templates
 		if (!$this->core->is_ajax()) $this->load->view($this->includes_path.'/header');
@@ -286,25 +287,25 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// where
-		$objectID = array('catID' => $catID);	
-		
+		$objectID = array('catID' => $catID);
+
 		if ($this->core->soft_delete('wiki_cats', $objectID))
 		{
 			// delete sub categories
 			$objectID = array('parentID' => $catID);
-			
+
 			$this->core->soft_delete('wiki_cats', $objectID);
-			
+
 			// where to redirect to
 			redirect('/admin/wiki/categories');
-		}		
+		}
 	}
 
 	function order($field = '')
 	{
 		$this->core->order(key($_POST), $field);
 	}
-		
+
 }

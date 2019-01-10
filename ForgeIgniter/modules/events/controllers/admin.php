@@ -13,6 +13,7 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
@@ -32,7 +33,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/login/'.$this->core->encode($this->uri->uri_string()));
 		}
-		
+
 		// get permissions and redirect if they don't have access to this module
 		if (!$this->permission->permissions)
 		{
@@ -41,24 +42,24 @@ class Admin extends MX_Controller {
 		if (!in_array($this->uri->segment(2), $this->permission->permissions))
 		{
 			redirect('/admin/dashboard/permissions');
-		}	
-		
+		}
+
 		// get siteID, if available
 		if (defined('SITEID'))
 		{
 			$this->siteID = SITEID;
 		}
-		
+
 		//  load models and libs
-		$this->load->library('tags');		
+		$this->load->library('tags');
 		$this->load->model('events_model', 'events');
 	}
-	
+
 	function index()
 	{
 		redirect($this->redirect);
 	}
-	
+
 	function viewall()
 	{
 		// default where
@@ -66,7 +67,7 @@ class Admin extends MX_Controller {
 
 		// where event has not passed
 		//$where['eventDate <'] = date("Y-m-d H:i:s", strtotime('-2 days', time()));
-		
+
 		// grab data and display
 		$output = $this->core->viewall('events', $where, array('dateCreated', 'desc'));
 
@@ -82,7 +83,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-		
+
 		// required
 		$this->core->required = array(
 			'eventTitle' => array('label' => 'Event title', 'rules' => 'required|trim'),
@@ -90,7 +91,7 @@ class Admin extends MX_Controller {
 		);
 
 		// get values
-		$output['data'] = $this->core->get_values('events');	
+		$output['data'] = $this->core->get_values('events');
 
 		if (count($_POST))
 		{
@@ -100,20 +101,20 @@ class Admin extends MX_Controller {
 			$this->core->set['userID'] = $this->session->userdata('userID');
 			$this->core->set['eventDate'] = date("Y-m-d H:i:s", strtotime($this->input->post('eventDate').' 12AM'));
 			$this->core->set['eventEnd'] = ($this->input->post('eventEnd')) ? date("Y-m-d H:i:s", strtotime($this->input->post('eventEnd').' 11.59PM')) : '';
-			
+
 			// update
 			if ($this->core->update('events'))
 			{
 				$eventID = $this->db->insert_id();
-					
+
 				// update tags
 				$this->events->update_tags($eventID, $this->input->post('tags'));
-							
+
 				// where to redirect to
 				redirect($this->redirect);
 			}
 		}
-		
+
 		// set default date
 		$output['data']['eventDate'] = ($this->input->post('eventDate')) ? $this->input->post('eventDate') : dateFmt(date("Y-m-d H:i:s"), 'd M Y');
 
@@ -130,10 +131,10 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-		
+
 		// set object ID
 		$objectID = array('eventID' => $eventID);
-				
+
 		// required
 		$this->core->required = array(
 			'eventTitle' => array('label' => 'Event title', 'rules' => 'required|trim'),
@@ -141,7 +142,7 @@ class Admin extends MX_Controller {
 		);
 
 		// get values
-		$output['data'] = $this->core->get_values('events', $objectID);	
+		$output['data'] = $this->core->get_values('events', $objectID);
 
 		if (count($_POST))
 		{
@@ -150,16 +151,16 @@ class Admin extends MX_Controller {
 			$this->core->set['tags'] = trim(strtolower($this->input->post('tags')));
 			$this->core->set['eventDate'] = date("Y-m-d H:i:s", strtotime($this->input->post('eventDate').' 12AM'));
 			$this->core->set['eventEnd'] = ($this->input->post('eventEnd')) ? date("Y-m-d H:i:s", strtotime($this->input->post('eventEnd').' 11.59PM')) : '';
-			
+
 			// update
 			if ($this->core->update('events', $objectID))
-			{		
+			{
 				// update tags
 				$this->events->update_tags($eventID, $this->input->post('tags'));
 
 				// set success message
 				$this->session->set_flashdata('success', TRUE);
-				
+
 				// where to redirect to
 				redirect($this->uri->uri_string());
 			}
@@ -183,8 +184,8 @@ class Admin extends MX_Controller {
 		if (!in_array('events_delete', $this->permission->permissions))
 		{
 			redirect('/admin/dashboard/permissions');
-		}		
-		
+		}
+
 		if ($this->core->soft_delete('events', array('eventID' => $objectID)))
 		{
 			// where to redirect to
@@ -203,5 +204,5 @@ class Admin extends MX_Controller {
 		// output
 		$this->output->set_output($html);
 	}
-	
+
 }

@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 	// users
 	$route['users'] = 'community/users';
@@ -10,9 +10,9 @@
 	$route['messages/page/(:num)'] = 'community/messages/index/page/$1';
 
 	// messages
-	$route['messages'] = 'community/messages';	
+	$route['messages'] = 'community/messages';
 	$route['messages/(.*)'] = 'community/messages/$1';
 	$route['messages/(.*)/(.*)'] = 'community/messages/$1/$2';
 	$route['messages/(.*)/(.*)/(.*)'] = 'community/messages/$1/$2/$3';
-		
+
 ?>

@@ -11,16 +11,17 @@
  * @license		http://forgeigniter.com/license
  * @link		http://forgeigniter.com/
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
 class Blog extends MX_Controller {
 
-	var $partials = array();
-	var $sitePermissions = array();
-	var $num = 10;
+	protected $partials = array();
+	protected $sitePermissions = array();
+	protected $num = 10;
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 
@@ -98,7 +99,7 @@ class Blog extends MX_Controller {
 		}
 	}
 
-	function index()
+	public function index()
 	{
 		// get partials
 		$output = $this->partials;
@@ -131,7 +132,7 @@ class Blog extends MX_Controller {
 		$this->pages->view('blog', $output, TRUE);
 	}
 
-	function more()
+	public function more()
 	{
 		// get partials
 		$output = $this->partials;
@@ -163,7 +164,7 @@ class Blog extends MX_Controller {
 		$this->pages->view('blog', $output, TRUE);
 	}
 
-	function read()
+	public function read()
 	{
 		// get partials
 		$output = $this->partials;
@@ -346,7 +347,7 @@ class Blog extends MX_Controller {
 		}
 	}
 
-	function tag($tag = [])
+	public function tag($tag = [])
 	{
 		// get partials
 		$output = $this->partials;
@@ -383,7 +384,7 @@ class Blog extends MX_Controller {
 		$this->pages->view('blog', $output, TRUE);
 	}
 
-	function category($cat = '')
+	public function category($cat = '')
 	{
 		// get partials
 		$output = $this->partials;
@@ -420,7 +421,7 @@ class Blog extends MX_Controller {
 		$this->pages->view('blog', $output, TRUE);
 	}
 
-	function month()
+	public function month()
 	{
 		// get partials
 		$output = $this->partials;
@@ -457,7 +458,7 @@ class Blog extends MX_Controller {
 		$this->pages->view('blog', $output, TRUE);
 	}
 
-	function year()
+	public function year()
 	{
 		// get partials
 		$output = $this->partials;
@@ -493,7 +494,7 @@ class Blog extends MX_Controller {
 		$this->pages->view('blog', $output, TRUE);
 	}
 
-	function search($query = '')
+	public function search($query = '')
 	{
 		// get partials
 		$output = $this->partials;
@@ -524,7 +525,7 @@ class Blog extends MX_Controller {
 		$this->pages->view('blog_search', $output, TRUE);
 	}
 
-	function feed($cat = '')
+	public function feed($cat = '')
 	{
 		// rss feed
 		$this->load->helper('xml');
@@ -559,7 +560,7 @@ class Blog extends MX_Controller {
 		$this->load->view('blog/rss', $data);
 	}
 
-	function ac_search()
+	public function ac_search()
 	{
 		//Define Vars
 		$items = NULL;
@@ -595,7 +596,7 @@ class Blog extends MX_Controller {
 		}
 	}
 
-	function _captcha_check()
+	public function _captcha_check()
 	{
 		// if captcha is posted, check its not a bot (requires js)
 		if ($this->input->post('captcha') == 'notabot')
@@ -609,74 +610,72 @@ class Blog extends MX_Controller {
 		}
 	}
 
-    function _populate_posts($posts = '')
-    {
-		//Define Vars
-		$data = NULL;
+  public function _populate_posts($posts = '')
+  {
+	//Define Vars
+	$data = NULL;
 
-    	if ($posts && is_array($posts))
-    	{
-			$x = 0;
-			foreach($posts as $post)
+  	if ($posts && is_array($posts))
+  	{
+		$x = 0;
+		foreach($posts as $post)
+		{
+			// get author details
+			$author = $this->blog->lookup_user($post['userID']);
+
+			// populate template array
+			$data[$x] = array(
+				'post:link' => site_url('blog/'.dateFmt($post['dateCreated'], 'Y/m').'/'.$post['uri']),
+				'post:title' => $post['postTitle'],
+				'post:date' => dateFmt($post['dateCreated'], ($this->site->config['dateOrder'] == 'MD') ? 'M jS Y' : 'jS M Y'),
+				'post:day' => dateFmt($post['dateCreated'], 'd'),
+				'post:month' => dateFmt($post['dateCreated'], 'M'),
+				'post:year' => dateFmt($post['dateCreated'], 'y'),
+				'post:body' => $this->template->parse_body($post['body'], TRUE, site_url('blog/'.dateFmt($post['dateCreated'], 'Y/m').'/'.$post['uri'])),
+				'post:excerpt' => $this->template->parse_body($post['excerpt'], TRUE, site_url('blog/'.dateFmt($post['dateCreated'], 'Y/m').'/'.$post['uri'])),
+				'post:author' => (($author['displayName']) ? $author['displayName'] : $author['firstName'].' '.$author['lastName']),
+				'post:author-id' => $author['userID'],
+				'post:author-email' => $author['email'],
+				'post:author-gravatar' => 'http://www.gravatar.com/avatar.php?gravatar_id='.md5(trim($author['email'])).'&default='.urlencode(site_url('/static/uploads/avatars/noavatar.gif')),
+				'post:author-bio' => $author['bio'],
+				'post:comments-count' => $post['numComments']
+			);
+
+			// get cats
+			if ($cats = $this->blog->get_cats_for_post($post['postID']))
 			{
-				// get author details
-				$author = $this->blog->lookup_user($post['userID']);
-
-				// populate template array
-				$data[$x] = array(
-					'post:link' => site_url('blog/'.dateFmt($post['dateCreated'], 'Y/m').'/'.$post['uri']),
-					'post:title' => $post['postTitle'],
-					'post:date' => dateFmt($post['dateCreated'], ($this->site->config['dateOrder'] == 'MD') ? 'M jS Y' : 'jS M Y'),
-					'post:day' => dateFmt($post['dateCreated'], 'd'),
-					'post:month' => dateFmt($post['dateCreated'], 'M'),
-					'post:year' => dateFmt($post['dateCreated'], 'y'),
-					'post:body' => $this->template->parse_body($post['body'], TRUE, site_url('blog/'.dateFmt($post['dateCreated'], 'Y/m').'/'.$post['uri'])),
-					'post:excerpt' => $this->template->parse_body($post['excerpt'], TRUE, site_url('blog/'.dateFmt($post['dateCreated'], 'Y/m').'/'.$post['uri'])),
-					'post:author' => (($author['displayName']) ? $author['displayName'] : $author['firstName'].' '.$author['lastName']),
-					'post:author-id' => $author['userID'],
-					'post:author-email' => $author['email'],
-					'post:author-gravatar' => 'http://www.gravatar.com/avatar.php?gravatar_id='.md5(trim($author['email'])).'&default='.urlencode(site_url('/static/uploads/avatars/noavatar.gif')),
-					'post:author-bio' => $author['bio'],
-					'post:comments-count' => $post['numComments']
-				);
-
-				// get cats
-				if ($cats = $this->blog->get_cats_for_post($post['postID']))
+				$i = 0;
+				foreach ($cats as $cat)
 				{
-					$i = 0;
-					foreach ($cats as $cat)
-					{
-						$data[$x]['post:categories'][$i]['category:link'] = site_url('blog/'.url_title(strtolower(trim($cat))));
-						$data[$x]['post:categories'][$i]['category'] = $cat;
+					$data[$x]['post:categories'][$i]['category:link'] = site_url('blog/'.url_title(strtolower(trim($cat))));
+					$data[$x]['post:categories'][$i]['category'] = $cat;
 
-						$i++;
-					}
+					$i++;
 				}
-
-				// get tags
-				if ($post['tags'])
-				{
-					$tags = explode(',', $post['tags']);
-
-					$i = 0;
-					foreach ($tags as $tag)
-					{
-						$data[$x]['post:tags'][$i]['tag:link'] = site_url('blog/tag/'.$this->tags->make_safe_tag($tag));
-						$data[$x]['post:tags'][$i]['tag'] = $tag;
-
-						$i++;
-					}
-				}
-
-				$x++;
 			}
 
-			return $data;
-		}
-		else
-		{
-			return FALSE;
-		}
-    }
+			// get tags
+			if ($post['tags'])
+			{
+				$tags = explode(',', $post['tags']);
 
+				$i = 0;
+				foreach ($tags as $tag)
+				{
+					$data[$x]['post:tags'][$i]['tag:link'] = site_url('blog/tag/'.$this->tags->make_safe_tag($tag));
+					$data[$x]['post:tags'][$i]['tag'] = $tag;
+
+					$i++;
+				}
+			}
+
+			$x++;
+		}
+
+		return $data;
+	}
+	else
+	{
+		return FALSE;
+	}}
 }

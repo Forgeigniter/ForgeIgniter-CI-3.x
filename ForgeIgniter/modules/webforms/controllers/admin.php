@@ -13,6 +13,7 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
@@ -21,9 +22,9 @@ class Admin extends MX_Controller {
 	// set defaults
 	var $includes_path = '/includes/admin';			// path to includes for header and footer
 	var $redirect = '/admin/webforms/tickets';		// default redirect
-	var $objectID = 'ticketID';						// default unique ID	
+	var $objectID = 'ticketID';						// default unique ID
 	var $permissions = array();
-	
+
 	function __construct()
 	{
 		parent::__construct();
@@ -33,7 +34,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/login/'.$this->core->encode($this->uri->uri_string()));
 		}
-		
+
 		// get permissions and redirect if they don't have access to this module
 		if (!$this->permission->permissions)
 		{
@@ -53,7 +54,7 @@ class Admin extends MX_Controller {
 		// load libs
 		$this->load->model('tickets_model', 'tickets');
 	}
-	
+
 	function index()
 	{
 		redirect($this->redirect);
@@ -66,7 +67,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-	
+
 		// grab data and display
 		$output = $this->core->viewall('web_forms');
 
@@ -81,7 +82,7 @@ class Admin extends MX_Controller {
 		if (!in_array('webforms_edit', $this->permission->permissions))
 		{
 			redirect('/admin/dashboard/permissions');
-		}	
+		}
 
 		// required
 		$this->core->required = array(
@@ -104,15 +105,15 @@ class Admin extends MX_Controller {
 			{
 				$this->core->set['groupID'] = '';
 			}
-					
+
 			// update
 			if ($this->core->update('web_forms'))
-			{								
+			{
 				// where to redirect to
 				redirect('/admin/webforms/viewall');
-			}			
-		}		
-		
+			}
+		}
+
 		// templates
 		$this->load->view($this->includes_path.'/header');
 		$this->load->view('add_form',$output);
@@ -126,32 +127,32 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// set object ID
-		$objectID = array('formID' => $formID);		
+		$objectID = array('formID' => $formID);
 
 		// required
 		$this->core->required = array(
 			'formName' => array('label' => 'Form Name', 'rules' => 'required|unique[web_forms.formName]'),
 		);
 
-				
+
 		// get values
-		$output['data'] = $this->core->get_values('web_forms', $objectID);	
-		$output['groups'] = $this->permission->get_groups('normal');		
+		$output['data'] = $this->core->get_values('web_forms', $objectID);
+		$output['groups'] = $this->permission->get_groups('normal');
 
 		// deal with post
 		if (count($_POST))
 		{
 			// set form ref
 			$this->core->set['formRef'] = trim(strtolower(url_title($this->input->post('formName'))));
-			
+
 			// set action
 			if (!$this->input->post('account'))
 			{
 				$this->core->set['groupID'] = '';
 			}
-			
+
 			// update
 			if ($this->core->update('web_forms', $objectID))
 			{
@@ -159,7 +160,7 @@ class Admin extends MX_Controller {
 				$output['message'] = '<p>Your changes have been saved.</p>';
 			}
 		}
-		
+
 		// templates
 		$this->load->view($this->includes_path.'/header');
 		$this->load->view('edit_form',$output);
@@ -172,23 +173,23 @@ class Admin extends MX_Controller {
 		if (!in_array('webforms_delete', $this->permission->permissions))
 		{
 			redirect('/admin/dashboard/permissions');
-		}	
-				
+		}
+
 		if ($this->core->soft_delete('web_forms', array('formID' => $objectID)))
-		{		
+		{
 			// where to redirect to
 			redirect('/admin/webforms/viewall');
 		}
-	}	
-	
+	}
+
 	function tickets($status = '')
-	{	
-		// status	
+	{
+		// status
 		if ($status == 'open')
 		{
 			$where['closed'] = 0;
 			$status = 'Open';
-			
+
 		}
 		elseif ($status == 'closed')
 		{
@@ -205,7 +206,7 @@ class Admin extends MX_Controller {
 			$where = FALSE;
 			$status = '';
 		}
-	
+
 		// grab data and display
 		$output = $this->core->viewall('tickets', $where, array('dateCreated', 'desc'));
 
@@ -223,7 +224,7 @@ class Admin extends MX_Controller {
 	function view_ticket($ticketID)
 	{
 		// set object ID
-		$objectID = array($this->objectID => $ticketID);		
+		$objectID = array($this->objectID => $ticketID);
 
 		// get values
 		$output['data'] = $this->core->get_values('tickets', $objectID);
@@ -243,7 +244,7 @@ class Admin extends MX_Controller {
 		{
 			$this->tickets->view_ticket($ticketID);
 		}
-		
+
 		// templates
 		$this->load->view($this->includes_path.'/header');
 		$this->load->view('view_ticket',$output);
@@ -257,12 +258,12 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-		
+
 		if ($this->core->soft_delete('tickets', array($this->objectID => $objectID)))
 		{
 			// where to redirect to
 			redirect($this->redirect);
 		}
 	}
-	
+
 }

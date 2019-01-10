@@ -13,17 +13,18 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+ defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
 class Admin extends MX_Controller {
 
 	// set defaults
-	var $includes_path = '/includes/admin';				// path to includes for header and footer
-	var $redirect = '/admin/blog/viewall';				// default redirect
-	var $permissions = array();
+	protected $includes_path = '/includes/admin';				// path to includes for header and footer
+	protected $redirect = '/admin/blog/viewall';				// default redirect
+	protected $permissions = array();
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 
@@ -54,12 +55,12 @@ class Admin extends MX_Controller {
 		$this->load->library('tags');
 	}
 
-	function index()
+	public function index()
 	{
 		redirect($this->redirect);
 	}
 
-	function viewall()
+	public function viewall()
 	{
 		// default where
 		$where = array();
@@ -78,7 +79,7 @@ class Admin extends MX_Controller {
 		$this->load->view($this->includes_path.'/footer');
 	}
 
-	function add_post()
+	public function add_post()
 	{
 		// check permissions for this page
 		if (!in_array('blog_edit', $this->permission->permissions))
@@ -140,7 +141,7 @@ class Admin extends MX_Controller {
 		$this->load->view($this->includes_path.'/footer');
 	}
 
-	function edit_post($postID)
+	public function edit_post($postID)
 	{
 		// check permissions for this page
 		if (!in_array('blog_edit', $this->permission->permissions))
@@ -229,7 +230,7 @@ class Admin extends MX_Controller {
 		$this->load->view($this->includes_path.'/footer');
 	}
 
-	function delete_post($objectID)
+	public function delete_post($objectID)
 	{
 		// check permissions for this page
 		if (!in_array('blog_delete', $this->permission->permissions))
@@ -247,7 +248,7 @@ class Admin extends MX_Controller {
 		}
 	}
 
-	function preview()
+	public function preview()
 	{
 		// get parsed body
 		$html = $this->template->parse_body($this->input->post('body'));
@@ -259,7 +260,7 @@ class Admin extends MX_Controller {
 		$this->output->set_output($html);
 	}
 
-	function comments()
+	public function comments()
 	{
 		// grab data and display
 		$output['comments'] = $this->blog->get_latest_comments();
@@ -269,7 +270,7 @@ class Admin extends MX_Controller {
 		$this->load->view($this->includes_path.'/footer');
 	}
 
-	function approve_comment($commentID)
+	public function approve_comment($commentID)
 	{
 		if ($this->blog->approve_comment($commentID))
 		{
@@ -277,7 +278,7 @@ class Admin extends MX_Controller {
 		}
 	}
 
-	function delete_comment($objectID)
+	public function delete_comment($objectID)
 	{
 		// check permissions for this page
 		if (!in_array('blog_edit', $this->permission->permissions))
@@ -292,7 +293,7 @@ class Admin extends MX_Controller {
 		}
 	}
 
-	function categories()
+	public function categories()
 	{
 		// check permissions for this page
 		if (!in_array('blog_cats', $this->permission->permissions))
@@ -328,7 +329,7 @@ class Admin extends MX_Controller {
 		$this->load->view($this->includes_path.'/footer');
 	}
 
-	function edit_cat()
+	public function edit_cat()
 	{
 		// check permissions for this page
 		if (!in_array('blog_cats', $this->permission->permissions))
@@ -357,7 +358,7 @@ class Admin extends MX_Controller {
 		redirect('/admin/blog/categories');
 	}
 
-	function delete_cat($catID)
+	public function delete_cat($catID)
 	{
 		// check permissions for this page
 		if (!in_array('blog_cats', $this->permission->permissions))
@@ -375,7 +376,7 @@ class Admin extends MX_Controller {
 		}
 	}
 
-	function order($field = '')
+	public function order($field = '')
 	{
 		$this->core->order(key($this->input->post()), $field);
 	}

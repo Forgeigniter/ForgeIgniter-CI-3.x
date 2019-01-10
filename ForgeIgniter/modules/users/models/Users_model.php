@@ -13,15 +13,16 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
 class Users_model extends CI_Model {
-	
+
 	function __construct()
 	{
 		parent::__construct();
-		
+
 		// get siteID, if available
 		if (defined('SITEID'))
 		{
@@ -41,14 +42,14 @@ class Users_model extends CI_Model {
 		{
 			$firstName = $name[0];
 			$lastName = $name[1];
-			
+
 			$this->db->where('(email LIKE "%'.$q.'%" OR firstName LIKE "%'.$firstName.'%" AND lastName LIKE "%'.$lastName.'%")');
 		}
 		else
 		{
 			$this->db->where('(email LIKE "%'.$q.'%" OR firstName LIKE "%'.$q.'%" OR lastName LIKE "%'.$q.'%")');
 		}
-			
+
 		$query = $this->db->get('users', 30);
 
 		if ($query->num_rows() > 0)
@@ -68,7 +69,7 @@ class Users_model extends CI_Model {
 		{
 			$this->db->where('siteID', $this->siteID);
 		}
-		
+
 		$this->db->where('userID', $userID);
 
 		// grab
@@ -81,7 +82,7 @@ class Users_model extends CI_Model {
 		else
 		{
 			return false;
-		}		
+		}
 	}
 
 	function get_avatar($filename)
@@ -101,14 +102,14 @@ class Users_model extends CI_Model {
 	function import_csv($file)
 	{
 		$handle = fopen($file['tmp_name'], "r");
-		
+
 		if ($handle)
-		{ 
+		{
 			$allowedExtensions = array("txt", "csv");
 			if (!in_array(end(explode(".", $file['name'])), $allowedExtensions))
 			{
 				$this->form_validation->set_error('The file was not a CSV.');
-				
+
 				return FALSE;
 			}
 
@@ -119,16 +120,16 @@ class Users_model extends CI_Model {
 			if ($total_array > 0)
 			{
 				$i = 0;
-					
+
 				foreach ($array as $row)
 				{
 					$data = explode(",", $row);
-					
+
 					if ($data[0] != '')
-					{	
+					{
 						// lookup user
 						$query = $this->db->get_where('users', array('email' => trim($data[0])), 1);
-						
+
 						if ($query->num_rows() > 0)
 						{
 							// edit user
@@ -141,7 +142,7 @@ class Users_model extends CI_Model {
 								$this->db->update('users');
 
 								$i++;
-							}	
+							}
 						}
 						else
 						{
@@ -149,16 +150,16 @@ class Users_model extends CI_Model {
 							 if (!$this->form_validation->valid_email($data[0]))
 							{
 								$this->form_validation->set_error('<p>There was a badly formatted email address ('.$data[0].'), so the import could not complete. Please check the CSV file and try again.</p>');
-								
+
 								return false;
 							}
-							
-	
+
+
 							$username = url_title(strtolower($data[0]));
 							$username = str_replace('.','',$username);
 							$username = str_replace('-','',$username);
 							$username = str_replace('_','',$username);
-	
+
 							$this->db->set('dateCreated', date("Y-m-d H:i:s"));
 							$this->db->set('username', substr($username,0,6).$i.rand(100,999));
 							$this->db->set('password', md5(rand(19999,49999)));
@@ -166,7 +167,7 @@ class Users_model extends CI_Model {
 							$this->db->set('firstName', trim($data[1]));
 							$this->db->set('lastName', trim($data[2]));
 							$this->db->set('siteID', $this->siteID);
-	
+
 							$this->db->insert('users');
 
 							$i++;
@@ -186,13 +187,13 @@ class Users_model extends CI_Model {
 		else
 		{
 			$this->form_validation->set_error('There was a problem opening the file.');
-			
+
 			return FALSE;
 		}
 	}
-	
+
 	function export()
-	{	
+	{
 		// default where
 		$this->db->where('users.siteID', $this->siteID);
 		$this->db->where('users.subscription !=', 'P');
@@ -204,7 +205,7 @@ class Users_model extends CI_Model {
 		$this->db->select(' CONCAT(firstName, " ", lastName) as Name', FALSE);
 
 		// join
-		$this->db->join('permission_groups', 'permission_groups.groupID = users.groupID', 'left');	
+		$this->db->join('permission_groups', 'permission_groups.groupID = users.groupID', 'left');
 
 		// order
 		$this->db->order_by('dateCreated', 'asc');
@@ -220,5 +221,5 @@ class Users_model extends CI_Model {
 			return FALSE;
 		}
 	}
-	
+
 }

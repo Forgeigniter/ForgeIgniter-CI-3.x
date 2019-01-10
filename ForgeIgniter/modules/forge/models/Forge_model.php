@@ -13,11 +13,12 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
 class Forge_model extends CI_Model {
-	
+
 	function __construct()
 	{
 		parent::__construct();
@@ -27,7 +28,7 @@ class Forge_model extends CI_Model {
 		{
 			$this->siteID = SITEID;
 		}
-	}	
+	}
 
 	function get_num_page_views()
 	{
@@ -97,7 +98,7 @@ class Forge_model extends CI_Model {
 		$this->db->where('viewed', 0);
 		$this->db->where('siteID', $this->siteID);
 		$this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('-2 days')));
-		
+
 		$query = $this->db->get('tickets');
 
 		if ($query->num_rows() > 0)
@@ -110,7 +111,7 @@ class Forge_model extends CI_Model {
 			return FALSE;
 		}
 	}
-	
+
 	function get_blog_posts_count()
 	{
 		// grab
@@ -135,10 +136,10 @@ class Forge_model extends CI_Model {
 		// grab
 		$this->db->select('count(*) as count');
 		$this->db->where('deleted', 0);
-		$this->db->where('active', 0);		
+		$this->db->where('active', 0);
 		$this->db->where('siteID', $this->siteID);
 		$this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('-4 days')));
-				
+
 		$query = $this->db->get('blog_comments');
 
 		if ($query->num_rows() > 0)
@@ -242,13 +243,13 @@ class Forge_model extends CI_Model {
 			$this->db->where('date <=', date("Y-m-d 00:00:00", strtotime('today')));
 			$this->db->where('date >=', date("Y-m-d 00:00:00", strtotime('1 day ago')));
 		}
-		$this->db->where('date <', date("Y-m-d H:i:s", strtotime('5 minutes ago')));		
+		$this->db->where('date <', date("Y-m-d H:i:s", strtotime('5 minutes ago')));
 
 		$this->db->select('COUNT(*) as guests, date, SUM(views) AS views, referer, userdata');
 		$this->db->group_by('userdata');
 
 		$this->db->order_by('date', 'desc');
-			
+
 		$query = $this->db->get('tracking');
 
 		if ($query->num_rows() > 0)
@@ -266,7 +267,7 @@ class Forge_model extends CI_Model {
 	{
 		$this->db->where('siteID', $this->siteID);
 		$this->db->where('date >', date("Y-m-d H:i:s", strtotime('5 minutes ago')));
-		$this->db->order_by('date', 'desc');	
+		$this->db->order_by('date', 'desc');
 		$query = $this->db->get('tracking');
 
 		if ($query->num_rows() > 0)
@@ -284,10 +285,10 @@ class Forge_model extends CI_Model {
 	{
 		// default wheres
 		$this->db->where('siteID', $this->siteID);
-		$this->db->where('active', 1);	
+		$this->db->where('active', 1);
 
 		$this->db->select('COUNT(*) as numUsers');
-			
+
 		$query = $this->db->get('users');
 
 		if ($query->num_rows() > 0)
@@ -306,12 +307,12 @@ class Forge_model extends CI_Model {
 		// default wheres
 		$this->db->where('siteID', $this->siteID);
 		$this->db->where('active', 1);
-		
+
 		// when?
 		$this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('today')));
 
 		$this->db->select('COUNT(*) as numUsers');
-			
+
 		$query = $this->db->get('users');
 
 		if ($query->num_rows() > 0)
@@ -330,13 +331,13 @@ class Forge_model extends CI_Model {
 		// default wheres
 		$this->db->where('siteID', $this->siteID);
 		$this->db->where('active', 1);
-		
+
 		// when?
 		$this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('yesterday')));
-		$this->db->where('dateCreated <=', date("Y-m-d 00:00:00", strtotime('today')));		
+		$this->db->where('dateCreated <=', date("Y-m-d 00:00:00", strtotime('today')));
 
 		$this->db->select('COUNT(*) as numUsers');
-			
+
 		$query = $this->db->get('users');
 
 		if ($query->num_rows() > 0)
@@ -360,7 +361,7 @@ class Forge_model extends CI_Model {
 		$this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('-1 week sun')));
 
 		$this->db->select('COUNT(*) as numUsers');
-			
+
 		$query = $this->db->get('users');
 
 		if ($query->num_rows() > 0)
@@ -385,7 +386,7 @@ class Forge_model extends CI_Model {
 		$this->db->where('dateCreated <=', date("Y-m-d 00:00:00", strtotime('-1 week sun')));
 
 		$this->db->select('COUNT(*) as numUsers');
-			
+
 		$query = $this->db->get('users');
 
 		if ($query->num_rows() > 0)

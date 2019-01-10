@@ -1,4 +1,5 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 $route['shop/featured'] = 'shop/featured';
 $route['shop/browse/(:num)'] = 'shop/browse/$1';
 $route['shop/browse/(:num)/(:any)'] = 'shop/browse/$1/$2';

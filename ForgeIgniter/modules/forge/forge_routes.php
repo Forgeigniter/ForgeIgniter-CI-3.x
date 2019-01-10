@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['forge'] = 'forge/admin/dashboard';
 $route['forge/summary'] = 'forge/admin/dashboard';
