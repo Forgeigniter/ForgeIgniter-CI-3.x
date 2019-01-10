@@ -22,9 +22,9 @@ class Admin extends MX_Controller {
 	var $table = 'pages';								// table to update
 	var $includes_path = '/includes/admin';				// path to includes for header and footer
 	var $redirect = '/admin/pages/viewall';				// default redirect
-	var $objectID = 'pageID';							// default unique ID									
+	var $objectID = 'pageID';							// default unique ID
 	var $permissions = array();
-	
+
 	function __construct()
 	{
 		parent::__construct();
@@ -34,7 +34,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/login/'.$this->core->encode($this->uri->uri_string()));
 		}
-		
+
 		// get permissions and redirect if they don't have access to this module
 		if (!$this->permission->permissions)
 		{
@@ -52,22 +52,23 @@ class Admin extends MX_Controller {
 		}
 
 		// load libs
-		$this->load->library('parser');		
+		$this->load->library('parser');
 		$this->load->model('pages_model', 'pages');
+		$this->config->load('ckeditor_config', TRUE);
 	}
-	
+
 	function index()
 	{
 		redirect($this->redirect);
 	}
-	
+
 	function viewall()
 	{
 		// set defaults
 		$output['parents'] = array();
 		$output['children'] = array();
 		$output['subchildren'] = array();
-		
+
 		// get parents
 		if ($output['parents'] = $this->pages->get_page_parents())
 		{
@@ -82,7 +83,7 @@ class Admin extends MX_Controller {
 					}
 				}
 			}
-		}		
+		}
 
 		// load views
 		$this->load->view($this->includes_path.'/header');
@@ -102,7 +103,7 @@ class Admin extends MX_Controller {
 		{
 			show_error('Not a valid page!');
 		}
-				
+
 		// check permissions for this page
 		if (!in_array('pages_edit', $this->permission->permissions))
 		{
@@ -120,11 +121,11 @@ class Admin extends MX_Controller {
 
 		// get values (always before post handling)
 		$output['data'] = $this->core->get_values($this->table, $objectID);
-		$output['templates'] = $this->pages->get_templates('page');		
+		$output['templates'] = $this->pages->get_templates('page');
 		$output['groups'] = $this->permission->get_groups('admin');
 		$output['versions'] = $this->core->get_versions($pageID);
 		$output['drafts'] = $this->core->get_drafts($pageID);
-		
+
 		// get parents
 		if ($output['parents'] = $this->pages->get_page_parents())
 		{
@@ -147,14 +148,14 @@ class Admin extends MX_Controller {
 				{
 					$this->core->delete($this->table, array('pageID' => $pageID));
 				}
-				
+
 				redirect($this->redirect);
 			}
 			else
-			{				
+			{
 				// undelete
 				$this->core->set['deleted'] = 0;
-	
+
 				// set date
 				$this->core->set['dateModified'] = date("Y-m-d H:i:s");
 
@@ -169,22 +170,22 @@ class Admin extends MX_Controller {
 				{
 					$this->core->set['uri'] = $uri;
 				}
-	
+
 				// publish page
 				if ($this->input->post('target') == 'publish')
 				{
 					// update version
 					$this->core->set['versionID'] = $pagedata['draftID'];
 					$this->core->set['datePublished'] = date("Y-m-d H:i:s");
-					
+
 					$this->core->publish_draft($pagedata['draftID']);
-	
+
 					// set page active
 					$this->core->set['active'] = 1;
 				}
 
 				// get date of most recent block
-				$latestBlock = $this->core->get_latest_block($pagedata['draftID']);	
+				$latestBlock = $this->core->get_latest_block($pagedata['draftID']);
 				if ($latestBlock && (strtotime($latestBlock['dateCreated']) > strtotime($pagedata['dateModified'])))
 				{
 					// save draft
@@ -193,7 +194,7 @@ class Admin extends MX_Controller {
 						$this->core->set['draftID'] = $draftID;
 					}
 				}
-		
+
 				// update
 				if ($this->core->update($this->table, $objectID))
 				{
@@ -205,19 +206,19 @@ class Admin extends MX_Controller {
 					elseif ($this->input->post('target') == 'publish')
 					{
 						$this->session->set_flashdata('success', 'Your page was published.');
-						
+
 						redirect('/admin/pages/edit/'.$pageID);
 					}
 					else
 					{
 						$this->session->set_flashdata('success', 'Your changes were saved.');
-						
+
 						redirect('/admin/pages/edit/'.$pageID);
 					}
 				}
 			}
 		}
-		
+
 		// set message
 		if ($message = $this->session->flashdata('success'))
 		{
@@ -235,10 +236,10 @@ class Admin extends MX_Controller {
 		if ((!$pagedata['versionID'] && !$pagedata['draftID']) || @in_array($pagedata['draftID'], $versionIDs))
 		{
 			$this->core->add_draft($pageID);
-			
+
 			// carry across any old messages
 			if ($message) $this->session->set_flashdata('success', $message);
-			
+
 			// redirect
 			redirect($this->uri->uri_string());
 		}
@@ -248,20 +249,20 @@ class Admin extends MX_Controller {
 		$this->load->view('admin/edit',$output);
 		$this->load->view($this->includes_path.'/footer');
 	}
-	
+
 	function publish($pageID)
 	{
 		if (!$pagedata = $this->core->get_page($pageID))
 		{
 			show_error('Not a valid page!');
 		}
-		
+
 		// check permissions for this page
 		if (!in_array('pages_edit', $this->permission->permissions))
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-		
+
 		// publish draft
 		$this->core->publish_draft($pagedata['draftID']);
 
@@ -277,13 +278,13 @@ class Admin extends MX_Controller {
 	function generate_uri()
 	{
 		$output = '';
-		
+
 		if ($parentID = $this->input->post('parentID'))
 		{
 			$parent = $this->pages->get_page($parentID);
 			$output .= $parent['uri'].'/';
 		}
-		
+
 		$output .= strtolower(url_title($this->input->post('uri')));
 
 		$this->output->set_output($output);
@@ -296,14 +297,14 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		if ($this->core->soft_delete($this->table, array($this->objectID => $objectID)));
 		{
 			$this->core->delete('page_blocks', array($this->objectID => $objectID));
 
 			// set children to no parent
 			$this->pages->update_children($objectID);
-							
+
 			// where to redirect to
 			redirect($this->redirect);
 		}
@@ -316,13 +317,13 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-		
+
 		// check stuff
 		if (!$pageID || !$versionID)
 		{
 			show_error('Something went wrong!');
 		}
-		
+
 		if (!$pagedata = $this->core->get_page($pageID))
 		{
 			show_error('No page found!');
@@ -332,7 +333,7 @@ class Admin extends MX_Controller {
 		if ($this->core->revert_version($pageID, $versionID))
 		{
 			$this->session->set_flashdata('success', 'The page was reverted to a different published version.');
-			
+
 			redirect('/admin/pages/edit/'.$pageID);
 		}
 		else
@@ -348,13 +349,13 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-		
+
 		// check stuff
 		if (!$pageID || !$draftID)
 		{
 			show_error('Something went wrong!');
 		}
-		
+
 		if (!$pagedata = $this->core->get_page($pageID))
 		{
 			show_error('No page found!');
@@ -364,7 +365,7 @@ class Admin extends MX_Controller {
 		if ($this->core->revert_draft($pageID, $draftID))
 		{
 			$this->session->set_flashdata('success', 'The page was reverted to a different draft.');
-			
+
 			redirect('/admin/pages/edit/'.$pageID);
 		}
 		else
@@ -383,10 +384,10 @@ class Admin extends MX_Controller {
 
 		// deal with post
 		if (count($_FILES))
-		{			
+		{
 			// allowed ZIP mime types
 			$allowedZips = array('application/x-zip', 'application/zip', 'application/x-zip-compressed', 'application/octet-stream');
-			
+
 			if ($this->input->post('upload_zip'))
 			{
 				if (substr($_FILES['zip']['name'],-3) == 'zip' && in_array($_FILES['zip']['type'], $allowedZips))
@@ -396,7 +397,7 @@ class Admin extends MX_Controller {
 					$includes = FALSE;
 					$this->load->library('zip');
 					$this->load->library('encrypt');
-					
+
 					$zip = zip_open($_FILES['zip']['tmp_name']);
 					if ($zip)
 					{
@@ -422,10 +423,10 @@ class Admin extends MX_Controller {
 										{
 											$body = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
 											zip_entry_close($zip_entry);
-	
+
 											$this->pages->import_template($filename, $body);
 
-											$success = TRUE;											
+											$success = TRUE;
 										}
 									}
 									elseif (preg_match('/\.(jpg|gif|png)$/i', zip_entry_name($zip_entry)))
@@ -434,13 +435,13 @@ class Admin extends MX_Controller {
 										$filenames = explode('.', zip_entry_name($zip_entry));
 										$filename = trim(basename($filenames[0]));
 										$extension = end($filenames);
-										
+
 										// get file name
 										$imageRef = url_title(trim(strtolower($filename)));
-			
+
 										// check ref is unique and upload
 										if ($this->form_validation->unique($imageRef, 'images.imageRef'))
-										{																				
+										{
 											// set stuff
 											$this->core->set['dateCreated'] = date("Y-m-d H:i:s");
 											$this->core->set['imageName'] = 'Graphic';
@@ -449,12 +450,12 @@ class Admin extends MX_Controller {
 											$this->core->set['filesize'] = floor(zip_entry_filesize($zip_entry) / 1024);
 											$this->core->set['groupID'] = 1;
 											$this->core->set['userID'] = $this->session->userdata('userID');
-	
+
 											// update and then unset easy
 											$this->core->update('images');
-											
+
 											// upload file
-											$fp = fopen('.'.$this->uploads->uploadsPath.'/'.md5($filename).'.'.$extension, "w+");					
+											$fp = fopen('.'.$this->uploads->uploadsPath.'/'.md5($filename).'.'.$extension, "w+");
 											if (zip_entry_open($zip, $zip_entry, "r"))
 											{
 												$buf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
@@ -462,7 +463,7 @@ class Admin extends MX_Controller {
 											}
 											fwrite($fp, $buf);
 											fclose($fp);
-		
+
 											$success = TRUE;
 										}
 									}
@@ -471,7 +472,7 @@ class Admin extends MX_Controller {
 						}
 						zip_close($zip);
 					}
-	
+
 					// redirect
 					if ($success === TRUE)
 					{
@@ -481,7 +482,7 @@ class Admin extends MX_Controller {
 				else
 				{
 					$this->form_validation->set_error('<p>There was a problem opening the zip file, sorry.</p>');
-				}				
+				}
 			}
 		}
 
@@ -492,7 +493,7 @@ class Admin extends MX_Controller {
 			$where = $type;
 		}
 		$output['type'] = $where;
-				
+
 		// grab data and display
 		$output['templates'] = $this->pages->get_templates($where);
 
@@ -508,16 +509,16 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// required fields
 		$this->core->required = array(
 			'templateName' => 'Template name',
 			'modulePath' => array('label' => 'Module', 'rules' => 'unique[templates.modulePath]')
-		);		
+		);
 
 		// get values
 		$output['data'] = $this->core->get_values();
-		
+
 		// update
 		if (count($_POST))
 		{
@@ -530,13 +531,13 @@ class Admin extends MX_Controller {
 				{
 					// get new templateID
 					$templateID = $this->db->insert_id();
-					
+
 					// add template version
 					$versionID = $this->pages->add_template_version($templateID);
-					
+
 					// set message
 					$this->session->set_flashdata('message', 'Your new template was created successfully.');
-					
+
 					// where to redirect to
 					redirect('/admin/pages/edit_template/'.$templateID);
 				}
@@ -564,22 +565,22 @@ class Admin extends MX_Controller {
 		);
 
 		// where
-		$objectID = array('templateID' => $templateID);	
+		$objectID = array('templateID' => $templateID);
 
 		// get values from version
 		$row = $this->pages->get_template($templateID);
 
 		// populate form
 		$output['data'] = $this->core->get_values($row);
-		
+
 		// deal with post
 		if (count($_POST))
 		{
 			if ($this->core->check_errors())
-			{							
+			{
 				// set stuff
 				$this->core->set['dateModified'] = date("Y-m-d H:i:s");
-				
+
 				// update
 				if ($this->core->update('templates', $objectID))
 				{
@@ -588,7 +589,7 @@ class Admin extends MX_Controller {
 					{
 						$output['data']['versionID'] = $versionID;
 					}
-							
+
 					// set message
 					$this->session->set_flashdata('message', 'Your changes have been saved.');
 				}
@@ -596,14 +597,14 @@ class Admin extends MX_Controller {
 		}
 
 		// get versions
-		$output['versions'] = $this->pages->get_template_versions($templateID);		
+		$output['versions'] = $this->pages->get_template_versions($templateID);
 
 		// if reverted show a message
 		if ($message = $this->session->flashdata('message'))
 		{
 			$output['message'] = '<p>'.$message.'</p>';
 		}
-		
+
 		// is ajax?
 		if ($this->core->is_ajax())
 		{
@@ -616,10 +617,10 @@ class Admin extends MX_Controller {
 			{
 				$ajaxMessage = 'Your changes have been saved.';
 			}
-			
+
 			$this->output->set_output($ajaxMessage);
 		}
-		
+
 		// normal templates
 		else
 		{
@@ -637,10 +638,10 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// where
-		$objectID = array('templateID' => $templateID);		
-	
+		$objectID = array('templateID' => $templateID);
+
 		if ($this->core->soft_delete('templates', $objectID))
 		{
 			// where to redirect to
@@ -655,13 +656,13 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-		
+
 		// check stuff
 		if (!$templateID || !$revisionID)
 		{
 			show_error('Something went wrong!');
 		}
-		
+
 		if (!$template = $this->pages->get_template($templateID))
 		{
 			show_error('No template found!');
@@ -671,7 +672,7 @@ class Admin extends MX_Controller {
 		if ($this->pages->revert_template($templateID, $revisionID))
 		{
 			$this->session->set_flashdata('message', 'The template was reverted to a different version.');
-			
+
 			redirect('/admin/pages/edit_template/'.$templateID);
 		}
 		else
@@ -679,7 +680,7 @@ class Admin extends MX_Controller {
 			show_error('Something went wrong!');
 		}
 	}
-	
+
 	function includes($type = '')
 	{
 		// check permissions for this page
@@ -697,21 +698,21 @@ class Admin extends MX_Controller {
 		elseif ($type == 'js')
 		{
 			$type = 'J';
-			$file = 'js';			
+			$file = 'js';
 		}
 		else
 		{
 			$type = 'H';
-			$file = 'includes';			
+			$file = 'includes';
 		}
-				
+
 		// grab data and display
 		$output['includes'] = $this->pages->get_includes($type);
 
 		$this->load->view($this->includes_path.'/header');
 		$this->load->view('admin/'.$file, $output);
 		$this->load->view($this->includes_path.'/footer');
-	}	
+	}
 
 	function add_include($type = '')
 	{
@@ -720,15 +721,15 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// required fields
 		$this->core->required = array(
 			'includeRef' => array('label' => 'Reference', 'rules' => 'required|unique[includes.includeRef]')
-		);		
+		);
 
 		// get values
 		$output['data'] = $this->core->get_values();
-		
+
 		// update
 		if (count($_POST))
 		{
@@ -739,13 +740,13 @@ class Admin extends MX_Controller {
 			{
 				// get new includeID
 				$includeID = $this->db->insert_id();
-				
+
 				// add include version
 				$versionID = $this->pages->add_include_version($includeID);
-				
+
 				// set message
 				$this->session->set_flashdata('message', 'Your new include was created successfully.');
-				
+
 				// where to redirect to
 				redirect('/admin/pages/edit_include/'.$includeID);
 			}
@@ -774,20 +775,20 @@ class Admin extends MX_Controller {
 		);
 
 		// where
-		$objectID = array('includeID' => $includeID);	
+		$objectID = array('includeID' => $includeID);
 
 		// get values from version
 		$row = $this->pages->get_include(NULL, $includeID);
 
 		// populate form
 		$output['data'] = $this->core->get_values($row);
-		
+
 		// deal with post
 		if (count($_POST))
-		{						
+		{
 			// set stuff
 			$this->core->set['dateModified'] = date("Y-m-d H:i:s");
-			
+
 			// update
 			if ($this->core->update('includes', $objectID))
 			{
@@ -796,14 +797,14 @@ class Admin extends MX_Controller {
 				{
 					$output['data']['versionID'] = $versionID;
 				}
-						
+
 				// set message
 				$this->session->set_flashdata('message', 'Your changes have been saved.');
 			}
 		}
 
 		// get versions
-		$output['versions'] = $this->pages->get_include_versions($includeID);	
+		$output['versions'] = $this->pages->get_include_versions($includeID);
 
 		// if reverted show a message
 		if ($message = $this->session->flashdata('message'))
@@ -826,10 +827,10 @@ class Admin extends MX_Controller {
 			{
 				$ajaxMessage = 'Your changes have been saved.';
 			}
-			
+
 			$this->output->set_output($ajaxMessage);
 		}
-		
+
 		// normal templates
 		else
 		{
@@ -839,7 +840,7 @@ class Admin extends MX_Controller {
 			$this->load->view($this->includes_path.'/footer');
 		}
 	}
-	
+
 	function delete_include($includeID, $type = '')
 	{
 		// check permissions for this page
@@ -847,10 +848,10 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// where
-		$objectID = array('includeID' => $includeID);	
-		
+		$objectID = array('includeID' => $includeID);
+
 		if ($this->core->soft_delete('includes', $objectID))
 		{
 			// where to redirect to
@@ -865,13 +866,13 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-		
+
 		// check stuff
 		if (!$includeID || !$revisionID)
 		{
 			show_error('Something went wrong!');
 		}
-		
+
 		if (!$include = $this->pages->get_include(NULL, $includeID))
 		{
 			show_error('No include found!');
@@ -881,7 +882,7 @@ class Admin extends MX_Controller {
 		if ($this->pages->revert_include($includeID, $revisionID))
 		{
 			$this->session->set_flashdata('message', 'The include was reverted to a different version.');
-			
+
 			redirect('/admin/pages/edit_include/'.$includeID);
 		}
 		else
@@ -897,7 +898,7 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-			
+
 		// get parents
 		if ($parents = $this->template->get_nav_parents('custom'))
 		{
@@ -933,12 +934,12 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values();
-		
+
 		// deal with post
 		if (count($_POST))
 		{
 			if ($this->core->check_errors())
-			{							
+			{
 				// set stuff
 				$this->core->set['dateModified'] = date("Y-m-d H:i:s");
 
@@ -947,7 +948,7 @@ class Admin extends MX_Controller {
 				{
 					$this->core->set['uri'] = preg_replace('/^\//', '', $this->input->post('uri'));
 				}
-				
+
 				// update
 				if ($this->core->update('navigation'))
 				{
@@ -987,12 +988,12 @@ class Admin extends MX_Controller {
 
 		// populate form
 		$output['data'] = $this->core->get_values($row);
-		
+
 		// deal with post
 		if (count($_POST))
 		{
 			if ($this->core->check_errors())
-			{							
+			{
 				// set stuff
 				$this->core->set['dateModified'] = date("Y-m-d H:i:s");
 
@@ -1001,7 +1002,7 @@ class Admin extends MX_Controller {
 				{
 					$this->core->set['uri'] = preg_replace('/^\//', '', $this->input->post('uri'));
 				}
-				
+
 				// update
 				if ($this->core->update('navigation', $objectID))
 				{
@@ -1017,7 +1018,7 @@ class Admin extends MX_Controller {
 		if (!$this->core->is_ajax()) $this->load->view($this->includes_path.'/header');
 		$this->load->view('admin/nav_form', $output);
 		if (!$this->core->is_ajax()) $this->load->view($this->includes_path.'/footer');
-	}	
+	}
 
 	function delete_nav($navID)
 	{
@@ -1026,27 +1027,27 @@ class Admin extends MX_Controller {
 		{
 			redirect('/admin/dashboard/permissions');
 		}
-				
+
 		// where
-		$objectID = array('navID' => $navID);	
-		
+		$objectID = array('navID' => $navID);
+
 		if ($this->core->soft_delete('navigation', $objectID))
 		{
 			// where
 			$this->core->soft_delete('navigation', array('parentID' => $navID));
-			
+
 			// where to redirect to
 			redirect('/admin/pages/navigation');
-		}		
+		}
 	}
 
 	function order($field = '')
 	{
 		$this->core->order(key($_POST), $field);
-	}	
+	}
 
 	function view_template($templateID, $pageID = '')
-	{	
+	{
 		// get pagedata
 		if (!$pagedata = $this->core->get_page($pageID))
 		{
@@ -1075,33 +1076,33 @@ class Admin extends MX_Controller {
 		$output['body'] = str_replace('="gfx', '="'.site_url('/gfx'), $output['body']);
 		$output['body'] = str_replace('="images', '="'.site_url('/images'), $output['body']);
 		$output['body'] = str_replace('="js', '="'.site_url('/js'), $output['body']);
-		$output['body'] = str_replace('="css', '="'.site_url('/css'), $output['body']);		
-		
+		$output['body'] = str_replace('="css', '="'.site_url('/css'), $output['body']);
+
 		$this->parser->parse('view_template',$output);
 	}
 
 	function add_block($versionID, $block)
-	{	
+	{
 		// check the block has content and is not null
 		if (count($_POST))
-		{			
+		{
 			if ($_POST['body'] != 'undefined' && strlen($_POST['body']) > 0)
-			{			
+			{
 				// remove the code added by the javascript to allow for empty posts
 				$body = str_replace('[!!ADDBLOCK!!]', '', $_POST['body']);
-	
+
 				// check character set
 				$body = htmlentities($body, NULL, 'UTF-8');
 				$body = html_entity_decode($body, NULL, 'UTF-8');
-	
+
 				// add block
 				@$this->core->add_block($body, $versionID, $block);
-				
+
 				// parse for includes and images
 				$body = $this->template->parse_body($body);
-				
+
 				$body = preg_replace('/<script(.*)<\/script>/is', '<em>This block contained scripts, please refresh page.</em>', $body);
-	
+
 				// return block
 				$this->output->set_output($body);
 			}
@@ -1119,7 +1120,7 @@ class Admin extends MX_Controller {
 			$file = '';
 
 			$split = @preg_split('/_/', $modulePath);
-			
+
 			$file = @file_get_contents(APPPATH.'modules/'.$split[0].'/views/templates/'.$modulePath.'.php');
 
 			$this->output->set_output($file);
