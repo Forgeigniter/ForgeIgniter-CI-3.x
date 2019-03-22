@@ -106,22 +106,22 @@ class Shop extends MX_Controller {
 
 		// populate template
 		$this->partials['rowpad:featured'] = '';
-		for ($x = 0; $x < ($this->shop->siteVars['shopItemsPerRow'] - sizeof($products)); $x++)
+		for ($x = 0; is_array($x) && $x < ($this->shop->siteVars['shopItemsPerRow'] - count($products)); $x++)
 		{
 			$this->partials['rowpad:featured'] .= '<td width="'.floor((1 / $this->shop->siteVars['shopItemsPerRow']) * 100).'%">&nbsp;</td>';
 		}
 		$this->partials['rowpad:latest'] = '';
-		for ($x = 0; $x < ($this->shop->siteVars['shopItemsPerRow'] - sizeof($latestProducts)); $x++)
+		for ($x = 0; is_array($x) && $x < ($this->shop->siteVars['shopItemsPerRow'] - count($latestProducts)); $x++)
 		{
 			$this->partials['rowpad:latest'] .= '<td width="'.floor((1 / $this->shop->siteVars['shopItemsPerRow']) * 100).'%">&nbsp;</td>';
 		}
 		$this->partials['rowpad:popular'] = '';
-		for ($x = 0; $x < ($this->shop->siteVars['shopItemsPerRow'] - sizeof($popularProducts)); $x++)
+		for ($x = 0; is_array($x) && $x < ($this->shop->siteVars['shopItemsPerRow'] - count($popularProducts)); $x++)
 		{
 			$this->partials['rowpad:popular'] .= '<td width="'.floor((1 / $this->shop->siteVars['shopItemsPerRow']) * 100).'%">&nbsp;</td>';
 		}
 		$this->partials['rowpad:mostviewed'] = '';
-		for ($x = 0; $x < ($this->shop->siteVars['shopItemsPerRow'] - sizeof($mostViewedProducts)); $x++)
+		for ($x = 0; is_array($x) && $x < ($this->shop->siteVars['shopItemsPerRow'] - count($mostViewedProducts)); $x++)
 		{
 			$this->partials['rowpad:mostviewed'] .= '<td width="'.floor((1 / $this->shop->siteVars['shopItemsPerRow']) * 100).'%">&nbsp;</td>';
 		}
