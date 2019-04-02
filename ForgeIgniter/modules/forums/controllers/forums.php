@@ -223,6 +223,7 @@ class Forums extends MX_Controller {
 					'user:name' => anchor('/users/profile/'.$post['userID'], (($post['displayName']) ? $post['displayName'] : $post['firstName'].' '.$post['lastName'])),
 					'user:group' => ($post['groupName']) ? $post['groupName'] : '',
 					'user:avatar' => anchor('/users/profile/'.$post['userID'], display_image($this->forums->get_avatar($post['avatar']), 'post Avatar', 80, 'class="avatar"', base_url().$this->config->item('staticPath').'/images/noavatar.gif')),
+					'user:joined' => dateFmt($post['joined']),
 					'user:posts' => $post['posts'],
 					'user:kudos' => $post['kudos'],
 					'user:signature' => ($post['signature']) ? '<hr /><small>'.bbcode($post['signature']).'</small>' : ''

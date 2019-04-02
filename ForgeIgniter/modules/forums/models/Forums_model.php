@@ -295,6 +295,7 @@ class Forums_Model extends CI_Model {
 
 			// select
 			$this->db->select('forums_posts.*, groupName, users.userID, displayName, firstName, lastName, signature, avatar, posts, kudos', FALSE);
+			$this->db->select('users.dateCreated as joined', FALSE);
 
 			// join users
 			$this->db->join('users', 'forums_posts.userID = users.userID');
