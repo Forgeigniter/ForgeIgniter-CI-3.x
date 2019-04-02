@@ -54,6 +54,34 @@ class Forums extends MX_Controller {
 		$this->load->module('pages');
 		$this->load->library('mkdn');
 		$this->load->helper('bbcode');
+
+		// Set Pagination Stuff
+		$this->config->load('forum_config', TRUE);
+		$config['total_rows'] = $this->config->item('total_rows', 'forum_config');
+		$config['per_page'] = $this->config->item('per_page', 'forum_config');
+		// Display Page Number
+		$config['display_pages'] = $this->config->item('display_pages', 'forum_config');
+		// Previous Page
+		$config['prev_tag_open'] = $this->config->item('prev_tag_open', 'forum_config');
+		$config['prev_tagl_close'] = $this->config->item('prev_tagl_close', 'forum_config');
+		$config['prev_link'] = $this->config->item('prev_link', 'forum_config');
+		// Current Page
+		$config['cur_tag_open'] = $this->config->item('cur_tag_open', 'forum_config');
+		$config['cur_tag_close'] = $this->config->item('cur_tag_close', 'forum_config');
+		// Digit
+		$config['num_tag_open'] = $this->config->item('num_tag_open', 'forum_config');
+		$config['num_tag_close'] = $this->config->item('num_tag_close', 'forum_config');
+		// Next Page
+		$config['next_tag_open'] = $this->config->item('next_tag_open', 'forum_config');
+		$config['next_tag_close'] = $this->config->item('next_tag_close', 'forum_config');
+		$config['next_link'] = $this->config->item('next_link', 'forum_config');
+		// Last Link
+		$config['last_link'] = $this->config->item('last_link', 'forum_config');
+		$config['last_tag_open'] = $this->config->item('last_tag_open', 'forum_config');
+		$config['last_tag_close'] = $this->config->item('last_tag_close', 'forum_config');
+
+		$this->pagination->initialize($config);
+
 	}
 
 	function index()
@@ -222,7 +250,7 @@ class Forums extends MX_Controller {
 					'post:body' => bbcode($post['body']),
 					'user:name' => anchor('/users/profile/'.$post['userID'], (($post['displayName']) ? $post['displayName'] : $post['firstName'].' '.$post['lastName'])),
 					'user:group' => ($post['groupName']) ? $post['groupName'] : '',
-					'user:avatar' => anchor('/users/profile/'.$post['userID'], display_image($this->forums->get_avatar($post['avatar']), 'post Avatar', 80, 'class="avatar"', base_url().$this->config->item('staticPath').'/images/noavatar.gif')),
+					'user:avatar' => anchor('/users/profile/'.$post['userID'], display_image($this->forums->get_avatar($post['avatar']), 'post Avatar', 200, 'class="avatar"', base_url().$this->config->item('staticPath').'/images/noavatar.gif')),
 					'user:joined' => dateFmt($post['joined']),
 					'user:posts' => $post['posts'],
 					'user:kudos' => $post['kudos'],
@@ -476,7 +504,7 @@ class Forums extends MX_Controller {
 					'post:body' => bbcode($post['body']),
 					'user:name' => anchor('/users/profile/'.$post['userID'], (($post['displayName']) ? $post['displayName'] : $post['firstName'].' '.$post['lastName'])),
 					'user:group' => ($post['groupName']) ? $post['groupName'] : '',
-					'user:avatar' => anchor('/users/profile/'.$post['userID'], display_image($this->forums->get_avatar($post['avatar']), 'post Avatar', 80, 'class="avatar"', base_url().$this->config->item('staticPath').'/images/noavatar.gif')),
+					'user:avatar' => anchor('/users/profile/'.$post['userID'], display_image($this->forums->get_avatar($post['avatar']), 'post Avatar', 200, 'class="avatar"', base_url().$this->config->item('staticPath').'/images/noavatar.gif')),
 					'user:posts' => $post['posts'],
 					'user:kudos' => $post['kudos'],
 					'user:signature' => ($post['signature']) ? '<hr /><small>'.bbcode($post['signature']).'</small>' : ''
