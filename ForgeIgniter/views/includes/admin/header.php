@@ -1,14 +1,14 @@
 <?php
-	// Set Easy Vars
+    // Set Easy Vars
 
-	///Paths
-	$siteURL = base_url($this->uri->uri_string());
-	$staticPath = base_url($this->config->item('staticPath'));
-	$themePath = base_url($this->config->item('themePath'));
-	$loginPath = base_url('admin/login');
+    ///Paths
+    $siteURL = base_url($this->uri->uri_string());
+    $staticPath = base_url($this->config->item('staticPath'));
+    $themePath = base_url($this->config->item('themePath'));
+    $loginPath = base_url('admin/login');
 
-	///
-	$websiteName = $this->site->config['siteName'];
+    ///
+    $websiteName = $this->site->config['siteName'];
 
 ?>
 <!DOCTYPE html>
@@ -84,17 +84,16 @@
 </head>
 <?php
 // Check if we're at admin login page
-if (strpos(FULL_URL,'admin/login') !== FALSE) {
-	// Login Body
-  echo "<body class='hold-transition skin-anvil-light login-page'>";
-}
-else {
-	// Default Body
-	echo "<body class='hold-transition skin-anvil-light sidebar-mini sidebar-collapse'>";
+if (strpos(FULL_URL, 'admin/login') !== false) {
+    // Login Body
+    echo "<body class='hold-transition skin-anvil-light login-page'>";
+} else {
+    // Default Body
+    echo "<body class='hold-transition skin-anvil-light sidebar-mini sidebar-collapse'>";
 }
 ?>
 
-<?php if ($this->session->userdata('session_admin') && strpos(FULL_URL,'admin/login') == FALSE): ?>
+<?php if ($this->session->userdata('session_admin') && strpos(FULL_URL, 'admin/login') == false): ?>
 
 <div class="wrapper">
 
@@ -126,7 +125,10 @@ else {
           </li>
         <?php if ($this->session->userdata('groupID') == $this->site->config['groupID'] || $this->session->userdata('groupID') < 0): ?>
 					<li>
-            <a href="<?= site_url('/admin/site/'); ?>"><i class="fa fa-sitemap"></i><span class="menu-icon-text"> My Site</span></a>
+            <a href="<?= site_url('/admin/site/'); ?>"><i class="fa fa-globe"></i><span class="menu-icon-text"> My Site</span></a>
+          </li>
+          <li>
+            <a href="<?= site_url('/forge/sites/'); ?>"><i class="fa fa-sitemap"></i><span class="menu-icon-text"> Sites</span></a>
           </li>
 					<li>
             <a href="http://www.forgeigniter.com/support" target="_blank"><i class="fa fa-book"></i><span class="menu-icon-text"> Docs</span></a>
@@ -359,7 +361,7 @@ Not implemented yet.
           </li>
         <?php endif; ?>
 
-        <?php // Node Modules needs to be generated, not static ?>
+        <?php // Node Modules needs to be generated, not static?>
         <li class="header">MODULES</li>
         <?php if (in_array('pages', $this->permission->permissions)): ?>
           <li class="treeview">
@@ -516,7 +518,7 @@ Not implemented yet.
 <?php endif; ?>
 
 
-<?php if ($this->session->userdata('session_admin') && (strpos(FULL_URL,'admin/login') == TRUE)) : ?>
+<?php if ($this->session->userdata('session_admin') && (strpos(FULL_URL, 'admin/login') == true)) : ?>
 
 	<h1>Logout</h1>
 
