@@ -123,7 +123,7 @@ $(function(){
 					<label>Categories: <small>[<a href="<?php echo site_url('/admin/blog/categories'); ?>" onclick="return confirm('You will lose any unsaved changes.\n\nContinue anyway?')">update</a>]</small></label>
 					<div class="categories">
 						<?php if ($categories): ?>
-						<?php foreach($categories as $category): ?>
+						<?php foreach ($categories as $category): ?>
 							<div class="category<?php echo (isset($data['categories'][$category['catID']])) ? ' hover' : ''; ?>">
 								<?php echo form_checkbox('catsArray['.$category['catID'].']', $category['catName'], (isset($data['categories'][$category['catID']])) ? 1 : ''); ?><span><?php echo $category['catName']; ?></span>
 							</div>
@@ -139,17 +139,17 @@ $(function(){
 					<div class="autosave">
 						<label for="excerpt">Introduction (Excerpt):</label>
 						<?php
-							$options = [
-								'name'        => 'excerpt',
-								'id'          => 'excerpt',
-								'value'       => set_value('excerpt', $data['excerpt']),
-								'rows'        => '5',
-								'cols'        => '10',
-								'style'       => 'width:50%; margin-right:10px;',
-								'class'       => 'form-control formelement code short'
-							];
-							echo form_textarea($options);
-						?>
+	            $options = [
+	                'name'        => 'excerpt',
+	                'id'          => 'excerpt',
+	                'value'       => set_value('excerpt', $data['excerpt']),
+	                'rows'        => '5',
+	                'cols'        => '10',
+	                'style'       => 'width:50%; margin-right:10px;',
+	                'class'       => 'form-control formelement code short'
+	            ];
+	            echo form_textarea($options);
+            ?>
 						<div class="previewExcerpt"></div>
 					</div>
 
@@ -170,16 +170,17 @@ $(function(){
 					<div class="autosave">
 						<label for="body">Content (Body):</label>
 						<?php
-							$options = [
-									'name'        => 'body',
-									'id'          => 'body',
-									'value'       => set_value('body', $data['body']),
-									'rows'        => '30',
-									'cols'        => '10',
-									'style'       => 'width:50%; margin-right:10px;',
-									'class'       => 'form-control formelement code half'
-							];
-							echo form_textarea($options); ?>
+	            $options = [
+	                    'name'        => 'body',
+	                    'id'          => 'body',
+	                    'value'       => set_value('body', $data['body']),
+	                    'rows'        => '30',
+	                    'cols'        => '10',
+	                    'style'       => 'width:50%; margin-right:10px;',
+	                    'class'       => 'form-control formelement code half'
+	            ];
+	            echo form_textarea($options);
+						?>
 						<div class="preview"></div>
 					</div>
 					<br class="clear" /><br />
@@ -203,36 +204,36 @@ $(function(){
 						<div class="form-group">
             			<label for="tags">Tags :</label>
 						<?php
-							$options = [
-								'id'			=> 'tags',
-								'name'			=> 'tags',
-								'value'			=> set_value('tags', $data['tags']),
-								'class'			=> 'form-control',
-								'placeholder'	=> 'Separate tags with a comma,'
-							];
+	            $options = [
+	                'id'			=> 'tags',
+	                'name'			=> 'tags',
+	                'value'			=> set_value('tags', $data['tags']),
+	                'class'			=> 'form-control',
+	                'placeholder'	=> 'Separate tags with a comma,'
+	            ];
 
-							echo form_input($options); ?>
-            			</div>
+	            echo form_input($options); ?>
+        		</div>
 
 						<div class="form-group">
 							<label for="published">Publish:</label>
 								<?php
-									$values = array(
-										1 => 'Yes',
-										0 => 'No (save as draft)',
-									);
-									echo form_dropdown('published',$values,set_value('published', $data['published']), 'id="published" class="form-control"');
-								?>
-           				</div>
+                    $values = array(
+                        1 => 'Yes',
+                        0 => 'No (save as draft)',
+                    );
+                    echo form_dropdown('published', $values, set_value('published', $data['published']), 'id="published" class="form-control"');
+                ?>
+           	</div>
 
 						<label for="allowComments">Allow Comments?</label>
 						<?php
-							$values = array(
-								1 => 'Yes',
-								0 => 'No',
-							);
-							echo form_dropdown('allowComments',$values,set_value('allowComments', $data['allowComments']), 'id="allowComments" class="form-control"');
-						?>
+                $values = array(
+                    1 => 'Yes',
+                    0 => 'No',
+                );
+                echo form_dropdown('allowComments', $values, set_value('allowComments', $data['allowComments']), 'id="allowComments" class="form-control"');
+            ?>
 
 						<label for="publishDate">Publish Date:</label>
 						<?php echo form_input('publishDate', date('d M Y', strtotime($data['dateCreated'])), 'id="publishDate" class="formelement datebox" readonly="readonly"'); ?>

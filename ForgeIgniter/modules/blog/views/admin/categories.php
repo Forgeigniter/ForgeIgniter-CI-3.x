@@ -82,9 +82,9 @@ $(function(){
 								<label for="categoryName">Category name:</label>
 
 								<?php
-									$blog_cats = NULL;
-									echo form_input('catName',$blog_cats['catName'], 'class="formelement" id="catName"');
-								?>
+                    $blog_cats = null;
+                    echo form_input('catName', $blog_cats['catName'], 'class="formelement" id="catName"');
+                ?>
 
 								<input type="submit" value="Add Category" id="submit" class="button" />
 

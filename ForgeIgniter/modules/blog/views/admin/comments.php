@@ -50,7 +50,7 @@
 								<td><?php echo anchor('/blog/'.dateFmt($comment['uriDate'], 'Y/m/').$comment['uri'], $comment['postTitle']); ?></td>
 								<td><?php echo $comment['fullName']; ?></td>
 								<td><?php echo $comment['email']; ?></td>
-								<td><small><?php echo (strlen($comment['comment'] > 50)) ? htmlentities(substr($comment['comment'], 0, 50)).'...' : htmlentities($comment['comment'],ENT_QUOTES | ENT_IGNORE, "UTF-8"); ?></small></td>
+								<td><small><?php echo (strlen($comment['comment'] > 50)) ? htmlentities(substr($comment['comment'], 0, 50)).'...' : htmlentities($comment['comment'], ENT_QUOTES | ENT_IGNORE, "UTF-8"); ?></small></td>
 								<td><?php echo ($comment['active']) ? '<span style="color:green;">Active</span>' : '<span style="color:orange;">Pending</span>'; ?></td>
 								<td><?php echo (!$comment['active']) ? anchor('/admin/blog/approve_comment/'.$comment['commentID'], 'Approve') : ''; ?></td>
 								<td>
