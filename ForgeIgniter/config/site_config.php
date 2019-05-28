@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * ForgeIgniter
  *
@@ -32,6 +33,3 @@ $config['stagingSites']		=	FALSE;				// whether to create upload folders for eac
 $config['themePath'] = 'static/themes/'; // Theme Path
 // Blog
 $config['blogBtnClass']		=	'';					// Custom CSS Button Class for older & newer
-
-/* END OF FILE site_config.php */
-/* Location: ./ForgeIgniter/config/site_config.php */
