@@ -2,12 +2,30 @@
 # CodeIgniter 3.x Branch
 --------------------------
 
-## Version 2.0 - Alpha 2.3
+## Version 2.0 - Alpha 2.3 - In Development
 
 - CodeIgniter
 	¬ Updated to v3.1.10 http://www.codeigniter.com/user_guide/changelog.html
+	
+- ForgeIgniter
+	¬ Updated: Modular Extensions - HMVC 5.6.2
+	¬ Updated: try PHP Coding Standards to follow PSR's
+	¬ Updated: routes with defined paths.
+	¬ Updated: URI now supports uppercase.
+	¬ Added: Sites
+	¬ Fixed: undefined var
+	
+- Markdown ITF Lib
+	¬ Updated: to support 1.8.0
+	
+- Shop
+	¬ Fixed: PHP7.2 - Parameter must be an array or an object that implements Countable
+	
+- Forum
+	¬ Added: New Forum Posts Tag user:joined
+	¬ Added: Forum Configuration Settings for pagination & avatar.
 
-## Version 2.0 - Alpha 2.2 - In Development
+## Version 2.0 - Alpha 2.2
 
 - CodeIgniter
 	¬ Updated to v3.1.9 http://www.codeigniter.com/user_guide/changelog.html
