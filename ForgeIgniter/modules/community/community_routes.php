@@ -1,7 +1,13 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+	$route['community'] = 'community';
+	$route['community/(.*)'] = 'community/users/$1';
+	$route['community/(.*)/(.*)'] = 'community/users/$1/$2';
 
 	// users
 	$route['users'] = 'community/users';
+	$route['users/profile/(:num)'] = 'community/users/profile/$1';
 	$route['users/(.*)'] = 'community/users/$1';
 	$route['users/(.*)/(.*)'] = 'community/users/$1/$2';
 
