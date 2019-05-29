@@ -13,69 +13,61 @@
  * @since		Hal Version 1.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
-class Tickets_model extends CI_Model {
+class Tickets_model extends CI_Model
+{
+    public $siteID;
 
-	var $siteID;
+    public function __construct()
+    {
+        parent::__construct();
 
-	function __construct()
-	{
-		parent::__construct();
+        // get siteID, if available
+        if (defined('SITEID')) {
+            $this->siteID = SITEID;
+        }
+    }
 
-		// get siteID, if available
-		if (defined('SITEID'))
-		{
-			$this->siteID = SITEID;
-		}
-	}
+    public function get_all_web_forms()
+    {
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('deleted', 0);
 
-	function get_all_web_forms()
-	{
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('deleted', 0);
+        $this->db->order_by('formName');
 
-		$this->db->order_by('formName');
+        $query = $this->db->get('web_forms');
 
-		$query = $this->db->get('web_forms');
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
 
-		if ($query->num_rows() > 0)
-		{
-			return $query->result_array();
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+    public function get_web_form($formID = '')
+    {
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('deleted', 0);
 
-	function get_web_form($formID = '')
-	{
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('deleted', 0);
+        $this->db->where('formID', $formID);
 
-		$this->db->where('formID', $formID);
+        $query = $this->db->get('web_forms', 1);
 
-		$query = $this->db->get('web_forms', 1);
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
+        } else {
+            return false;
+        }
+    }
 
-		if ($query->num_rows() > 0)
-		{
-			return $query->row_array();
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-
-	function view_ticket($ticketID)
-	{
-		$this->db->set('viewed', '1');
-		$this->db->where('ticketID', $ticketID);
-		$this->db->where('siteID', $this->siteID);
-		$this->db->update('tickets');
-	}
-
+    public function view_ticket($ticketID)
+    {
+        $this->db->set('viewed', '1');
+        $this->db->where('ticketID', $ticketID);
+        $this->db->where('siteID', $this->siteID);
+        $this->db->update('tickets');
+    }
 }
