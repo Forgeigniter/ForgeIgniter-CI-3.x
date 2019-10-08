@@ -8,6 +8,8 @@ class MY_Router extends MX_Router
 {
 
   // Case Insensitive Routing
+  // ERROR: Header may not contain more than a single header, new line detected
+  /* 
     public function _parse_routes()
     {
         foreach ($this->uri->segments as &$segment) {
@@ -16,4 +18,5 @@ class MY_Router extends MX_Router
 
         return parent::_parse_routes();
     }
+  */
 }
