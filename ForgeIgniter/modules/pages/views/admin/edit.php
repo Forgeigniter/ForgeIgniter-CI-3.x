@@ -400,7 +400,6 @@
 				</div>
 				</div> <!-- End Box -->
 
-			</div> <!-- End Row -->
 		</section>
 
 	</form>
