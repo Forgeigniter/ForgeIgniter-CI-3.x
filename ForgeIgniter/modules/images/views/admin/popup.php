@@ -19,7 +19,10 @@
 	$imagePath = $image['src'];
 	$imageThumbPath = $thumb['src'];
 ?>
-<?php echo ($thumb = display_image(base_url(), $imageThumbPath, $data['imageName'], 100, 'class="pic" ')) ? $thumb : display_image(base_url(), $imagePath, $data['imageName'], 100, 'class="pic"'); ?>
+<?php
+	// display image - path, alt, size, extras else $nopic
+	echo ($thumb = display_image($imageThumbPath, $data['imageName'], 180, 'style="display: block;margin: 0 auto 5px;" ')) ? $thumb : display_image(base_url(), $imagePath, $data['imageName'], 100, 'class="pic #2"');
+?>
 
 	<label for="image">Image:</label>
 	<div class="uploadfile">
