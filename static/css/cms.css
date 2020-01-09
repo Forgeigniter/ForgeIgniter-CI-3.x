@@ -39,7 +39,7 @@ div.ficms_buttons a.ficms_imagebutton { display: none; z-index: 550; }
 div.ficms_buttons a.ficms_filebutton { display: none; z-index: 550; }
 div.ficms_buttons a.ficms_cancelbutton { display: none; z-index: 550; }
 div.ficms_buttons a.ficms_savebutton { display: none; z-index: 550; }
-#ficms_editpic { display: none; position: absolute; margin: 2px; outline:none; z-index: 500; }
+#ficms_editpic { display: none; position: absolute; margin: 8px; outline:none; z-index: 500; }
 #ficms_controls { float: left; height: 24px; overflow: hidden; }
 #ficms_toggle { text-align: center; }
 #ficms_admin:hover { opacity:1; }

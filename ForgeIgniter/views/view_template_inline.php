@@ -10,7 +10,7 @@
 })();
 </script>
 <?php if (in_array('images', $this->permission->permissions)): ?>
-	<a href="<?php echo site_url('/admin/images/popup'); ?>" id="ficms_editpic" rel="<?php echo site_url('/admin/images/popup'); ?>"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_edit_pic.png" alt="Edit Pic" /></a>
+	<a href="<?php echo site_url('/admin/images/popup'); ?>" id="ficms_editpic" rel="<?php echo site_url('/admin/images/popup'); ?>"><img src="<?php echo base_url($this->config->item('staticPath')); ?>/images/icons/cms/edit_pic.png" alt="Edit Pic" /></a>
 <?php endif; ?>
 	<div id="ficms_admin">
 		<div id="ficms_controls">
