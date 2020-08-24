@@ -1,4 +1,5 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
 * @name MY_Pagination.php
 * @version 1.0
@@ -38,36 +39,35 @@
 * $query = $this->db->get('my_table');
 *
 */
-class MY_Pagination extends CI_Pagination {
+class MY_Pagination extends CI_Pagination
+{
+    public $offset = 0;
+    public $pagination_selector = 'page';
 
-    var $offset = 0;
-    var $pagination_selector = 'page';
+    public function __construct()
+    {
+        parent::__construct();
 
-	function __construct()
-	{
-		parent::__construct();
-
-		log_message('debug', "MY_Pagination Class Initialized");
+        log_message('debug', "MY_Pagination Class Initialized");
 
         $this->_set_pagination_offset();
-
-	}
+    }
 
     /**
         * Set dynamic pagination variables in $CI->data['pagvars']
         *
         */
-    function _set_pagination_offset()
+    public function _set_pagination_offset()
     {
 
         // Instantiate the CI super object so we have access to the uri class
         $CI = & get_instance();
 
-		// parse uri
-		preg_match('/\/'.$this->pagination_selector.'(\/)?([0-9]+)?$/i', $CI->uri->uri_string(), $matches);
+        // parse uri
+        preg_match('/\/'.$this->pagination_selector.'(\/)?([0-9]+)?$/i', $CI->uri->uri_string(), $matches);
 
         // Store pagination offset if it is set
-        if ( ! empty($matches)) {
+        if (! empty($matches)) {
 
             // set uri based on matches
             $uri = substr($CI->uri->uri_string(), 0, strrpos($CI->uri->uri_string(), $matches[0]));
@@ -93,18 +93,11 @@ class MY_Pagination extends CI_Pagination {
                     //$pos = strrpos($uri, $this->pagination_selector);
                     $this->base_url = $CI->config->item('base_url') . $uri . '/' . $this->pagination_selector;
                 }
-
             }
-
-        }
-        else { // Pagination selector was not found in URI string. So offset is 0
+        } else { // Pagination selector was not found in URI string. So offset is 0
             $this->offset = 0;
             $this->uri_segment = 0;
             $this->base_url = $CI->config->item('base_url') . $CI->uri->uri_string() . '/' . $this->pagination_selector;
-
         }
-
     }
-
 }
-?>

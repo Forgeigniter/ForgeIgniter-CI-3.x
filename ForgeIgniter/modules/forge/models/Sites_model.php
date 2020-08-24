@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * ForgeIgniter
  *
@@ -13,75 +13,70 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+defined('BASEPATH') or exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
-class Sites_model extends CI_Model {
+class Sites_model extends CI_Model
+{
+    public function __construct()
+    {
+        parent::__construct();
 
-	function __construct()
-	{
-		parent::__construct();
+        // get siteID, if available
+        if (defined('SITEID')) {
+            $this->siteID = SITEID;
+        }
+    }
 
-		// get siteID, if available
-		if (defined('SITEID'))
-		{
-			$this->siteID = SITEID;
-		}
-	}
+    public function get_sites($search = '')
+    {
+        if ($search) {
+            $search = $this->db->escape_like_str($search);
 
-	function get_sites($search = '')
-	{
-		if ($search)
-		{
-			$search = $this->db->escape_like_str($search);
+            $this->db->where('(siteDomain LIKE "%'.$search.'%" OR siteName LIKE "%'.$search.'%")');
+        }
 
-			$this->db->where('(siteDomain LIKE "%'.$search.'%" OR siteName LIKE "%'.$search.'%")');
-		}
+        $query = $this->db->get('sites');
 
-		$query = $this->db->get('sites');
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
 
-		if ($query->num_rows() > 0)
-		{
-			return $query->result_array();
-		}
-		else
-		{
-			return false;
-		}
-	}
+    public function get_quota($siteID)
+    {
+        // get image quota
+        $this->CI->db->where('siteID', $this->config['siteID']);
+        $this->CI->db->select('SUM(filesize) as quota');
+        $query = $this->CI->db->get('images');
+        $row = $query->row_array();
 
-	function get_quota($siteID)
-	{
-		// get image quota
-		$this->CI->db->where('siteID', $this->config['siteID']);
-		$this->CI->db->select('SUM(filesize) as quota');
-		$query = $this->CI->db->get('images');
-		$row = $query->row_array();
+        $quota = $row['quota'];
 
-		$quota = $row['quota'];
+        // get file quota
+        $this->CI->db->where('siteID', $this->config['siteID']);
+        $this->CI->db->select('SUM(filesize) as quota');
+        $query = $this->CI->db->get('files');
+        $row = $query->row_array();
 
-		// get file quota
-		$this->CI->db->where('siteID', $this->config['siteID']);
-		$this->CI->db->select('SUM(filesize) as quota');
-		$query = $this->CI->db->get('files');
-		$row = $query->row_array();
+        $quota += $row['quota'];
 
-		$quota += $row['quota'];
+        return $quota;
+    }
 
-		return $quota;
-	}
+    public function add_templates($siteID, $theme = true)
+    {
+        // get lib
+        $this->load->model('pages/pages_model', 'pages');
 
-	function add_templates($siteID, $theme = TRUE)
-	{
-		// get lib
-		$this->load->model('pages/pages_model', 'pages');
+        // get default theme and import it
+        $this->pages->siteID = $siteID;
 
-		// get default theme and import it
-		$this->pages->siteID = $siteID;
-
-		if ($theme)
-		{
-			$body = '
+        if ($theme) {
+            $body = '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="">
@@ -130,58 +125,55 @@ class Sites_model extends CI_Model {
 	</body>
 </html>';
 
-			$templateID = $this->pages->import_template('default.html', $body);
-		}
-		else
-		{
-			$content = "<html>\n<head><title>{page:title}</title>\n<body>\n\n<br><br><center>\n\n{block1}\n\n</center></body>\n</html>";
-			$templateID = $this->pages->add_template('Default', $content);
-		}
+            $templateID = $this->pages->import_template('default.html', $body);
+        } else {
+            $content = "<html>\n<head><title>{page:title}</title>\n<body>\n\n<br><br><center>\n\n{block1}\n\n</center></body>\n</html>";
+            $templateID = $this->pages->add_template('Default', $content);
+        }
 
-		// add home page
-		$this->db->set('siteID', $siteID);
-		$this->db->set('dateCreated', date("Y-m-d H:i:s"));
-		$this->db->set('pageName', 'Home');
-		$this->db->set('title', 'Home');
-		$this->db->set('uri', 'home');
-		$this->db->set('templateID', $templateID);
-		$this->db->set('active', 1);
-		$this->db->insert('pages');
-		$pageID = $this->db->insert_id();
+        // add home page
+        $this->db->set('siteID', $siteID);
+        $this->db->set('dateCreated', date("Y-m-d H:i:s"));
+        $this->db->set('pageName', 'Home');
+        $this->db->set('title', 'Home');
+        $this->db->set('uri', 'home');
+        $this->db->set('templateID', $templateID);
+        $this->db->set('active', 1);
+        $this->db->insert('pages');
+        $pageID = $this->db->insert_id();
 
-		// add version
-		$this->db->set('siteID', $siteID);
-		$this->db->set('dateCreated', date("Y-m-d H:i:s"));
-		$this->db->set('pageID', $pageID);
-		$this->db->set('published', 1);
-		$this->db->insert('page_versions');
-		$versionID = $this->db->insert_id();
+        // add version
+        $this->db->set('siteID', $siteID);
+        $this->db->set('dateCreated', date("Y-m-d H:i:s"));
+        $this->db->set('pageID', $pageID);
+        $this->db->set('published', 1);
+        $this->db->insert('page_versions');
+        $versionID = $this->db->insert_id();
 
-		// update page
-		$this->db->set('draftID', $versionID);
-		$this->db->set('versionID', $versionID);
-		$this->db->where('pageID', $pageID);
-		$this->db->where('siteID', $siteID);
-		$this->db->update('pages');
+        // update page
+        $this->db->set('draftID', $versionID);
+        $this->db->set('versionID', $versionID);
+        $this->db->where('pageID', $pageID);
+        $this->db->where('siteID', $siteID);
+        $this->db->update('pages');
 
-		// add first block
-		$this->db->set('siteID', $siteID);
-		$this->db->set('dateCreated', date("Y-m-d H:i:s"));
-		$this->db->set('blockRef', 'block1');
-		$this->db->set('body', "# Welcome.\n\nYour site is set up and ready to go!");
-		$this->db->set('versionID', $versionID);
-		$this->db->insert('page_blocks');
+        // add first block
+        $this->db->set('siteID', $siteID);
+        $this->db->set('dateCreated', date("Y-m-d H:i:s"));
+        $this->db->set('blockRef', 'block1');
+        $this->db->set('body', "# Welcome.\n\nYour site is set up and ready to go!");
+        $this->db->set('versionID', $versionID);
+        $this->db->insert('page_blocks');
 
-		return TRUE;
-	}
+        return true;
+    }
 
-	function delete_site($siteID)
-	{
-		// delete site
-		$this->db->where('siteID', $siteID);
-		$this->db->delete('sites');
+    public function delete_site($siteID)
+    {
+        // delete site
+        $this->db->where('siteID', $siteID);
+        $this->db->delete('sites');
 
-		return TRUE;
-	}
-
+        return true;
+    }
 }

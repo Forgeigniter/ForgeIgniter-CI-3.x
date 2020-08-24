@@ -2,14 +2,78 @@
 # CodeIgniter 3.x Branch
 --------------------------
 
-## Version 2.0 - Alpha 2.1 - In Development
+## Version 2.0 - Alpha 2.4 - In Development
+
+- CodeIgniter
+	¬ Updated to v3.1.11 http://www.codeigniter.com/user_guide/changelog.html
+
+- Images / Files
+	¬ Fixed: Pages Image Editor - wrong path. #29
+
+- Markdown ITF Lib
+	¬ Updated: Unofficial 1.8.1
+
+- ForgeIgniter
+	¬ Anvil Admin Theme
+		Fixed: Edit Pages - Footer overlap
+		Updated: Site Details ( basic layout )
+		Updated: editor settings for Admin Add Includes
+		Updated: Inline Editor - edit pic
+
+--------------------
+
+## Version 2.0 - Alpha 2.3
+
+- CodeIgniter
+	¬ Updated to v3.1.10 http://www.codeigniter.com/user_guide/changelog.html
+	
+- ForgeIgniter
+	¬ Updated: Modular Extensions - HMVC 5.6.2
+	¬ Updated: try PHP Coding Standards to follow PSR's
+	¬ Updated: routes with defined paths.
+	¬ Updated: URI now supports uppercase.
+	¬ Added: Sites
+	¬ Fixed: undefined var
+	
+- Markdown ITF Lib
+	¬ Updated: to support 1.8.0
+	
+- Shop
+	¬ Fixed: PHP7.2 - Parameter must be an array or an object that implements Countable
+	
+- Forum
+	¬ Added: New Forum Posts Tag user:joined
+	¬ Added: Forum Configuration Settings for pagination & avatar.
+
+--------------------
+
+## Version 2.0 - Alpha 2.2
+
+- CodeIgniter
+	¬ Updated to v3.1.9 http://www.codeigniter.com/user_guide/changelog.html
+
+- ForgeIgniter
+	¬ Fixed: Templates - Cannot read property 'match' of undefined
+	¬ Fixed: routing issue on some servers.
+	¬ Updated: Configs
+			user agents, smileys, site config, routes, profiler, mimes, migration,
+			memcached, hooks, foreign chars, doctypes, config, autoload.
+	¬ Anvil Admin Theme
+			Updated: Basic layout - Templates (Edit, Includes).
+			Updated: Inline editor.
+			Updated: File Cleanup.
+			Updated: Bootstrap v3.4, flot 0.8.3,
+
+--------------------
+
+## Version 2.0 - Alpha 2.1
 
 - CodeIgniter
 	¬ Updated to v3.1.8 http://www.codeigniter.com/user_guide/changelog.html
 
 --------------------
 
-## Version 2.0 - Alpha 2 - In Development
+## Version 2.0 - Alpha 2
 
 - ForgeIgniter
 	¬ Fixed some typo's ( kindly pointed out by HendrikEduard. )
@@ -110,7 +174,7 @@ Additionally added some great new features and improvements.
 		Missing memcached config file.
 		Missing Migration config file.
 		Missing mimes config file + audio correction.
-		Missing default css
+		Missing default CSS
 	¬ Updated: Modular Extensions - HMVC
 	¬ Updated: Missing Config.
 	¬ Fixed: Unknown column 'FI_t1 .postID' in 'on clause'
@@ -200,7 +264,7 @@ Additionally added some great new features and improvements.
 	¬ Updated: Foreign Characters
 	¬ Updated: Allowed file types
 	¬ Updated: User Agents
-	¬ Updated: doctype to 403 files and added missing 403 files.
+	¬ Updated: Doctypes to 403 files and added missing 403 files.
 	¬ Updated: Information on all files
 	¬ Updated: Error Messages.
 
@@ -260,7 +324,7 @@ Updates move officially to ForgeIgniter.
 
 - Halogy
 	¬ HTML 5 is a go ! (Backend updated to HTML5)
-	¬ Tweek: footer font color.
+	¬ Tweak: footer font color.
 	¬ added executed time to footer.
 	¬ Fixed: Missing </center> tag.
 	¬ Updated: user agent higher value support.
@@ -291,7 +355,7 @@ Updates move officially to ForgeIgniter.
 	¬ Too much to list, if request though, can list.
 - WIKI
 	¬  Fixed Errors on pages with versions
-	¬  Fixed Uncategorised pages give errors
+	¬  Fixed Uncategorized pages give errors
 - Admin
 	¬ Fixed Congratulations message not showing correct path
 	¬ Added path to my account in message 'Password change'

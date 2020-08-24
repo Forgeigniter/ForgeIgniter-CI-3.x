@@ -9,9 +9,9 @@
 })();
 </script>
 <?php if (in_array('images', $this->permission->permissions)): ?>
-	<a href="<?php echo site_url('/admin/images/popup'); ?>" id="halogycms_editpic" rel="<?php echo site_url('/admin/images/popup'); ?>"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_edit_pic.png" alt="Edit Pic" /></a>
+	<a href="<?php echo site_url('/admin/images/popup'); ?>" id="ficms_editpic" rel="<?php echo site_url('/admin/images/popup'); ?>"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/btn_edit_pic.png" alt="Edit Pic" /></a>
 <?php endif; ?>
-<div id="halogycms_browser"><p style="text-align:center;"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/loading.gif" alt="Loading" /></p></div>
-<div id="halogycms_popup" class="loading"></div>
+<div id="ficms_browser"><p style="text-align:center;"><img src="<?php echo base_url() . $this->config->item('staticPath'); ?>/images/loading.gif" alt="Loading" /></p></div>
+<div id="ficms_popup" class="loading"></div>
 </body>
 </html>

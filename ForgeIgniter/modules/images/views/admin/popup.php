@@ -6,20 +6,23 @@
 
 <?php if ($this->core->is_ajax()): ?>
 
-	<a class="halogycms_close" href="#"><img title="Close" src="<?php echo base_url().$this->config->item('staticPath'); ?>/images/btn_close.png"/></a>
-	<a href="<?php echo site_url('/admin/images'); ?>" class="halogycms_button halogycms_confirm" target="_top">Manage Images</a>
+	<a class="ficms_close" href="#"><img title="Close" src="<?php echo base_url().$this->config->item('staticPath'); ?>/images/btn_close.png"/></a>
+	<a href="<?php echo site_url('/admin/images'); ?>" class="ficms_button ficms_confirm" target="_top">Manage Images</a>
 
-<?php endif; ?>		
+<?php endif; ?>
 
-<form method="post" action="<?php echo site_url($this->uri->uri_string()); ?>" enctype="multipart/form-data" class="halogycms_form">
+<form method="post" action="<?php echo site_url($this->uri->uri_string()); ?>" enctype="multipart/form-data" class="ficms_form">
 
 <?php
 	$image = $this->uploads->load_image($data['imageRef']);
 	$thumb = $this->uploads->load_image($data['imageRef'], true);
 	$imagePath = $image['src'];
 	$imageThumbPath = $thumb['src'];
-?>	
-<?php echo ($thumb = display_image(base_url(), $imageThumbPath, $data['imageName'], 100, 'class="pic" ')) ? $thumb : display_image(base_url(), $imagePath, $data['imageName'], 100, 'class="pic"'); ?>
+?>
+<?php
+	// display image - path, alt, size, extras else $nopic
+	echo ($thumb = display_image($imageThumbPath, $data['imageName'], 180, 'style="display: block;margin: 0 auto 5px;" ')) ? $thumb : display_image(base_url(), $imagePath, $data['imageName'], 100, 'class="pic #2"');
+?>
 
 	<label for="image">Image:</label>
 	<div class="uploadfile">
@@ -35,11 +38,11 @@
 				$options[$folderID['folderID']] = $folderID['folderName'];
 			endforeach;
 		endif;
-			
+
 		echo @form_dropdown('folderID',$options,set_value('folderID', $data['folderID']),'id="folderID" class="formelement"');
-	?>	
+	?>
 	<br class="clear" />
-	
+
 	<label for="imageName">Description:</label>
 	<?php echo @form_input('imageName', $data['imageName'], 'class="formelement" id="imageName"'); ?>
 	<br class="clear" />
@@ -51,28 +54,28 @@
 	<label for="class">Display:</label>
 	<?php
 		$values = array(
-			'default' => 'Default',	
+			'default' => 'Default',
 			'left' => 'Left Align',
-			'center' => 'Center Align',			
+			'center' => 'Center Align',
 			'right' => 'Right Align',
 			'bordered' => 'Border',
 			'bordered left' => 'Border - Left Align',
-			'bordered center' => 'Border - Center Align',			
+			'bordered center' => 'Border - Center Align',
 			'bordered right' => 'Border - Right Align',
-			'full' => 'Full Width',			
+			'full' => 'Full Width',
 			'' => 'No Style'
-		);					
-		echo @form_dropdown('class',$values,$data['class'], 'class="formelement"'); 
+		);
+		echo @form_dropdown('class',$values,$data['class'], 'class="formelement"');
 	?>
 	<br class="clear" />
 
 	<label for="maxsize">Max Size (px):</label>
 	<?php echo @form_input('maxsize', set_value('maxsize', (($data['maxsize']) ? $data['maxsize'] : '')), 'class="formelement" id="maxsize"'); ?>
-	<br class="clear" /><br />	
+	<br class="clear" /><br />
 
 	<input type="submit" value="Save Changes" class="button nolabel" id="submit" />
 	<br class="clear" />
-	
+
 </form>
 
 <br class="clear" />

@@ -60,11 +60,11 @@ error_reporting(0); //Note E_ALL = Blank Pages on some test should be 0 to get t
 			  
               <h5><strong>PHP Version:</strong></h5>
 			  <?php // Version Check
-			  		if (version_compare(phpversion(), '5.4', '<')) {
-						echo '<p class="error"> Please update PHP on the server to at least 5.4 to make things work correctly your current version is:'.PHP_VERSION.'</p>' ;
+			  		if (version_compare(phpversion(), '7.0', '<')) {
+						echo '<p class="error"> Please update PHP on the server to at least v7 to make things work correctly your current version is:'.PHP_VERSION.'</p>' ;
 						$versionCheck = false;
 					}else {
-						echo '<p class="sucsess"> Great You Have 5.4 or Higher</p>';
+						echo '<p class="sucsess"> Great You Have 7.0 or Higher</p>';
 						$versionCheck = true;
 					}
 					// && apache_get_version() ?? (Don't think this is needed.)

@@ -13,390 +13,336 @@
  * @since		Hal Version 1.0
  * @filesource
  */
+defined('BASEPATH') or exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
-class Forge_model extends CI_Model {
-	
-	function __construct()
-	{
-		parent::__construct();
+class Forge_model extends CI_Model
+{
+    public function __construct()
+    {
+        parent::__construct();
 
-		// get siteID, if available
-		if (defined('SITEID'))
-		{
-			$this->siteID = SITEID;
-		}
-	}	
+        // get siteID, if available
+        if (defined('SITEID')) {
+            $this->siteID = SITEID;
+        }
+    }
 
-	function get_num_page_views()
-	{
-		// grab
-		$this->db->select('sum(views) as count');
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('deleted', 0);
-		$this->db->where('active', 1);
-		$query = $this->db->get('pages');
+    public function get_num_page_views()
+    {
+        // grab
+        $this->db->select('sum(views) as count');
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('deleted', 0);
+        $this->db->where('active', 1);
+        $query = $this->db->get('pages');
 
-		if ($query->num_rows() > 0)
-		{
-			$row = $query->row_array();
-			return $row['count'];
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            return $row['count'];
+        } else {
+            return false;
+        }
+    }
 
-	function get_num_pages()
-	{
-		// grab
-		$this->db->select('count(*) as count');
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('deleted', 0);
-		$query = $this->db->get('pages');
+    public function get_num_pages()
+    {
+        // grab
+        $this->db->select('count(*) as count');
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('deleted', 0);
+        $query = $this->db->get('pages');
 
-		if ($query->num_rows() > 0)
-		{
-			$row = $query->row_array();
-			return $row['count'];
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            return $row['count'];
+        } else {
+            return false;
+        }
+    }
 
-	function get_popular_pages()
-	{
-		// grab
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('active', 1);
-		$this->db->where('deleted', 0);
-		$this->db->order_by('views', 'desc');
+    public function get_popular_pages()
+    {
+        // grab
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('active', 1);
+        $this->db->where('deleted', 0);
+        $this->db->order_by('views', 'desc');
 
-		$query = $this->db->get('pages', 5);
+        $query = $this->db->get('pages', 5);
 
-		if ($query->num_rows() > 0)
-		{
-			$result = $query->result_array();
-			return $result;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            return $result;
+        } else {
+            return false;
+        }
+    }
 
-	function get_new_tickets()
-	{
-		// grab
-		$this->db->select('count(*) as count');
-		$this->db->where('deleted', 0);
-		$this->db->where('viewed', 0);
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('-2 days')));
-		
-		$query = $this->db->get('tickets');
+    public function get_new_tickets()
+    {
+        // grab
+        $this->db->select('count(*) as count');
+        $this->db->where('deleted', 0);
+        $this->db->where('viewed', 0);
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('-2 days')));
 
-		if ($query->num_rows() > 0)
-		{
-			$row = $query->row_array();
-			return $row['count'];
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-	
-	function get_blog_posts_count()
-	{
-		// grab
-		$this->db->select('count(*) as count');
-		$this->db->where('deleted', 0);
-		$this->db->where('siteID', $this->siteID);
-		$query = $this->db->get('blog_posts');
+        $query = $this->db->get('tickets');
 
-		if ($query->num_rows() > 0)
-		{
-			$row = $query->row_array();
-			return $row['count'];
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            return $row['count'];
+        } else {
+            return false;
+        }
+    }
 
-	function get_blog_new_comments()
-	{
-		// grab
-		$this->db->select('count(*) as count');
-		$this->db->where('deleted', 0);
-		$this->db->where('active', 0);		
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('-4 days')));
-				
-		$query = $this->db->get('blog_comments');
+    public function get_blog_posts_count()
+    {
+        // grab
+        $this->db->select('count(*) as count');
+        $this->db->where('deleted', 0);
+        $this->db->where('siteID', $this->siteID);
+        $query = $this->db->get('blog_posts');
 
-		if ($query->num_rows() > 0)
-		{
-			$row = $query->row_array();
-			return $row['count'];
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            return $row['count'];
+        } else {
+            return false;
+        }
+    }
 
-	function get_blog_latest_post()
-	{
-		// grab
-		$this->db->select('postTitle');
-		$this->db->where('deleted', 0);
-		$this->db->where('siteID', $this->siteID);
-		$this->db->order_by('dateCreated', 'desc');
+    public function get_blog_new_comments()
+    {
+        // grab
+        $this->db->select('count(*) as count');
+        $this->db->where('deleted', 0);
+        $this->db->where('active', 0);
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('-4 days')));
 
-		$query = $this->db->get('blog_posts', 1);
+        $query = $this->db->get('blog_comments');
 
-		if ($query->num_rows() > 0)
-		{
-			$row = $query->row_array();
-			return $row;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            return $row['count'];
+        } else {
+            return false;
+        }
+    }
 
-	function get_popular_blog_posts()
-	{
-		// grab
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('deleted', 0);
-		$this->db->order_by('views', 'desc');
+    public function get_blog_latest_post()
+    {
+        // grab
+        $this->db->select('postTitle');
+        $this->db->where('deleted', 0);
+        $this->db->where('siteID', $this->siteID);
+        $this->db->order_by('dateCreated', 'desc');
 
-		$query = $this->db->get('blog_posts', 5);
+        $query = $this->db->get('blog_posts', 1);
 
-		if ($query->num_rows() > 0)
-		{
-			$result = $query->result_array();
-			return $result;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            return $row;
+        } else {
+            return false;
+        }
+    }
 
-	function get_popular_shop_products()
-	{
-		// grab
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('deleted', 0);
-		$this->db->order_by('views', 'desc');
+    public function get_popular_blog_posts()
+    {
+        // grab
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('deleted', 0);
+        $this->db->order_by('views', 'desc');
 
-		$query = $this->db->get('shop_products', 5);
+        $query = $this->db->get('blog_posts', 5);
 
-		if ($query->num_rows() > 0)
-		{
-			$result = $query->result_array();
-			return $result;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            return $result;
+        } else {
+            return false;
+        }
+    }
 
-	function get_num_sites()
-	{
-		// grab
-		$this->db->where('resellerID', $this->site->config['resellerID']);
-		$query = $this->db->get('sites');
+    public function get_popular_shop_products()
+    {
+        // grab
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('deleted', 0);
+        $this->db->order_by('views', 'desc');
 
-		return $query->num_rows();
-	}
+        $query = $this->db->get('shop_products', 5);
 
-	function get_activity($when = '')
-	{
-		// default wheres
-		$this->db->where('siteID', $this->siteID);
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            return $result;
+        } else {
+            return false;
+        }
+    }
 
-		// when?
-		if ($when == 'today')
-		{
-			$this->db->where('date >=', date("Y-m-d 00:00:00", strtotime('today')));
-		}
-		elseif ($when == 'yesterday')
-		{
-			$this->db->where('date <=', date("Y-m-d 00:00:00", strtotime('today')));
-			$this->db->where('date >=', date("Y-m-d 00:00:00", strtotime('1 day ago')));
-		}
-		else
-		{
-			$this->db->where('date <=', date("Y-m-d 00:00:00", strtotime('today')));
-			$this->db->where('date >=', date("Y-m-d 00:00:00", strtotime('1 day ago')));
-		}
-		$this->db->where('date <', date("Y-m-d H:i:s", strtotime('5 minutes ago')));		
+    public function get_num_sites()
+    {
+        // grab
+        $this->db->where('resellerID', $this->site->config['resellerID']);
+        $query = $this->db->get('sites');
 
-		$this->db->select('COUNT(*) as guests, date, SUM(views) AS views, referer, userdata');
-		$this->db->group_by('userdata');
+        return $query->num_rows();
+    }
 
-		$this->db->order_by('date', 'desc');
-			
-		$query = $this->db->get('tracking');
+    public function get_activity($when = '')
+    {
+        // default wheres
+        $this->db->where('siteID', $this->siteID);
 
-		if ($query->num_rows() > 0)
-		{
-			$result = $query->result_array();
-			return $result;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+        // when?
+        if ($when == 'today') {
+            $this->db->where('date >=', date("Y-m-d 00:00:00", strtotime('today')));
+        } elseif ($when == 'yesterday') {
+            $this->db->where('date <=', date("Y-m-d 00:00:00", strtotime('today')));
+            $this->db->where('date >=', date("Y-m-d 00:00:00", strtotime('1 day ago')));
+        } else {
+            $this->db->where('date <=', date("Y-m-d 00:00:00", strtotime('today')));
+            $this->db->where('date >=', date("Y-m-d 00:00:00", strtotime('1 day ago')));
+        }
+        $this->db->where('date <', date("Y-m-d H:i:s", strtotime('5 minutes ago')));
 
-	function get_recent_activity()
-	{
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('date >', date("Y-m-d H:i:s", strtotime('5 minutes ago')));
-		$this->db->order_by('date', 'desc');	
-		$query = $this->db->get('tracking');
+        $this->db->select('COUNT(*) as guests, date, SUM(views) AS views, referer, userdata');
+        $this->db->group_by('userdata');
 
-		if ($query->num_rows() > 0)
-		{
-			$result = $query->result_array();
-			return $result;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+        $this->db->order_by('date', 'desc');
 
-	function get_num_users()
-	{
-		// default wheres
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('active', 1);	
+        $query = $this->db->get('tracking');
 
-		$this->db->select('COUNT(*) as numUsers');
-			
-		$query = $this->db->get('users');
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            return $result;
+        } else {
+            return false;
+        }
+    }
 
-		if ($query->num_rows() > 0)
-		{
-			$row = $query->row_array();
-			return $row['numUsers'];
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+    public function get_recent_activity()
+    {
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('date >', date("Y-m-d H:i:s", strtotime('5 minutes ago')));
+        $this->db->order_by('date', 'desc');
+        $query = $this->db->get('tracking');
 
-	function get_num_users_today()
-	{
-		// default wheres
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('active', 1);
-		
-		// when?
-		$this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('today')));
+        if ($query->num_rows() > 0) {
+            $result = $query->result_array();
+            return $result;
+        } else {
+            return false;
+        }
+    }
 
-		$this->db->select('COUNT(*) as numUsers');
-			
-		$query = $this->db->get('users');
+    public function get_num_users()
+    {
+        // default wheres
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('active', 1);
 
-		if ($query->num_rows() > 0)
-		{
-			$row = $query->row_array();
-			return $row['numUsers'];
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+        $this->db->select('COUNT(*) as numUsers');
 
-	function get_num_users_yesterday()
-	{
-		// default wheres
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('active', 1);
-		
-		// when?
-		$this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('yesterday')));
-		$this->db->where('dateCreated <=', date("Y-m-d 00:00:00", strtotime('today')));		
+        $query = $this->db->get('users');
 
-		$this->db->select('COUNT(*) as numUsers');
-			
-		$query = $this->db->get('users');
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            return $row['numUsers'];
+        } else {
+            return false;
+        }
+    }
 
-		if ($query->num_rows() > 0)
-		{
-			$row = $query->row_array();
-			return $row['numUsers'];
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+    public function get_num_users_today()
+    {
+        // default wheres
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('active', 1);
 
-	function get_num_users_week()
-	{
-		// default wheres
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('active', 1);
+        // when?
+        $this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('today')));
 
-		// when?
-		$this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('-1 week sun')));
+        $this->db->select('COUNT(*) as numUsers');
 
-		$this->db->select('COUNT(*) as numUsers');
-			
-		$query = $this->db->get('users');
+        $query = $this->db->get('users');
 
-		if ($query->num_rows() > 0)
-		{
-			$row = $query->row_array();
-			return $row['numUsers'];
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            return $row['numUsers'];
+        } else {
+            return false;
+        }
+    }
 
-	function get_num_users_last_week()
-	{
-		// default wheres
-		$this->db->where('siteID', $this->siteID);
-		$this->db->where('active', 1);
+    public function get_num_users_yesterday()
+    {
+        // default wheres
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('active', 1);
 
-		// when?
-		$this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('-2 week sun')));
-		$this->db->where('dateCreated <=', date("Y-m-d 00:00:00", strtotime('-1 week sun')));
+        // when?
+        $this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('yesterday')));
+        $this->db->where('dateCreated <=', date("Y-m-d 00:00:00", strtotime('today')));
 
-		$this->db->select('COUNT(*) as numUsers');
-			
-		$query = $this->db->get('users');
+        $this->db->select('COUNT(*) as numUsers');
 
-		if ($query->num_rows() > 0)
-		{
-			$row = $query->row_array();
-			return $row['numUsers'];
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+        $query = $this->db->get('users');
 
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            return $row['numUsers'];
+        } else {
+            return false;
+        }
+    }
+
+    public function get_num_users_week()
+    {
+        // default wheres
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('active', 1);
+
+        // when?
+        $this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('-1 week sun')));
+
+        $this->db->select('COUNT(*) as numUsers');
+
+        $query = $this->db->get('users');
+
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            return $row['numUsers'];
+        } else {
+            return false;
+        }
+    }
+
+    public function get_num_users_last_week()
+    {
+        // default wheres
+        $this->db->where('siteID', $this->siteID);
+        $this->db->where('active', 1);
+
+        // when?
+        $this->db->where('dateCreated >=', date("Y-m-d 00:00:00", strtotime('-2 week sun')));
+        $this->db->where('dateCreated <=', date("Y-m-d 00:00:00", strtotime('-1 week sun')));
+
+        $this->db->select('COUNT(*) as numUsers');
+
+        $query = $this->db->get('users');
+
+        if ($query->num_rows() > 0) {
+            $row = $query->row_array();
+            return $row['numUsers'];
+        } else {
+            return false;
+        }
+    }
 }

@@ -96,15 +96,20 @@
 
 							<?php endif; ?>
 
+              <br class="clear" />
+
 								<div class="autosave">
 
 									<script src="<?= site_url('static/themes/assets/editors/ckeditor/ckeditor.js'); ?>"></script>
 
 									<textarea name='body' id="body" class="code editor"><?=@set_value('body', $data['body']);?></textarea>
 
-									<script type="text/javascript" >
-										<?=$this->config->item('settingsIncludes')?>
-									</script>
+                  <script type="text/javascript" >
+                    <?php
+                      $ckeditor_settingsIncludes = $this->config->item('settingsIncludes', 'ckeditor_config');
+                      echo $ckeditor_settingsIncludes;
+                    ?>
+                  </script>
 
 									<br class="clear" />
 								</div>

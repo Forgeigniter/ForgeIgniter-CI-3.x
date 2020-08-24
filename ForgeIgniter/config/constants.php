@@ -84,15 +84,4 @@ defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
-/*
-|  Setting: Common Paths
-*/
-
-define('BASE_URL', "http://" . $_SERVER['SERVER_NAME'] . "/");
-define('FULL_URL', "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']);
-
-define('PATH', [
-    'adminLogin' => BASE_URL . 'admin/login',
-    'static' => BASE_URL. 'static/',
-    'theme' => BASE_URL . 'static/themes/'
-]);
+include_once(APPPATH.'/modules/forge/config/forge_constants.php');

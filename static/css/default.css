@@ -102,8 +102,8 @@ div#tpl-blog .comment { float: left; width: 453px; padding: 10px; margin: 0 0 10
 div#tpl-blog .comment img { float: left; margin: 0 20px 0 0; }
 div#tpl-blog .comment.alt { background: #f8f8f8; }
 
-div#comments .col1 { width: 50px; margin: 0 20px 0 0; } 
-div#comments .col2 { width: 330px; margin: 0; } 
+div#comments .col1 { width: 50px; margin: 0 20px 0 0; }
+div#comments .col2 { width: 330px; margin: 0; }
 
 
 /* --------- EVENTS TEMPLATE --------- */
@@ -143,8 +143,8 @@ div#tpl-shop .review { float: left; width: 478px; padding: 10px; margin: 0 0 10p
 div#tpl-shop .review img.rating { float: right; margin: 0; vertical-align: middle; }
 div#tpl-shop .review.alt { background: #f8f8f8; }
 
-div#reviews .col1 { width: 50px; margin: 0 20px 0 0; } 
-div#reviews .col2 { width: 408px; margin: 0; } 
+div#reviews .col1 { width: 50px; margin: 0 20px 0 0; }
+div#reviews .col2 { width: 408px; margin: 0; }
 
 /* --------- FORUM TEMPLATE --------- */
 
@@ -238,14 +238,14 @@ div#tpl-popup { width: 580px; height: auto !important; height: 280px; min-height
 #facebox .image { text-align: center; }
 #facebox .clear { clear: both; }
 #facebox img { border: 0; margin: 0; }
-#facebox .sl { background: url(http://static.halogy.com/js/facebox/sl.png); }
-#facebox .st { background: url(http://static.halogy.com/js/facebox/st.png); }
-#facebox .sr { background: url(http://static.halogy.com/js/facebox/sr.png); }
-#facebox .sb { background: url(http://static.halogy.com/js/facebox/sb.png); }
-#facebox .tl { background: url(http://static.halogy.com/js/facebox/tl.png); }
-#facebox .tr { background: url(http://static.halogy.com/js/facebox/tr.png); }
-#facebox .bl { background: url(http://static.halogy.com/js/facebox/bl.png); }
-#facebox .br { background: url(http://static.halogy.com/js/facebox/br.png); }
+#facebox .sl { background: url(http://static.url.com/js/facebox/sl.png); }
+#facebox .st { background: url(http://static.url.com/js/facebox/st.png); }
+#facebox .sr { background: url(http://static.url.com/js/facebox/sr.png); }
+#facebox .sb { background: url(http://static.url.com/js/facebox/sb.png); }
+#facebox .tl { background: url(http://static.url.com/js/facebox/tl.png); }
+#facebox .tr { background: url(http://static.url.com/js/facebox/tr.png); }
+#facebox .bl { background: url(http://static.url.com/js/facebox/bl.png); }
+#facebox .br { background: url(http://static.url.com/js/facebox/br.png); }
 #facebox .tl, #facebox .tr, #facebox .bl, #facebox .br { height: 22px; width: 22px; overflow: hidden; padding: 0; }
 #facebox table#fbtable { border-collapse: collapse; }
 #facebox_overlay { position: fixed; top: 0px; left: 0px; height:100%; width:100%; }

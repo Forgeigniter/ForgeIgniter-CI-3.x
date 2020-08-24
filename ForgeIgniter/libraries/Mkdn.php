@@ -23,7 +23,7 @@ require_once APPPATH . 'third_party/MD/MarkdownInterface.php';
 require_once APPPATH . 'third_party/MD/Markdown.php';
 require_once APPPATH . 'third_party/MD/MarkdownExtra.php';
 
-class mkdn extends MD\Markdown {
+class Mkdn extends MD\Markdown {
 	function __construct($params = array()) {
 	  parent::__construct();
 	}

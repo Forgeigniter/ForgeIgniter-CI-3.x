@@ -70,7 +70,7 @@ if ($handle)
 	while ( false !== ($module = readdir($handle)) )
 	{
 		// make sure we don't map silly dirs like .svn, or . or ..
-		
+
 		if (substr($module, 0, 1) != ".")
 		{
 			if ( file_exists(APPPATH.'modules/'.$module.'/'.$module.'_routes.php') )
@@ -78,7 +78,7 @@ if ($handle)
 				include(APPPATH.'modules/'.$module.'/'.$module.'_routes.php');
 			}
 
-			if ( file_exists(APPPATH.'modules/'.$module.'/controllers/admin.php') )
+			if ( file_exists(APPPATH.'modules/'.$module.'/controllers/Admin.php') )
 			{
 				$route['admin/'.$module] = $module.'/admin';
 				$route['admin/'.$module.'/(.*)'] = $module.'/admin/$1';
@@ -101,6 +101,3 @@ $route['404_override'] = '';
 
 // cms
 $route['(.*)'] = 'pages/index/$1';
-
-/* End of file routes.php */
-/* Location: ./ForgeIgniter/config/routes.php */

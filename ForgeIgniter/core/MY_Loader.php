@@ -1,18 +1,19 @@
-<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* load the MX_Loader class */
 require APPPATH."third_party/MX/Loader.php";
 
-class MY_Loader extends MX_Loader {
+class MY_Loader extends MX_Loader
+{
 
     /** Load a module view **/
-    public function view($view, $vars = array(), $return = FALSE)
+    public function view($view, $vars = array(), $return = false)
     {
         list($path, $_view) = Modules::find($view, $this->_module, 'views/');
 
-        if ($path != FALSE)
-        {
-            $this->_ci_view_paths = array($path => TRUE) + $this->_ci_view_paths;
+        if ($path != false) {
+            $this->_ci_view_paths = array($path => true) + $this->_ci_view_paths;
             $view = $_view;
         }
 
