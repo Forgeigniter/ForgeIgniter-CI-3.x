@@ -2,7 +2,27 @@
 # CodeIgniter 3.x Branch
 --------------------------
 
-## Version 2.0 - Alpha 2.3 - In Development
+## Version 2.0 - Alpha 2.4 - In Development
+
+- CodeIgniter
+	¬ Updated to v3.1.11 http://www.codeigniter.com/user_guide/changelog.html
+
+- Images / Files
+	¬ Fixed: Pages Image Editor - wrong path. #29
+
+- Markdown ITF Lib
+	¬ Updated: Unofficial 1.8.1
+
+- ForgeIgniter
+	¬ Anvil Admin Theme
+		Fixed: Edit Pages - Footer overlap
+		Updated: Site Details ( basic layout )
+		Updated: editor settings for Admin Add Includes
+		Updated: Inline Editor - edit pic
+
+--------------------
+
+## Version 2.0 - Alpha 2.3
 
 - CodeIgniter
 	¬ Updated to v3.1.10 http://www.codeigniter.com/user_guide/changelog.html
@@ -24,6 +44,8 @@
 - Forum
 	¬ Added: New Forum Posts Tag user:joined
 	¬ Added: Forum Configuration Settings for pagination & avatar.
+
+--------------------
 
 ## Version 2.0 - Alpha 2.2
 
