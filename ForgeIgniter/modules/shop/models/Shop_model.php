@@ -58,9 +58,13 @@ class Shop_model extends CI_Model
 
         // get shop config
         $shippingTable = $this->get_postages();
+
         foreach ((array)$shippingTable as $postage) {
-            $this->shopShippingTable[] = array($postage['total'], $postage['cost']);
+            if (isset($shopShippingTable)) {
+              $this->shopShippingTable[] = array($postage['total'], $postage['cost']);
+            }
         }
+
         $this->statusArray = array(
             'U' => 'Unprocessed',
             'L' => 'Allocated',
@@ -1014,17 +1018,17 @@ class Shop_model extends CI_Model
         $item = @array('productID' => $keys['productID'], 'catID' => $product['catID'], 'catalogueID' => $product['catalogueID'], 'productName' => $product['productName'], 'price' => $product['price'], 'quantity' => $quantity, 'variation1' => $variation1['variation'], 'variation1Price' => $variation1['price'], 'variation2' => $variation2['variation'], 'variation2Price' => $variation2['price'], 'variation3' => $variation3['variation'], 'variation3Price' => $variation3['price'], 'fileID' => $product['fileID'], 'bandID' => $product['bandID'], 'freePostage' => $product['freePostage'], 'stock' => $product['stock']);
 
         // add variation1 price modifier
-        if ($variation1['price']) {
+        if (isset($variation1['price'])) {
             $item['price'] += $variation1['price'];
         }
 
         // add variation2 price modifier
-        if ($variation2['price']) {
+        if (isset($variation2['price'])) {
             $item['price'] += $variation2['price'];
         }
 
         // add variation2 price modifier
-        if ($variation3['price']) {
+        if (isset($variation3['price'])) {
             $item['price'] += $variation3['price'];
         }
 
