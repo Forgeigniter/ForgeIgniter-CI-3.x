@@ -1,7 +1,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
@@ -15,7 +15,7 @@ CREATE TABLE FI_blog_catmap (
   `postID` int(11) NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`catID`,`postID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -24,14 +24,14 @@ CREATE TABLE FI_blog_catmap (
 
 CREATE TABLE `FI_blog_cats` (
   `catID` int(11) NOT NULL auto_increment,
-  `catName` varchar(100) collate utf8_unicode_ci default NULL,
-  `catSafe` varchar(100) collate utf8_unicode_ci default NULL,
+  `catName` varchar(100) collate utf8mb4_bin default NULL,
+  `catSafe` varchar(100) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `catOrder` int(11) default NULL,
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`catID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -42,15 +42,15 @@ CREATE TABLE `FI_blog_comments` (
   `commentID` int(11) NOT NULL auto_increment,
   `postID` int(11) NOT NULL default '0',
   `dateCreated` timestamp NULL default '0000-00-00 00:00:00',
-  `comment` text collate utf8_unicode_ci,
-  `fullName` varchar(100) collate utf8_unicode_ci default NULL,
-  `email` varchar(100) collate utf8_unicode_ci default NULL,
-  `website` varchar(100) collate utf8_unicode_ci default NULL,
+  `comment` text collate utf8mb4_bin,
+  `fullName` varchar(100) collate utf8mb4_bin default NULL,
+  `email` varchar(100) collate utf8mb4_bin default NULL,
+  `website` varchar(100) collate utf8mb4_bin default NULL,
   `active` tinyint(1) unsigned NOT NULL default '1',
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`commentID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -59,14 +59,14 @@ CREATE TABLE `FI_blog_comments` (
 
 CREATE TABLE `FI_blog_posts` (
   `postID` int(11) NOT NULL auto_increment,
-  `postTitle` varchar(100) collate utf8_unicode_ci default NULL,
+  `postTitle` varchar(100) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `uri` varchar(100) collate utf8_unicode_ci default NULL,
-  `body` text collate utf8_unicode_ci,
-  `excerpt` text collate utf8_unicode_ci,
+  `uri` varchar(100) collate utf8mb4_bin default NULL,
+  `body` text collate utf8mb4_bin,
+  `excerpt` text collate utf8mb4_bin,
   `userID` int(11) default NULL,
-  `tags` varchar(250) collate utf8_unicode_ci default NULL,
+  `tags` varchar(250) collate utf8mb4_bin default NULL,
   `published` tinyint(1) NOT NULL default '1',
   `allowComments` tinyint(1) NOT NULL default '1',
   `allowPings` tinyint(1) NOT NULL default '1',
@@ -74,7 +74,7 @@ CREATE TABLE `FI_blog_posts` (
   `deleted` tinyint(1) default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`postID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -84,11 +84,11 @@ CREATE TABLE `FI_blog_posts` (
 CREATE TABLE `FI_captcha` (
   `captcha_id` bigint(13) unsigned NOT NULL auto_increment,
   `captcha_time` int(10) unsigned NOT NULL default '0',
-  `ip_address` varchar(16) collate utf8_unicode_ci NOT NULL default '0',
-  `word` varchar(20) collate utf8_unicode_ci NOT NULL default '',
+  `ip_address` varchar(16) collate utf8mb4_bin NOT NULL default '0',
+  `word` varchar(20) collate utf8mb4_bin NOT NULL default '',
   PRIMARY KEY  (`captcha_id`),
   KEY `word` (`word`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -104,7 +104,7 @@ CREATE TABLE `FI_community_messagemap` (
   `unread` tinyint(1) unsigned NOT NULL default '1',
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   PRIMARY KEY  (`messageID`,`toUserID`,`userID`,`siteID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -116,11 +116,11 @@ CREATE TABLE `FI_community_messages` (
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `userID` int(11) default NULL,
-  `subject` varchar(100) collate utf8_unicode_ci default NULL,
-  `message` text collate utf8_unicode_ci,
+  `subject` varchar(100) collate utf8mb4_bin default NULL,
+  `message` text collate utf8mb4_bin,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`messageID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -128,12 +128,12 @@ CREATE TABLE `FI_community_messages` (
 # ------------------------------------------------------------
 
 CREATE TABLE `FI_system_sessions` (
-  `id` varchar(128) collate utf8_unicode_ci NOT NULL default '0',
-  `ip_address` varchar(45) collate utf8_unicode_ci NOT NULL default '0',
+  `id` varchar(128) collate utf8mb4_bin NOT NULL default '0',
+  `ip_address` varchar(45) collate utf8mb4_bin NOT NULL default '0',
   `timestamp` int(10) unsigned NOT NULL default '0',
-  `data` text collate utf8_unicode_ci NOT NULL,
+  `data` text collate utf8mb4_bin NOT NULL,
   PRIMARY KEY  (`timestamp`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -143,12 +143,12 @@ CREATE TABLE `FI_system_sessions` (
 CREATE TABLE `FI_email_blocks` (
   `blockID` int(11) NOT NULL auto_increment,
   `emailID` int(11) default NULL,
-  `blockRef` varchar(50) collate utf8_unicode_ci default NULL,
-  `body` text collate utf8_unicode_ci,
+  `blockRef` varchar(50) collate utf8mb4_bin default NULL,
+  `body` text collate utf8mb4_bin,
   `dateCreated` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`blockID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -161,7 +161,7 @@ CREATE TABLE `FI_email_campaigns` (
   `dateCreated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`campaignID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -177,7 +177,7 @@ CREATE TABLE `FI_email_deploy` (
   `failed` tinyint(1) NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`deployID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -191,7 +191,7 @@ CREATE TABLE `FI_email_includes` (
   `body` text,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`includeID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -204,7 +204,7 @@ CREATE TABLE `FI_email_list_subscribers` (
   `name` varchar(100) default NULL,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`listID`,`email`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -218,7 +218,7 @@ CREATE TABLE `FI_email_lists` (
   `deleted` tinyint(1) NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`listID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -235,7 +235,7 @@ CREATE TABLE `FI_email_templates` (
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`templateID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -264,7 +264,7 @@ CREATE TABLE `FI_emails` (
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`emailID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -273,24 +273,24 @@ CREATE TABLE `FI_emails` (
 
 CREATE TABLE `FI_events` (
   `eventID` int(11) NOT NULL auto_increment,
-  `eventTitle` varchar(100) collate utf8_unicode_ci default NULL,
+  `eventTitle` varchar(100) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `eventDate` timestamp NOT NULL default '0000-00-00 00:00:00',
   `eventEnd` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `time` varchar(100) collate utf8_unicode_ci default NULL,
-  `location` varchar(200) collate utf8_unicode_ci default NULL,
-  `description` text collate utf8_unicode_ci,
-  `excerpt` text collate utf8_unicode_ci,
+  `time` varchar(100) collate utf8mb4_bin default NULL,
+  `location` varchar(200) collate utf8mb4_bin default NULL,
+  `description` text collate utf8mb4_bin,
+  `excerpt` text collate utf8mb4_bin,
   `userID` int(11) default NULL,
   `groupID` int(11) NOT NULL default '0',
-  `tags` varchar(250) collate utf8_unicode_ci default NULL,
+  `tags` varchar(250) collate utf8mb4_bin default NULL,
   `published` tinyint(1) unsigned NOT NULL default '1',
   `featured` tinyint(1) unsigned default '0',
   `deleted` tinyint(1) unsigned default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`eventID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -300,13 +300,13 @@ CREATE TABLE `FI_events` (
 CREATE TABLE `FI_file_folders` (
   `folderID` int(11) unsigned NOT NULL auto_increment,
   `parentID` int(11) unsigned NOT NULL default '0',
-  `folderName` varchar(50) collate utf8_unicode_ci default NULL,
+  `folderName` varchar(50) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `folderOrder` int(11) default NULL,
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`folderID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -315,8 +315,8 @@ CREATE TABLE `FI_file_folders` (
 
 CREATE TABLE `FI_files` (
   `fileID` int(11) NOT NULL auto_increment,
-  `fileRef` varchar(100) collate utf8_unicode_ci default NULL,
-  `filename` varchar(100) collate utf8_unicode_ci default NULL,
+  `fileRef` varchar(100) collate utf8mb4_bin default NULL,
+  `filename` varchar(100) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `folderID` int(11) NOT NULL default '0',
@@ -326,7 +326,7 @@ CREATE TABLE `FI_files` (
   `downloads` int(11) NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`fileID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -335,11 +335,11 @@ CREATE TABLE `FI_files` (
 
 CREATE TABLE `FI_forums` (
   `forumID` int(11) unsigned NOT NULL auto_increment,
-  `forumName` varchar(100) collate utf8_unicode_ci default NULL,
+  `forumName` varchar(100) collate utf8mb4_bin default NULL,
   `catID` int(11) default NULL,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `description` text collate utf8_unicode_ci,
+  `description` text collate utf8mb4_bin,
   `topics` int(10) unsigned NOT NULL default '0',
   `replies` int(10) unsigned NOT NULL default '0',
   `lastPostID` int(11) default NULL,
@@ -349,7 +349,7 @@ CREATE TABLE `FI_forums` (
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`forumID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 INSERT INTO `FI_forums` (`forumID`, `forumName`, `catID`, `dateCreated`, `dateModified`, `description`, `topics`, `replies`, `lastPostID`, `private`, `groupID`, `active`, `deleted`, `siteID`) VALUES
 (1, 'Test Forum', NULL, '2015-01-05 06:32:24', '2015-01-05 06:32:24', 'Just A Test Forum', 0, 0, NULL, 0, 0, 1, 0, 1);
@@ -362,13 +362,13 @@ INSERT INTO `FI_forums` (`forumID`, `forumName`, `catID`, `dateCreated`, `dateMo
 CREATE TABLE `FI_forums_cats` (
   `catID` int(11) unsigned NOT NULL auto_increment,
   `parentID` int(11) unsigned NOT NULL default '0',
-  `catName` varchar(50) collate utf8_unicode_ci default NULL,
+  `catName` varchar(50) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `catOrder` int(11) default NULL,
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`catID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -378,14 +378,14 @@ CREATE TABLE `FI_forums_cats` (
 CREATE TABLE `FI_forums_posts` (
   `postID` int(11) unsigned NOT NULL auto_increment,
   `topicID` int(11) unsigned NOT NULL default '0',
-  `body` text collate utf8_unicode_ci,
+  `body` text collate utf8mb4_bin,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `userID` int(11) default NULL,
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`postID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -397,7 +397,7 @@ CREATE TABLE `FI_forums_subs` (
   `userID` int(11) NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`topicID`,`userID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -407,7 +407,7 @@ CREATE TABLE `FI_forums_subs` (
 CREATE TABLE `FI_forums_topics` (
   `topicID` int(11) unsigned NOT NULL auto_increment,
   `forumID` int(11) unsigned NOT NULL default '0',
-  `topicTitle` varchar(50) collate utf8_unicode_ci default NULL,
+  `topicTitle` varchar(50) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default '0000-00-00 00:00:00',
   `replies` int(11) unsigned NOT NULL default '0',
@@ -419,7 +419,7 @@ CREATE TABLE `FI_forums_topics` (
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`topicID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -429,14 +429,14 @@ CREATE TABLE `FI_forums_topics` (
 CREATE TABLE `FI_image_folders` (
   `folderID` int(11) unsigned NOT NULL auto_increment,
   `parentID` int(11) unsigned NOT NULL default '0',
-  `folderName` varchar(100) collate utf8_unicode_ci default NULL,
-  `folderSafe` varchar(100) collate utf8_unicode_ci default NULL,
+  `folderName` varchar(100) collate utf8mb4_bin default NULL,
+  `folderSafe` varchar(100) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `folderOrder` int(11) default NULL,
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`folderID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -445,21 +445,21 @@ CREATE TABLE `FI_image_folders` (
 
 CREATE TABLE `FI_images` (
   `imageID` int(11) NOT NULL auto_increment,
-  `imageRef` varchar(100) collate utf8_unicode_ci default NULL,
-  `filename` varchar(100) collate utf8_unicode_ci default NULL,
+  `imageRef` varchar(100) collate utf8mb4_bin default NULL,
+  `filename` varchar(100) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `imageName` varchar(100) collate utf8_unicode_ci default NULL,
+  `imageName` varchar(100) collate utf8mb4_bin default NULL,
   `folderID` int(11) NOT NULL default '0',
   `groupID` int(11) NOT NULL default '0',
   `userID` int(11) default NULL,
-  `class` varchar(100) collate utf8_unicode_ci default NULL,
+  `class` varchar(100) collate utf8mb4_bin default NULL,
   `filesize` int(11) NOT NULL default '0',
   `maxsize` int(11) default NULL,
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`imageID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -471,10 +471,10 @@ CREATE TABLE `FI_include_versions` (
   `dateCreated` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `objectID` int(11) default NULL,
   `userID` int(11) default NULL,
-  `body` longtext collate utf8_unicode_ci,
+  `body` longtext collate utf8mb4_bin,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`versionID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -486,12 +486,12 @@ CREATE TABLE `FI_includes` (
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `versionID` int(11) NOT NULL default '0',
-  `includeRef` varchar(100) collate utf8_unicode_ci default NULL,
-  `type` enum('H','C','J') collate utf8_unicode_ci NOT NULL default 'H',
+  `includeRef` varchar(100) collate utf8mb4_bin default NULL,
+  `type` enum('H','C','J') collate utf8mb4_bin NOT NULL default 'H',
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) NOT NULL default '0',
   PRIMARY KEY  (`includeID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -502,15 +502,15 @@ CREATE TABLE `FI_navigation` (
   `navID` int(11) NOT NULL auto_increment,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `navName` varchar(100) collate utf8_unicode_ci default NULL,
-  `uri` varchar(100) collate utf8_unicode_ci default '',
+  `navName` varchar(100) collate utf8mb4_bin default NULL,
+  `uri` varchar(100) collate utf8mb4_bin default '',
   `parentID` int(11) NOT NULL default '0',
   `navOrder` int(11) default NULL,
   `active` tinyint(1) NOT NULL default '1',
   `siteID` int(11) NOT NULL default '0',
   `deleted` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`navID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -521,12 +521,12 @@ CREATE TABLE `FI_page_blocks` (
   `blockID` int(11) NOT NULL auto_increment,
   `pageID` int(11) default NULL,
   `versionID` int(11) NOT NULL default '0',
-  `blockRef` varchar(50) collate utf8_unicode_ci default NULL,
-  `body` text collate utf8_unicode_ci,
+  `blockRef` varchar(50) collate utf8mb4_bin default NULL,
+  `body` text collate utf8mb4_bin,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `siteID` int(11) NOT NULL default '0',
   PRIMARY KEY  (`blockID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -541,7 +541,7 @@ CREATE TABLE `FI_page_versions` (
   `published` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`versionID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -551,20 +551,20 @@ CREATE TABLE `FI_page_versions` (
 CREATE TABLE `FI_pages` (
   `pageID` int(11) NOT NULL auto_increment,
   `versionID` int(11) NOT NULL default '0',
-  `pageName` varchar(100) character set utf8 default NULL,
+  `pageName` varchar(100) character set utf8mb4 default NULL,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `datePublished` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `title` varchar(100) character set utf8 NOT NULL default '',
+  `title` varchar(100) character set utf8mb4 NOT NULL default '',
   `active` tinyint(1) NOT NULL default '0',
-  `uri` varchar(100) character set utf8 NOT NULL default '',
+  `uri` varchar(100) character set utf8mb4 NOT NULL default '',
   `draftID` int(11) default NULL,
   `templateID` int(11) default NULL,
   `parentID` int(11) NOT NULL default '0',
   `pageOrder` int(11) NOT NULL default '0',
-  `keywords` varchar(255) character set utf8 default NULL,
-  `description` varchar(255) character set utf8 default NULL,
-  `redirect` varchar(255) collate utf8_unicode_ci default NULL,
+  `keywords` varchar(255) character set utf8mb4 default NULL,
+  `description` varchar(255) character set utf8mb4 default NULL,
+  `redirect` varchar(255) collate utf8mb4_bin default NULL,
   `userID` int(11) default NULL,
   `groupID` int(11) default NULL,
   `navigation` tinyint(1) NOT NULL default '1',
@@ -574,7 +574,7 @@ CREATE TABLE `FI_pages` (
   PRIMARY KEY  (`pageID`),
   KEY `uri` (`uri`),
   KEY `active` (`active`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -583,10 +583,10 @@ CREATE TABLE `FI_pages` (
 
 CREATE TABLE `FI_permission_groups` (
   `groupID` int(11) NOT NULL auto_increment,
-  `groupName` varchar(200) collate utf8_unicode_ci default NULL,
+  `groupName` varchar(200) collate utf8mb4_bin default NULL,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`groupID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 LOCK TABLES `FI_permission_groups` WRITE;
 /*!40000 ALTER TABLE `FI_permission_groups` DISABLE KEYS */;
@@ -607,7 +607,7 @@ CREATE TABLE `FI_permission_map` (
   `permissionID` int(11) NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`groupID`,`permissionID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -616,13 +616,13 @@ CREATE TABLE `FI_permission_map` (
 
 CREATE TABLE `FI_permissions` (
   `permissionID` int(11) NOT NULL auto_increment,
-  `permission` varchar(200) collate utf8_unicode_ci default NULL,
-  `key` varchar(100) collate utf8_unicode_ci default NULL,
-  `category` varchar(100) collate utf8_unicode_ci default NULL,
+  `permission` varchar(200) collate utf8mb4_bin default NULL,
+  `key` varchar(100) collate utf8mb4_bin default NULL,
+  `category` varchar(100) collate utf8mb4_bin default NULL,
   `special` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`permissionID`),
   UNIQUE KEY `key` (`key`)
-) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 LOCK TABLES `FI_permissions` WRITE;
 /*!40000 ALTER TABLE `FI_permissions` DISABLE KEYS */;
@@ -692,12 +692,12 @@ UNLOCK TABLES;
 CREATE TABLE `FI_ratings` (
   `ratingID` int(11) NOT NULL auto_increment,
   `objectID` int(11) default NULL,
-  `table` varchar(50) collate utf8_unicode_ci default NULL,
+  `table` varchar(50) collate utf8mb4_bin default NULL,
   `rating` int(11) default NULL,
   `userID` int(11) default NULL,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`ratingID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -706,11 +706,11 @@ CREATE TABLE `FI_ratings` (
 
 CREATE TABLE `FI_shop_bands` (
   `bandID` int(11) NOT NULL auto_increment,
-  `bandName` varchar(100) collate utf8_unicode_ci default NULL,
+  `bandName` varchar(100) collate utf8mb4_bin default NULL,
   `multiplier` double default NULL,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`bandID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -722,7 +722,7 @@ CREATE TABLE `FI_shop_catmap` (
 	`productID` int(11) NOT NULL DEFAULT '0',
 	`siteID` int(11) DEFAULT NULL,
 	PRIMARY KEY (`catID`, `productID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -732,16 +732,16 @@ CREATE TABLE `FI_shop_catmap` (
 CREATE TABLE `FI_shop_cats` (
   `catID` int(11) unsigned NOT NULL auto_increment,
   `parentID` int(11) unsigned NOT NULL default '0',
-  `catName` varchar(100) collate utf8_unicode_ci default NULL,
-  `catSafe` varchar(100) collate utf8_unicode_ci default NULL,
-  `description` text collate utf8_unicode_ci,
+  `catName` varchar(100) collate utf8mb4_bin default NULL,
+  `catSafe` varchar(100) collate utf8mb4_bin default NULL,
+  `description` text collate utf8mb4_bin,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default '0000-00-00 00:00:00',
   `catOrder` int(11) default NULL,
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`catID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -752,15 +752,15 @@ CREATE TABLE `FI_shop_discounts` (
   `discountID` int(11) NOT NULL auto_increment,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `expiryDate` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `code` varchar(50) collate utf8_unicode_ci default NULL,
+  `code` varchar(50) collate utf8mb4_bin default NULL,
   `discount` double default NULL,
-  `type` enum('T','P','C') collate utf8_unicode_ci NOT NULL default 'T',
-  `objectID` text collate utf8_unicode_ci,
-  `modifier` enum('A','P') collate utf8_unicode_ci NOT NULL default 'A',
-  `base` enum('T','P') collate utf8_unicode_ci NOT NULL default 'T',
+  `type` enum('T','P','C') collate utf8mb4_bin NOT NULL default 'T',
+  `objectID` text collate utf8mb4_bin,
+  `modifier` enum('A','P') collate utf8mb4_bin NOT NULL default 'A',
+  `base` enum('T','P') collate utf8mb4_bin NOT NULL default 'T',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`discountID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -769,12 +769,12 @@ CREATE TABLE `FI_shop_discounts` (
 
 CREATE TABLE `FI_shop_modifiers` (
   `modifierID` int(11) NOT NULL auto_increment,
-  `modifierName` varchar(100) collate utf8_unicode_ci default NULL,
+  `modifierName` varchar(100) collate utf8mb4_bin default NULL,
   `bandID` int(11) default NULL,
   `multiplier` double default NULL,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`modifierID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -787,10 +787,10 @@ CREATE TABLE `FI_shop_orders` (
   `transactionID` int(11) NOT NULL default '0',
   `productID` int(11) NOT NULL default '0',
   `quantity` tinyint(4) NOT NULL default '0',
-  `key` text collate utf8_unicode_ci,
+  `key` text collate utf8mb4_bin,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`orderID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -803,7 +803,7 @@ CREATE TABLE `FI_shop_postages` (
   `cost` double NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`postageID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -812,21 +812,21 @@ CREATE TABLE `FI_shop_postages` (
 
 CREATE TABLE `FI_shop_products` (
   `productID` int(11) NOT NULL auto_increment,
-  `catalogueID` varchar(100) collate utf8_unicode_ci default NULL,
+  `catalogueID` varchar(100) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `productOrder` int(11) NOT NULL default '0',
-  `productName` varchar(100) collate utf8_unicode_ci default NULL,
-  `subtitle` varchar(100) collate utf8_unicode_ci default NULL,
-  `description` text collate utf8_unicode_ci,
-  `excerpt` text collate utf8_unicode_ci,
-  `tags` varchar(250) collate utf8_unicode_ci default NULL,
+  `productName` varchar(100) collate utf8mb4_bin default NULL,
+  `subtitle` varchar(100) collate utf8mb4_bin default NULL,
+  `description` text collate utf8mb4_bin,
+  `excerpt` text collate utf8mb4_bin,
+  `tags` varchar(250) collate utf8mb4_bin default NULL,
   `price` double(10,2) NOT NULL default '0.00',
-  `imageName` varchar(200) collate utf8_unicode_ci NOT NULL default 'noimage.gif',
-  `status` enum('S','O','P','D') collate utf8_unicode_ci NOT NULL default 'S',
+  `imageName` varchar(200) collate utf8mb4_bin NOT NULL default 'noimage.gif',
+  `status` enum('S','O','P','D') collate utf8mb4_bin NOT NULL default 'S',
   `stock` int(11) unsigned NOT NULL default '1',
   `fileID` int(11) default NULL,
   `views` int(11) NOT NULL default '0',
-  `featured` enum('Y','T','N') collate utf8_unicode_ci NOT NULL default 'N',
+  `featured` enum('Y','T','N') collate utf8mb4_bin NOT NULL default 'N',
   `bandID` int(11) default NULL,
   `freePostage` tinyint(1) unsigned NOT NULL default '0',
   `userID` int(11) default NULL,
@@ -834,7 +834,7 @@ CREATE TABLE `FI_shop_products` (
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) NOT NULL default '0',
   PRIMARY KEY  (`productID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -846,14 +846,14 @@ CREATE TABLE `FI_shop_reviews` (
   `productID` int(11) NOT NULL default '0',
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `rating` int(5) NOT NULL default '0',
-  `review` text collate utf8_unicode_ci,
-  `fullName` varchar(100) collate utf8_unicode_ci default NULL,
-  `email` varchar(100) collate utf8_unicode_ci default NULL,
+  `review` text collate utf8mb4_bin,
+  `fullName` varchar(100) collate utf8mb4_bin default NULL,
+  `email` varchar(100) collate utf8mb4_bin default NULL,
   `active` tinyint(1) NOT NULL default '1',
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`reviewID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -862,24 +862,24 @@ CREATE TABLE `FI_shop_reviews` (
 
 CREATE TABLE `FI_shop_transactions` (
   `transactionID` int(11) unsigned NOT NULL auto_increment,
-  `transactionCode` varchar(50) collate utf8_unicode_ci NOT NULL default '',
+  `transactionCode` varchar(50) collate utf8mb4_bin NOT NULL default '',
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `userID` int(11) NOT NULL default '0',
   `amount` double(10,2) NOT NULL default '0.00',
   `postage` double(10,2) default NULL,
   `paid` tinyint(1) unsigned NOT NULL default '0',
-  `trackingStatus` enum('U','L','A','O','D') collate utf8_unicode_ci NOT NULL default 'U',
+  `trackingStatus` enum('U','L','A','O','D') collate utf8mb4_bin NOT NULL default 'U',
   `discounts` double(10,2) NOT NULL default '0.00',
   `donation` double(10,2) NOT NULL default '0.00',
   `tax` double(10,2) NOT NULL default '0.00',
-  `discountCode` varchar(50) collate utf8_unicode_ci default NULL,
-  `notes` text collate utf8_unicode_ci,
+  `discountCode` varchar(50) collate utf8mb4_bin default NULL,
+  `notes` text collate utf8mb4_bin,
   `expiryDate` timestamp NOT NULL default '0000-00-00 00:00:00',
   `viewed` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`transactionID`),
   KEY `transactionCode` (`transactionCode`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -890,17 +890,17 @@ CREATE TABLE `FI_shop_upsells` (
   `upsellID` int(11) unsigned NOT NULL auto_increment,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NULL default CURRENT_TIMESTAMP,
-  `type` enum('V','N','P') collate utf8_unicode_ci NOT NULL default 'V',
+  `type` enum('V','N','P') collate utf8mb4_bin NOT NULL default 'V',
   `value` double(10,2) default NULL,
   `numProducts` int(11) default NULL,
-  `productIDs` varchar(200) collate utf8_unicode_ci default NULL,
+  `productIDs` varchar(200) collate utf8mb4_bin default NULL,
   `productID` int(11) default NULL,
   `upsellOrder` int(11) default NULL,
   `remove` tinyint(1) unsigned NOT NULL default '0',
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`upsellID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -909,13 +909,13 @@ CREATE TABLE `FI_shop_upsells` (
 
 CREATE TABLE `FI_shop_variations` (
   `variationID` int(11) unsigned NOT NULL auto_increment,
-  `variation` varchar(50) collate utf8_unicode_ci default NULL,
+  `variation` varchar(50) collate utf8mb4_bin default NULL,
   `price` double(10,2) NOT NULL default '0.00',
   `type` int(11) default NULL,
   `productID` int(11) default NULL,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`variationID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -924,60 +924,60 @@ CREATE TABLE `FI_shop_variations` (
 
 CREATE TABLE `FI_sites` (
   `siteID` int(11) NOT NULL auto_increment,
-  `siteDomain` varchar(100) collate utf8_unicode_ci default NULL,
-  `altDomain` varchar(100) collate utf8_unicode_ci default NULL,
+  `siteDomain` varchar(100) collate utf8mb4_bin default NULL,
+  `altDomain` varchar(100) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `siteName` varchar(100) collate utf8_unicode_ci default NULL,
-  `siteEmail` varchar(100) collate utf8_unicode_ci default NULL,
-  `siteURL` varchar(100) collate utf8_unicode_ci default NULL,
-  `siteTel` varchar(100) collate utf8_unicode_ci default NULL,
-  `siteAddress` text collate utf8_unicode_ci,
-  `siteCountry` varchar(100) collate utf8_unicode_ci default NULL,
+  `siteName` varchar(100) collate utf8mb4_bin default NULL,
+  `siteEmail` varchar(100) collate utf8mb4_bin default NULL,
+  `siteURL` varchar(100) collate utf8mb4_bin default NULL,
+  `siteTel` varchar(100) collate utf8mb4_bin default NULL,
+  `siteAddress` text collate utf8mb4_bin,
+  `siteCountry` varchar(100) collate utf8mb4_bin default NULL,
   `groupID` int(11) default NULL,
   `plan` int(11) NOT NULL default '0',
   `quota` int(11) unsigned NOT NULL default '0',
   `paging` int(11) NOT NULL default '20',
-  `theme` varchar(50) collate utf8_unicode_ci default NULL,
-  `shopEmail` varchar(100) collate utf8_unicode_ci default NULL,
+  `theme` varchar(50) collate utf8mb4_bin default NULL,
+  `shopEmail` varchar(100) collate utf8mb4_bin default NULL,
   `shopItemsPerPage` int(11) NOT NULL default '6',
   `shopItemsPerRow` int(11) NOT NULL default '3',
   `shopFreePostage` tinyint(1) NOT NULL default '0',
-  `shopShippingTable` varchar(250) collate utf8_unicode_ci default NULL,
+  `shopShippingTable` varchar(250) collate utf8mb4_bin default NULL,
   `shopFreePostageRate` int(11) default NULL,
-  `shopGateway` varchar(50) collate utf8_unicode_ci NOT NULL default 'paypal',
-  `shopVariation1` varchar(50) collate utf8_unicode_ci default NULL,
-  `shopVariation2` varchar(50) collate utf8_unicode_ci default NULL,
-  `shopVariation3` varchar(50) collate utf8_unicode_ci default NULL,
+  `shopGateway` varchar(50) collate utf8mb4_bin NOT NULL default 'paypal',
+  `shopVariation1` varchar(50) collate utf8mb4_bin default NULL,
+  `shopVariation2` varchar(50) collate utf8mb4_bin default NULL,
+  `shopVariation3` varchar(50) collate utf8mb4_bin default NULL,
   `shopStockControl` tinyint(1) NOT NULL default '0',
   `shopTax` tinyint(2) NOT NULL default '0',
   `shopTaxRate` double NOT NULL default '0',
-  `shopTaxState` varchar(3) collate utf8_unicode_ci default NULL,
-  `shopAPIKey` varchar(100) collate utf8_unicode_ci default NULL,
-  `shopAPIUser` varchar(50) collate utf8_unicode_ci default NULL,
-  `shopAPIPass` varchar(50) collate utf8_unicode_ci default NULL,
-  `shopVendor` varchar(50) collate utf8_unicode_ci default NULL,
-  `emailerEmail` varchar(100) collate utf8_unicode_ci default NULL,
-  `emailerName` varchar(100) collate utf8_unicode_ci default NULL,
-  `currency` varchar(4) collate utf8_unicode_ci NOT NULL default 'USD',
-  `dateFmt` varchar(50) collate utf8_unicode_ci default NULL,
-  `dateOrder` enum('DM','MD') collate utf8_unicode_ci NOT NULL default 'DM',
+  `shopTaxState` varchar(3) collate utf8mb4_bin default NULL,
+  `shopAPIKey` varchar(100) collate utf8mb4_bin default NULL,
+  `shopAPIUser` varchar(50) collate utf8mb4_bin default NULL,
+  `shopAPIPass` varchar(50) collate utf8mb4_bin default NULL,
+  `shopVendor` varchar(50) collate utf8mb4_bin default NULL,
+  `emailerEmail` varchar(100) collate utf8mb4_bin default NULL,
+  `emailerName` varchar(100) collate utf8mb4_bin default NULL,
+  `currency` varchar(4) collate utf8mb4_bin NOT NULL default 'USD',
+  `dateFmt` varchar(50) collate utf8mb4_bin default NULL,
+  `dateOrder` enum('DM','MD') collate utf8mb4_bin NOT NULL default 'DM',
   `headlines` int(11) NOT NULL default '3',
   `clientID` int(11) default NULL,
-  `emailHeader` text collate utf8_unicode_ci,
-  `emailFooter` text collate utf8_unicode_ci,
-  `emailTicket` text collate utf8_unicode_ci,
-  `emailOrder` text collate utf8_unicode_ci,
-  `emailAccount` text collate utf8_unicode_ci,
-  `emailDispatch` text collate utf8_unicode_ci,
-  `emailDonation` text collate utf8_unicode_ci,
-  `emailSubscription` text collate utf8_unicode_ci,
-  `timezone` varchar(5) collate utf8_unicode_ci NOT NULL default 'UTC',
+  `emailHeader` text collate utf8mb4_bin,
+  `emailFooter` text collate utf8mb4_bin,
+  `emailTicket` text collate utf8mb4_bin,
+  `emailOrder` text collate utf8mb4_bin,
+  `emailAccount` text collate utf8mb4_bin,
+  `emailDispatch` text collate utf8mb4_bin,
+  `emailDonation` text collate utf8mb4_bin,
+  `emailSubscription` text collate utf8mb4_bin,
+  `timezone` varchar(5) collate utf8mb4_bin NOT NULL default 'UTC',
   `subscriptionAction` int(11) default NULL,
   `activation` tinyint(1) NOT NULL default '0',
   `active` tinyint(1) NOT NULL default '1',
   PRIMARY KEY  (`siteID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -986,12 +986,12 @@ CREATE TABLE `FI_sites` (
 
 CREATE TABLE `FI_sub_payments` (
   `paymentID` int(11) NOT NULL auto_increment,
-  `referenceID` char(50) collate utf8_unicode_ci default NULL,
+  `referenceID` char(50) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `amount` double default NULL,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`paymentID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=FIXED;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=FIXED;
 
 
 
@@ -1001,19 +1001,19 @@ CREATE TABLE `FI_sub_payments` (
 CREATE TABLE `FI_subscribers` (
   `subscriberID` int(11) NOT NULL auto_increment,
   `subscriptionID` int(11) default NULL,
-  `referenceID` varchar(50) collate utf8_unicode_ci default NULL,
+  `referenceID` varchar(50) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NULL default '0000-00-00 00:00:00',
   `lastPayment` timestamp NULL default '0000-00-00 00:00:00',
-  `fullName` varchar(50) collate utf8_unicode_ci default NULL,
-  `email` varchar(100) collate utf8_unicode_ci default NULL,
-  `address` text collate utf8_unicode_ci,
-  `postcode` varchar(10) collate utf8_unicode_ci default NULL,
-  `country` varchar(100) collate utf8_unicode_ci default NULL,
+  `fullName` varchar(50) collate utf8mb4_bin default NULL,
+  `email` varchar(100) collate utf8mb4_bin default NULL,
+  `address` text collate utf8mb4_bin,
+  `postcode` varchar(10) collate utf8mb4_bin default NULL,
+  `country` varchar(100) collate utf8mb4_bin default NULL,
   `userID` int(11) default NULL,
   `active` tinyint(1) NOT NULL default '1',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`subscriberID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -1022,21 +1022,21 @@ CREATE TABLE `FI_subscribers` (
 
 CREATE TABLE `FI_subscriptions` (
   `subscriptionID` int(11) NOT NULL auto_increment,
-  `subscriptionRef` varchar(100) collate utf8_unicode_ci default NULL,
-  `cgCode` varchar(100) collate utf8_unicode_ci default NULL,
-  `cgProduct` varchar(100) collate utf8_unicode_ci default NULL,
-  `subscriptionName` varchar(50) collate utf8_unicode_ci default NULL,
+  `subscriptionRef` varchar(100) collate utf8mb4_bin default NULL,
+  `cgCode` varchar(100) collate utf8mb4_bin default NULL,
+  `cgProduct` varchar(100) collate utf8mb4_bin default NULL,
+  `subscriptionName` varchar(50) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `description` text collate utf8_unicode_ci,
+  `description` text collate utf8mb4_bin,
   `price` double default NULL,
-  `currency` varchar(3) collate utf8_unicode_ci default NULL,
-  `term` enum('M','Y') collate utf8_unicode_ci NOT NULL default 'M',
+  `currency` varchar(3) collate utf8mb4_bin default NULL,
+  `term` enum('M','Y') collate utf8mb4_bin NOT NULL default 'M',
   `active` tinyint(1) NOT NULL default '1',
   `deleted` tinyint(1) NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`subscriptionID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -1045,11 +1045,11 @@ CREATE TABLE `FI_subscriptions` (
 
 CREATE TABLE `FI_tags` (
   `id` int(11) NOT NULL auto_increment,
-  `safe_tag` varchar(30) collate utf8_unicode_ci NOT NULL default '',
-  `tag` varchar(50) collate utf8_unicode_ci NOT NULL default '',
+  `safe_tag` varchar(30) collate utf8mb4_bin NOT NULL default '',
+  `tag` varchar(50) collate utf8mb4_bin NOT NULL default '',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `safe_tag` (`safe_tag`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -1060,9 +1060,9 @@ CREATE TABLE `FI_tags_ref` (
   `tag_id` int(10) unsigned NOT NULL default '0',
   `row_id` int(10) unsigned NOT NULL default '0',
   `date` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `table` varchar(20) collate utf8_unicode_ci NOT NULL default '',
+  `table` varchar(20) collate utf8mb4_bin NOT NULL default '',
   `siteID` int(11) default NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -1074,10 +1074,10 @@ CREATE TABLE `FI_template_versions` (
   `dateCreated` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `objectID` int(11) default NULL,
   `userID` int(11) default NULL,
-  `body` text collate utf8_unicode_ci,
+  `body` text collate utf8mb4_bin,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`versionID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -1086,15 +1086,15 @@ CREATE TABLE `FI_template_versions` (
 
 CREATE TABLE `FI_templates` (
   `templateID` int(11) NOT NULL auto_increment,
-  `templateName` varchar(100) collate utf8_unicode_ci default NULL,
+  `templateName` varchar(100) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `versionID` int(11) NOT NULL default '0',
-  `modulePath` varchar(100) collate utf8_unicode_ci NOT NULL default '',
+  `modulePath` varchar(100) collate utf8mb4_bin NOT NULL default '',
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) NOT NULL default '0',
   PRIMARY KEY  (`templateID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -1105,18 +1105,18 @@ CREATE TABLE `FI_tickets` (
   `ticketID` int(11) NOT NULL auto_increment,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `formName` varchar(200) collate utf8_unicode_ci default NULL,
-  `subject` varchar(100) collate utf8_unicode_ci default NULL,
-  `fullName` varchar(100) collate utf8_unicode_ci default NULL,
-  `email` varchar(100) collate utf8_unicode_ci default NULL,
-  `body` text collate utf8_unicode_ci,
+  `formName` varchar(200) collate utf8mb4_bin default NULL,
+  `subject` varchar(100) collate utf8mb4_bin default NULL,
+  `fullName` varchar(100) collate utf8mb4_bin default NULL,
+  `email` varchar(100) collate utf8mb4_bin default NULL,
+  `body` text collate utf8mb4_bin,
   `closed` tinyint(1) NOT NULL default '0',
-  `notes` text collate utf8_unicode_ci,
+  `notes` text collate utf8mb4_bin,
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   `viewed` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`ticketID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -1126,16 +1126,16 @@ CREATE TABLE `FI_tickets` (
 CREATE TABLE `FI_tracking` (
   `trackingID` int(11) NOT NULL auto_increment,
   `date` timestamp NULL default '0000-00-00 00:00:00',
-  `userKey` varchar(32) collate utf8_unicode_ci default NULL,
-  `ipAddress` varchar(16) collate utf8_unicode_ci default NULL,
-  `userAgent` varchar(100) collate utf8_unicode_ci default NULL,
-  `referer` varchar(200) collate utf8_unicode_ci default NULL,
+  `userKey` varchar(32) collate utf8mb4_bin default NULL,
+  `ipAddress` varchar(16) collate utf8mb4_bin default NULL,
+  `userAgent` varchar(100) collate utf8mb4_bin default NULL,
+  `referer` varchar(200) collate utf8mb4_bin default NULL,
   `views` int(11) NOT NULL default '0',
-  `lastPage` varchar(250) collate utf8_unicode_ci default NULL,
-  `userdata` varchar(250) collate utf8_unicode_ci NOT NULL default '',
+  `lastPage` varchar(250) collate utf8mb4_bin default NULL,
+  `userdata` varchar(250) collate utf8mb4_bin NOT NULL default '',
   `siteID` int(11) default '0',
   PRIMARY KEY  (`trackingID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -1144,60 +1144,60 @@ CREATE TABLE `FI_tracking` (
 
 CREATE TABLE `FI_users` (
   `userID` int(11) NOT NULL auto_increment,
-  `username` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `password` varchar(255) collate utf8_unicode_ci default NULL,
+  `username` varchar(100) collate utf8mb4_bin NOT NULL default '',
+  `password` varchar(255) collate utf8mb4_bin default NULL,
   `groupID` int(11) NOT NULL default '0',
-  `email` varchar(100) collate utf8_unicode_ci default NULL,
-  `subscription` enum('Y','E','P','N') collate utf8_unicode_ci NOT NULL default 'Y',
+  `email` varchar(100) collate utf8mb4_bin default NULL,
+  `subscription` enum('Y','E','P','N') collate utf8mb4_bin NOT NULL default 'Y',
   `subscribed` tinyint(1) unsigned NOT NULL default '0',
   `plan` int(11) NOT NULL default '0',
   `bounced` tinyint(1) default '0',
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `displayName` varchar(100) collate utf8_unicode_ci default NULL,
-  `firstName` varchar(50) collate utf8_unicode_ci default NULL,
-  `lastName` varchar(50) collate utf8_unicode_ci default NULL,
-  `address1` varchar(100) collate utf8_unicode_ci default NULL,
-  `address2` varchar(100) collate utf8_unicode_ci default NULL,
-  `address3` varchar(100) collate utf8_unicode_ci default NULL,
-  `city` varchar(100) collate utf8_unicode_ci default NULL,
-  `state` varchar(50) collate utf8_unicode_ci default NULL,
-  `postcode` varchar(8) collate utf8_unicode_ci default NULL,
-  `country` varchar(100) collate utf8_unicode_ci default NULL,
-  `currency` varchar(4) collate utf8_unicode_ci NOT NULL default 'USD',
-  `billingAddress1` varchar(100) collate utf8_unicode_ci default NULL,
-  `billingAddress2` varchar(100) collate utf8_unicode_ci default NULL,
-  `billingAddress3` varchar(100) collate utf8_unicode_ci default NULL,
-  `billingCity` varchar(100) collate utf8_unicode_ci default NULL,
-  `billingState` varchar(50) collate utf8_unicode_ci default NULL,
-  `billingPostcode` varchar(8) collate utf8_unicode_ci default NULL,
-  `billingCountry` varchar(100) collate utf8_unicode_ci default NULL,
-  `phone` varchar(20) collate utf8_unicode_ci default NULL,
-  `avatar` varchar(50) collate utf8_unicode_ci default NULL,
-  `signature` text collate utf8_unicode_ci,
-  `bio` text collate utf8_unicode_ci NOT NULL,
-  `website` varchar(100) collate utf8_unicode_ci default NULL,
-  `companyName` varchar(100) collate utf8_unicode_ci default NULL,
-  `companyEmail` varchar(100) collate utf8_unicode_ci default NULL,
-  `companyWebsite` varchar(100) collate utf8_unicode_ci default NULL,
-  `companyDescription` text collate utf8_unicode_ci,
-  `companyLogo` varchar(50) collate utf8_unicode_ci default NULL,
-  `language` varchar(50) collate utf8_unicode_ci NOT NULL default 'english',
+  `displayName` varchar(100) collate utf8mb4_bin default NULL,
+  `firstName` varchar(50) collate utf8mb4_bin default NULL,
+  `lastName` varchar(50) collate utf8mb4_bin default NULL,
+  `address1` varchar(100) collate utf8mb4_bin default NULL,
+  `address2` varchar(100) collate utf8mb4_bin default NULL,
+  `address3` varchar(100) collate utf8mb4_bin default NULL,
+  `city` varchar(100) collate utf8mb4_bin default NULL,
+  `state` varchar(50) collate utf8mb4_bin default NULL,
+  `postcode` varchar(8) collate utf8mb4_bin default NULL,
+  `country` varchar(100) collate utf8mb4_bin default NULL,
+  `currency` varchar(4) collate utf8mb4_bin NOT NULL default 'USD',
+  `billingAddress1` varchar(100) collate utf8mb4_bin default NULL,
+  `billingAddress2` varchar(100) collate utf8mb4_bin default NULL,
+  `billingAddress3` varchar(100) collate utf8mb4_bin default NULL,
+  `billingCity` varchar(100) collate utf8mb4_bin default NULL,
+  `billingState` varchar(50) collate utf8mb4_bin default NULL,
+  `billingPostcode` varchar(8) collate utf8mb4_bin default NULL,
+  `billingCountry` varchar(100) collate utf8mb4_bin default NULL,
+  `phone` varchar(20) collate utf8mb4_bin default NULL,
+  `avatar` varchar(50) collate utf8mb4_bin default NULL,
+  `signature` text collate utf8mb4_bin,
+  `bio` text collate utf8mb4_bin NOT NULL,
+  `website` varchar(100) collate utf8mb4_bin default NULL,
+  `companyName` varchar(100) collate utf8mb4_bin default NULL,
+  `companyEmail` varchar(100) collate utf8mb4_bin default NULL,
+  `companyWebsite` varchar(100) collate utf8mb4_bin default NULL,
+  `companyDescription` text collate utf8mb4_bin,
+  `companyLogo` varchar(50) collate utf8mb4_bin default NULL,
+  `language` varchar(50) collate utf8mb4_bin NOT NULL default 'english',
   `posts` int(11) unsigned NOT NULL default '0',
   `kudos` int(11) NOT NULL default '0',
   `notifications` tinyint(1) unsigned NOT NULL default '1',
-  `privacy` enum('V','F','H') collate utf8_unicode_ci NOT NULL default 'V',
-  `resetkey` varchar(32) collate utf8_unicode_ci default NULL,
+  `privacy` enum('V','F','H') collate utf8mb4_bin NOT NULL default 'V',
+  `resetkey` varchar(32) collate utf8mb4_bin default NULL,
   `lastLogin` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `custom1` varchar(250) collate utf8_unicode_ci default NULL,
-  `custom2` varchar(250) collate utf8_unicode_ci default NULL,
-  `custom3` varchar(250) collate utf8_unicode_ci default NULL,
-  `custom4` text collate utf8_unicode_ci,
+  `custom1` varchar(250) collate utf8mb4_bin default NULL,
+  `custom2` varchar(250) collate utf8mb4_bin default NULL,
+  `custom3` varchar(250) collate utf8mb4_bin default NULL,
+  `custom4` text collate utf8mb4_bin,
   `active` tinyint(1) unsigned NOT NULL default '1',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`userID`),
   KEY `emailindex` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 LOCK TABLES `FI_users` WRITE;
 /*!40000 ALTER TABLE `FI_users` DISABLE KEYS */;
@@ -1216,20 +1216,20 @@ CREATE TABLE `FI_web_forms` (
   `formID` int(11) NOT NULL auto_increment,
   `dateCreated` timestamp NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `formName` varchar(200) collate utf8_unicode_ci default NULL,
-  `formRef` varchar(200) collate utf8_unicode_ci default NULL,
+  `formName` varchar(200) collate utf8mb4_bin default NULL,
+  `formRef` varchar(200) collate utf8mb4_bin default NULL,
   `fieldSet` tinyint(4) unsigned NOT NULL default '0',
   `captcha` tinyint(1) unsigned NOT NULL default '0',
   `account` tinyint(1) NOT NULL default '0',
   `groupID` int(11) default NULL,
-  `outcomeMessage` text collate utf8_unicode_ci,
-  `outcomeEmails` text collate utf8_unicode_ci,
-  `outcomeRedirect` varchar(200) collate utf8_unicode_ci default NULL,
-  `fileTypes` varchar(100) collate utf8_unicode_ci default NULL,
+  `outcomeMessage` text collate utf8mb4_bin,
+  `outcomeEmails` text collate utf8mb4_bin,
+  `outcomeRedirect` varchar(200) collate utf8mb4_bin default NULL,
+  `fileTypes` varchar(100) collate utf8mb4_bin default NULL,
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`formID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -1238,19 +1238,19 @@ CREATE TABLE `FI_web_forms` (
 
 CREATE TABLE `FI_wiki` (
   `pageID` int(11) NOT NULL auto_increment,
-  `pageName` varchar(100) collate utf8_unicode_ci default NULL,
+  `pageName` varchar(100) collate utf8mb4_bin default NULL,
   `versionID` int(11) default NULL,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `userID` int(11) default NULL,
   `catID` int(11) default NULL,
-  `uri` varchar(100) character set utf8 default NULL,
+  `uri` varchar(100) character set utf8mb4 default NULL,
   `active` tinyint(1) unsigned NOT NULL default '1',
   `groupID` int(11) NOT NULL default '0',
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`pageID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -1260,15 +1260,15 @@ CREATE TABLE `FI_wiki` (
 CREATE TABLE `FI_wiki_cats` (
   `catID` int(11) unsigned NOT NULL auto_increment,
   `parentID` int(11) unsigned NOT NULL default '0',
-  `catName` varchar(50) collate utf8_unicode_ci default NULL,
+  `catName` varchar(50) collate utf8mb4_bin default NULL,
   `dateCreated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `dateModified` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `description` text collate utf8_unicode_ci,
+  `description` text collate utf8mb4_bin,
   `catOrder` int(11) default NULL,
   `deleted` tinyint(1) unsigned NOT NULL default '0',
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`catID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
@@ -1280,11 +1280,11 @@ CREATE TABLE `FI_wiki_versions` (
   `pageID` int(11) NOT NULL default '0',
   `dateCreated` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `userID` int(11) default NULL,
-  `body` text collate utf8_unicode_ci,
-  `notes` varchar(250) collate utf8_unicode_ci default NULL,
+  `body` text collate utf8mb4_bin,
+  `notes` varchar(250) collate utf8mb4_bin default NULL,
   `siteID` int(11) default NULL,
   PRIMARY KEY  (`versionID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
 
