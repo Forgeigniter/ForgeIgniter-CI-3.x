@@ -2,7 +2,23 @@
 # CodeIgniter 3.x Branch
 --------------------------
 
-## Version 2.0 - Alpha 2.4 - In Development
+## Version 2.0 - Alpha 2.5 - In Development
+
+- CodeIgniter
+	¬ Updated to v3.1.13 http://www.codeigniter.com/user_guide/changelog.html
+
+- Shop
+  ¬ FIXED: array offset on value of type bool
+
+- Blog
+  ¬ ADDED: Blog configuration.
+
+- ForgeIgniter
+  ¬ Updated: Installer
+
+--------------------
+
+## Version 2.0 - Alpha 2.4
 
 - CodeIgniter
 	¬ Updated to v3.1.11 http://www.codeigniter.com/user_guide/changelog.html
@@ -26,7 +42,7 @@
 
 - CodeIgniter
 	¬ Updated to v3.1.10 http://www.codeigniter.com/user_guide/changelog.html
-	
+
 - ForgeIgniter
 	¬ Updated: Modular Extensions - HMVC 5.6.2
 	¬ Updated: try PHP Coding Standards to follow PSR's
@@ -34,13 +50,13 @@
 	¬ Updated: URI now supports uppercase.
 	¬ Added: Sites
 	¬ Fixed: undefined var
-	
+
 - Markdown ITF Lib
 	¬ Updated: to support 1.8.0
-	
+
 - Shop
 	¬ Fixed: PHP7.2 - Parameter must be an array or an object that implements Countable
-	
+
 - Forum
 	¬ Added: New Forum Posts Tag user:joined
 	¬ Added: Forum Configuration Settings for pagination & avatar.
@@ -270,8 +286,6 @@ Additionally added some great new features and improvements.
 
 - CodeIgniter
 	¬ Updated to v2.2.2 (http://www.codeigniter.com/userguide2/changelog.html)
-
---------------------
 
 ## Version 0.1
 
