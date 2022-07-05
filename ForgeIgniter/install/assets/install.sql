@@ -632,6 +632,7 @@ VALUES
 	('Add / edit pages','pages_edit','Pages',0),
 	('Delete pages','pages_delete','Pages',0),
 	('Access to all pages','pages_all','Pages',0),
+	('Navigation','pages_navigation','Pages',0),
 	('Allow Templates','pages_templates','Templates',0),
 	('Allow Web Forms','webforms','Web Forms',0),
 	('Delete tickets','webforms_tickets','Web Forms',0),
