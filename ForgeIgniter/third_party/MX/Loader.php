@@ -14,7 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * Install this file as application/third_party/MX/Loader.php
  *
  * @copyright	Copyright (c) 2015 Wiredesignz
- * @version 	5.6.2
+ * @version 	5.6.3
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -184,7 +184,7 @@ class MX_Loader extends CI_Loader
      * @param null $object_name
      * @return MX_Loader
      */
-    public function library($library, $params = null, $object_name = null)
+    public function library($library, $params = null, $object_name = '')
     {
         if (is_array($library)) {
             return $this->libraries($library);
