@@ -10,6 +10,16 @@
     ///
     $websiteName = $this->site->config['siteName'];
 
+
+    /*
+      Almost forgot how bad this was.
+
+      - Huge cleanup needed
+      - Things like the modules should be auto loaded into the menu
+      - The main content area's are still from v1 but made to look pretty
+
+    */
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,7 +45,7 @@
 
 		Make selectable in backend for 2.1 - 2.2
   -->
-  <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/css/skins/skin-anvil-light.css">
+  <link rel="stylesheet" href="<?=PATH['theme'];?>anvil/css/skins/skin-anvil.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -86,16 +96,18 @@
 // Check if we're at admin login page
 if (strpos(FULL_URL, 'admin/login') !== false) {
     // Login Body
-    echo "<body class='hold-transition skin-anvil-light login-page'>";
+    echo "<body class='hold-transition skin-anvil login-page'>";
 } else {
     // Default Body
-    echo "<body class='hold-transition skin-anvil-light sidebar-mini sidebar-collapse'>";
+    echo "<body class='hold-transition skin-anvil sidebar-mini sidebar-collapse'>";
 }
 ?>
 
 <?php if ($this->session->userdata('session_admin') && strpos(FULL_URL, 'admin/login') == false): ?>
 
 <div class="wrapper">
+
+
 
   <!-- Main Header -->
   <header class="main-header">
@@ -109,6 +121,7 @@ if (strpos(FULL_URL, 'admin/login') !== false) {
 			-->
 	  	<span class="logo-lg"><img src="<?=PATH['theme'];?>anvil/img/logo/forgeigniter-logo.jpg" height="36px"></span>
     </a>
+
 
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
@@ -135,107 +148,6 @@ if (strpos(FULL_URL, 'admin/login') !== false) {
           </li>
 				<?php endif; ?>
 
-
-<?php /*
-Not implemented yet.
-          <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu">
-            <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
-              <li>
-                <!-- inner menu: contains the messages -->
-                <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      <div class="pull-left">
-                        <!-- User Image -->
-                        <img src="<?=PATH['theme'];?>anvil/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <!-- Message title and timestamp -->
-                      <h4>
-                        Support Team
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      <!-- The message -->
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <!-- end message -->
-                </ul>
-                <!-- /.menu -->
-              </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
-            </ul>
-          </li>
-          <!-- /.messages-menu -->
-
-          <!-- Notifications Menu -->
-          <li class="dropdown notifications-menu">
-            <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- Inner Menu: contains the notifications -->
-                <ul class="menu">
-                  <li><!-- start notification -->
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <!-- end notification -->
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-
-          <!-- Tasks Menu -->
-          <li class="dropdown tasks-menu">
-            <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
-              <li>
-                <!-- Inner menu: contains the tasks -->
-                <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <!-- Task title and progress text -->
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
-                      <!-- The progress bar -->
-                      <div class="progress xs">
-                        <!-- Change the css width attribute to simulate progress -->
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
-              </li>
-            </ul>
-          </li>
-*/?>
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
@@ -314,10 +226,11 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-							<li><a href="<?php echo site_url('/admin/pages/templates'); ?>">All Templates</a></li>
-							<li><a href="<?php echo site_url('/admin/pages/includes'); ?>">Includes</a></li>
-							<li><a href="<?php echo site_url('/admin/pages/includes/css'); ?>">CSS</a></li>
-							<li><a href="<?php echo site_url('/admin/pages/includes/js'); ?>">Javascript</a></li>
+							<li><a href="<?php echo site_url('/admin/pages/templates'); ?>"><i class="fa fa-angle-double-right"></i>All Templates</a></li>
+							<li><a href="<?php echo site_url('/admin/pages/includes'); ?>"><i class="fa fa-angle-double-right"></i>Includes</a></li>
+							<li><a href="<?php echo site_url('/admin/pages/includes/css'); ?>"><i class="fa fa-angle-double-right"></i>CSS</a></li>
+							<li><a href="<?php echo site_url('/admin/pages/includes/js'); ?>"><i class="fa fa-angle-double-right"></i>Javascript</a></li>
+              <li><a href="<?php echo site_url('/admin/pages/navigation'); ?>"><i class="fa fa-angle-double-right"></i>Navigation</a></li>
             </ul>
           </li>
         <?php endif; ?>
@@ -330,14 +243,14 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-							<li><a href="<?php echo site_url('/admin/images/viewall'); ?>">Images</a></li>
+							<li><a href="<?php echo site_url('/admin/images/viewall'); ?>"><i class="fa fa-angle-double-right"></i>Images</a></li>
 							<?php if (in_array('images_all', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/images/folders'); ?>">Image Folders</a></li>
+								<li><a href="<?php echo site_url('/admin/images/folders'); ?>"><i class="fa fa-angle-double-right"></i>Image Folders</a></li>
 							<?php endif; ?>
 							<?php if (in_array('files', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/files/viewall'); ?>">Files</a></li>
+								<li><a href="<?php echo site_url('/admin/files/viewall'); ?>"><i class="fa fa-angle-double-right"></i>Files</a></li>
 								<?php if (in_array('files_all', $this->permission->permissions)): ?>
-									<li><a href="<?php echo site_url('/admin/files/folders'); ?>">File Folders</a></li>
+									<li><a href="<?php echo site_url('/admin/files/folders'); ?>"><i class="fa fa-angle-double-right"></i>File Folders</a></li>
 								<?php endif; ?>
 							<?php endif; ?>
             </ul>
@@ -352,10 +265,10 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-							<li><a href="<?php echo site_url('/admin/webforms/tickets'); ?>">Tickets</a></li>
+							<li><a href="<?php echo site_url('/admin/webforms/tickets'); ?>"><i class="fa fa-angle-double-right"></i>Tickets</a></li>
 							<?php if (in_array('webforms_edit', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/webforms/viewall'); ?>">All Web Forms</a></li>
-								<li><a href="<?php echo site_url('/admin/webforms/add_form'); ?>">Add Web Form</a></li>
+								<li><a href="<?php echo site_url('/admin/webforms/viewall'); ?>"><i class="fa fa-angle-double-right"></i>All Web Forms</a></li>
+								<li><a href="<?php echo site_url('/admin/webforms/add_form'); ?>"><i class="fa fa-angle-double-right"></i>Add Web Form</a></li>
 							<?php endif; ?>
             </ul>
           </li>
@@ -371,9 +284,9 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-							<li><a href="<?php echo site_url('/admin/pages/viewall'); ?>">All Pages</a></li>
+							<li><a href="<?php echo site_url('/admin/pages/viewall'); ?>"><i class="fa fa-angle-double-right"></i>All Pages</a></li>
 							<?php if (in_array('pages_edit', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/pages/add'); ?>">Add Page</a></li>
+								<li><a href="<?php echo site_url('/admin/pages/add'); ?>"><i class="fa fa-angle-double-right"></i>Add Page</a></li>
 							<?php endif; ?>
             </ul>
           </li>
@@ -387,15 +300,15 @@ Not implemented yet.
             </a>
             <ul class="treeview-menu">
 							<?php if (in_array('blog', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/blog/viewall'); ?>">All Posts</a></li>
+								<li><a href="<?php echo site_url('/admin/blog/viewall'); ?>"><i class="fa fa-angle-double-right"></i>All Posts</a></li>
 							<?php endif; ?>
 							<?php if (in_array('blog_edit', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/blog/add_post'); ?>">Add Post</a></li>
+								<li><a href="<?php echo site_url('/admin/blog/add_post'); ?>"><i class="fa fa-angle-double-right"></i>Add Post</a></li>
 							<?php endif; ?>
 							<?php if (in_array('blog_cats', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/blog/categories'); ?>">Categories</a></li>
+								<li><a href="<?php echo site_url('/admin/blog/categories'); ?>"><i class="fa fa-angle-double-right"></i>Categories</a></li>
 							<?php endif; ?>
-							<li><a href="<?php echo site_url('/admin/blog/comments'); ?>">Comments</a></li>
+                <li><a href="<?php echo site_url('/admin/blog/comments'); ?>"><i class="fa fa-angle-double-right"></i>Comments</a></li>
             </ul>
           </li>
 
@@ -408,10 +321,10 @@ Not implemented yet.
             </a>
             <ul class="treeview-menu">
 						<?php if (in_array('forums', $this->permission->permissions)): ?>
-							<li><a href="<?php echo site_url('/admin/forums/forums'); ?>">Forums</a></li>
+							<li><a href="<?php echo site_url('/admin/forums/forums'); ?>"><i class="fa fa-angle-double-right"></i>Forums</a></li>
 						<?php endif; ?>
 						<?php if (in_array('forums_cats', $this->permission->permissions)): ?>
-							<li><a href="<?php echo site_url('/admin/forums/categories'); ?>">Forum Categories</a></li>
+							<li><a href="<?php echo site_url('/admin/forums/categories'); ?>"><i class="fa fa-angle-double-right"></i>Forum Categories</a></li>
 						<?php endif; ?>
             </ul>
           </li>
@@ -425,29 +338,29 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-							<li><a href="<?php echo site_url('/admin/shop/products'); ?>">All Products</a></li>
+							<li><a href="<?php echo site_url('/admin/shop/products'); ?>"><i class="fa fa-angle-double-right"></i>All Products</a></li>
 							<?php if (in_array('shop_edit', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/shop/add_product'); ?>">Add Product</a></li>
+								<li><a href="<?php echo site_url('/admin/shop/add_product'); ?>"><i class="fa fa-angle-double-right"></i>Add Product</a></li>
 							<?php endif; ?>
 							<?php if (in_array('shop_cats', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/shop/categories'); ?>">Categories</a></li>
+								<li><a href="<?php echo site_url('/admin/shop/categories'); ?>"><i class="fa fa-angle-double-right"></i>Categories</a></li>
 							<?php endif; ?>
 							<?php if (in_array('shop_orders', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/shop/orders'); ?>">View Orders</a></li>
+								<li><a href="<?php echo site_url('/admin/shop/orders'); ?>"><i class="fa fa-angle-double-right"></i>View Orders</a></li>
 							<?php endif; ?>
 							<?php if (in_array('shop_shipping', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/shop/bands'); ?>">Shipping Bands</a></li>
-								<li><a href="<?php echo site_url('/admin/shop/postages'); ?>">Shipping Costs</a></li>
-								<li><a href="<?php echo site_url('/admin/shop/modifiers'); ?>">Shipping Modifiers</a></li>
+								<li><a href="<?php echo site_url('/admin/shop/bands'); ?>"><i class="fa fa-angle-double-right"></i>Shipping Bands</a></li>
+								<li><a href="<?php echo site_url('/admin/shop/postages'); ?>"><i class="fa fa-angle-double-right"></i>Shipping Costs</a></li>
+								<li><a href="<?php echo site_url('/admin/shop/modifiers'); ?>"><i class="fa fa-angle-double-right"></i>Shipping Modifiers</a></li>
 							<?php endif; ?>
 							<?php if (in_array('shop_discounts', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/shop/discounts'); ?>">Discount Codes</a></li>
+								<li><a href="<?php echo site_url('/admin/shop/discounts'); ?>"><i class="fa fa-angle-double-right"></i>Discount Codes</a></li>
 							<?php endif; ?>
 							<?php if (in_array('shop_reviews', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/shop/reviews'); ?>">Reviews</a></li>
+								<li><a href="<?php echo site_url('/admin/shop/reviews'); ?>"><i class="fa fa-angle-double-right"></i>Reviews</a></li>
 							<?php endif; ?>
 							<?php if (in_array('shop_upsells', $this->permission->permissions)): ?>
-								<li><a href="<?php echo site_url('/admin/shop/upsells'); ?>">Upsells</a></li>
+								<li><a href="<?php echo site_url('/admin/shop/upsells'); ?>"><i class="fa fa-angle-double-right"></i>Upsells</a></li>
 							<?php endif; ?>
             </ul>
           </li>
@@ -461,9 +374,9 @@ Not implemented yet.
               </span>
             </a>
             <ul class="treeview-menu">
-							<li><a href="<?php echo site_url('/admin/events/viewall'); ?>">All Events</a></li>
+							<li><a href="<?php echo site_url('/admin/events/viewall'); ?>"><i class="fa fa-angle-double-right"></i>All Events</a></li>
 						<?php if (in_array('events_edit', $this->permission->permissions)): ?>
-							<li><a href="<?php echo site_url('/admin/events/add_event'); ?>">Add Event</a></li>
+							<li><a href="<?php echo site_url('/admin/events/add_event'); ?>"><i class="fa fa-angle-double-right"></i>Add Event</a></li>
 						<?php endif; ?>
             </ul>
           </li>
@@ -478,12 +391,12 @@ Not implemented yet.
             </a>
             <ul class="treeview-menu">
 						<?php if (in_array('wiki_edit', $this->permission->permissions)): ?>
-							<li><a href="<?php echo site_url('/admin/wiki/viewall'); ?>">All Wiki Pages</a></li>
+							<li><a href="<?php echo site_url('/admin/wiki/viewall'); ?>"><i class="fa fa-angle-double-right"></i>All Wiki Pages</a></li>
 						<?php endif; ?>
 						<?php if (in_array('wiki_cats', $this->permission->permissions)): ?>
-							<li><a href="<?php echo site_url('/admin/wiki/categories'); ?>">Wiki Categories</a></li>
+							<li><a href="<?php echo site_url('/admin/wiki/categories'); ?>"><i class="fa fa-angle-double-right"></i>Wiki Categories</a></li>
 						<?php endif; ?>
-						<li><a href="<?php echo site_url('/admin/wiki/changes'); ?>">Recent Changes</a></li>
+						<li><a href="<?php echo site_url('/admin/wiki/changes'); ?>"><i class="fa fa-angle-double-right"></i>Recent Changes</a></li>
             </ul>
           </li>
         <?php endif; ?>
@@ -499,8 +412,8 @@ Not implemented yet.
             </a>
             <ul class="treeview-menu">
             <?php if (in_array('users_groups', $this->permission->permissions)): ?>
-							<li><a href="<?php echo site_url('/admin/users/viewall'); ?>">All Users</a></li>
-							<li><a href="<?php echo site_url('/admin/users/groups'); ?>">User Groups</a></li>
+							<li><a href="<?php echo site_url('/admin/users/viewall'); ?>"><i class="fa fa-angle-double-right"></i>All Users</a></li>
+							<li><a href="<?php echo site_url('/admin/users/groups'); ?>"><i class="fa fa-angle-double-right"></i>User Groups</a></li>
             <?php endif; ?>
             </ul>
           </li>
