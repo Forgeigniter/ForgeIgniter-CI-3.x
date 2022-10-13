@@ -263,12 +263,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .skin-anvil .box-header > .box-tools {
 	top:10px;
 }
-
 .skin-anvil .box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title > h3 {
 	padding: 8px 5px 8px 0px;
 	font-size: 19px;
 }
-
 .skin-anvil .box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title > i {
 	font-size: 18px;
 }
@@ -281,21 +279,18 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     -moz-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
     /* box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22); */
 }
-
 .skin-anvil .box.box-grey {
 	border-top-color: #777;
 	-webkit-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
     /* box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22); */
 }
-
 .skin-anvil .box.box-success {
     -webkit-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22);
     /* box-shadow: 0px 6px 19px 0px rgba(0, 0, 0, 0.22); */
     border-top-color: #00a65a;
 }
-
 .skin-anvil .box.box-solid {
 	border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
@@ -339,7 +334,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 /* Buttons */
-
 .skin-anvil .btn-orange {
 	margin-left: 10px;
 	padding: 5px 20px;
@@ -349,10 +343,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	float: right;
 	font-weight: 500;
 	cursor: pointer;
-	font-size: 13px;
+	font-size: 14px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.31), inset 0 12px 12px rgba(0, 0, 0, 0.1);
   color: #f4f4f4;
-  background-color: #d68a00;
+  background-color: #c38c00;
   border-color: #5f4000;
 }
 .skin-anvil .btn-orange:hover {
@@ -361,10 +355,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   text-shadow: 0 1px 1px rgb(0, 0, 0);
 	box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), inset 0 10px 10px rgba(255,255,255,0.1);
 	color: #f4f4f4;
-	background-color: #d68a00;
+	background-color: #c38c00db;
 	border-color: #5f4000;
 }
-
 .skin-anvil .btn-green {
 	margin-left: 10px;
 	padding: 5px 20px;
@@ -465,45 +458,158 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   position: inherit;
   padding: 3px 4px 6px 10px;
 }
-
 .skin-anvil .table>tbody>tr>td,
 .table>tbody>tr>th, .table>tfoot>tr>td,
 .table>tfoot>tr>th, .table>thead>tr>td,
 .table>thead>tr>th {
 	vertical-align: middle;
 }
-
 .skin-anvil .table-view {
 	font-size: 20px;
 	color: #e48d02;
 }
-
 .skin-anvil .table-edit {
 	font-size: 20px;
 	color: #337ab7;
 	padding: 0 0 0 15px;
 }
-
 .skin-anvil .table-edit:hover {
 	font-size: 20px;
 	color: #ff9b00;
 }
-
 .skin-anvil .table-edit:hover {
 	font-size: 20px;
 	color: #088dff;
 }
-
 .skin-anvil .table-delete {
 	font-size: 20px;
 	color: #dd4b39;
   padding: 0 0 0 15px;
 }
-
 .skin-anvil .table-delete:hover {
 	font-size: 20px;
 	color: #fb1c00;
 }
+
+/* Custom Nav Tabs */
+
+.skin-anvil .nav-tabs-custom-box {
+  margin-bottom: 20px;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs {
+  margin: 0;
+  border-bottom-color: #d9d9d9;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li {
+  border-top: 3px solid transparent;
+  margin-bottom: -2px;
+  margin-right: 5px;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li.disabled > a {
+  color: #777;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li > a {
+  color: #6e6e6e;
+  border-color: #9d9b9b17;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li > a.text-muted {
+  color: #999;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li > a,
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li > a:hover {
+  background: transparent;
+  margin: 0;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li > a:hover {
+  color: #4d4e5a;
+  border-bottom-color: transparent;
+  border-left-color: #d9d9d9 !important;
+  border-right-color: #d9d9d9 !important;
+  border-top-color: #00000017 !important;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li:not(.active) > a:hover,
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li:not(.active) > a:focus,
+.skin-anvil .nav-tabs-custom > .nav-tabs > li:not(.active) > a:active {
+  border-color: #9d9b9b17;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li.active {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 7px;
+  border-top-color: #738c9a;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li.active > a,
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li.active:hover > a {
+  background-color: #fff;
+  color: #444;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li.active > a {
+  border-top-color: transparent;
+  border-left-color: #e3e0e0;
+  border-right-color: #e3e0e0;
+  letter-spacing: 0.7px;
+  border-bottom: none;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li:first-of-type {
+  margin-left: 0;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li:first-of-type.active > a {
+  border-left-color: transparent;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs.pull-right {
+  padding: 16px 8px 0px 10px;
+  float: none !important;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs.pull-right > li {
+  float: right;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs.pull-right > li:first-of-type {
+  margin-right: 0;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs.pull-right > li:first-of-type > a {
+  border-left-width: 1px;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs.pull-right > li:first-of-type.active > a {
+  border-left-color: #f4f4f4;
+  border-right-color: transparent;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li.header {
+  font-family: 'Exo 2',Source Sans Pro, sans-serif;
+  font-size: 18px;
+  line-height: 25px;
+  padding: 0 8px;
+  color: #444;
+}
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li.header > .fa,
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li.header > .glyphicon,
+.skin-anvil .nav-tabs-custom-box > .nav-tabs > li.header > .ion {
+  margin-right: 5px;
+}
+.skin-anvil .nav-tabs-custom-box > .tab-content {
+  background: #fff;
+  padding: 15px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.skin-anvil .nav-tabs-custom-box .dropdown.open > a:active,
+.skin-anvil .nav-tabs-custom-box .dropdown.open > a:focus {
+  background: transparent;
+  color: #999;
+}
+.skin-anvil .nav-tabs-custom-box .col-md-4 { padding-left: 30px;}
+.skin-anvil .nav-tabs-custom-box h4 { padding-bottom:10px !important;}
+.skin-anvil .nav-tabs-custom-box label {
+  font-size: 15px;
+  color: #0c0f12;
+  font-weight: 400;
+}
+.skin-anvil .nav-tabs-custom-box .form-control {margin-bottom: 15px;}
 
 .skin-anvil .spacer {
 	padding: 0px 5px 0px 5px;

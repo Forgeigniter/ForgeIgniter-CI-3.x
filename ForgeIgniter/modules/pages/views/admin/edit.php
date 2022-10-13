@@ -173,23 +173,21 @@
 
 			<div class="row">
 
-				<div class="box box-crey nav-tabs-custom">
-
+				<div class="box box-crey nav-tabs-custom-box">
 					<ul class="nav nav-tabs pull-right">
-						<li class="pull-left header box-title"><i class="fa fa-edit"></i> Manage Page </li>
+						<li class="pull-left header box-title"><i class="fa fa-edit"></i>Manage Page </li>
 						<li class=""><a href="#tab_versions" data-toggle="tab" aria-expanded="false">Versions</a></li>
 						<li class=""><a href="#tab_content" data-toggle="tab" aria-expanded="false">Content</a></li>
 						<li class="active"><a href="#tab_details" data-toggle="tab" aria-expanded="true">Details</a></li>
 					</ul>
-
 					<!-- /.box-header -->
 					<div class="box-body">
 
 						<div class="tab-content">
 						<div class="tab-pane active" id="tab_details">
 							<div class="row">
-							<div class="col col-md-4" style="padding-left:30px;">
-								<h2 class="underline">Basic Information</h2>
+							<div class="col col-md-4">
+								<h4 class="underline">Basic Information</h4>
 
 								<div style="padding-left:10px;"> <!-- Indent Content -->
 
@@ -257,9 +255,9 @@
 
 							</div>
 
-							<div class="col col-md-4" style="padding-left:30px;">
+							<div class="col col-md-4">
 
-								<h2 class="underline">Meta Data</h2>
+								<h4 class="underline">Meta Data</h4>
 
 								<div style="padding-left:10px;"> <!-- Indent Content -->
 
@@ -288,9 +286,9 @@
 
 							</div>
 
-							<div class="col col-md-4" style="padding-left:30px;">
+							<div class="col col-md-4">
 
-								<h2 class="underline">Visibility and Access</h2>
+								<h4 class="underline">Visibility and Access</h4>
 
 								<div style="padding-left:10px;"> <!-- Indent Content -->
 
@@ -355,7 +353,7 @@
 
 							<?php if ($versions): ?>
 							<div class="col col-md-4" style="padding-left:30px;">
-								<h2 class="underline">Published Versions</h2>
+								<h4 class="underline">Published Versions</h4>
 
 								<ul>
 								<?php foreach($versions as $version): ?>
@@ -375,7 +373,7 @@
 
 							<?php if ($drafts): ?>
 							<div class="col col-md-4" style="padding-left:30px;">
-								<h2 class="underline">Drafts</h2>
+								<h4 class="underline">Drafts</h4>
 
 								<ul>
 								<?php foreach($drafts as $version): ?>
@@ -398,7 +396,8 @@
 					</div>
 
 				</div>
-				</div> <!-- End Box -->
+
+			</div> <!-- End Box Content -->
 
 		</section>
 
