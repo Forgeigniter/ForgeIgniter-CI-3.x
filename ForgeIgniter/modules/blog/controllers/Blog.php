@@ -17,6 +17,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Blog extends MX_Controller
 {
+    //declare properties
+    protected $CI;
+    protected $siteID;
     protected $partials = array();
     protected $sitePermissions = array();
     protected $num = 10;
@@ -235,10 +238,15 @@ class Blog extends MX_Controller
             // set page title
             $output['page:title'] = $post['postTitle'].(($this->site->config['siteName']) ? ' - '.$this->site->config['siteName'] : '');
 
-            // set meta description
-            if ($post['excerpt']) {
-                $output['page:description'] = $post['excerpt'];
+            // Set Meta Description
+            if ( isset($post['seo_description']) ) {
+              $output['page:description'] = $post['seo_description'];
+            } else {
+              $output['page:description'] = $post['excerpt'];
             }
+
+            // Set Meta Keywords
+            $output['page:keywords'] = $post['seo_keywords'];
 
             // get author details
             $author = $this->blog->lookup_user($post['userID']);
@@ -562,7 +570,7 @@ class Blog extends MX_Controller
         }
     }
 
-    public function _captcha_check()
+    private function _captcha_check()
     {
         // if captcha is posted, check its not a bot (requires js)
         if ($this->input->post('captcha') == 'notabot') {
@@ -597,6 +605,7 @@ class Blog extends MX_Controller
                 'post:author' => (($author['displayName']) ? $author['displayName'] : $author['firstName'].' '.$author['lastName']),
                 'post:author-id' => $author['userID'],
                 'post:author-email' => $author['email'],
+                // Replace with proper avatar
                 'post:author-gravatar' => 'http://www.gravatar.com/avatar.php?gravatar_id='.md5(trim($author['email'])).'&default='.urlencode(site_url('/static/uploads/avatars/noavatar.gif')),
                 'post:author-bio' => $author['bio'],
                 'post:comments-count' => $post['numComments']

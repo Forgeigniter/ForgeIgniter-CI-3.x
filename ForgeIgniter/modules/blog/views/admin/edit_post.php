@@ -182,16 +182,16 @@ $(function(){
 									<br class="clear" />
 
 									<?php
-				            $options = [
-				                    'name'        => 'body',
-				                    'id'          => 'body',
-				                    'value'       => set_value('body', $data['body']),
-				                    'rows'        => '30',
-				                    'cols'        => '10',
-				                    'style'       => 'width:50%; margin-right:10px;',
-				                    'class'       => 'form-control formelement code half'
-				            ];
-				            echo form_textarea($options);
+									  $options = [
+									          'name'        => 'body',
+									          'id'          => 'body',
+									          'value'       => set_value('body', $data['body']),
+									          'rows'        => '30',
+									          'cols'        => '10',
+									          'style'       => 'width:50%; margin-right:10px;',
+									          'class'       => 'form-control formelement code half'
+									  ];
+									  echo form_textarea($options);
 									?>
 									<div class="preview"></div>
 								</div>
@@ -199,10 +199,39 @@ $(function(){
 							</div><!-- /.Content Tab -->
 
 							<div class="tab-pane" id="tab_seo">
-								keywords: <br>
-								description: <br>
-								Robots <br>
-							</div>
+								<label for="seo_keywords">keywords:</label>
+								<?php echo form_input('seo_keywords', set_value('seo_keywords', $data['seo_keywords']), 'id="seo_keywords" class="form-control" style="width:50%;"'); ?>
+
+								<label for="seo_description">Description:</label>
+								<?php
+									$seo_description = [
+													'name'        => 'seo_description',
+													'id'          => 'seo_description',
+													'value'       => set_value('seo_description', $data['seo_description']),
+													'rows'        => '3',
+													'cols'        => '10',
+													'style'       => 'width:50%; margin-right:10px;',
+													'class'       => 'form-control formelement'
+									];
+									echo form_textarea($seo_description);
+								?>
+								<br>
+<?php /*
+Probably don't need this
+
+								<div class="form-group">
+									<label for="robots">Robots:</label>
+										<?php
+												$values = array(
+														1 => 'Index',
+														0 => 'No Index',
+												);
+												echo form_dropdown('robots', $values, set_value('robots', $data['robots']), 'id="robots" class="form-control"');
+										?>
+								</div>
+*/ ?>
+							</div><!-- /.SEO Tab -->
+
 
 							<div class="tab-pane" id="tab_images">
 
