@@ -67,15 +67,16 @@ class Template
 
         // permissions
         if ($this->CI->session->userdata('session_admin')) {
-            if ($permissions = $this->CI->permission->get_group_permissions($this->CI->session->userdata('groupID'))) {
-                foreach ($permissions as $permission) {
-                    @$this->template['permission:'.$permission] = true;
+            $permissions = $this->CI->permission->get_group_permissions($this->CI->session->userdata('groupID'));
+            foreach ($permissions as $permission) {
+                if (isset($this->template['permission:'.$permission])) {
+                    $this->template['permission:'.$permission] = true;
                 }
             }
         }
 
         // feed (if it exists for the module)
-        @$this->template['page:feed'] = (isset($pagedata['feed'])) ? $pagedata['feed'] : '';
+        $this->template['page:feed'] = isset($pagedata['feed']) ? $pagedata['feed'] : '';
 
         // either build template from a file or from db
         if ($file) {
