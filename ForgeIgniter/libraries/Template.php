@@ -38,17 +38,17 @@ class Template
     public function generate_template($pagedata, $file = false)
     {
         // page data
-        @$this->template['page:title'] = (isset($pagedata['title'])) ? htmlentities($pagedata['title'], ENT_QUOTES | ENT_IGNORE, "UTF-8") : htmlentities($this->CI->site->config['siteName']);
-        @$this->template['page:keywords'] = (isset($pagedata['keywords'])) ? $pagedata['keywords'] : '';
-        @$this->template['page:description'] = (isset($pagedata['description'])) ? $pagedata['description'] : '';
-        @$this->template['page:date'] = (isset($pagedata['dateCreated'])) ? dateFmt($pagedata['dateCreated']) : '';
-        @$this->template['page:date-modified'] = (isset($pagedata['dateModified'])) ? dateFmt($pagedata['dateModified']) : '';
-        @$this->template['page:uri'] = site_url($this->CI->uri->uri_string());
-        @$this->template['page:uri-encoded'] = $this->CI->core->encode($this->CI->uri->uri_string());
-        @$this->template['page:uri:segment(1)'] = $this->CI->uri->segment(1);
-        @$this->template['page:uri:segment(2)'] = $this->CI->uri->segment(2);
-        @$this->template['page:uri:segment(3)'] = $this->CI->uri->segment(3);
-        @$this->template['page:template'] = ($this->template['page:template']) ? $this->template['page:template'] : '';
+        $this->template['page:title'] = isset($pagedata['title']) ? htmlentities($pagedata['title'], ENT_QUOTES | ENT_IGNORE, "UTF-8") : htmlentities($this->CI->site->config['siteName']);
+        $this->template['page:keywords'] = isset($pagedata['keywords']) ? $pagedata['keywords'] : '';
+        $this->template['page:description'] = isset($pagedata['description']) ? $pagedata['description'] : '';
+        $this->template['page:date'] = isset($pagedata['dateCreated']) ? dateFmt($pagedata['dateCreated']) : '';
+        $this->template['page:date-modified'] = isset($pagedata['dateModified']) ? dateFmt($pagedata['dateModified']) : '';
+        $this->template['page:uri'] = site_url($this->CI->uri->uri_string());
+        $this->template['page:uri-encoded'] = $this->CI->core->encode($this->CI->uri->uri_string());
+        $this->template['page:uri:segment(1)'] = $this->CI->uri->segment(1);
+        $this->template['page:uri:segment(2)'] = $this->CI->uri->segment(2);
+        $this->template['page:uri:segment(3)'] = $this->CI->uri->segment(3);
+        $this->template['page:template'] = isset($this->template['page:template']) ? $this->template['page:template'] : '';
 
         // find out if logged in
         $this->template['logged-in'] = ($this->CI->session->userdata('session_user')) ? true : false;
