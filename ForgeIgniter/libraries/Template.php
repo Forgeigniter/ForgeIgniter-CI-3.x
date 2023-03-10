@@ -6,11 +6,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * A user friendly, modular content management system.
  * Forged on CodeIgniter - http://codeigniter.com
  *
- * @package		ForgeIgniter
- * @author		ForgeIgniter Team
- * @copyright	Copyright (c) 2023, ForgeIgniter
- * @license		http://forgeigniter.com/license
- * @link		http://forgeigniter.com/
+ * @package   ForgeIgniter
+ * @author    ForgeIgniter Team
+ * @copyright Copyright (c) 2023, ForgeIgniter
+ * @license   http://forgeigniter.com/license
+ * @link      http://forgeigniter.com/
  */
 // ------------------------------------------------------------------------
 
@@ -20,7 +20,6 @@ class Template
     // set defaults
     public $CI;								// CI instance
     public $base_path = '';					// default base path
-    public $moduleTemplates = array();
     public $template = array();
 
     public function __construct()
@@ -33,63 +32,7 @@ class Template
         }
 
         $this->uploadsPath = $this->CI->config->item('uploadsPath');
-
-        // populate module templates array
-        $this->moduleTemplates = array(
-            'blog',
-            'blog_single',
-            'blog_search',
-            'community_account',
-            'community_create_account',
-            'community_forgotten',
-            'community_home',
-            'community_login',
-            'community_members',
-            'community_messages',
-            'community_messages_form',
-            'community_messages_popup',
-            'community_messages_read',
-            'community_reset',
-            'community_view_profile',
-            'community_view_profile_private',
-            'events',
-            'events_single',
-            'events_search',
-            'events_featured',
-            'forums',
-            'forums_delete',
-            'forums_edit_post',
-            'forums_edit_topic',
-            'forums_forum',
-            'forums_post_reply',
-            'forums_post_topic',
-            'forums_search',
-            'forums_topic',
-            'shop_account',
-            'shop_browse',
-            'shop_cancel',
-            'shop_cart',
-            'shop_checkout',
-            'shop_create_account',
-            'shop_donation',
-            'shop_featured',
-            'shop_forgotten',
-            'shop_login',
-            'shop_orders',
-            'shop_prelogin',
-            'shop_product',
-            'shop_recommend',
-            'shop_recommend_popup',
-            'shop_reset',
-            'shop_review',
-            'shop_review_popup',
-            'shop_success',
-            'shop_view_order',
-            'wiki',
-            'wiki_form',
-            'wiki_page',
-            'wiki_search'
-        );
+        
     }
 
     public function generate_template($pagedata, $file = false)
