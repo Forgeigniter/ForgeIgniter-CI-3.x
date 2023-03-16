@@ -140,16 +140,16 @@ class Core
 						<div class="ficms_container">
 							<div id="'.$blockRef.'" class="ficms_edit">
 								<div class="ficms_buttons">
-									<a href="#" class="ficms_boldbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_bold.png" alt="Bold" title="Bold" class="ficms_helper" /></a>
-									<a href="#" class="ficms_italicbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_italic.png" alt="Italic" title="Italic" class="ficms_helper" /></a>
-									<a href="#" class="ficms_h1button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_h1.png" alt="Heading 1" title="Heading 1" class="ficms_helper" /></a>
-									<a href="#" class="ficms_h2button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_h2.png" alt="Heading 2" title="Heading 2" class="ficms_helper" /></a>
-									<a href="#" class="ficms_h3button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_h3.png" alt="Heading 3" title="Heading 3" class="ficms_helper" /></a>
-									<a href="#" class="ficms_urlbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_url.png" alt="Insert Link" title="Insert Link" class="ficms_helper" /></a>
-									<a href="'.site_url('/admin/images/browser').'" class="ficms_imagebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_image.png" alt="Insert Image" title="Insert Image" class="ficms_helper" /></a>
-									<a href="'.site_url('/admin/files/browser').'" class="ficms_filebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_file.png" alt="Insert File" title="Insert File" class="ficms_helper" /></a>
-									<a href="#" class="ficms_cancelbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_cancel.png" alt="Cancel" title="Cancel Changes" class="ficms_helper" /></a>
-									<a href="'.site_url('/admin/pages/add_block/'.$versionID.'/'.$blockRef).'" class="ficms_savebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/btn_save.png" alt="Save" title="Save Changes" class="ficms_helper" /></a>
+									<a href="#" class="ficms_boldbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_bold.png" alt="Bold" title="Bold" class="ficms_helper" /></a>
+									<a href="#" class="ficms_italicbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_italic.png" alt="Italic" title="Italic" class="ficms_helper" /></a>
+									<a href="#" class="ficms_h1button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_h1.png" alt="Heading 1" title="Heading 1" class="ficms_helper" /></a>
+									<a href="#" class="ficms_h2button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_h2.png" alt="Heading 2" title="Heading 2" class="ficms_helper" /></a>
+									<a href="#" class="ficms_h3button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_h3.png" alt="Heading 3" title="Heading 3" class="ficms_helper" /></a>
+									<a href="#" class="ficms_urlbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_url.png" alt="Insert Link" title="Insert Link" class="ficms_helper" /></a>
+									<a href="'.site_url('/admin/images/browser').'" class="ficms_imagebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_image.png" alt="Insert Image" title="Insert Image" class="ficms_helper" /></a>
+									<a href="'.site_url('/admin/files/browser').'" class="ficms_filebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_file.png" alt="Insert File" title="Insert File" class="ficms_helper" /></a>
+									<a href="#" class="ficms_cancelbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_cancel.png" alt="Cancel" title="Cancel Changes" class="ficms_helper" /></a>
+									<a href="'.site_url('/admin/pages/add_block/'.$versionID.'/'.$blockRef).'" class="ficms_savebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_save.png" alt="Save" title="Save Changes" class="ficms_helper" /></a>
 									<a href="#" class="ficms_editbutton">Edit</a>
 								</div>
 								<div class="ficms_blockelement">'.@$mkdnBody[$blockRef].'</div>
@@ -803,10 +803,12 @@ class Core
 
         // generate password
         if (!$this->CI->input->post('password')) {
-            $pass = md5(substr(md5(time()), 0, 6));
+            $pass = substr(bin2hex(random_bytes(3)), 0, 6);
             $password = password_hash($pass, PASSWORD_DEFAULT);
-
-            //$password = md5(substr(md5(time()),0,6));
+        
+            $this->CI->core->set['password'] = $password;
+        } else {
+            $password = password_hash($this->CI->input->post('password', true), PASSWORD_DEFAULT);
             $this->CI->core->set['password'] = $password;
         }
 

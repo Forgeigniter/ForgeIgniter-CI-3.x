@@ -95,8 +95,8 @@ class Auth
             $row = $query->row_array();
 
             // check against password
-            if (md5($password) != $row['password']) {
-                $this->error = 'The login details used did not match our records. Please try again.';
+            if (!password_verify($password, $row['password'])) {
+                $this->error = 'The login details used did not match our records. Please try again!';
 
                 return false;
             }

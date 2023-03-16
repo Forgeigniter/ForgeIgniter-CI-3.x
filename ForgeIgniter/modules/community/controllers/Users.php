@@ -153,7 +153,7 @@ class Users extends MX_Controller
             // set login username
             $username = array('field' => 'email', 'label' => 'Email address', 'value' => $this->input->post('email'));
 
-            // set header and footer
+            // // set header and footer
             $emailHeader = str_replace('{name}', trim($this->input->post('firstName').' '.$this->input->post('lastName')), $this->site->config['emailHeader']);
             $emailHeader = str_replace('{email}', $this->input->post('email'), $emailHeader);
             $emailFooter = str_replace('{name}', trim($this->input->post('firstName').' '.$this->input->post('lastName')), $this->site->config['emailFooter']);
@@ -163,7 +163,7 @@ class Users extends MX_Controller
             $emailAccount = str_replace('{password}', $this->input->post('password'), $emailAccount);
 
 
-            // send email
+            //send email
             $this->email->from($this->site->config['siteEmail'], $this->site->config['siteName']);
             $this->email->to($this->input->post('email'));
             $this->email->subject('New account set up on '.$this->site->config['siteName']);
