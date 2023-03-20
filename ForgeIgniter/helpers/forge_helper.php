@@ -442,10 +442,10 @@ function display_image($path, $alt, $size = '', $extras = '', $nopic = false)
             } elseif ($imageSize[1] > $size['height'] && $heightfactor > $widthfactor) {
                 $imageHTML .= 'height="'.$size['height'].'" ';
             }
-        } elseif (intval($size) && $size > 0 && (($imageSize[0] > $size || $imageSize[1] > $size) || $nopic)) {
-            if (($imageSize[0] > $imageSize[1]) || $imageSize[0] == $imageSize[1]) {
+        } elseif (intval($size) && $size > 0 && (is_array($imageSize) && ($imageSize[0] > $size || $imageSize[1] > $size) || $nopic)) {    
+            if (is_array($imageSize) && (($imageSize[0] > $imageSize[1]) || ($imageSize[0] == $imageSize[1]))) {
                 $imageHTML .= 'width="'.$size.'" ';
-            } elseif ($imageSize[1] > $imageSize[0]) {
+            } elseif (is_array($imageSize) && $imageSize[1] > $imageSize[0]) {
                 $imageHTML .= 'height="'.$size.'" ';
             }
         }
