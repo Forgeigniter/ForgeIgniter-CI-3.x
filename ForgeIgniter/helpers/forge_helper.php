@@ -421,7 +421,9 @@ function load_image($image, $thumb = false, $product = false)
 
 function display_image($path, $alt, $size = '', $extras = '', $nopic = false)
 {
-    if (!$imageSize = @getimagesize('.'.$path)) {
+    $image_path = '.'.$path;
+    
+    if (!file_exists($image_path)) {
         if ($nopic !== false) {
             $imageHTML = '<img src="'.$nopic.'" alt="No Picture" ';
         } else {
@@ -429,12 +431,13 @@ function display_image($path, $alt, $size = '', $extras = '', $nopic = false)
         }
     } else {
         $imageHTML = '<img src="'.$path.'" alt="'.$alt.'" ';
+        $imageSize = getimagesize($image_path);
     }
 
-    if ($size) {
-        if (is_array($size)) {
-            $widthfactor = (isset($size['width'])) ? $imageSize[0] / $size['width'] : 0;
-            $heightfactor = (isset($size['height'])) ? $imageSize[1] / $size['height'] : 0;
+    if (!empty($size)) {
+        if (is_array($size) && !empty($imageSize)) {
+            $widthfactor = $imageSize[0] / $size['width'];
+            $heightfactor = $imageSize[1] / $size['height'];
 
             if ($imageSize[0] > $size['width'] && ($widthfactor > $heightfactor || $widthfactor == $heightfactor)) {
                 $factor = $imageSize[0] / $size['width'];
@@ -442,16 +445,16 @@ function display_image($path, $alt, $size = '', $extras = '', $nopic = false)
             } elseif ($imageSize[1] > $size['height'] && $heightfactor > $widthfactor) {
                 $imageHTML .= 'height="'.$size['height'].'" ';
             }
-        } elseif (intval($size) && $size > 0 && (is_array($imageSize) && ($imageSize[0] > $size || $imageSize[1] > $size) || $nopic)) {    
-            if (is_array($imageSize) && (($imageSize[0] > $imageSize[1]) || ($imageSize[0] == $imageSize[1]))) {
+        } elseif (is_numeric($size) && $size > 0 && (!empty($imageSize) && ($imageSize[0] > $size || $imageSize[1] > $size) || !empty($nopic))) {    
+            if (!empty($imageSize) && ($imageSize[0] > $imageSize[1] || $imageSize[0] == $imageSize[1])) {
                 $imageHTML .= 'width="'.$size.'" ';
-            } elseif (is_array($imageSize) && $imageSize[1] > $imageSize[0]) {
+            } elseif (!empty($imageSize) && $imageSize[1] > $imageSize[0]) {
                 $imageHTML .= 'height="'.$size.'" ';
             }
         }
     }
 
-    if ($extras != '') {
+    if (!empty($extras)) {
         $imageHTML .= $extras.' ';
     }
 
