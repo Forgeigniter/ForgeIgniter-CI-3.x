@@ -348,14 +348,16 @@ $(function(){
 					</td>
 				</tr>
 				<tr>
-					<td>New today:</td>
+				<td>New today:</td>
 					<td>
 						<?php echo number_format($numUsersToday); ?> <small>user<?php echo ($numUsersToday != 1) ? 's' : ''; ?>
 						<?php
-							$difference = @round(100 / $numUsersYesterday * ($numUsersToday - $numUsersYesterday), 2);
-							$polarity = ($difference < 0) ? '' : '+';
+							if ($numUsersYesterday != 0) {
+								$difference = @round(100 / $numUsersYesterday * ($numUsersToday - $numUsersYesterday), 2);
+								$polarity = ($difference < 0) ? '' : '+';
+							}
 						?>
-						<?php if ($difference != 0): ?>
+						<?php if (isset($difference) && $difference != 0): ?>
 							<small style="padding-left:5px;">
 								(<span style="color:<?php echo ($polarity == '+') ? '#00ff04' : '#ea604f'; ?>">
 									<?php echo $polarity.$difference; ?>%
@@ -372,14 +374,16 @@ $(function(){
 					</td>
 				</tr>
 				<tr>
-					<td>New This Week :</td>
+				<td>New This Week :</td>
 					<td>
 						<?php echo number_format($numUsersWeek); ?> <small>user<?php echo ($numUsersWeek != 1) ? 's' : ''; ?></small>
 						<?php
-							$difference = @round(100 / $numUsersLastWeek * ($numUsersWeek - $numUsersLastWeek), 2);
-							$polarity = ($difference < 0) ? '' : '+';
+							if ($numUsersLastWeek != 0) {
+								$difference = @round(100 / $numUsersLastWeek * ($numUsersWeek - $numUsersLastWeek), 2);
+								$polarity = ($difference < 0) ? '' : '+';
+							}
 						?>
-						<?php if ($difference != 0): ?>
+						<?php if (isset($difference) && $difference != 0): ?>
 							<small>
 								(<span style="color:<?php echo ($polarity == '+') ? '#00ff04' : '#ea604f'; ?>">
 									<?php echo $polarity.$difference; ?>%
