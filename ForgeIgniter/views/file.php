@@ -1,1 +1,0 @@
-<?php show_error('Missing a template for this section!'); ?>
