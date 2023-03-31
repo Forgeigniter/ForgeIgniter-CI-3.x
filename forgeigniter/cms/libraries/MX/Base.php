@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/* load MX core classes */
+require_once __DIR__ . '/Lang.php';
+require_once __DIR__ . '/Config.php';
+
 /**
  * Modular Extensions - HMVC
  *
@@ -15,19 +19,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @version 	5.6.4
  *
  **/
+
 class CI extends CI_Controller
 {
     public static $APP;
 
     public function __construct()
     {
-        /* load MX core classes */
-        require_once __DIR__ . '/Lang.php';
-        require_once __DIR__ . '/Config.php';
 
         // assign the application instance
         self::$APP = $this;
-        
+
         // re-assign language and config for modules
         global $LANG, $CFG;
 

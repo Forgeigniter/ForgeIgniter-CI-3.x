@@ -202,7 +202,6 @@ class MX_Router extends CI_Router
         }
     }
 
-
     /**
      * Set the controller class
      * @param $class

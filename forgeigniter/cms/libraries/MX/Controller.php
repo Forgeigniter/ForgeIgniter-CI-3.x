@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /** load the CI class for Modular Extensions **/
-require __DIR__ .'/Base.php';
+require_once __DIR__ .'/Base.php';
 
 /**
  * Modular Extensions - HMVC

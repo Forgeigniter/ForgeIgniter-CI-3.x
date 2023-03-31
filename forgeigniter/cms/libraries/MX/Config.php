@@ -19,6 +19,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
  **/
 class MX_Config extends CI_Config
 {
+    /**
+     * Load Module Config
+     * @param string $file 
+     * @param bool   $use_sections
+     * @param bool   $fail_gracefully
+     * @param string $_module
+     * @return array|null
+     */
     public function load($file = '', $use_sections = false, $fail_gracefully = false, $_module = '')
     {
         if (in_array($file, $this->is_loaded, true)) {
