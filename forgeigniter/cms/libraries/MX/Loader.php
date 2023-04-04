@@ -20,11 +20,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class MX_Loader extends CI_Loader
 {
     protected $_module;
+    protected $router;
 
     public $_ci_plugins = array();
     public $_ci_cached_vars = array();
 
-    /** 
+    protected $controller = null;
+
+    /**
      * Initialize the loader variables
      *  @param null $controller
      */
@@ -32,6 +35,7 @@ class MX_Loader extends CI_Loader
     {
         /* set the module name */
         $this->_module = CI::$APP->router->fetch_module();
+        //$this->_module = CI::$APP->get_router()->fetch_module();
 
         if ($controller instanceof MX_Controller) {
             /* reference to the module controller */
@@ -72,7 +76,7 @@ class MX_Loader extends CI_Loader
         }
     }
 
-    /** 
+    /**
      * Load a module config file *
      * @param $file
      * @param bool $use_sections
@@ -130,7 +134,7 @@ class MX_Loader extends CI_Loader
         return $this;
     }
 
-    /** 
+    /**
      * Load an array of helpers
      * @param array $helpers
      * @return MX_Loader
@@ -143,7 +147,7 @@ class MX_Loader extends CI_Loader
         return $this;
     }
 
-    /** 
+    /**
      * Load a module language file
      * @param $langfile
      * @param string $idiom

@@ -67,6 +67,31 @@ class CI_Controller {
 	public $load;
 
 	/**
+	 * Config class object
+	 *
+	 * @var object $config
+	 */
+	public $config;
+
+	/**
+	 * Benchmark class object
+	 *
+	 * @var object $benchmark
+	 */
+	protected $benchmark;
+
+	protected $log;
+	protected $hooks;
+	protected $utf8;
+	protected $uri;
+	public $router;
+	public $output;
+	protected $security;
+	protected $input;
+	protected $lang;
+
+
+	/**
 	 * Class constructor
 	 *
 	 * @return	void
