@@ -1,6 +1,8 @@
+# Make sure directory listing is disabled
+Options +FollowSymLinks -Indexes
 RewriteEngine On
 
 # Application Handler
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule (.*) index.php/$1 [L]
+RewriteRule ^(.*) index.php/$1 [L]
