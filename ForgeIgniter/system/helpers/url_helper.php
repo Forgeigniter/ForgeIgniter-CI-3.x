@@ -498,18 +498,21 @@ if ( ! function_exists('url_title'))
 			'('.$q_separator.')+'	=> $separator
 		);
 
-		$str = strip_tags($str);
-		foreach ($trans as $key => $val)
-		{
-			$str = preg_replace('#'.$key.'#i'.(UTF8_ENABLED ? 'u' : ''), $val, $str);
+		if (!is_null($str)) {
+			$str = strip_tags($str);
+			foreach ($trans as $key => $val) {
+				$str = preg_replace('#'.$key.'#i'.(UTF8_ENABLED ? 'u' : ''), $val, $str);
+			}
+
+			if ($lowercase === TRUE)
+			{
+				$str = strtolower($str);
+			}
+
+			$str = trim($str, $separator);
 		}
 
-		if ($lowercase === TRUE)
-		{
-			$str = strtolower($str);
-		}
-
-		return trim(trim($str, $separator));
+		return $str;
 	}
 }
 
