@@ -2,7 +2,42 @@
 # CodeIgniter 3.x Branch
 --------------------------
 
-## Version 2.0 - Alpha 2.5 - In Development
+## Version 2.0 - Alpha 2.7 - In Development
+
+- ForgeIgniter
+	¬ Fixed: Trying to access array offset on value of type bool (8.1)
+	¬ Fixed: DivisionByZeroError (8.1)
+	¬ Updated: jQuery v3.6.4 & UI v1.13.2 ( & Removed Migration )
+	¬ Updated: htmlentities no longer supports NULL (USED: ENT_QUOTES | ENT_HTML5 )
+
+- Images / Files Manager
+	¬ Fixed: preset selection array error (8.1)
+	¬ Fixed: array offset on value of type null (8.1)
+	¬ Fixed: deprecated string issues on null (8.1)
+
+- CodeIgniter
+	¬ Unofficial v3.2 - Mainly just support for php8
+
+## Version 2.0 - Alpha 2.6
+
+- ForgeIgniter
+	¬ Updated: Template Lib
+		¬ Headlines are now loaded from the modules config.
+		¬ moduleTemplates list moved to it's own helper
+	¬ Fixed: Template Lib
+		¬ Undefined index: page:template
+	¬ Updated: Modular Extensions - HMVC 5.6.3
+	¬ Updated: Anvil Admin theme
+		¬ Content header made smaller & style changed.
+		¬ Main menu overhaul, looks a lot cleaner with new style.
+		¬ Some file and code clean up.
+	¬ Added: Simple Admin Menu Manager
+	¬ Updated: Routing for main Forge Module.
+	¬ Updated: md5 for bin2hex while creating password
+
+--------------------
+
+## Version 2.0 - Alpha 2.5
 
 - CodeIgniter
 	¬ Updated to v3.1.13 http://www.codeigniter.com/user_guide/changelog.html
@@ -12,6 +47,8 @@
 
 - Blog
   ¬ ADDED: Blog configuration.
+	¬ ADDED: SEO options.
+	¬ ADDED: Image upload with Gallery.
 
 - ForgeIgniter
   ¬ Updated: Installer
@@ -32,6 +69,7 @@
 - ForgeIgniter
 	¬ Anvil Admin Theme
 		Fixed: Edit Pages - Footer overlap
+		Updated: Edit Pages - Custom nav Tabs and page layout.
 		Updated: Site Details ( basic layout )
 		Updated: editor settings for Admin Add Includes
 		Updated: Inline Editor - edit pic
