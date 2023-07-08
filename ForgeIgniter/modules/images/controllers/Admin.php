@@ -214,7 +214,9 @@ class Admin extends CI_Controller
             $where = array('siteID' => $this->siteID, 'deleted' => 0);
 
             // get preset selections for this dropdown
-            if ($folderID == '' && @array_key_exists('folderID', $this->selections)) {
+            if ($folderID == '' &&
+                is_array($this->selections) &&
+                array_key_exists('folderID', $this->selections)) {
                 $folderID = $this->selections['folderID'];
             }
 
@@ -393,7 +395,12 @@ class Admin extends CI_Controller
 
         // set date
         $this->core->set['dateCreated'] = date("Y-m-d H:i:s");
-        $this->core->set['folderSafe'] = strtolower(url_title($this->input->post('folderName')));
+
+        $folderName = $this->input->post('folderName');
+        if (!is_null($folderName)) {
+            $folderName = strtolower(url_title($folderName));
+        }
+        $this->core->set['folderSafe'] = $folderName;
 
         // get values
         $output = $this->core->get_values('image_folders');

@@ -68,7 +68,12 @@ $(function(){
 
 								<?php
 								$files_folders = NULL;
-								 echo form_input('folderName',$files_folders['folderName'], 'class="formelement" id="folderName"'); ?>
+								if ($files_folders !== null && isset($files_folders['folderName'])) {
+									echo form_input('folderName', $files_folders['folderName'], 'class="formelement" id="folderName"');
+								} else {
+									echo form_input('folderName', '', 'class="formelement" id="folderName"');
+								}
+								?>
 
 								<input type="submit" value="Add Folder" id="submit" class="button" />
 

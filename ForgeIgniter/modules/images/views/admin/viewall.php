@@ -107,7 +107,7 @@ $(function(){
 										endforeach;
 									endif;
 								endif;
-								echo form_dropdown('folderID', $options, $folderID, 'id="folderID" class="form-control" style="right: 240px; width: 150px;" ');
+								echo form_dropdown('folderID', $options, $folderID, 'id="folderID" class="form-control" style="right: 260px; width: 150px;" ');
 							?>
 
 							<?php if ($this->site->config['plan'] = 0 || $this->site->config['plan'] = 6 || (($this->site->config['plan'] > 0 && $this->site->config['plan'] < 6) && $quota < $this->site->plans['storage'])): ?>
@@ -123,7 +123,7 @@ $(function(){
 						<div class="headingright">
 							<form method="post" action="<?php echo site_url('/admin/images/viewall'); ?>" class="default" id="search">
 								<input type="text" name="searchbox" id="searchbox" class="formelement inactive" title="Search Images..." />
-								<input type="image" src="<?php echo base_url($this->config->item('staticPath')); ?>/images/btn_search.gif" id="searchbutton" />
+								<input type="image" src="<?php echo base_url($this->config->item('staticPath')); ?>/images/icons/cms/btn_search.gif" id="searchbutton" />
 							</form>
 						</div>
 
@@ -249,8 +249,8 @@ $(function(){
 										$imageThumbPath = $imageData['src'];
 								?>
 										<div class="buttons">
-											<?= anchor('/admin/images/edit/'.$image['imageID'].'/'.$this->core->encode($this->uri->uri_string()), '<img src="'.base_url().$this->config->item('staticPath').'/images/btn_edit.png" alt="Edit" />', 'class="edit"'); ?>
-											<?= anchor('/admin/images/delete/'.$image['imageID'].'/'.$this->core->encode($this->uri->uri_string()), '<img src="'.base_url().$this->config->item('staticPath').'/images/btn_delete.png" alt="Delete" />', 'onclick="return confirm(\'Are you sure you want to delete this image?\')"'); ?>
+											<?= anchor('/admin/images/edit/'.$image['imageID'].'/'.$this->core->encode($this->uri->uri_string()), '<img src="'.base_url().$this->config->item('staticPath').'/images/icons/cms/btn_edit.png" alt="Edit" />', 'class="edit"'); ?>
+											<?= anchor('/admin/images/delete/'.$image['imageID'].'/'.$this->core->encode($this->uri->uri_string()), '<img src="'.base_url().$this->config->item('staticPath').'/images/icons/cms/btn_delete.png" alt="Delete" />', 'onclick="return confirm(\'Are you sure you want to delete this image?\')"'); ?>
 										</div>
 
 										<a href="<?= base_url($imagePath); ?>" title="<?php echo $image['imageName']; ?>" class="lightbox">

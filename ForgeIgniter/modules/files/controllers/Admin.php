@@ -27,6 +27,8 @@ class Admin extends MX_Controller
     public $objectID = 'fileID';							// default unique ID
     public $permissions = array();
 
+    private $selections = array();
+
     public function __construct()
     {
         parent::__construct();
@@ -116,7 +118,7 @@ class Admin extends MX_Controller
             $where = array('siteID' => $this->siteID, 'deleted' => 0);
 
             // get preset selections for this dropdown
-            if ($folderID == '' && @array_key_exists('folderID', $this->selections)) {
+            if ($folderID == '' && is_array($this->selections) && array_key_exists('folderID', $this->selections)) {
                 $folderID = $this->selections['folderID'];
             }
 

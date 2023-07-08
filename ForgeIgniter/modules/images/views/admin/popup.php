@@ -6,7 +6,7 @@
 
 <?php if ($this->core->is_ajax()): ?>
 
-	<a class="ficms_close" href="#"><img title="Close" src="<?php echo base_url().$this->config->item('staticPath'); ?>/images/btn_close.png"/></a>
+	<a class="ficms_close" href="#"><img title="Close" src="<?php echo base_url().$this->config->item('staticPath'); ?>/images/icons/cms/btn_close.png"/></a>
 	<a href="<?php echo site_url('/admin/images'); ?>" class="ficms_button ficms_confirm" target="_top">Manage Images</a>
 
 <?php endif; ?>
