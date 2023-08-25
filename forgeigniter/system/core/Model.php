@@ -50,6 +50,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class CI_Model {
 
 	/**
+	 * Class constructor
+	 *
+	 * @link	https://github.com/bcit-ci/CodeIgniter/issues/5332
+	 * @link	https://github.com/bcit-ci/CodeIgniter/commit/c45caeac4f45b83fbb3655f62638ebcf913981c8
+	 * @return	void
+	 */
+	public function __construct() {
+		$reflector = new ReflectionClass($this);
+		if ($reflector->getMethod('__construct')->getDeclaringClass()->getName() != 'CI_Model') {
+			throw new Exception('Constructors are not used in models');
+		}
+	}
+
+	/**
 	 * __get magic
 	 *
 	 * Allows models to access CI's loaded classes using the same
