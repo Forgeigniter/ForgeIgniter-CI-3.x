@@ -78,17 +78,18 @@ class CI_Controller {
 	 *
 	 * @var object $benchmark
 	 */
-	protected $benchmark;
+	public $benchmark;
 
+	public $db;
 	protected $log;
 	protected $hooks;
 	protected $utf8;
-	protected $uri;
+	public $uri;
 	public $router;
 	public $output;
 	protected $security;
-	protected $input;
-	protected $lang;
+	public $input;
+	public $lang;
 
 
 	/**
