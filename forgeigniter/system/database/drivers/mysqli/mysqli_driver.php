@@ -87,6 +87,13 @@ class CI_DB_mysqli_driver extends CI_DB {
 	 */
 	public $stricton;
 
+	/**
+	 * The array of failover connections.
+	 *
+	 * @var array
+	 */
+	public $failover = [];
+
 	// --------------------------------------------------------------------
 
 	/**
