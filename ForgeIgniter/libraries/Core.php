@@ -19,7 +19,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Core
 {
-    public $CI;						// CI instance
+    protected $CI;						// CI instance
     public $table ;					// default table
     public $siteID;					// id of the site
     public $uri_assoc_segment = 4; 	// segment where the magic happens
@@ -96,72 +96,102 @@ class Core
         }
     }
 
+    /**
+     * Generate Page: choose template, load blocks, inject placeholders.
+     *
+     * @param int|string      $pageID     Page primary key (cast to int).
+     * @param bool            $admin      Draft blocks + inline editor when true.
+     * @param int|string|null $templateID Optional template override.
+     *
+     * @return array<string,mixed>
+     */
     public function generate_page($pageID, $admin = false, $templateID = '')
     {
-        // get page data
-        $pagedata = $this->get_page($pageID);
+        // Get page data
+        $pageData = (array) $this->get_page((int)$pageID);
 
-        // load template, either from override or from page data
-        if ($templateID) {
-            $page = $this->CI->template->generate_template(array('templateID' => $templateID));
-        } else {
-            $page = $this->CI->template->generate_template($pagedata);
+        // Load template, from overide or page data.
+        $page = $templateID
+            ? $this->CI->template->generate_template(['templateID' => $templateID])
+            : $this->CI->template->generate_template($pageData);
+
+        // Parse vars to nothing
+        $page['error']      = '';
+        $page['message']    = '';
+
+        // Tell the parser some info
+        $page['pageID']     = (int)($pageData['pageID'] ?? 0);
+        $page['templateID'] = (int)($pageData['templateID'] ?? 0);
+        $page['versionID']  = (int)($pageData['versionID'] ?? 0);
+
+        // If admin, get blocks from draft, otherwise from the published version
+        $activeVersionID = $admin ? (int)($pageData['draftID'] ?? 0) : (int)($pageData['versionID'] ?? 0);
+
+        // Build Blocks
+        $blockContent  = []; // escaped for textarea
+        $blockRendered = []; // parsed HTML/Markdown
+
+        // Populate blocks from db (if they exist)
+        $blocksFromDatabase = $this->get_blocks($activeVersionID) ?: [];
+        foreach ($blocksFromDatabase as $blockRow) {
+            $blockReference = isset($blockRow['blockRef']) ? (string)$blockRow['blockRef'] : '';
+            if ($blockReference === '') continue;
+
+            $blockRawContent = isset($blockRow['body']) ? (string)$blockRow['body'] : '';
+
+            $blockContent[$blockReference]  = htmlspecialchars($blockRawContent, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false);
+            $blockRendered[$blockReference] = $this->CI->template->parse_body($blockRawContent);
         }
 
-        // set default parse variable to nothing
-        $page['error'] = '';
-        $page['message'] = '';
+        // Parse placeholders found in template body
+        $templateBody = (string)($page['body'] ?? '');
+        $matches = [];
+        preg_match_all('/block([a-z0-9_-]+)/i', $templateBody, $matches);
 
-        // tell the parser some important info like versionID
-        $page['pageID'] = $pagedata['pageID'];
-        $page['templateID'] = $pagedata['templateID'];
-        $page['versionID'] = $pagedata['versionID'];
+        if (!empty($matches[1])) {
+            $staticPath       = (string)$this->CI->config->item('staticPath');
+            $iconsBase        = site_url($staticPath).'/images/icons/cms';
+            $imageBrowserUrl  = site_url('/admin/images/browser');
+            $fileBrowserUrl   = site_url('/admin/files/browser');
 
-        // if logged in as admin, then get the blocks from draft, otherwise get them from the published version
-        $versionID = ($admin === true) ? $pagedata['draftID'] : $pagedata['versionID'];
+            foreach ($matches[1] as $placeholderValue) {
+                $blockReference = 'block'.$placeholderValue;
 
-        // populate blocks from db (if they exist)
-        if ($blocksResult = $this->get_blocks($versionID)) {
-            foreach ($blocksResult as $blockRow) {
-                // set bodies and get images for mkdn view
-                $body[$blockRow['blockRef']] = form_prep($blockRow['body']);
+                $renderedHtml = $blockRendered[$blockReference] ?? '';
+                $escapedText  = $blockContent[$blockReference] ?? '';
 
-                $mkdnBody[$blockRow['blockRef']] = $this->CI->template->parse_body($blockRow['body']);
-            }
-        }
-
-        // parse for blocks
-        preg_match_all('/block([a-z0-9\-_]+)/i', $page['body'], $blocks);
-        if ($blocks) {
-            foreach ($blocks[1] as $block => $value) {
-                $blockRef = 'block'.$value;
                 if ($admin) {
-                    $page[$blockRef] = '
-						<div class="ficms_container">
-							<div id="'.$blockRef.'" class="ficms_edit">
-								<div class="ficms_buttons">
-									<a href="#" class="ficms_boldbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_bold.png" alt="Bold" title="Bold" class="ficms_helper" /></a>
-									<a href="#" class="ficms_italicbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_italic.png" alt="Italic" title="Italic" class="ficms_helper" /></a>
-									<a href="#" class="ficms_h1button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_h1.png" alt="Heading 1" title="Heading 1" class="ficms_helper" /></a>
-									<a href="#" class="ficms_h2button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_h2.png" alt="Heading 2" title="Heading 2" class="ficms_helper" /></a>
-									<a href="#" class="ficms_h3button"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_h3.png" alt="Heading 3" title="Heading 3" class="ficms_helper" /></a>
-									<a href="#" class="ficms_urlbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_url.png" alt="Insert Link" title="Insert Link" class="ficms_helper" /></a>
-									<a href="'.site_url('/admin/images/browser').'" class="ficms_imagebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_image.png" alt="Insert Image" title="Insert Image" class="ficms_helper" /></a>
-									<a href="'.site_url('/admin/files/browser').'" class="ficms_filebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_file.png" alt="Insert File" title="Insert File" class="ficms_helper" /></a>
-									<a href="#" class="ficms_cancelbutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_cancel.png" alt="Cancel" title="Cancel Changes" class="ficms_helper" /></a>
-									<a href="'.site_url('/admin/pages/add_block/'.$versionID.'/'.$blockRef).'" class="ficms_savebutton"><img src="'.site_url($this->CI->config->item('staticPath')).'/images/icons/cms/btn_save.png" alt="Save" title="Save Changes" class="ficms_helper" /></a>
-									<a href="#" class="ficms_editbutton">Edit</a>
-								</div>
-								<div class="ficms_blockelement">'.@$mkdnBody[$blockRef].'</div>
-								<div class="ficms_editblock"><textarea rows="8" cols="10" class="code">'.@$body[$blockRef].'</textarea></div>
-							</div>
-						</div>
-					';
+                    $saveBlockUrl = site_url('/admin/pages/add_block/'.$activeVersionID.'/'.$blockReference);
+
+                    $page[$blockReference] = '
+<div class="ficms_container">
+<div id="'.$blockReference.'" class="ficms_edit">
+    <div class="ficms_buttons">
+    <a href="#" class="ficms_boldbutton"><img src="'.$iconsBase.'/btn_bold.png" alt="Bold" /></a>
+    <a href="#" class="ficms_italicbutton"><img src="'.$iconsBase.'/btn_italic.png" alt="Italic" /></a>
+    <a href="#" class="ficms_h1button"><img src="'.$iconsBase.'/btn_h1.png" alt="Heading 1" /></a>
+    <a href="#" class="ficms_h2button"><img src="'.$iconsBase.'/btn_h2.png" alt="Heading 2" /></a>
+    <a href="#" class="ficms_h3button"><img src="'.$iconsBase.'/btn_h3.png" alt="Heading 3" /></a>
+    <a href="#" class="ficms_urlbutton"><img src="'.$iconsBase.'/btn_url.png" alt="Insert Link" /></a>
+    <a href="'.$imageBrowserUrl.'" class="ficms_imagebutton"><img src="'.$iconsBase.'/btn_image.png" alt="Insert Image" /></a>
+    <a href="'.$fileBrowserUrl.'" class="ficms_filebutton"><img src="'.$iconsBase.'/btn_file.png" alt="Insert File" /></a>
+    <a href="#" class="ficms_cancelbutton"><img src="'.$iconsBase.'/btn_cancel.png" alt="Cancel" /></a>
+    <a href="'.$saveBlockUrl.'" class="ficms_savebutton"><img src="'.$iconsBase.'/btn_save.png" alt="Save" /></a>
+    <a href="#" class="ficms_editbutton">Edit</a>
+    </div>
+    <div class="ficms_blockelement">'.$renderedHtml.'</div>
+    <div class="ficms_editblock"><textarea rows="8" cols="10" class="code">'.$escapedText.'</textarea></div>
+</div>
+</div>';
                 } else {
-                    $page[$blockRef] = @$mkdnBody[$blockRef];
+                    $page[$blockReference] = $renderedHtml;
                 }
             }
         }
+
+        // Expose block maps
+        $page['blockContent']  = $blockContent;
+        $page['blockRendered'] = $blockRendered;
 
         return $page;
     }
@@ -485,6 +515,8 @@ class Core
 
     public function web_form()
     {
+        $requiredArray = array();
+
         // get web form
         if (!$webform = $this->CI->core->get_web_form_by_ref($this->CI->core->decode($this->CI->input->post('formID')))) {
             return false;
@@ -508,7 +540,10 @@ class Core
         }
 
         // optional captcha (deprecated - use javascript for captcha)
-        (@in_array('captcha', $requiredArray)) ? $this->CI->form_validation->set_rules('captcha', 'Captcha', 'required|callback__captcha_check') : '';
+        //(@in_array('captcha', $requiredArray)) ? $this->CI->form_validation->set_rules('captcha', 'Captcha', 'required|callback__captcha_check') : '';
+        if (!is_null($requiredArray) && in_array('captcha', $requiredArray)) {
+            $this->CI->form_validation->set_rules('captcha', 'Captcha', 'required|callback__captcha_check');
+        }
 
         // get first and last name
         if ($this->CI->input->post('firstName', true)) {
@@ -805,7 +840,7 @@ class Core
         if (!$this->CI->input->post('password')) {
             $pass = substr(bin2hex(random_bytes(3)), 0, 6);
             $password = password_hash($pass, PASSWORD_DEFAULT);
-        
+
             $this->CI->core->set['password'] = $password;
         } else {
             $password = password_hash($this->CI->input->post('password', true), PASSWORD_DEFAULT);
