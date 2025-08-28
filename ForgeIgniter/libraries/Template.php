@@ -32,7 +32,7 @@ class Template
         }
 
         $this->uploadsPath = $this->CI->config->item('uploadsPath');
-        
+
     }
 
     public function generate_template($pagedata, $file = false)
@@ -343,58 +343,69 @@ class Template
 
     public function parse_body($body, $condense = false, $link = '', $mkdn = true)
     {
-        // parse for images
+        // Parse for images/files/includes/modules first
         $body = $this->parse_images($body);
-
-        // parse for files
         $body = $this->parse_files($body);
-
-        // parse for files
         $body = $this->parse_includes($body);
-
-        // parse for modules
         $this->template = $this->parse_modules($body, $this->template);
 
-        // site globals
-        $body = str_replace('{site:name}', $this->CI->site->config['siteName'], $body);
-        $body = str_replace('{site:domain}', $this->CI->site->config['siteDomain'], $body);
-        $body = str_replace('{site:url}', $this->CI->site->config['siteURL'], $body);
-        $body = str_replace('{site:email}', $this->CI->site->config['siteEmail'], $body);
-        $body = str_replace('{site:tel}', $this->CI->site->config['siteTel'], $body);
-        $body = str_replace('{site:currency}', $this->CI->site->config['currency'], $body);
-        $body = str_replace('{site:currency-symbol}', currency_symbol(), $body);
+        // Build replacements
+        $conf = (array)($this->CI->site->config ?? []);
+        $sess = $this->CI->session;
 
-        // logged in userdata
-        $body = str_replace('{userdata:id}', ($this->CI->session->userdata('userID')) ? $this->CI->session->userdata('userID') : '', $body);
-        $body = str_replace('{userdata:email}', ($this->CI->session->userdata('email')) ? $this->CI->session->userdata('email') : '', $body);
-        $body = str_replace('{userdata:username}', ($this->CI->session->userdata('username')) ? $this->CI->session->userdata('username') : '', $body);
-        $body = str_replace('{userdata:name}', ($this->CI->session->userdata('firstName') && $this->CI->session->userdata('lastName')) ? $this->CI->session->userdata('firstName').' '.$this->CI->session->userdata('lastName') : '', $body);
-        $body = str_replace('{userdata:first-name}', ($this->CI->session->userdata('firstName')) ? $this->CI->session->userdata('firstName') : '', $body);
-        $body = str_replace('{userdata:last-name}', ($this->CI->session->userdata('lastName')) ? $this->CI->session->userdata('lastName') : '', $body);
+        $first = (string)($sess->userdata('firstName') ?? '');
+        $last  = (string)($sess->userdata('lastName')  ?? '');
+        $name  = trim($first . ' ' . $last);
 
-        // other useful stuff
-        $body = str_replace('{date}', dateFmt(date("Y-m-d H:i:s"), ($this->CI->site->config['dateOrder'] == 'MD') ? 'M jS Y' : 'jS M Y'), $body);
-        $body = str_replace('{date:unixtime}', time(), $body);
+        $fmtDate = dateFmt(
+            date('Y-m-d H:i:s'),
+            (($conf['dateOrder'] ?? '') === 'MD') ? 'M jS Y' : 'jS M Y'
+        );
 
-        // condense
+        // Site globals
+        $body = strtr($body, [
+            '{site:name}'            => (string)($conf['siteName']   ?? ''),
+            '{site:domain}'          => (string)($conf['siteDomain'] ?? ''),
+            '{site:url}'             => (string)($conf['siteURL']    ?? ''),
+            '{site:email}'           => (string)($conf['siteEmail']  ?? ''),
+            '{site:tel}'             => (string)($conf['siteTel']    ?? ''),
+            '{site:currency}'        => (string)($conf['currency']   ?? ''),
+            '{site:currency-symbol}' => (string)(currency_symbol()   ?? ''),
+
+            // Logged in userdata
+            '{userdata:id}'          => (string)($sess->userdata('userID')   ?? ''),
+            '{userdata:email}'       => (string)($sess->userdata('email')    ?? ''),
+            '{userdata:username}'    => (string)($sess->userdata('username') ?? ''),
+            '{userdata:name}'        => $name,
+            '{userdata:first-name}'  => $first,
+            '{userdata:last-name}'   => $last,
+
+            // Other useful stuff
+            '{date}'                 => (string)$fmtDate,
+            '{date:unixtime}'        => (string)time(),
+        ]);
+
+        // {more}
         if ($condense) {
-            if ($endchr = strpos($body, '{more}')) {
-                $body = substr($body, 0, ($endchr + 6));
-                $body = str_replace('{more}', '<p class="more"><a href="'.$link.'" class="button more">Read more</a></p>', $body);
+            $pos = strpos($body, '{more}');
+            if ($pos !== false) {
+                $readMore = '<p class="more"><a href="' .
+                    htmlspecialchars($link, ENT_QUOTES, 'UTF-8') .
+                    '" class="button more">Read more</a></p>';
+                $body = substr($body, 0, $pos) . $readMore;
             }
         } else {
-            $body = str_replace('{more}', '', $body);
+            $body = strtr($body, ['{more}' => '' ]);
         }
 
-        // parse for clears
-        $body = str_replace('{clear}', '<div style="clear:both;"/></div>', $body);
+        // simple styles
+        $body = strtr($body, [
+            '{clear}' => '<div style="clear:both;"></div>',
+            '{pad}'   => '<div style="padding-bottom:10px;width:10px;clear:both;"></div>',
+        ]);
 
-        // parse for pads
-        $body = str_replace('{pad}', '<div style="padding-bottom:10px;width:10px;clear:both;"/></div>', $body);
-
-        // parse body for markdown and images
+        // Markdown -
         if ($mkdn === true) {
-            // parse for mkdn
             $body = mkdn($body);
         }
 
