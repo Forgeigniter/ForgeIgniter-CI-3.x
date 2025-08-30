@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +23,8 @@
 | a PHP script and you can easily do that on your own.
 |
 */
-$site_base_url = 'http' . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 's' : '').'://'.$_SERVER['HTTP_HOST'].str_replace('//','/',dirname($_SERVER['SCRIPT_NAME']).'/');
 
-$config['base_url'] = '%HOSTNAME%';
-
+$config['base_url'] = BASE_URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,15 +44,16 @@ $config['index_page'] = '';
 |--------------------------------------------------------------------------
 |
 | This item determines which server global should be used to retrieve the
-| URI string.  The default setting of 'AUTO' works for most servers.
+| URI string.  The default setting of 'REQUEST_URI' works for most servers.
 | If your links do not seem to work, try one of the other delicious flavors:
 |
-| 'AUTO'			Default - auto detects
-| 'PATH_INFO'		Uses the PATH_INFO
-| 'QUERY_STRING'	Uses the QUERY_STRING
-| 'REQUEST_URI'		Uses the REQUEST_URI
-| 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
+| 'REQUEST_URI'    Uses $_SERVER['REQUEST_URI']
+| 'QUERY_STRING'   Uses $_SERVER['QUERY_STRING']
+| 'PATH_INFO'      Uses $_SERVER['PATH_INFO']
 |
+| WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
+| 
+| This will do REQUEST_URI but for giggles, lets Auto baby ;)
 */
 $config['uri_protocol']	= 'AUTO';
 
@@ -227,7 +227,7 @@ $config['log_threshold'] = 0;
 |--------------------------------------------------------------------------
 |
 | Leave this BLANK unless you would like to set something other than the default
-| application/logs/ folder. Use a full server path with trailing slash.
+| application/logs/ directory. Use a full server path with trailing slash.
 |
 */
 $config['log_path'] = '';
@@ -396,10 +396,18 @@ $config['sess_regenerate_destroy'] = FALSE;
 |       'cookie_httponly') will also affect sessions.
 |
 */
-$config['cookie_prefix']	= "";
-$config['cookie_domain']	= "";
-$config['cookie_path']		= "/";
-$config['cookie_secure']	= FALSE;
+$is_https =
+    (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) === 'on')
+    || (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443)
+    || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https')
+    || (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) === 'on');
+
+$config['cookie_prefix']    = '';
+$config['cookie_domain']    = '';
+$config['cookie_path']      = '/';
+$config['cookie_secure']    = $is_https;
+$config['cookie_httponly']  = TRUE;
+$config['cookie_samesite']  = 'Lax';
 
 /*
 |--------------------------------------------------------------------------
@@ -409,8 +417,8 @@ $config['cookie_secure']	= FALSE;
 | Determines whether to standardize newline characters in input data,
 | meaning to replace \r\n, \r, \n occurrences with the PHP_EOL value.
 |
-| This is particularly useful for portability between UNIX-based OSes,
-| (usually \n) and Windows (\r\n).
+| WARNING: This feature is DEPRECATED and currently available only
+|          for backwards compatibility purposes!
 |
 */
 $config['standardize_newlines'] = FALSE;
@@ -443,7 +451,7 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = FALSE;
+$config['csrf_protection'] = TRUE;
 $config['csrf_token_name'] = 'csrf_test_name';
 $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;
@@ -517,5 +525,14 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-/* End of file config.php */
-/* Location: ./ForgeIgniter/config/config.php */
+/*
+|--------------------------------------------------------------------------
+| Set HMVC Modules Location
+|--------------------------------------------------------------------------
+|
+*/
+$config['modules_locations'] = array(
+
+    APPPATH.'modules/' => '../modules/',
+
+);

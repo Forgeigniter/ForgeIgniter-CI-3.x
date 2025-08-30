@@ -2,102 +2,112 @@
 
 /*  NOTES:
  | --------
- | PHP should be 5.4.x preferably 5.6.x
- | MySQLi Is A must too really, for now MySQL setup is better than nothing.
- | Given that the config is a multidimensional array this should be easy.
+ | Drop bootstrap
  |
- | Switch check(easy to add too) and class needs to be done !
- | setup as a real module would be nice. 
- | 
  | Create Super User (main admin) needs to be created.
  |
  | Main System Configuration, like dir paths etc need to be created.
  |
  | FILE: ForgeIgniter/install/index.php
- | VERSION: 0.2
+ | VERSION: 0.3
 */
 
+// forgeigniter/install/index.php
 
-error_reporting(0); //Note E_ALL = Blank Pages on some test should be 0 to get things rolling.
+// Shhh, it will all be guuuud lol
+error_reporting(0);
 
-//require_once('includes/syschecks_class.php');
+// Paths
+$APP_CONFIG_DIR = dirname(__DIR__).'/../config';
 
+// The Checks, we should really put something here, interesting example ?
+$checks = [
+    'php'        => version_compare(PHP_VERSION, '8.1.0', '>='),
+    'mysqli'     => extension_loaded('mysqli'),
+    'mbstring'   => extension_loaded('mbstring'),
+    'intl'       => extension_loaded('intl'),
+    'json'       => extension_loaded('json'),
+    'openssl'    => extension_loaded('openssl'),
+];
+
+// Messages
+$msg = [
+    'php_ok'        => 'Great - PHP 8.1+ detected ('.PHP_VERSION.').', // 7.4 ok though
+    'php_bad'       => 'Please upgrade to PHP 8.1+ (current: '.PHP_VERSION.').',
+    'ext_ok'        => 'Loaded.',
+    'ext_bad'       => 'Missing.',
+    'cfg_ok'        => 'Config directory is writable.',
+];
+
+$allGood = $checks['php']
+    && $checks['mysqli']
+    && $checks['mbstring']
+    && $checks['intl']
+    && $checks['json']
+    && $checks['openssl']
 ?>
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Install | ForgeIgniter</title>
-		<link href="../../static/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="includes/style.css" />
-	</head>
-	<body>
-		
-		<!-- Starting The Mess, one day we'll clean it up, shh, no one will notice. -->
-		<form id="install_form">
-		  <h1>ForgeIgniter - System Checks</h1>
-		  <hr class="hazar-separator">
-		  
-		<div class="row">
-			<div class="col-md-4 colstyle" style="height:320px">			
-				<div id="navside">
-					<ul id="sidenav" class="nav nav-pills nav-stacked">
-						<li class="active"><a href="#" style="sidefun" ><strong>1. The Checks</strong></a></li>
-						<li class="li-style"><strong>2. Database Setup</strong></a></li>
-						<li class="li-style"><strong>3. Setup Complete</strong></a></li>
-						
-						<!-- Create Super User ?
-						<li class="li-style"><strong>4. Admin Setup</strong></li>
-						-->
-						<!-- System Configuration ?
-						<li class="li-style"><strong>3. Setup Configuration</strong></li>
-						-->
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-8">
-			  <div id="right-content">
-			  
-              <h5><strong>PHP Version:</strong></h5>
-			  <?php // Version Check
-			  		if (version_compare(phpversion(), '7.0', '<')) {
-						echo '<p class="error"> Please update PHP on the server to at least v7 to make things work correctly your current version is:'.PHP_VERSION.'</p>' ;
-						$versionCheck = false;
-					}else {
-						echo '<p class="sucsess"> Great You Have 7.0 or Higher</p>';
-						$versionCheck = true;
-					}
-					// && apache_get_version() ?? (Don't think this is needed.)
-			  ?>
-              
-              <br/>
-              
-              <h5><strong>Database:</strong></h5>
-			  <?php // Database Selection
-			  ?>
-              <p> Please note, the installer is only setup to work for mySQL at the moment. </p>
-              <p> If you want to use another DB, don't let this discourage you as changing database.php dbdriver will work.</p>
-              
-			  <?php // Drivers, Extensions, plugin checks
-			  ?>
-			  </div>
-			</div>
-		</div>
-		  
-		  <hr class="hazar-separator">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Install | ForgeIgniter</title>
+<link rel="stylesheet" type="text/css" href="includes/install-foundation.css" />
+<link rel="stylesheet" type="text/css" href="includes/style.css" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
 
-		  <p class="p-container">
-			<a href="http://www.forgeigniter.com/forums" target="_blank"><span>Need Help ?</span></a>
-			
-            <?php // If all is good then lets go
-			  if ( $versionCheck == true ) {
-			  	echo '<a href="dbsetup.php"><input type="button" name="submit" id="submit" value="Next" action="dbsetup.php">';
-			  }
-			?>
-            
-		  </p>
-		</form>
-		<!-- Ending mess -->
+<form id="install_form">
+  <h1>ForgeIgniter - System Checks</h1>
+  <hr class="hazar-separator">
 
-	</body>
+  <div class="row">
+    <div class="col-md-4 colstyle" style="height:320px">
+      <div id="navside">
+        <ul id="sidenav" class="nav nav-pills nav-stacked">
+          <li class="active"><a href="#"><strong>1. The Checks</strong></a></li>
+          <li class="li-style"><strong>2. Database Setup</strong></li>
+          <li class="li-style"><strong>3. Setup Complete</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div id="right-content">
+
+        <h5><strong>PHP Version</strong></h5>
+        <?php if ($checks['php']): ?>
+          <p class="sucsess"><?= $msg['php_ok'] ?></p>
+        <?php else: ?>
+          <p class="error"><?= $msg['php_bad'] ?></p>
+        <?php endif; ?>
+
+        <br>
+
+        <h5><strong>Required Extensions</strong></h5>
+        <p>mysqli: <?= $checks['mysqli'] ? '<span class="sucsess">'.$msg['ext_ok'].'</span>' : '<span class="error">'.$msg['ext_bad'].'</span>' ?></p>
+        <p>mbstring: <?= $checks['mbstring'] ? '<span class="sucsess">'.$msg['ext_ok'].'</span>' : '<span class="error">'.$msg['ext_bad'].'</span>' ?></p>
+        <p>intl: <?= $checks['intl'] ? '<span class="sucsess">'.$msg['ext_ok'].'</span>' : '<span class="error">'.$msg['ext_bad'].'</span>' ?></p>
+        <p>json: <?= $checks['json'] ? '<span class="sucsess">'.$msg['ext_ok'].'</span>' : '<span class="error">'.$msg['ext_bad'].'</span>' ?></p>
+        <p>openssl: <?= $checks['openssl'] ? '<span class="sucsess">'.$msg['ext_ok'].'</span>' : '<span class="error">'.$msg['ext_bad'].'</span>' ?></p>
+
+        <br>
+        <p>Installer is currently set up for MySQLi. You can switch drivers later in <code>config/database.php</code> if needed.</p>
+
+      </div>
+    </div>
+  </div>
+
+  <hr class="hazar-separator">
+
+  <p class="p-container">
+    <a href="http://www.forgeigniter.com/forums" target="_blank"><span>Need Help ?</span></a>
+    <?php if ($allGood): ?>
+      <a href="dbsetup.php"><input type="button" id="submit" value="Next"></a>
+    <?php endif; ?>
+  </p>
+</form>
+
+</body>
 </html>

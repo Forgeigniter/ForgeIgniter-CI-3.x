@@ -18,8 +18,12 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1093d0', endColorstr='#01395b',GradientType=1 ); /* IE6-8 */
 }
 
+strong {
+  font-weight: 600;
+}
+
 form {
-  background:#111; 
+  background:#111;
   width:540px;
   margin:100px auto;
   border-radius:0.4em;
@@ -43,7 +47,7 @@ form:after {
 }
 
 #right-content {
-  padding:0px 20px 0 5px; 
+  padding:0px 20px 0 5px;
 }
 
 form h1 {
@@ -71,7 +75,8 @@ input[type=password] {
   border-radius:0.3em;
   -webkit-border-radius: 0.3em;
   -moz-border-radius: 0.3em;
-  margin-bottom:15px;
+  margin-top:5px;
+  margin-bottom:20px;
 }
 
 label[for=remember]{
@@ -86,8 +91,13 @@ input[type=checkbox] {
   vertical-align:top;
 }
 
+code {
+  color:#9f9f9f;
+  background-color: #0a0a0a;
+}
+
 .p-container {
- 	padding:0 20px 10px 20px; 
+ 	padding:0 20px 18px 20px;
 }
 
 .p-container:after {
@@ -101,6 +111,12 @@ input[type=checkbox] {
   float:left;
   color:#5A98CF;
   padding-top:8px;
+}
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+    line-height: 18px;
 }
 
 input[type=submit] {
@@ -167,7 +183,7 @@ label:hover ~ input[type=password] {
 
 .nav-pills>li.active>a {
 	border-left: solid 2px white;
-	border-right: solid 2px white; 
+	border-right: solid 2px white;
 }
 
 .nav-stacked>li+li {

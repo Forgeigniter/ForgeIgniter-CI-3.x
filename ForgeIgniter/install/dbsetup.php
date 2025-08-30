@@ -1,118 +1,130 @@
 <?php
 
-error_reporting(0); //Setting this to E_ALL showed that that cause of not redirecting were few blank lines added in some php files.
+require __DIR__.'/includes/core_class.php';
+require __DIR__.'/includes/database_class.php';
 
-$db_config_path = 'config/database.php';
+/* path vars */
+$APP_CONFIG_DIR = dirname(__DIR__) . '/config';
+$TPL_DIR        = __DIR__ . '/config';
+$SQL_PATH       = __DIR__ . '/assets/install.sql';
 
-// Only load the classes in case the user submitted the form
-if($_POST) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $db_host = trim($_POST['hostname'] ?? '');
+    $db_user = trim($_POST['username'] ?? '');
+    $db_pass = (string)($_POST['password'] ?? '');
+    $db_name = trim($_POST['database'] ?? '');
 
-	// Load the classes and create the new objects
-	require_once('includes/core_class.php');
-	require_once('includes/database_class.php');
+    $errors = [];
+    if ($db_host === '' || $db_user === '' || $db_name === '') {
+        $errors[] = 'Not all fields have been filled in correctly.';
+    }
 
-	$core = new Core();
-	$database = new Database();
+    try {
+        if (!$errors) {
+            // Create DB if it doesn't exist
+            InstallerDB::createDatabaseIfNotExists([
+                'hostname'=>$db_host,'username'=>$db_user,'password'=>$db_pass,'database'=>$db_name
+            ]);
 
+            $mysqli = InstallerDB::connect([
+                'hostname'=>$db_host,'username'=>$db_user,'password'=>$db_pass,'database'=>$db_name
+            ]);
+        }
 
-	// Validate the post data
-	if($core->validate_post($_POST) == true)
-	{
+        [$baseUrl, $isHttps] = InstallerCore::buildBaseUrl();
 
-		// First create the database, then create tables, then write config file
-		if($database->create_database($_POST) == false) {
-			$message = $core->show_message('error',"The database could not be created, please verify your settings.");
-		} else if ($database->create_tables($_POST) == false) {
-			$message = $core->show_message('error',"The database tables could not be created, please verify your settings.");
-		} else if ($core->write_config($_POST) == false) {
-			$message = $core->show_message('error',"The database configuration file could not be written, please chmod ForgeIgniter/config/database.php file to 777");
-		}
+        // Render templates
+        $dbMap = ['%HOSTNAME%'=>$db_host,'%USERNAME%'=>$db_user,'%PASSWORD%'=>$db_pass,'%DATABASE%'=>$db_name];
+        $dbRendered = InstallerCore::renderTemplateString($TPL_DIR.'/database.php', $dbMap);
+        $left1 = array_filter(array_keys($dbMap), fn($ph)=>strpos($dbRendered,$ph)!==false);
+        if ($left1) $errors[] = 'Template replacement failed for: '.implode(', ', $left1);
 
-		// If no errors, redirect to next page
-		if(!isset($message)) {
-		  $redir = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
-      $redir .= "://".$_SERVER['HTTP_HOST'];
-      $redir .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
-      $redir = str_replace('install/','',$redir);
-			header( 'Location: ' . $redir . 'install/complete.php' ) ;
-		}
+        $cfgMap = ['%BASE_URL%'=>$baseUrl,'%COOKIE_SECURE%'=>$isHttps ? 'TRUE' : 'FALSE'];
+        $cfgRendered = InstallerCore::renderTemplateString($TPL_DIR.'/config.php', $cfgMap);
+        $left2 = array_filter(array_keys($cfgMap), fn($ph)=>strpos($cfgRendered,$ph)!==false);
+        if ($left2) $errors[] = 'Template replacement failed for: '.implode(', ', $left2);
 
-	}
-	else {
-		$message = $core->show_message('error','Not all fields have been filled in correctly.');
-	}
+        // Write/Rename
+        if (!$errors) {
+            if (!is_file($TPL_DIR.'/database.php')) throw new RuntimeException('Missing template: '.$TPL_DIR.'/database.php');
+            if (!is_file($TPL_DIR.'/config.php'))   throw new RuntimeException('Missing template: '.$TPL_DIR.'/config.php');
+
+            InstallerCore::testAtomicWrite($APP_CONFIG_DIR, 'database.php.tmp', 'ping');
+            InstallerCore::testAtomicWrite($APP_CONFIG_DIR, 'config.php.tmp',   'ping');
+        }
+
+        // Import SQL if present
+        if (!$errors && is_file($SQL_PATH)) {
+            // normalize MyISAM-only options if needed
+            $sql = file_get_contents($SQL_PATH);
+            $sql = preg_replace('/\bROW_FORMAT\s*=\s*FIXED\b/i', 'ROW_FORMAT=DYNAMIC', $sql ?? '');
+            InstallerDB::runSqlString($mysqli, $sql ?? '');
+        }
+
+        if (isset($mysqli) && $mysqli instanceof mysqli) $mysqli->close();
+
+        // Commit writes + redirect
+        if (!$errors) {
+            InstallerCore::atomicWrite($APP_CONFIG_DIR.'/database.php', $dbRendered);
+            InstallerCore::atomicWrite($APP_CONFIG_DIR.'/config.php',   $cfgRendered);
+
+            $scheme = $isHttps ? 'https' : 'http';
+            $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
+            $base   = rtrim(str_replace(basename($_SERVER['SCRIPT_NAME'] ?? ''), '', $_SERVER['SCRIPT_NAME'] ?? ''), '/').'/';
+            header('Location: '.$scheme.'://'.$host.$base.'complete.php');
+            exit;
+        }
+    } catch (Throwable $e) {
+        $errors[] = 'Installer error: '.htmlentities($e->getMessage());
+    }
+
+    $message = '<p class="error">'.implode('<br>', $errors).'</p><br />';
 }
-
 ?>
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Install | ForgeIgniter</title>
-		<link href="../../static/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="includes/style.css" />
-	</head>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Install | ForgeIgniter</title>
+  <link rel="stylesheet" type="text/css" href="includes/install-foundation.css" />
+  <link rel="stylesheet" type="text/css" href="includes/style.css" />
+</head>
 	<body>
-
-    <?php if(is_writable($db_config_path)){?>
-
-		<form id="install_form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-		  <h1>ForgeIgniter - MYSQL Setup</h1>
-		  <hr class="hazar-separator">
-
-		<div class="row">
-			<div class="col-md-4 colstyle" style="height:320px">
-				<div id="navside">
-					<ul id="sidenav" class="nav nav-pills nav-stacked">
-						<li class="active"><a href="#" style="background-color:rgb(50, 99, 50);" ><strong>1. The Checks</strong></a></li>
-						<li class="active"><a href="#" style="sidefun" ><strong>2. Database Setup</strong></a></li>
-						<li class="li-style"><strong>3. Setup Complete</strong></a></li>
-
-
 						<!-- Create Super User ?
 						<li class="li-style"><strong>Admin Setup</strong></li>
 						-->
 						<!-- System Configuration ?
 						<li class="li-style"><strong>Setup Configuration</strong></li>
 						-->
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-8">
-			  <div id="right-content">
-			  <?php if(isset($message)) {echo '<p class="error">' . $message . '</p> <br />';}?>
-				  <p>
-					<label for="hostname">Hostname</label>
-					<input type="text" name="hostname" id="hostname" value="localhost">
-				  </p>
-				  <p>
-					<label for="database">Database Name</label>
-					<input type="text" name="database" id="database">
-				  </p>
-				  <p>
-					<label for="username">Database Username</label>
-					<input type="text" name="username" id="username">
-				  </p>
-				  <p>
-					<label for="password">Database Password</label>
-					<input type="password" name="password" id="password">
-				  </p>
-			  </div>
-			</div>
-		</div>
-
-		  <hr class="hazar-separator">
-
-		  <p class="p-container">
-			<a href="http://www.forgeigniter.com/forums" target="_blank"><span>Need Help ?</span></a>
-			<input type="submit" name="submit" id="submit" value="Next">
-		  </p>
-		</form>
-
-	<?php } else { ?>
-      <p class="error">Please make sure config/database.php file writable. <strong>Example</strong>:<br /><br /><code>chmod 777 forgeigniter/config/database.php</code> <br /> if this is true then double check username and password.</p>
-	<?php } ?>
-
-
-	</body>
+  <form id="install_form" method="post" action="<?=htmlspecialchars($_SERVER['PHP_SELF'] ?? 'dbsetup.php', ENT_QUOTES)?>">
+    <h1>ForgeIgniter - MySQL Setup</h1>
+    <hr class="hazar-separator">
+    <div class="row">
+      <div class="col-md-4 colstyle" style="height:320px">
+        <div id="navside">
+          <ul id="sidenav" class="nav nav-pills nav-stacked">
+            <li class="active"><a href="#" style="background-color:rgb(50, 99, 50);"><strong>1. The Checks</strong></a></li>
+            <li class="active"><a href="#"><strong>2. Database Setup</strong></a></li>
+            <li class="li-style"><strong>3. Setup Complete</strong></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div id="right-content">
+          <?= isset($message) ? $message : '' ?>
+          <p><label for="hostname">Hostname</label><input type="text" name="hostname" id="hostname" value="localhost" required></p>
+          <p><label for="database">Database Name</label><input type="text" name="database" id="database" required></p>
+          <p><label for="username">Database Username</label><input type="text" name="username" id="username" required></p>
+          <p><label for="password">Database Password</label><input type="password" name="password" id="password"></p>
+        </div>
+      </div>
+    </div>
+    <hr class="hazar-separator">
+    <p class="p-container">
+      <a href="http://www.forgeigniter.com/forums" target="_blank"><span>Need Help ?</span></a>
+      <input type="submit" name="submit" id="submit" value="Next">
+    </p>
+  </form>
+</body>
 </html>

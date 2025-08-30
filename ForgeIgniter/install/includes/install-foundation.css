@@ -1,0 +1,183 @@
+/*!
+ * Install Foundation
+ * Version: 0.0.1
+ * So I mashed together something here ?
+ * Copy pasta from BS3 - yayayaya
+ */
+
+/* Reset and Base */
+* {
+    box-sizing: border-box;
+}
+
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    line-height: 1.1;
+}
+
+h5 {
+    font-size: 14px;
+    padding-bottom: 5px;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+body {
+    line-height: 1.42857143;
+}
+
+/* lil Grid System */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Column Classes */
+[class*="col-"] {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    flex: 0 0 auto;
+}
+
+.col-md-1 { width: 8.33333333%; }
+.col-md-2 { width: 16.66666667%; }
+.col-md-3 { width: 25%; }
+.col-md-4 { width: 33.33333333%; }
+.col-md-5 { width: 41.66666667%; }
+.col-md-6 { width: 50%; }
+.col-md-7 { width: 58.33333333%; }
+.col-md-8 { width: 66.66666667%; }
+.col-md-9 { width: 75%; }
+.col-md-10 { width: 83.33333333%; }
+.col-md-11 { width: 91.66666667%; }
+.col-md-12 { width: 100%; }
+
+/* Navigation */
+.nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.nav > li {
+    position: relative;
+    display: block;
+}
+
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Pills Nav */
+.nav-pills > li {
+    float: none;
+}
+
+.nav-pills > li > a {
+    border-radius: 4px;
+    margin-bottom: 2px;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+    color: #fff;
+    background-color: #337ab7;
+}
+
+/* Stacked Navigation */
+.nav-stacked > li {
+    float: none;
+}
+
+.nav-stacked > li + li {
+    margin-top: 2px;
+    margin-left: 0;
+}
+
+/* Responsive Behavior */
+@media (max-width: 991px) {
+    .row {
+        flex-direction: column;
+    }
+
+    [class*="col-md-"] {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+/* Utility Classes */
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.active {
+    font-weight: bold;
+}
+
+.nav-pills > li.active > a {
+    border-left: solid 2px white;
+    border-right: solid 2px white;
+}
+
+.colstyle {
+    border-right: solid 2px rgb(38, 38, 38);
+}
+
+.nav-stacked > li + li {
+    margin-top: 20px;
+}
+
+.li-style {
+    padding: 15px;
+    color: #CDCDCD;
+}
